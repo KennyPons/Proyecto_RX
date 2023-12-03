@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RayPro.Persistencia;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,12 @@ namespace RayPro.Vista
 {
     public partial class Login : Form
     {
+
+        private loginController objLogin;
         public Login()
         {
             InitializeComponent();
+            objLogin = new loginController();
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -64,5 +68,55 @@ namespace RayPro.Vista
                 txtPassword.UseSystemPasswordChar = false;
             }
         }
+
+        private void txtUsuario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtPassword.Focus();
+            }
+        }
+
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAcceder.Focus();
+            }
+        }
+
+        private void btnAcceder_Click(object sender, EventArgs e)
+        {
+            if(objLogin.AutenticarUsuario(txtUsuario.Text, txtPassword.Text))
+            {
+                MainRayX frMain = new MainRayX();
+                frMain.Show();
+                this.Close();
+            }
+            else
+            {
+                mensajeDeError("Error de Authentificacion!");
+            }
+        }
+
+        private void linkSetting_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FrQuestion question = new FrQuestion();
+            question.Show();
+            Hide();
+        }
+
+
+
+        //methoss
+
+        private void mensajeDeError(String msge)
+        {
+            lblErrorMsg.Text = "   " + msge;
+            lblErrorMsg.ForeColor = Color.OrangeRed;
+            lblErrorMsg.Visible = true;
+
+        }
     }
+    
 }

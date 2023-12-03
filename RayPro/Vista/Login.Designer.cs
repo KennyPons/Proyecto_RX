@@ -104,6 +104,7 @@
             this.btnAcceder.TabIndex = 6;
             this.btnAcceder.Text = "ACCEDER";
             this.btnAcceder.UseVisualStyleBackColor = false;
+            this.btnAcceder.Click += new System.EventHandler(this.btnAcceder_Click);
             // 
             // txtPassword
             // 
@@ -118,6 +119,7 @@
             this.txtPassword.Text = "Contraseña";
             this.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPassword.Enter += new System.EventHandler(this.textBox2_Enter);
+            this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPassword_KeyDown);
             this.txtPassword.Leave += new System.EventHandler(this.textBox2_Leave);
             // 
             // txtUsuario
@@ -133,6 +135,7 @@
             this.txtUsuario.Text = "Usuario";
             this.txtUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtUsuario.Enter += new System.EventHandler(this.txtUsuario_Enter);
+            this.txtUsuario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUsuario_KeyDown);
             this.txtUsuario.Leave += new System.EventHandler(this.txtUsuario_Leave);
             // 
             // linkSetting
@@ -147,6 +150,7 @@
             this.linkSetting.TabIndex = 2;
             this.linkSetting.TabStop = true;
             this.linkSetting.Text = "Setting";
+            this.linkSetting.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSetting_LinkClicked);
             // 
             // pictureBox4
             // 
@@ -181,6 +185,7 @@
             this.lblErrorMsg.TabIndex = 5;
             this.lblErrorMsg.Text = "ErrorMsg";
             this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.lblErrorMsg.Visible = false;
             // 
             // btnMinimizar
             // 

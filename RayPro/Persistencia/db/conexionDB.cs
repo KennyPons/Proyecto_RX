@@ -56,6 +56,12 @@ namespace RayPro.Persistencia.db
         }
 
 
+        //Metodo para hacer la coneccion a la BD
+        public OleDbConnection GetConnection()
+        {
+            return conexion;
+        }
+
     }
 
 
