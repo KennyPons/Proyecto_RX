@@ -93,6 +93,16 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap etestocopio_removebg_preview {
+            get {
+                object obj = ResourceManager.GetObject("etestocopio-removebg-preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IconMedic {
             get {
                 object obj = ResourceManager.GetObject("IconMedic", resourceCulture);
@@ -126,6 +136,16 @@ namespace RayPro.Properties {
         internal static System.Drawing.Bitmap lblErrorMsg {
             get {
                 object obj = ResourceManager.GetObject("lblErrorMsg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MedicoW {
+            get {
+                object obj = ResourceManager.GetObject("MedicoW", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

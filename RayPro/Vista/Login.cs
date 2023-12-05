@@ -87,15 +87,27 @@ namespace RayPro.Vista
 
         private void btnAcceder_Click(object sender, EventArgs e)
         {
-            if(objLogin.AutenticarUsuario(txtUsuario.Text, txtPassword.Text))
-            {
-                MainRayX frMain = new MainRayX();
-                frMain.Show();
-                this.Close();
+           
+          if(txtUsuario.Text != "" && txtPassword.Text != "") {
+                if (objLogin.AutenticarUsuario(txtUsuario.Text, txtPassword.Text))
+                {
+                    configuraciones.Settings.Default.userName = txtUsuario.Text;
+                    Welcome frWelcome = new Welcome();
+                    frWelcome.ShowDialog();
+                    MainRayX frMain = new MainRayX();
+                    frMain.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    mensajeDeError("Error de Authentificación!");
+                    limpiar();
+                }
             }
             else
             {
-                mensajeDeError("Error de Authentificacion!");
+                mensajeDeError("Ingrese Usuario o Contraseña, Campos Vacíos...");
+                limpiar();
             }
         }
 
@@ -116,6 +128,13 @@ namespace RayPro.Vista
             lblErrorMsg.ForeColor = Color.OrangeRed;
             lblErrorMsg.Visible = true;
 
+        }
+
+        private void limpiar()
+        {
+            txtUsuario.Clear();
+            txtPassword.Clear();
+            txtUsuario.Focus();
         }
     }
     

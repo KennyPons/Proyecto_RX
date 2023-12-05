@@ -108,6 +108,9 @@
     <EmbeddedResource Include="Vista\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Vista\Welcome.resx">
+      <DependentUpon>Welcome.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="configuraciones\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -122,13 +125,18 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Aplicaciones\tools\sonido\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="Aplicaciones\tools\sonido\disparo.wav" />
+    <Content Include="Aplicaciones\tools\sonido\listo.wav" />
+    <Content Include="Aplicaciones\tools\sonido\preparando.wav" />
+    <Content Include="Aplicaciones\tools\sonido\ready.wav" />
+    <Content Include="Aplicaciones\tools\sonido\welcome.wav" />
     <Content Include="Persistencia\db\DB_USER.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\etestocopio-removebg-preview.png" />
+    <None Include="Resources\MedicoW.png" />
     <None Include="Resources\config.png" />
     <None Include="Resources\lblErrorMsg.png" />
     <None Include="Resources\imgRandom1.png" />
