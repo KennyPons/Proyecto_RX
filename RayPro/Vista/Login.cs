@@ -91,7 +91,10 @@ namespace RayPro.Vista
           if(txtUsuario.Text != "" && txtPassword.Text != "") {
                 if (objLogin.AutenticarUsuario(txtUsuario.Text, txtPassword.Text))
                 {
+                   
                     configuraciones.Settings.Default.userName = txtUsuario.Text;
+                    configuraciones.Settings.Default.PassTemp = txtPassword.Text;
+                    configuraciones.Settings.Default.Save();
                     Welcome frWelcome = new Welcome();
                     frWelcome.ShowDialog();
                     MainRayX frMain = new MainRayX();

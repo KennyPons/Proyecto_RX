@@ -45,5 +45,41 @@ namespace RayPro.configuraciones {
                 this["userName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PassTemp {
+            get {
+                return ((string)(this["PassTemp"]));
+            }
+            set {
+                this["PassTemp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Baudios {
+            get {
+                return ((int)(this["Baudios"]));
+            }
+            set {
+                this["Baudios"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Puerto {
+            get {
+                return ((string)(this["Puerto"]));
+            }
+            set {
+                this["Puerto"] = value;
+            }
+        }
     }
 }

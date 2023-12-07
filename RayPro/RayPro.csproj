@@ -38,6 +38,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -95,6 +97,9 @@
     <EmbeddedResource Include="Aplicaciones\MainRayX.resx">
       <DependentUpon>MainRayX.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Aplicaciones\SettingDev.resx">
+      <DependentUpon>SettingDev.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -141,6 +146,9 @@
     <Content Include="Persistencia\db\DB_USER.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\gente.png" />
+    <None Include="Resources\icon reiniciar.png" />
+    <None Include="Resources\IconLaptop.png" />
     <None Include="Resources\campanita.png" />
     <None Include="Resources\etestocopio-removebg-preview.png" />
     <None Include="Resources\MedicoW.png" />
