@@ -120,14 +120,28 @@ namespace RayPro.Vista
 
 
 
-        //methoss
+        //=====================================methods==========================================================//
 
         private void mensajeDeError(String msge)
         {
+            Timer temporizador = new Timer();
+            temporizador.Interval = 5000;
+
             lblErrorMsg.Text = "   " + msge;
             lblErrorMsg.ForeColor = Color.OrangeRed;
             lblErrorMsg.Visible = true;
 
+            temporizador.Tick += (sender, e) =>
+            {
+                // Oculta el labelText cuando el temporizador alcance los 5 segundos
+                lblErrorMsg.Visible = false;
+
+                // Detiene el temporizador
+                temporizador.Stop();
+            };
+
+            // Inicia el temporizador
+            temporizador.Start();
         }
 
         private void limpiar()

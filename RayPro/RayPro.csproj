@@ -105,6 +105,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Vista\FrCuadro.resx">
+      <DependentUpon>FrCuadro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\FrQuestion.resx">
+      <DependentUpon>FrQuestion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vista\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -135,6 +141,7 @@
     <Content Include="Persistencia\db\DB_USER.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\campanita.png" />
     <None Include="Resources\etestocopio-removebg-preview.png" />
     <None Include="Resources\MedicoW.png" />
     <None Include="Resources\config.png" />

@@ -52,5 +52,42 @@ namespace RayPro.Persistencia
 
         }
 
+
+
+        public bool AutenticarAdmin(string nombreUsuario, string contrasenia)
+        {
+            bool resAuth = false;
+
+            try
+            {
+                conn.openDB();
+                string consulta = "SELECT Count(*) FROM master WHERE userM = @userName OR passwordM = @password";
+                using (OleDbCommand cmd = new OleDbCommand(consulta, conn.GetConnection()))
+                {
+                    cmd.Parameters.AddWithValue("@NombreUsuario", nombreUsuario);
+                    cmd.Parameters.AddWithValue("@Contraseña", contrasenia);
+
+                    int count = (int)cmd.ExecuteScalar();  // Obtiene el número de coincidencias
+
+                    resAuth = count > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al autenticar: " + ex.Message);
+            }
+            finally
+            {
+                conn.closeDB();
+            }
+
+            return resAuth;
+
+        }
+
+
     }
+
+
+
 }
