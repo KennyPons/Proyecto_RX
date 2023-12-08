@@ -296,6 +296,7 @@
             // 
             // cboBaud
             // 
+            this.cboBaud.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboBaud.FormattingEnabled = true;
             this.cboBaud.Location = new System.Drawing.Point(39, 189);
             this.cboBaud.Name = "cboBaud";
@@ -304,6 +305,7 @@
             // 
             // cboComp
             // 
+            this.cboComp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboComp.FormattingEnabled = true;
             this.cboComp.Location = new System.Drawing.Point(39, 120);
             this.cboComp.Name = "cboComp";
