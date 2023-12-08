@@ -146,6 +146,11 @@
     <Content Include="Persistencia\db\DB_USER.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\abajo-cuadrado.png" />
+    <None Include="Resources\arriba-cuadrado.png" />
+    <None Include="Resources\btnReseteo -1.png" />
+    <None Include="Resources\btnRX -1.png" />
+    <None Include="Resources\btnPre- 1.png" />
     <None Include="Resources\focoON.png" />
     <None Include="Resources\cuadro3d-RM.png" />
     <None Include="Resources\btnReseteo.png" />

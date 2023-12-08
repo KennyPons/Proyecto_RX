@@ -63,6 +63,26 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap abajo_cuadrado {
+            get {
+                object obj = ResourceManager.GetObject("abajo-cuadrado", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap arriba_cuadrado {
+            get {
+                object obj = ResourceManager.GetObject("arriba-cuadrado", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap btnCerrar {
             get {
                 object obj = ResourceManager.GetObject("btnCerrar", resourceCulture);
@@ -83,6 +103,16 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap btnPre__1 {
+            get {
+                object obj = ResourceManager.GetObject("btnPre- 1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap btnReseteo {
             get {
                 object obj = ResourceManager.GetObject("btnReseteo", resourceCulture);
@@ -93,9 +123,29 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap btnReseteo__1 {
+            get {
+                object obj = ResourceManager.GetObject("btnReseteo -1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap btnRX {
             get {
                 object obj = ResourceManager.GetObject("btnRX", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap btnRX__1 {
+            get {
+                object obj = ResourceManager.GetObject("btnRX -1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
