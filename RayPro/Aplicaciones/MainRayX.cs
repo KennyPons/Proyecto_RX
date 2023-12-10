@@ -1,8 +1,10 @@
-﻿using System;
+﻿using RayPro.Vista;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
@@ -10,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace RayPro
 {
@@ -26,6 +29,7 @@ namespace RayPro
         int nHeightEllipse // width of ellipse
         );
         private int indiceImgNow = 0; private int nKVp = 70, nmAs = 20;
+        private SerialPort sPuerto;
         public MainRayX()
         {
             InitializeComponent();
@@ -54,6 +58,28 @@ namespace RayPro
                     //indiceImagenActual = (indiceImagenActual + 1) % imageList1.Images.Count;
             }
         }
+
+        private void bootSerialPort()
+        {
+            try
+            {
+                sPuerto.PortName = configuraciones.Settings.Default.Puerto;
+                sPuerto.BaudRate = configuraciones.Settings.Default.Baudios;
+                sPuerto.DataBits = 8;
+                sPuerto.Parity = Parity.None;
+                sPuerto.StopBits = StopBits.One;
+                sPuerto.Handshake = Handshake.None;
+
+                sPuerto.WriteTimeout = 500;
+
+                sPuerto.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Fallo en:\n", ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    
 
         //===========================================================================================================//
         private void btnClose_Click(object sender, EventArgs e)
@@ -144,6 +170,8 @@ namespace RayPro
                 sonido.Play();
             }
             Thread.Sleep(4000);
+
+            btnPRE.BackColor = Color.Transparent;
             using (var sonido = new SoundPlayer(@"../../Aplicaciones/tools/sonido/ready.wav"))
             {
                 sonido.Play();
@@ -162,6 +190,28 @@ namespace RayPro
         private void btnR_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnFoco_small_Click(object sender, EventArgs e)
+        {
+            var Rs = FrCuadro.Show("¿Está seguro cambiar a Large?", "Configuración del Foco", MessageBoxButtons.YesNo);
+            if(Rs == DialogResult.Yes)
+            {
+                btnFoco_small.Visible = false; btnFoco_large.Visible = true;
+                Thread.Sleep(4000);
+                lblFoco.Text = "LARGE";
+            }
+        }
+
+        private void btnFoco_large_Click(object sender, EventArgs e)
+        {
+            var Rs = FrCuadro.Show("¿Está seguro cambiar a Small?", "Configuración del Foco", MessageBoxButtons.YesNo);
+            if(Rs == DialogResult.Yes)
+            {
+                btnFoco_small.Visible = true; btnFoco_large.Visible = false;
+                Thread.Sleep(4000);
+                lblFoco.Text = "SMALL";
+            }
         }
 
         private void btnDownKv_Click(object sender, EventArgs e)
