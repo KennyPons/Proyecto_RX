@@ -31,19 +31,19 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Welcome));
             this.panelSuperior = new System.Windows.Forms.Panel();
-            this.circularProgressBar1 = new CircularProgressBar.CircularProgressBar();
             this.lblmedical = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.circularProgressBar1 = new CircularProgressBar.CircularProgressBar();
             this.timeInicio = new System.Windows.Forms.Timer(this.components);
             this.timeFin = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.lblNameUser = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panelSuperior.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // panelSuperior
@@ -56,6 +56,27 @@
             this.panelSuperior.Name = "panelSuperior";
             this.panelSuperior.Size = new System.Drawing.Size(927, 100);
             this.panelSuperior.TabIndex = 2;
+            // 
+            // lblmedical
+            // 
+            this.lblmedical.AutoSize = true;
+            this.lblmedical.Font = new System.Drawing.Font("Tahoma", 18F);
+            this.lblmedical.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblmedical.Location = new System.Drawing.Point(656, 33);
+            this.lblmedical.Name = "lblmedical";
+            this.lblmedical.Size = new System.Drawing.Size(177, 29);
+            this.lblmedical.TabIndex = 5;
+            this.lblmedical.Text = "Medical System";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::RayPro.Properties.Resources.IconMedic;
+            this.pictureBox2.Location = new System.Drawing.Point(823, 24);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
             // 
             // circularProgressBar1
             // 
@@ -89,17 +110,6 @@
             this.circularProgressBar1.TextMargin = new System.Windows.Forms.Padding(8, 8, 0, 0);
             this.circularProgressBar1.Value = 68;
             // 
-            // lblmedical
-            // 
-            this.lblmedical.AutoSize = true;
-            this.lblmedical.Font = new System.Drawing.Font("Tahoma", 18F);
-            this.lblmedical.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblmedical.Location = new System.Drawing.Point(656, 33);
-            this.lblmedical.Name = "lblmedical";
-            this.lblmedical.Size = new System.Drawing.Size(177, 29);
-            this.lblmedical.TabIndex = 5;
-            this.lblmedical.Text = "Medical System";
-            // 
             // timeInicio
             // 
             this.timeInicio.Interval = 40;
@@ -115,7 +125,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 39.75F);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(180)))));
-            this.label1.Location = new System.Drawing.Point(387, 103);
+            this.label1.Location = new System.Drawing.Point(405, 103);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(351, 64);
             this.label1.TabIndex = 5;
@@ -144,24 +154,13 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.pictureBox1.Image = global::RayPro.Properties.Resources.MedicoW;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 100);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 89);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(389, 400);
+            this.pictureBox1.Size = new System.Drawing.Size(414, 411);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::RayPro.Properties.Resources.IconMedic;
-            this.pictureBox2.Location = new System.Drawing.Point(823, 24);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
             // 
             // Welcome
             // 
@@ -173,8 +172,8 @@
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.circularProgressBar1);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panelSuperior);
+            this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Welcome";
@@ -183,9 +182,9 @@
             this.Load += new System.EventHandler(this.Welcome_Load);
             this.panelSuperior.ResumeLayout(false);
             this.panelSuperior.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
