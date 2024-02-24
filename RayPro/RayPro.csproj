@@ -66,6 +66,8 @@
     <Compile Include="Aplicaciones\SettingDev.Designer.cs">
       <DependentUpon>SettingDev.cs</DependentUpon>
     </Compile>
+    <Compile Include="Aplicaciones\tools\DatosRadiologia.cs" />
+    <Compile Include="Aplicaciones\tools\HumanSettings.cs" />
     <Compile Include="Persistencia\db\conexionDB.cs" />
     <Compile Include="Persistencia\loginController.cs" />
     <Compile Include="Program.cs" />

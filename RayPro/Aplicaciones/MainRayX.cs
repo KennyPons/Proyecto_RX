@@ -1,4 +1,5 @@
-﻿using RayPro.Vista;
+﻿using RayPro.Aplicaciones.tools;
+using RayPro.Vista;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,14 +29,21 @@ namespace RayPro
         int nWidthEllipse, // height of ellipse
         int nHeightEllipse // width of ellipse
         );
+
+        //PRIMITIVOS DATA
         private int indiceImgNow = 0; private int nKVp = 70, nmAs = 20;
         private SerialPort sPuerto;
+        private HumanSettings _Hsettings;
+
+        //CONSTRUCTORS
         public MainRayX()
         {
             InitializeComponent();
             initBordeCuadrado();
             imgBodyRay.Image = imageLista.Images[indiceImgNow];
             imgBodyRay.SizeMode = PictureBoxSizeMode.Zoom;
+            _Hsettings = new HumanSettings(cboEstructura,cboProyeccion,lblKVp,lblmAs);
+            _Hsettings.mostrarDataRayX("Craneo");
         }
 
         //==========================================FUNCTIONS============================================================//
@@ -54,10 +62,18 @@ namespace RayPro
         {
             switch(countNow)
             {
-                case 0:  ; break; case 1:; break; case 2: break;
-                    //indiceImagenActual = (indiceImagenActual + 1) % imageList1.Images.Count;
+                case 0: _Hsettings.mostrarDataRayX("Craneo");   _Hsettings.showKVandMAS(20, 70); break; 
+                case 1: _Hsettings.mostrarDataRayX("Cuello");   _Hsettings.showKVandMAS(18, 68); break; 
+                case 2: _Hsettings.mostrarDataRayX("Escapula"); _Hsettings.showKVandMAS(15, 72); break;
+                case 3: _Hsettings.mostrarDataRayX("Abdomen");  _Hsettings.showKVandMAS(35, 75); break;
+                case 4: _Hsettings.mostrarDataRayX("Pelvis");   _Hsettings.showKVandMAS(30, 75); break;
+                case 5: _Hsettings.mostrarDataRayX("Brazos");   _Hsettings.showKVandMAS(20, 65); break;
+                case 6: _Hsettings.mostrarDataRayX("Femur");    _Hsettings.showKVandMAS(20, 72); break;
+
             }
         }
+
+        
 
         private void bootSerialPort()
         {
@@ -81,7 +97,7 @@ namespace RayPro
         }
     
 
-        //===========================================================================================================//
+        //==============================================================BUTTONS AND EVENTS=============================================//
         private void btnClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -92,21 +108,46 @@ namespace RayPro
             this.WindowState = FormWindowState.Minimized;
         }
 
+
+        //BUTTONS CHANGES of IMAGES
         private void btnLeft_Click(object sender, EventArgs e)
         {
-            
-            indiceImgNow = (indiceImgNow - 1 + imageLista.Images.Count) % imageLista.Images.Count;
 
+            /*indiceImgNow = (indiceImgNow - 1 + imageLista.Images.Count) % imageLista.Images.Count;
+
+            imgBodyRay.Image = imageLista.Images[indiceImgNow];*/
+            if (indiceImgNow > 0)
+            {
+                indiceImgNow--;
+            }
+            else
+            {
+                indiceImgNow = 0;
+            }
+            this.showBodyRayX(indiceImgNow);
             imgBodyRay.Image = imageLista.Images[indiceImgNow];
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
-            indiceImgNow = (indiceImgNow + 1) % imageLista.Images.Count;
+            if (indiceImgNow < imageLista.Images.Count - 1)
+            {
+                indiceImgNow++;
+            }
 
+            this.showBodyRayX(indiceImgNow);
             imgBodyRay.Image = imageLista.Images[indiceImgNow];
+            /* indiceImgNow = (indiceImgNow + 1) % imageLista.Images.Count;
+
+             if (indiceImgNow != 0)
+             {
+                 imgBodyRay.Image = imageLista.Images[indiceImgNow];
+             }*/
+
         }
+
+        //BUTTONS of OFF AND ON
 
         private void btnOFF_Click(object sender, EventArgs e)
         {
@@ -125,6 +166,8 @@ namespace RayPro
             lblEncender.ForeColor = Color.Brown;
         }
 
+
+        // TIME
         private void DATE_NOW_Tick(object sender, EventArgs e)
         {
             lblHora.Text = DateTime.Now.ToString("HH:mm:ss");
@@ -163,6 +206,8 @@ namespace RayPro
             lblKVp.Text = "" + nKVp;
         }
 
+
+        //BUTTONS PRE _ RX _ R
         private void btnPRE_Click(object sender, EventArgs e)
         {
             using (var sonido = new SoundPlayer(@"../../Aplicaciones/tools/sonido/preparando.wav"))
@@ -192,6 +237,7 @@ namespace RayPro
 
         }
 
+        //BUTTONS FOCOS
         private void btnFoco_small_Click(object sender, EventArgs e)
         {
             var Rs = FrCuadro.Show("¿Está seguro cambiar a Large?", "Configuración del Foco", MessageBoxButtons.YesNo);
