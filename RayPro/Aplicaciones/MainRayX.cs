@@ -183,7 +183,7 @@ namespace RayPro
                 nmAs = 200;
             }
 
-            lblmAs.Text = "" + nmAs;
+            lblmAs.Text = (nmAs > 0 && nmAs < 10) ? "0" + nmAs : "" + nmAs;
         }
 
         private void btnDownMaS_Click(object sender, EventArgs e)
@@ -193,7 +193,7 @@ namespace RayPro
             {
                 nmAs = 0;
             }
-            lblmAs.Text = "" + nmAs;
+            lblmAs.Text = (nmAs > 0 && nmAs < 10) ? "0" + nmAs : "" + nmAs;
         }
 
         private void btnUpKv_Click(object sender, EventArgs e)
