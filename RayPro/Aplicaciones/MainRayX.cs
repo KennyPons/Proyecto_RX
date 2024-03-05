@@ -11,7 +11,7 @@ using System.Media;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
@@ -42,8 +42,8 @@ namespace RayPro
             initBordeCuadrado();
             imgBodyRay.Image = imageLista.Images[indiceImgNow];
             imgBodyRay.SizeMode = PictureBoxSizeMode.Zoom;
-            _Hsettings = new HumanSettings(cboEstructura,cboProyeccion,lblKVp,lblmAs);
-            _Hsettings.mostrarDataRayX("Craneo");
+            _Hsettings = new HumanSettings(cboProyeccion, cboEstructura, lblKVp,lblmAs);
+            _Hsettings.showBodyRayX(0);
         }
 
         //==========================================FUNCTIONS============================================================//
@@ -58,20 +58,7 @@ namespace RayPro
             panelCombo.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelCombo.Width, panelCombo.Height, 26, 26));
             panelShow.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelShow.Width, panelShow.Height, 26, 26));
         }
-        private void showBodyRayX(int countNow)
-        {
-            switch(countNow)
-            {
-                case 0: _Hsettings.mostrarDataRayX("Craneo");   _Hsettings.showKVandMAS(20, 70); break; 
-                case 1: _Hsettings.mostrarDataRayX("Cuello");   _Hsettings.showKVandMAS(18, 68); break; 
-                case 2: _Hsettings.mostrarDataRayX("Escapula"); _Hsettings.showKVandMAS(15, 72); break;
-                case 3: _Hsettings.mostrarDataRayX("Abdomen");  _Hsettings.showKVandMAS(35, 75); break;
-                case 4: _Hsettings.mostrarDataRayX("Pelvis");   _Hsettings.showKVandMAS(30, 75); break;
-                case 5: _Hsettings.mostrarDataRayX("Brazos");   _Hsettings.showKVandMAS(20, 65); break;
-                case 6: _Hsettings.mostrarDataRayX("Femur");    _Hsettings.showKVandMAS(20, 72); break;
-
-            }
-        }
+        
 
         
 
@@ -124,27 +111,29 @@ namespace RayPro
             {
                 indiceImgNow = 0;
             }
-            this.showBodyRayX(indiceImgNow);
+
+            this._Hsettings.showBodyRayX(indiceImgNow);
             imgBodyRay.Image = imageLista.Images[indiceImgNow];
         }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
+            /* indiceImgNow = (indiceImgNow + 1) % imageLista.Images.Count;
+
+           if (indiceImgNow != 0)
+           {
+               imgBodyRay.Image = imageLista.Images[indiceImgNow];
+           }*/
+
             if (indiceImgNow < imageLista.Images.Count - 1)
             {
                 indiceImgNow++;
             }
 
-            this.showBodyRayX(indiceImgNow);
+            this._Hsettings.showBodyRayX(indiceImgNow);
             imgBodyRay.Image = imageLista.Images[indiceImgNow];
-            /* indiceImgNow = (indiceImgNow + 1) % imageLista.Images.Count;
-
-             if (indiceImgNow != 0)
-             {
-                 imgBodyRay.Image = imageLista.Images[indiceImgNow];
-             }*/
-
+          
         }
 
         //BUTTONS of OFF AND ON
@@ -260,6 +249,12 @@ namespace RayPro
             }
         }
 
+        private void cboEstructura_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectEstructura = cboEstructura.SelectedItem.ToString();
+            this._Hsettings.changeShowCboProy(selectEstructura);
+        }
+
         private void btnDownKv_Click(object sender, EventArgs e)
         {
             nKVp -= 1;
@@ -269,6 +264,8 @@ namespace RayPro
             }
             lblKVp.Text = "" + nKVp;
         }
+
+
 
 
 

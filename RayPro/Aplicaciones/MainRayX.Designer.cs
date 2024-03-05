@@ -569,6 +569,7 @@
             this.cboEstructura.Name = "cboEstructura";
             this.cboEstructura.Size = new System.Drawing.Size(314, 33);
             this.cboEstructura.TabIndex = 4;
+            this.cboEstructura.SelectedIndexChanged += new System.EventHandler(this.cboEstructura_SelectedIndexChanged);
             // 
             // txtProyeccion
             // 

@@ -69,7 +69,7 @@ namespace RayPro.Aplicaciones.tools
         { 105, new string[]  {"PA DE MANO","LATERAL DE MANO","OBLICUA DE MANO"} },
 
         { 106, new string[]  {"AP DE PULGAR","LATERAL DE PULGAR","PA DE DEDOS","OBLICUAS DEDOS"} },
-        //TODA LA PARTE DE LA PIERNA
+        //TODO LA PARTE DE BRAZO
         { 110, new string[]  {"AP DE FEMUR", "LATERAL DE FEMUR"} },
 
         { 111, new string[]  {"AP DE RODILLA","LATERAL DE RODILLA","AP AXIAL DE RODILLA(BEDERE)"} },
