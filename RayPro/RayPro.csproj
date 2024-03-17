@@ -54,6 +54,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aplicaciones\FrKeyBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Aplicaciones\FrKeyBoard.Designer.cs">
+      <DependentUpon>FrKeyBoard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Aplicaciones\MainRayX.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,9 @@
     <Compile Include="Vista\Welcome.Designer.cs">
       <DependentUpon>Welcome.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Aplicaciones\FrKeyBoard.resx">
+      <DependentUpon>FrKeyBoard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Aplicaciones\MainRayX.resx">
       <DependentUpon>MainRayX.cs</DependentUpon>
     </EmbeddedResource>
@@ -148,6 +157,8 @@
     <Content Include="Persistencia\db\DB_USER.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\icons8-diez-llaves-641.png" />
+    <None Include="Resources\icons8-diez-llaves-64.png" />
     <None Include="Resources\focoOFF.png" />
     <None Include="Resources\ON.png" />
     <None Include="Resources\abajo-cuadrado.png" />

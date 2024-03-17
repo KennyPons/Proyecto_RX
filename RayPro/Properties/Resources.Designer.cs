@@ -303,6 +303,26 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_diez_llaves_64 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-diez-llaves-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_diez_llaves_641 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-diez-llaves-641", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap imgRandom1 {
             get {
                 object obj = ResourceManager.GetObject("imgRandom1", resourceCulture);
