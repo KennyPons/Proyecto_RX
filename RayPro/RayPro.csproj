@@ -157,6 +157,7 @@
     <Content Include="Persistencia\db\DB_USER.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\f-removebg-preview.png" />
     <None Include="Resources\icons8-diez-llaves-641.png" />
     <None Include="Resources\icons8-diez-llaves-64.png" />
     <None Include="Resources\focoOFF.png" />

@@ -203,6 +203,16 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap f_removebg_preview {
+            get {
+                object obj = ResourceManager.GetObject("f-removebg-preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap fechaRIGHT_1 {
             get {
                 object obj = ResourceManager.GetObject("fechaRIGHT-1", resourceCulture);
