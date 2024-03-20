@@ -1,4 +1,5 @@
-﻿using RayPro.Aplicaciones.tools;
+﻿using RayPro.Aplicaciones;
+using RayPro.Aplicaciones.tools;
 using RayPro.Vista;
 using System;
 using System.Collections.Generic;
@@ -253,6 +254,21 @@ namespace RayPro
         {
             string selectEstructura = cboEstructura.SelectedItem.ToString();
             this._Hsettings.changeShowCboProy(selectEstructura);
+        }
+
+        private void tecla_mAs_Click(object sender, EventArgs e)
+        {
+            FrKeyBoard formTecla = new FrKeyBoard();
+            // Calcular la posición para mostrar el formulario debajo del botón
+            Point posicionBoton = tecla_mAs.PointToScreen(Point.Empty);
+            int x = posicionBoton.X;
+            int y = posicionBoton.Y + tecla_mAs.Height; // Mostrar debajo del botón
+
+            // Establecer la posición del formulario del teclado numérico
+            formTecla.Location = new Point(x, y);
+
+            // Mostrar el formulario del teclado numérico
+            formTecla.ShowDialog();
         }
 
         private void btnDownKv_Click(object sender, EventArgs e)

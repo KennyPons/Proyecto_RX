@@ -1,4 +1,5 @@
-﻿using RayPro.Vista;
+﻿using RayPro.Aplicaciones;
+using RayPro.Vista;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace RayPro
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Login());
             //Application.Run(new Welcome());
+
         }
     }
 }
