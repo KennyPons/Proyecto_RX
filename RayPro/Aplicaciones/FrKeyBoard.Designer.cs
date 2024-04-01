@@ -45,6 +45,7 @@
             this.btn_cerrar = new System.Windows.Forms.PictureBox();
             this.txtShowNum = new System.Windows.Forms.TextBox();
             this.lblChange = new System.Windows.Forms.Label();
+            this.lblErrorMsg = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.btn_cerrar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -284,6 +285,21 @@
             this.lblChange.TabIndex = 15;
             this.lblChange.Text = "Kvp";
             // 
+            // lblErrorMsg
+            // 
+            this.lblErrorMsg.AutoSize = true;
+            this.lblErrorMsg.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.5F);
+            this.lblErrorMsg.ForeColor = System.Drawing.Color.Brown;
+            this.lblErrorMsg.Image = global::RayPro.Properties.Resources.lblErrorMsg;
+            this.lblErrorMsg.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.lblErrorMsg.Location = new System.Drawing.Point(3, 230);
+            this.lblErrorMsg.Name = "lblErrorMsg";
+            this.lblErrorMsg.Size = new System.Drawing.Size(72, 18);
+            this.lblErrorMsg.TabIndex = 16;
+            this.lblErrorMsg.Text = "ErrorMsg";
+            this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.lblErrorMsg.Visible = false;
+            // 
             // FrKeyBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -292,6 +308,7 @@
             this.BackgroundImage = global::RayPro.Properties.Resources.f_removebg_preview;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(203, 269);
+            this.Controls.Add(this.lblErrorMsg);
             this.Controls.Add(this.txtShowNum);
             this.Controls.Add(this.lblChange);
             this.Controls.Add(this.btn_cerrar);
@@ -339,5 +356,6 @@
         private System.Windows.Forms.PictureBox btn_cerrar;
         private System.Windows.Forms.TextBox txtShowNum;
         private System.Windows.Forms.Label lblChange;
+        private System.Windows.Forms.Label lblErrorMsg;
     }
 }

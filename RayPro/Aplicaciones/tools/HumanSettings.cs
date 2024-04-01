@@ -73,10 +73,10 @@ namespace RayPro.Aplicaciones.tools
             {
                 case 0: mostrarDataRayX("Craneo");  showKVandMAS(20, 70); break;
                 case 1: mostrarDataRayX("Cuello");  showKVandMAS(18, 68); break;
-                case 2: mostrarDataRayX("Escapula");showKVandMAS(15, 72); break;
-                case 3: mostrarDataRayX("Abdomen"); showKVandMAS(35, 75); break;
-                case 4: mostrarDataRayX("Pelvis");  showKVandMAS(30, 75); break;
-                case 5: mostrarDataRayX("Brazos");  showKVandMAS(20, 65); break;
+                case 2: mostrarDataRayX("Brazos");  showKVandMAS(20, 65); break;
+                case 3: mostrarDataRayX("Escapula");showKVandMAS(15, 72); break;
+                case 4: mostrarDataRayX("Abdomen"); showKVandMAS(35, 75); break;
+                case 5: mostrarDataRayX("Pelvis");  showKVandMAS(30, 75); break;
                 case 6: mostrarDataRayX("Femur");   showKVandMAS(20, 72); break;
 
             }
@@ -102,8 +102,8 @@ namespace RayPro.Aplicaciones.tools
                 case "CODO":      mostrarSelectProyeccion(101); showKVandMAS(10, 56); break;
                 case "HÚMERO":    mostrarSelectProyeccion(102); showKVandMAS(18, 68); break;
                 case "ANTEBRAZO": mostrarSelectProyeccion(103); showKVandMAS(10, 75); break;
-                case "MUÑECA":    mostrarSelectProyeccion(104); showKVandMAS(10, 54); break;
-                case "MANO":      mostrarSelectProyeccion(105); showKVandMAS(10, 48); break;
+                case "MUÑECA":    mostrarSelectProyeccion(104); showKVandMAS(3, 54); break;
+                case "MANO":      mostrarSelectProyeccion(105); showKVandMAS(5, 48); break;
                 case "FALANGES MANO": mostrarSelectProyeccion(106); showKVandMAS(5, 48); break;
                 //TODO LA PARTE DE BRAZO
                 case "FEMUR":     mostrarSelectProyeccion(110); showKVandMAS(20, 72); break;

@@ -47,7 +47,7 @@ namespace RayPro
             _Hsettings.showBodyRayX(0);
         }
 
-        //==========================================FUNCTIONS============================================================//
+        //==========================================FUNCIONES INICIO AL SYSTEMA============================================================//
 
         private void initBordeCuadrado()
         { /// BORDAR FIGURA CUADRA DE TEXT BOX
@@ -86,19 +86,19 @@ namespace RayPro
     
 
         //==============================================================BUTTONS AND EVENTS=============================================//
-        private void btnClose_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)//Cerrar App
         {
             Application.Exit();
         }
 
-        private void btnMinimizar_Click(object sender, EventArgs e)
+        private void btnMinimizar_Click(object sender, EventArgs e)//Minimizar App
         {
             this.WindowState = FormWindowState.Minimized;
         }
 
 
         //BUTTONS CHANGES of IMAGES
-        private void btnLeft_Click(object sender, EventArgs e)
+        private void btnLeft_Click(object sender, EventArgs e)//Botón Izquierdo para Imagen
         {
 
             /*indiceImgNow = (indiceImgNow - 1 + imageLista.Images.Count) % imageLista.Images.Count;
@@ -118,7 +118,7 @@ namespace RayPro
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)//Botón Derecho para cambiar imagenes
         {
             /* indiceImgNow = (indiceImgNow + 1) % imageLista.Images.Count;
 
@@ -137,7 +137,7 @@ namespace RayPro
           
         }
 
-        //BUTTONS of OFF AND ON
+        //Botones de prender y apagar
 
         private void btnOFF_Click(object sender, EventArgs e)
         {
@@ -157,25 +157,26 @@ namespace RayPro
         }
 
 
-        // TIME
+        // Mostrando en la App el TIME 
         private void DATE_NOW_Tick(object sender, EventArgs e)
         {
             lblHora.Text = DateTime.Now.ToString("HH:mm:ss");
             lblFecha.Text = DateTime.Now.ToString("dd MMM yyy");
         }
 
+        //Flechita Arriba O Up mAs
         private void btnUpMaS_Click(object sender, EventArgs e)
         {
             nmAs += 1;
 
-            if(nmAs > 200)
+            if(nmAs > 300)
             {
-                nmAs = 200;
+                nmAs = 300;
             }
 
             lblmAs.Text = (nmAs > 0 && nmAs < 10) ? "0" + nmAs : "" + nmAs;
         }
-
+        //Flechita Abajo o Down mAs
         private void btnDownMaS_Click(object sender, EventArgs e)
         {
             nmAs -= 1;
@@ -185,7 +186,7 @@ namespace RayPro
             }
             lblmAs.Text = (nmAs > 0 && nmAs < 10) ? "0" + nmAs : "" + nmAs;
         }
-
+        //Flechita Arriba o up Kv
         private void btnUpKv_Click(object sender, EventArgs e)
         {
             nKVp += 1;
@@ -197,8 +198,8 @@ namespace RayPro
         }
 
 
-        //BUTTONS PRE _ RX _ R
-        private void btnPRE_Click(object sender, EventArgs e)
+        //BOTONES IMPORTANTES ( PRE _ RX _ R )
+        private void btnPRE_Click(object sender, EventArgs e) /*(PRE)*/
         {
             using (var sonido = new SoundPlayer(@"../../Aplicaciones/tools/sonido/preparando.wav"))
             {
@@ -213,7 +214,7 @@ namespace RayPro
             }
         }
 
-        private void btnRX_Click(object sender, EventArgs e)
+        private void btnRX_Click(object sender, EventArgs e)/*(DISPARO-RX)*/
         {
             using (var sonido = new SoundPlayer(@"../../Aplicaciones/tools/sonido/disparo.wav"))
             {
@@ -222,13 +223,13 @@ namespace RayPro
             Thread.Sleep(1500);
         }
 
-        private void btnR_Click(object sender, EventArgs e)
+        private void btnR_Click(object sender, EventArgs e)/*(RESETEAR)*/
         {
 
         }
 
-        //BUTTONS FOCOS
-        private void btnFoco_small_Click(object sender, EventArgs e)
+        //Botón para cambiar el Filamento
+        private void btnFoco_small_Click(object sender, EventArgs e) /*(SMALL)*/
         {
             var Rs = FrCuadro.Show("¿Está seguro cambiar a Large?", "Configuración del Foco", MessageBoxButtons.YesNo);
             if(Rs == DialogResult.Yes)
@@ -239,7 +240,7 @@ namespace RayPro
             }
         }
 
-        private void btnFoco_large_Click(object sender, EventArgs e)
+        private void btnFoco_large_Click(object sender, EventArgs e)/*(LARGE)*/
         {
             var Rs = FrCuadro.Show("¿Está seguro cambiar a Small?", "Configuración del Foco", MessageBoxButtons.YesNo);
             if(Rs == DialogResult.Yes)
@@ -250,27 +251,44 @@ namespace RayPro
             }
         }
 
+        //El combo de "Estructura" realizando cambios
         private void cboEstructura_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectEstructura = cboEstructura.SelectedItem.ToString();
             this._Hsettings.changeShowCboProy(selectEstructura);
         }
 
+        //Botones teclado para mAs
         private void tecla_mAs_Click(object sender, EventArgs e)
         {
-            FrKeyBoard formTecla = new FrKeyBoard();
-            // Calcular la posición para mostrar el formulario debajo del botón
-            Point posicionBoton = tecla_mAs.PointToScreen(Point.Empty);
-            int x = posicionBoton.X;
-            int y = posicionBoton.Y + tecla_mAs.Height; // Mostrar debajo del botón
-
-            // Establecer la posición del formulario del teclado numérico
-            formTecla.Location = new Point(x, y);
-
-            // Mostrar el formulario del teclado numérico
+            FrKeyBoard formTecla = new FrKeyBoard("amperaje",300,0);
+            
+            formTecla.StartPosition = FormStartPosition.Manual;
+            formTecla.Location = new System.Drawing.Point(
+                    this.Left + tecla_mAs.Left,
+                    this.Top + tecla_mAs.Top + tecla_mAs.Height);
             formTecla.ShowDialog();
+
+            nmAs = formTecla.SentNumerbs;
+            lblmAs.Text = "" + nmAs; 
         }
 
+        //Botones teclado para Kv
+        private void tecla_Kv_Click(object sender, EventArgs e)
+        {
+            FrKeyBoard formTecla = new FrKeyBoard("kVolt", 100, 0);
+            /*Solo para pocisionar el teclado a la Izquierda*/
+            formTecla.StartPosition = FormStartPosition.Manual;
+            formTecla.Location = new System.Drawing.Point(
+                    this.Left + tecla_Kv.Left,
+                    this.Top + tecla_Kv.Top + tecla_Kv.Height);
+
+            formTecla.ShowDialog();
+
+            nKVp = formTecla.SentNumerbs;
+            lblKVp.Text = "" + nKVp;
+        }
+        //Flechita Abajo o Down Kv
         private void btnDownKv_Click(object sender, EventArgs e)
         {
             nKVp -= 1;

@@ -210,7 +210,7 @@
             this.btnON.Image = global::RayPro.Properties.Resources.ON;
             this.btnON.Location = new System.Drawing.Point(155, 46);
             this.btnON.Name = "btnON";
-            this.btnON.Size = new System.Drawing.Size(114, 66);
+            this.btnON.Size = new System.Drawing.Size(114, 56);
             this.btnON.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnON.TabIndex = 13;
             this.btnON.TabStop = false;
@@ -222,7 +222,7 @@
             this.btnOFF.Image = global::RayPro.Properties.Resources.OFF;
             this.btnOFF.Location = new System.Drawing.Point(155, 46);
             this.btnOFF.Name = "btnOFF";
-            this.btnOFF.Size = new System.Drawing.Size(114, 66);
+            this.btnOFF.Size = new System.Drawing.Size(114, 56);
             this.btnOFF.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnOFF.TabIndex = 12;
             this.btnOFF.TabStop = false;
@@ -345,27 +345,28 @@
             this.panelShow.Controls.Add(this.btnDownMaS);
             this.panelShow.Controls.Add(this.btnUpMaS);
             this.panelShow.Controls.Add(this.btnFoco_large);
-            this.panelShow.Controls.Add(this.pictureBox6);
             this.panelShow.Controls.Add(this.pictureBox5);
-            this.panelShow.Location = new System.Drawing.Point(27, 236);
+            this.panelShow.Controls.Add(this.pictureBox6);
+            this.panelShow.Location = new System.Drawing.Point(27, 214);
             this.panelShow.Name = "panelShow";
-            this.panelShow.Size = new System.Drawing.Size(654, 229);
+            this.panelShow.Size = new System.Drawing.Size(654, 251);
             this.panelShow.TabIndex = 2;
             // 
             // tecla_Kv
             // 
             this.tecla_Kv.Image = global::RayPro.Properties.Resources.icons8_diez_llaves_641;
-            this.tecla_Kv.Location = new System.Drawing.Point(606, 176);
+            this.tecla_Kv.Location = new System.Drawing.Point(400, 201);
             this.tecla_Kv.Name = "tecla_Kv";
             this.tecla_Kv.Size = new System.Drawing.Size(45, 50);
             this.tecla_Kv.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.tecla_Kv.TabIndex = 20;
             this.tecla_Kv.TabStop = false;
+            this.tecla_Kv.Click += new System.EventHandler(this.tecla_Kv_Click);
             // 
             // tecla_mAs
             // 
             this.tecla_mAs.Image = global::RayPro.Properties.Resources.icons8_diez_llaves_641;
-            this.tecla_mAs.Location = new System.Drawing.Point(203, 173);
+            this.tecla_mAs.Location = new System.Drawing.Point(206, 201);
             this.tecla_mAs.Name = "tecla_mAs";
             this.tecla_mAs.Size = new System.Drawing.Size(45, 50);
             this.tecla_mAs.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -401,7 +402,7 @@
             this.lblKVp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.lblKVp.Font = new System.Drawing.Font("Tahoma", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblKVp.ForeColor = System.Drawing.Color.Tomato;
-            this.lblKVp.Location = new System.Drawing.Point(499, 88);
+            this.lblKVp.Location = new System.Drawing.Point(481, 89);
             this.lblKVp.Name = "lblKVp";
             this.lblKVp.Size = new System.Drawing.Size(76, 52);
             this.lblKVp.TabIndex = 16;
@@ -412,11 +413,11 @@
             // 
             this.lblmAs.AutoSize = true;
             this.lblmAs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblmAs.Font = new System.Drawing.Font("Tahoma", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblmAs.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblmAs.ForeColor = System.Drawing.Color.Tomato;
-            this.lblmAs.Location = new System.Drawing.Point(86, 88);
+            this.lblmAs.Location = new System.Drawing.Point(67, 89);
             this.lblmAs.Name = "lblmAs";
-            this.lblmAs.Size = new System.Drawing.Size(76, 52);
+            this.lblmAs.Size = new System.Drawing.Size(87, 58);
             this.lblmAs.TabIndex = 15;
             this.lblmAs.Text = "20";
             this.lblmAs.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -427,7 +428,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Tomato;
-            this.label6.Location = new System.Drawing.Point(294, 182);
+            this.label6.Location = new System.Drawing.Point(294, 204);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(70, 29);
             this.label6.TabIndex = 14;
@@ -437,11 +438,11 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Tahoma", 17.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Tomato;
-            this.label5.Location = new System.Drawing.Point(502, 14);
+            this.label5.Location = new System.Drawing.Point(503, -3);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 35);
+            this.label5.Size = new System.Drawing.Size(58, 28);
             this.label5.TabIndex = 13;
             this.label5.Text = "KVp";
             // 
@@ -449,11 +450,11 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Tomato;
-            this.label4.Location = new System.Drawing.Point(89, 14);
+            this.label4.Location = new System.Drawing.Point(89, -3);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(78, 35);
+            this.label4.Size = new System.Drawing.Size(64, 29);
             this.label4.TabIndex = 12;
             this.label4.Text = "mAs";
             // 
@@ -467,7 +468,7 @@
             this.btnDownKv.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDownKv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnDownKv.Image = global::RayPro.Properties.Resources.abajo_cuadrado;
-            this.btnDownKv.Location = new System.Drawing.Point(540, 182);
+            this.btnDownKv.Location = new System.Drawing.Point(554, 207);
             this.btnDownKv.Name = "btnDownKv";
             this.btnDownKv.Size = new System.Drawing.Size(43, 44);
             this.btnDownKv.TabIndex = 6;
@@ -484,7 +485,7 @@
             this.btnUpKv.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpKv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnUpKv.Image = global::RayPro.Properties.Resources.arriba_cuadrado;
-            this.btnUpKv.Location = new System.Drawing.Point(482, 182);
+            this.btnUpKv.Location = new System.Drawing.Point(490, 207);
             this.btnUpKv.Name = "btnUpKv";
             this.btnUpKv.Size = new System.Drawing.Size(43, 44);
             this.btnUpKv.TabIndex = 5;
@@ -501,7 +502,7 @@
             this.btnDownMaS.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDownMaS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnDownMaS.Image = global::RayPro.Properties.Resources.abajo_cuadrado;
-            this.btnDownMaS.Location = new System.Drawing.Point(128, 182);
+            this.btnDownMaS.Location = new System.Drawing.Point(128, 207);
             this.btnDownMaS.Name = "btnDownMaS";
             this.btnDownMaS.Size = new System.Drawing.Size(43, 44);
             this.btnDownMaS.TabIndex = 4;
@@ -518,7 +519,7 @@
             this.btnUpMaS.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpMaS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnUpMaS.Image = global::RayPro.Properties.Resources.arriba_cuadrado;
-            this.btnUpMaS.Location = new System.Drawing.Point(76, 182);
+            this.btnUpMaS.Location = new System.Drawing.Point(63, 207);
             this.btnUpMaS.Name = "btnUpMaS";
             this.btnUpMaS.Size = new System.Drawing.Size(43, 44);
             this.btnUpMaS.TabIndex = 3;
@@ -540,22 +541,22 @@
             // pictureBox6
             // 
             this.pictureBox6.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.pictureBox6.Image = global::RayPro.Properties.Resources.cuadro3d_RM;
-            this.pictureBox6.Location = new System.Drawing.Point(411, 3);
+            this.pictureBox6.Image = global::RayPro.Properties.Resources.cuadro3D_DM;
+            this.pictureBox6.Location = new System.Drawing.Point(421, 14);
             this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(240, 220);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox6.Size = new System.Drawing.Size(230, 200);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox6.TabIndex = 1;
             this.pictureBox6.TabStop = false;
             // 
             // pictureBox5
             // 
             this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pictureBox5.Image = global::RayPro.Properties.Resources.cuadro3d_RM;
-            this.pictureBox5.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox5.Image = global::RayPro.Properties.Resources.cuadro3D_DM;
+            this.pictureBox5.Location = new System.Drawing.Point(3, 14);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(245, 220);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox5.Size = new System.Drawing.Size(230, 200);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox5.TabIndex = 0;
             this.pictureBox5.TabStop = false;
             // 
@@ -570,7 +571,7 @@
             this.panelCombo.Controls.Add(this.cboEstructura);
             this.panelCombo.Controls.Add(this.txtProyeccion);
             this.panelCombo.Controls.Add(this.txtEstructura);
-            this.panelCombo.Location = new System.Drawing.Point(27, 118);
+            this.panelCombo.Location = new System.Drawing.Point(27, 108);
             this.panelCombo.Name = "panelCombo";
             this.panelCombo.Size = new System.Drawing.Size(654, 100);
             this.panelCombo.TabIndex = 1;

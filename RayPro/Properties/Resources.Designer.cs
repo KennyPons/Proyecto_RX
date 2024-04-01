@@ -193,6 +193,26 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cuadrito_RM {
+            get {
+                object obj = ResourceManager.GetObject("cuadrito_RM", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cuadro3D_DM {
+            get {
+                object obj = ResourceManager.GetObject("cuadro3D_DM", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cuadro3d_RM {
             get {
                 object obj = ResourceManager.GetObject("cuadro3d-RM", resourceCulture);

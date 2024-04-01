@@ -13,13 +13,21 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace RayPro.Aplicaciones
 {
     public partial class FrKeyBoard : Form
+
     {
-        public FrKeyBoard()
+        private string receivedTecla; private int receivedMax, receiveMin, saveMomentNum;
+        public int SentNumerbs { get; private set; }
+        public FrKeyBoard(string modoTecla, int num_max, int num_min)
         {
             InitializeComponent();
-            iniPropiedadesTecla();
             
+            receivedTecla = modoTecla;
+            receivedMax = num_max;  
+            receiveMin = num_min;
+            iniPropiedadesTecla();
         }
+
+        
 
         // Sobrescribir el método OnPaint para dibujar los bordes redondeados
         protected override void OnPaint(PaintEventArgs e)
@@ -55,12 +63,30 @@ namespace RayPro.Aplicaciones
             this.FormBorderStyle = FormBorderStyle.None; // Ocultar borde estándar
             this.StartPosition = FormStartPosition.CenterScreen; // Centrar en pantalla
             this.Size = new Size(200, 285); // Tamaño del formulario
+
+            lblChange.Text = (receivedTecla.Equals("amperaje")) ?"mAs":"KVp";
         }
 
-        ///FUNCTIONS 
-        private void AppendNumber(string number)
+        ///FUNCTIONS  <summary>
+       
+        
+        private void AppendNumber(String number)
         {
-            txtShowNum.Text += number;
+            if (int.TryParse(txtShowNum.Text + number, out int result))//convierte se string a entero y out sale como salida entero si es verdadero
+            {
+                if (result > receiveMin && result <= receivedMax)
+                {
+                    // Agregar el número solo si está dentro del rango
+                    txtShowNum.Text += number;
+                    saveMomentNum = result;
+                }
+                else
+                {
+                    // Mostrar un mensaje de error si está fuera del rango
+                    String mensaje_advertido = "Por favor, ingrese un \nnúmero menor a " + receivedMax.ToString() + lblChange.Text;
+                    mensajeDeError(mensaje_advertido);
+                }
+            }
         }
 
         private void eliminandoNumxNum()
@@ -69,6 +95,35 @@ namespace RayPro.Aplicaciones
             {
                 txtShowNum.Text = txtShowNum.Text.Substring(0, txtShowNum.Text.Length - 1);
             }
+        }
+
+        private void mensajeDeError(String msge)
+        {
+            Timer temporizador = new Timer();
+            temporizador.Interval = 5000;
+
+            lblErrorMsg.Text = "   " + msge;
+            lblErrorMsg.ForeColor = Color.OrangeRed;
+            lblErrorMsg.Visible = true;
+
+            temporizador.Tick += (sender, e) =>
+            {
+                // Oculta el labelText cuando el temporizador alcance los 5 segundos
+                lblErrorMsg.Visible = false;
+
+                // Detiene el temporizador
+                temporizador.Stop();
+            };
+
+            // Inicia el temporizador
+            temporizador.Start();
+        }
+
+
+        private void makeEventDataNumber()
+        {
+            SentNumerbs = saveMomentNum;
+            this.Close();
         }
 
         ///BTUNES
@@ -86,7 +141,7 @@ namespace RayPro.Aplicaciones
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-           
+           makeEventDataNumber();
         }
 
         private void btn1_Click(object sender, EventArgs e)
@@ -164,6 +219,9 @@ namespace RayPro.Aplicaciones
             // Manejar pulsaciones de teclado
             switch (e.KeyCode)
             {
+                case Keys.Enter:
+                    makeEventDataNumber();
+                    break;
                 case Keys.Back:
                     eliminandoNumxNum();
                     break;

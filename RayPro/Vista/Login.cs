@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RayPro.Vista
 {
@@ -19,6 +20,11 @@ namespace RayPro.Vista
         {
             InitializeComponent();
             objLogin = new loginController();
+            // Habilitar la propiedad KeyPreview para capturar las pulsaciones de teclas en el formulario
+            this.KeyPreview = true;
+
+            // Suscribir el evento KeyDown para manejar las pulsaciones de teclas
+            this.KeyDown += Login_KeyDown;
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -71,46 +77,16 @@ namespace RayPro.Vista
 
         private void txtUsuario_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPassword.Focus();
-            }
         }
 
         private void txtPassword_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btnAcceder.Focus();
-            }
         }
 
         private void btnAcceder_Click(object sender, EventArgs e)
         {
            
-          if(txtUsuario.Text != "" && txtPassword.Text != "") {
-                if (objLogin.AutenticarUsuario(txtUsuario.Text, txtPassword.Text))
-                {
-                    configuraciones.Settings.Default.userName = txtUsuario.Text;
-                    configuraciones.Settings.Default.PassTemp = txtPassword.Text;
-                    configuraciones.Settings.Default.Save();
-                    Welcome frWelcome = new Welcome();
-                    frWelcome.ShowDialog();
-                    MainRayX frMain = new MainRayX();
-                    frMain.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    mensajeDeError("Error de Authentificación!");
-                    limpiar();
-                }
-            }
-            else
-            {
-                mensajeDeError("Ingrese Usuario o Contraseña, Campos Vacíos...");
-                limpiar();
-            }
+          InitializationLoginSystem();
         }
 
         private void linkSetting_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -152,6 +128,53 @@ namespace RayPro.Vista
             txtPassword.Clear();
             txtUsuario.Focus();
         }
+
+
+        private void InitializationLoginSystem()
+        {
+            if (txtUsuario.Text != "" && txtPassword.Text != "")
+            {
+                if (objLogin.AutenticarUsuario(txtUsuario.Text, txtPassword.Text))
+                {
+                    configuraciones.Settings.Default.userName = txtUsuario.Text;
+                    configuraciones.Settings.Default.PassTemp = txtPassword.Text;
+                    configuraciones.Settings.Default.Save();
+                    Welcome frWelcome = new Welcome();
+                    frWelcome.ShowDialog();
+                    MainRayX frMain = new MainRayX();
+                    frMain.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    mensajeDeError("Error de Authentificación!");
+                    limpiar();
+                }
+            }
+            else
+            {
+                mensajeDeError("Ingrese Usuario o Contraseña, Campos Vacíos...");
+                limpiar();
+            }
+        }
+ //===================================================================================================================//
+        private void Login_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+            {
+                txtUsuario.Focus();
+            }
+            else if (e.KeyCode == Keys.Down)
+            {
+                txtPassword.Focus();
+            }
+            /*else if (e.KeyCode == Keys.Enter)
+            {
+                InitializationLoginSystem();
+            }*/
+        }
+
     }
-    
 }
+    
+

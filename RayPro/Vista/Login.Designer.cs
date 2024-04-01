@@ -30,27 +30,27 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblLogin = new System.Windows.Forms.Label();
+            this.linkSetting = new System.Windows.Forms.LinkLabel();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.lblmedical = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblLogin = new System.Windows.Forms.Label();
             this.btnAcceder = new System.Windows.Forms.Button();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
-            this.linkSetting = new System.Windows.Forms.LinkLabel();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.lblErrorMsg = new System.Windows.Forms.Label();
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.btnCerrar = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,16 +67,29 @@
             this.panel1.Size = new System.Drawing.Size(260, 440);
             this.panel1.TabIndex = 0;
             // 
-            // lblLogin
+            // linkSetting
             // 
-            this.lblLogin.AutoSize = true;
-            this.lblLogin.Font = new System.Drawing.Font("Century Gothic", 21.75F);
-            this.lblLogin.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblLogin.Location = new System.Drawing.Point(449, 26);
-            this.lblLogin.Name = "lblLogin";
-            this.lblLogin.Size = new System.Drawing.Size(199, 36);
-            this.lblLogin.TabIndex = 1;
-            this.lblLogin.Text = "Iniciar Sesión";
+            this.linkSetting.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(40)))), ((int)(((byte)(68)))));
+            this.linkSetting.AutoSize = true;
+            this.linkSetting.Font = new System.Drawing.Font("Neo Sans", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkSetting.LinkColor = System.Drawing.Color.Black;
+            this.linkSetting.Location = new System.Drawing.Point(34, 417);
+            this.linkSetting.Name = "linkSetting";
+            this.linkSetting.Size = new System.Drawing.Size(68, 20);
+            this.linkSetting.TabIndex = 2;
+            this.linkSetting.TabStop = true;
+            this.linkSetting.Text = "Setting";
+            this.linkSetting.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSetting_LinkClicked);
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::RayPro.Properties.Resources.config;
+            this.pictureBox5.Location = new System.Drawing.Point(0, 411);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(41, 26);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.TabIndex = 3;
+            this.pictureBox5.TabStop = false;
             // 
             // lblmedical
             // 
@@ -88,6 +101,27 @@
             this.lblmedical.Size = new System.Drawing.Size(177, 29);
             this.lblmedical.TabIndex = 1;
             this.lblmedical.Text = "Medical System";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::RayPro.Properties.Resources.IconRYX;
+            this.pictureBox1.Location = new System.Drawing.Point(56, 116);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(162, 150);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // lblLogin
+            // 
+            this.lblLogin.AutoSize = true;
+            this.lblLogin.Font = new System.Drawing.Font("Century Gothic", 21.75F);
+            this.lblLogin.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.lblLogin.Location = new System.Drawing.Point(449, 26);
+            this.lblLogin.Name = "lblLogin";
+            this.lblLogin.Size = new System.Drawing.Size(199, 36);
+            this.lblLogin.TabIndex = 1;
+            this.lblLogin.Text = "Iniciar Sesión";
             // 
             // btnAcceder
             // 
@@ -137,20 +171,6 @@
             this.txtUsuario.Enter += new System.EventHandler(this.txtUsuario_Enter);
             this.txtUsuario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUsuario_KeyDown);
             this.txtUsuario.Leave += new System.EventHandler(this.txtUsuario_Leave);
-            // 
-            // linkSetting
-            // 
-            this.linkSetting.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(40)))), ((int)(((byte)(68)))));
-            this.linkSetting.AutoSize = true;
-            this.linkSetting.Font = new System.Drawing.Font("Neo Sans", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkSetting.LinkColor = System.Drawing.Color.Black;
-            this.linkSetting.Location = new System.Drawing.Point(34, 417);
-            this.linkSetting.Name = "linkSetting";
-            this.linkSetting.Size = new System.Drawing.Size(68, 20);
-            this.linkSetting.TabIndex = 2;
-            this.linkSetting.TabStop = true;
-            this.linkSetting.Text = "Setting";
-            this.linkSetting.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSetting_LinkClicked);
             // 
             // pictureBox4
             // 
@@ -209,26 +229,6 @@
             this.btnCerrar.TabStop = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::RayPro.Properties.Resources.config;
-            this.pictureBox5.Location = new System.Drawing.Point(0, 411);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(41, 26);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox5.TabIndex = 3;
-            this.pictureBox5.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::RayPro.Properties.Resources.IconRYX;
-            this.pictureBox1.Location = new System.Drawing.Point(56, 116);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(162, 150);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::RayPro.Properties.Resources.IconMedic;
@@ -261,14 +261,15 @@
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login Medical System";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Login_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
