@@ -127,6 +127,8 @@ namespace RayPro
             btnON.Visible = true;
             lblEncender.Text = "ON";
             lblEncender.ForeColor = Color.LimeGreen;
+            sMonitor.EnviarDatosASerial("OFF");
+            Thread.Sleep(500);
             sMonitor.CerrarSerialPort();
         }
 
