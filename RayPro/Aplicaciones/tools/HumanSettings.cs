@@ -9,9 +9,9 @@ namespace RayPro.Aplicaciones.tools
 {
     internal class HumanSettings
     {
-
+        
         private DatosRadiologia _datosRadiologia; private ComboBox cboProy, cboEstruct; private Label lblKVp, lblMaS;
-
+        private double mil = Math.Pow(10, 3);
         //constructor
         public HumanSettings(ComboBox cboProy, ComboBox cboEstruct, Label lblKVp, Label lblMaS) {
             this.cboEstruct = cboEstruct; this.cboProy = cboProy;
@@ -65,6 +65,28 @@ namespace RayPro.Aplicaciones.tools
 
 
         /////////////////METHODS - USE MAINS///////////////////////////////////////////////////
+
+        public int initialVoltageInput(int kvNeed)
+        {
+            
+            int kvInicial = kvNeed * Convert.ToInt32(mil), kvFinal = 100 * Convert.ToInt32(mil);
+
+            int result_Entrada_Ini = (250 * kvInicial) / kvFinal;
+            
+            return result_Entrada_Ini;
+            
+        }
+
+        public double sendTimeInput(int mAsInput)
+        {
+            double resultTiempo = (double )mAsInput / 75;
+
+            double redondeoTiempo = Math.Round(resultTiempo, 3, MidpointRounding.AwayFromZero);
+
+
+            return redondeoTiempo * Convert.ToInt32(mil);
+
+        }
 
 
         public void showBodyRayX(int countNow)

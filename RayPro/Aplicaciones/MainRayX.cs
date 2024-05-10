@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO.Ports;
 using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
@@ -33,9 +32,9 @@ namespace RayPro
 
         //PRIMITIVOS DATA
         private int indiceImgNow = 0; private int nKVp = 70, nmAs = 20;
-        private SerialPort sPuerto;
+        
         private HumanSettings _Hsettings;
-
+        private SettingSerialPort sMonitor;
         //CONSTRUCTORS
         public MainRayX()
         {
@@ -43,8 +42,10 @@ namespace RayPro
             initBordeCuadrado();
             imgBodyRay.Image = imageLista.Images[indiceImgNow];
             imgBodyRay.SizeMode = PictureBoxSizeMode.Zoom;
+            sMonitor = new SettingSerialPort();
             _Hsettings = new HumanSettings(cboProyeccion, cboEstructura, lblKVp,lblmAs);
             _Hsettings.showBodyRayX(0);
+            
         }
 
         //==========================================FUNCIONES INICIO AL SYSTEMA============================================================//
@@ -63,27 +64,7 @@ namespace RayPro
 
         
 
-        private void bootSerialPort()
-        {
-            try
-            {
-                sPuerto.PortName = configuraciones.Settings.Default.Puerto;
-                sPuerto.BaudRate = configuraciones.Settings.Default.Baudios;
-                sPuerto.DataBits = 8;
-                sPuerto.Parity = Parity.None;
-                sPuerto.StopBits = StopBits.One;
-                sPuerto.Handshake = Handshake.None;
-
-                sPuerto.WriteTimeout = 500;
-
-                sPuerto.Open();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Fallo en:\n", ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-    
+        
 
         //==============================================================BUTTONS AND EVENTS=============================================//
         private void btnClose_Click(object sender, EventArgs e)//Cerrar App
@@ -146,6 +127,7 @@ namespace RayPro
             btnON.Visible = true;
             lblEncender.Text = "ON";
             lblEncender.ForeColor = Color.LimeGreen;
+            sMonitor.CerrarSerialPort();
         }
 
         private void btnON_Click(object sender, EventArgs e)
@@ -154,6 +136,9 @@ namespace RayPro
             btnON.Visible = false;
             lblEncender.Text = "OFF";
             lblEncender.ForeColor = Color.Brown;
+            sMonitor.bootSerialPort();
+            Thread.Sleep(500);
+            sMonitor.EnviarDatosASerial("ON");
         }
 
 
@@ -204,14 +189,22 @@ namespace RayPro
             using (var sonido = new SoundPlayer(@"../../Aplicaciones/tools/sonido/preparando.wav"))
             {
                 sonido.Play();
+
             }
-            Thread.Sleep(4000);
+            sMonitor.EnviarDatosASerial("PRE");
+
+
+            Thread.Sleep(3000);
 
             btnPRE.BackColor = Color.Transparent;
             using (var sonido = new SoundPlayer(@"../../Aplicaciones/tools/sonido/ready.wav"))
             {
                 sonido.Play();
             }
+
+            int getVini = _Hsettings.initialVoltageInput(nKVp); double getTiempo = _Hsettings.sendTimeInput(nmAs);
+            String sendFactors = "t" + getTiempo + "v" + getVini;
+            sMonitor.EnviarDatosASerial(sendFactors);
         }
 
         private void btnRX_Click(object sender, EventArgs e)/*(DISPARO-RX)*/
@@ -220,7 +213,9 @@ namespace RayPro
             {
                 sonido.Play();
             }
-            Thread.Sleep(1500);
+            sMonitor.EnviarDatosASerial("D_RX");
+            Thread.Sleep(1000);
+            
         }
 
         private void btnR_Click(object sender, EventArgs e)/*(RESETEAR)*/

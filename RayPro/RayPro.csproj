@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="Aplicaciones\tools\DatosRadiologia.cs" />
     <Compile Include="Aplicaciones\tools\HumanSettings.cs" />
+    <Compile Include="Aplicaciones\tools\SettingSerialPort.cs" />
     <Compile Include="Persistencia\db\conexionDB.cs" />
     <Compile Include="Persistencia\loginController.cs" />
     <Compile Include="Program.cs" />
