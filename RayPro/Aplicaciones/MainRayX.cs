@@ -177,9 +177,9 @@ namespace RayPro
         private void btnUpKv_Click(object sender, EventArgs e)
         {
             nKVp += 1;
-            if(nKVp > 100)
+            if(nKVp > 125)
             {
-                nKVp = 100;
+                nKVp = 125;
             }
             lblKVp.Text = "" + nKVp;
         }
@@ -222,6 +222,11 @@ namespace RayPro
 
         private void btnR_Click(object sender, EventArgs e)/*(RESETEAR)*/
         {
+            lblmAs.Text = "20";
+            lblKVp.Text = "70";
+           
+            Thread.Sleep(2000);
+            
 
         }
 
@@ -234,6 +239,7 @@ namespace RayPro
                 btnFoco_small.Visible = false; btnFoco_large.Visible = true;
                 Thread.Sleep(4000);
                 lblFoco.Text = "LARGE";
+                _Hsettings.maSmallOrLarge(lblFoco.Text);
             }
         }
 
@@ -245,6 +251,7 @@ namespace RayPro
                 btnFoco_small.Visible = true; btnFoco_large.Visible = false;
                 Thread.Sleep(4000);
                 lblFoco.Text = "SMALL";
+                _Hsettings.maSmallOrLarge(lblFoco.Text);
             }
         }
 
@@ -273,7 +280,7 @@ namespace RayPro
         //Botones teclado para Kv
         private void tecla_Kv_Click(object sender, EventArgs e)
         {
-            FrKeyBoard formTecla = new FrKeyBoard("kVolt", 100, 0);
+            FrKeyBoard formTecla = new FrKeyBoard("kVolt", 125, 0);//change Kv
             /*Solo para pocisionar el teclado a la Izquierda*/
             formTecla.StartPosition = FormStartPosition.Manual;
             formTecla.Location = new System.Drawing.Point(

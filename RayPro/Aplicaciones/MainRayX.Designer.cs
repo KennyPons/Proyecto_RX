@@ -41,7 +41,7 @@
             this.lblFoco = new System.Windows.Forms.Label();
             this.lblKVp = new System.Windows.Forms.Label();
             this.lblmAs = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.textFilamento = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.panelCombo = new System.Windows.Forms.Panel();
@@ -215,7 +215,7 @@
             this.panelShow.Controls.Add(this.btnFoco_small);
             this.panelShow.Controls.Add(this.lblKVp);
             this.panelShow.Controls.Add(this.lblmAs);
-            this.panelShow.Controls.Add(this.label6);
+            this.panelShow.Controls.Add(this.textFilamento);
             this.panelShow.Controls.Add(this.label5);
             this.panelShow.Controls.Add(this.label4);
             this.panelShow.Controls.Add(this.btnDownKv);
@@ -247,7 +247,7 @@
             this.lblKVp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.lblKVp.Font = new System.Drawing.Font("Tahoma", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblKVp.ForeColor = System.Drawing.Color.Tomato;
-            this.lblKVp.Location = new System.Drawing.Point(462, 99);
+            this.lblKVp.Location = new System.Drawing.Point(462, 98);
             this.lblKVp.Name = "lblKVp";
             this.lblKVp.Size = new System.Drawing.Size(103, 52);
             this.lblKVp.TabIndex = 16;
@@ -267,17 +267,17 @@
             this.lblmAs.Text = "20";
             this.lblmAs.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label6
+            // textFilamento
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Tomato;
-            this.label6.Location = new System.Drawing.Point(294, 204);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(70, 29);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Foco";
+            this.textFilamento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textFilamento.AutoSize = true;
+            this.textFilamento.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textFilamento.ForeColor = System.Drawing.Color.Tomato;
+            this.textFilamento.Location = new System.Drawing.Point(294, 204);
+            this.textFilamento.Name = "textFilamento";
+            this.textFilamento.Size = new System.Drawing.Size(70, 29);
+            this.textFilamento.TabIndex = 14;
+            this.textFilamento.Text = "Foco";
             // 
             // label5
             // 
@@ -589,7 +589,7 @@
             this.btnFoco_small.Image = global::RayPro.Properties.Resources.focoOFF;
             this.btnFoco_small.Location = new System.Drawing.Point(257, 46);
             this.btnFoco_small.Name = "btnFoco_small";
-            this.btnFoco_small.Size = new System.Drawing.Size(123, 136);
+            this.btnFoco_small.Size = new System.Drawing.Size(123, 137);
             this.btnFoco_small.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnFoco_small.TabIndex = 17;
             this.btnFoco_small.TabStop = false;
@@ -668,7 +668,7 @@
             this.btnFoco_large.Image = global::RayPro.Properties.Resources.focoON;
             this.btnFoco_large.Location = new System.Drawing.Point(257, 46);
             this.btnFoco_large.Name = "btnFoco_large";
-            this.btnFoco_large.Size = new System.Drawing.Size(123, 136);
+            this.btnFoco_large.Size = new System.Drawing.Size(123, 137);
             this.btnFoco_large.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnFoco_large.TabIndex = 2;
             this.btnFoco_large.TabStop = false;
@@ -681,7 +681,7 @@
             this.pictureBox5.Image = global::RayPro.Properties.Resources.cuadro3D_DM;
             this.pictureBox5.Location = new System.Drawing.Point(0, 3);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(260, 245);
+            this.pictureBox5.Size = new System.Drawing.Size(251, 245);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox5.TabIndex = 0;
             this.pictureBox5.TabStop = false;
@@ -690,9 +690,9 @@
             // 
             this.pictureBox6.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.pictureBox6.Image = global::RayPro.Properties.Resources.cuadro3D_DM;
-            this.pictureBox6.Location = new System.Drawing.Point(373, 0);
+            this.pictureBox6.Location = new System.Drawing.Point(382, 0);
             this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(281, 251);
+            this.pictureBox6.Size = new System.Drawing.Size(272, 251);
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox6.TabIndex = 1;
             this.pictureBox6.TabStop = false;
@@ -796,7 +796,7 @@
         private System.Windows.Forms.Button btnDownMaS;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label textFilamento;
         private System.Windows.Forms.PictureBox imgBodyRay;
         private System.Windows.Forms.ImageList imageLista;
         private System.Windows.Forms.PictureBox btnOFF;

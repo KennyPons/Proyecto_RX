@@ -12,6 +12,7 @@ namespace RayPro.Aplicaciones.tools
         
         private DatosRadiologia _datosRadiologia; private ComboBox cboProy, cboEstruct; private Label lblKVp, lblMaS;
         private double mil = Math.Pow(10, 3);
+        private int MA = 50;
         //constructor
         public HumanSettings(ComboBox cboProy, ComboBox cboEstruct, Label lblKVp, Label lblMaS) {
             this.cboEstruct = cboEstruct; this.cboProy = cboProy;
@@ -69,7 +70,7 @@ namespace RayPro.Aplicaciones.tools
         public int initialVoltageInput(int kvNeed)
         {
             
-            int kvInicial = kvNeed * Convert.ToInt32(mil), kvFinal = 100 * Convert.ToInt32(mil);
+            int kvInicial = kvNeed * Convert.ToInt32(mil), kvFinal = 125 * Convert.ToInt32(mil);
 
             int result_Entrada_Ini = (250 * kvInicial) / kvFinal;
             
@@ -79,13 +80,26 @@ namespace RayPro.Aplicaciones.tools
 
         public double sendTimeInput(int mAsInput)
         {
-            double resultTiempo = (double )mAsInput / 75;
+            double resultTiempo = (double )mAsInput / MA;
 
             double redondeoTiempo = Math.Round(resultTiempo, 3, MidpointRounding.AwayFromZero);
 
 
             return redondeoTiempo * Convert.ToInt32(mil);
 
+        }
+
+
+        public void maSmallOrLarge(string foco)
+        {
+            if (foco.Equals("Small"))
+            {
+                MA = 50;//MA
+            }
+            else
+            {
+                MA = 75;//MA
+            }
         }
 
 
