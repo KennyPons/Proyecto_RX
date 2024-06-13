@@ -167,6 +167,10 @@
     <Content Include="Persistencia\db\DB_USER.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\mynamelogo-removebg-preview.png" />
+    <None Include="Resources\mynamelogo.png" />
+    <None Include="Resources\mylogo-removebg-preview.png" />
+    <None Include="Resources\mylogo.png" />
     <None Include="Resources\cuadro3D_DM.png" />
     <None Include="Resources\cuadrito_RM.png" />
     <None Include="Properties\app.manifest" />
