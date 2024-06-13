@@ -40,15 +40,21 @@ namespace RayPro
         {
             InitializeComponent();
             initBordeCuadrado();
-            imgBodyRay.Image = imageLista.Images[indiceImgNow];
-            imgBodyRay.SizeMode = PictureBoxSizeMode.Zoom;
-            sMonitor = new SettingSerialPort();
-            _Hsettings = new HumanSettings(cboProyeccion, cboEstructura, lblKVp,lblmAs);
-            _Hsettings.showBodyRayX(0);
+            InitFirstParametros();
+            inhabilitarEvents(false);
             
         }
 
         //==========================================FUNCIONES INICIO AL SYSTEMA============================================================//
+
+        private void InitFirstParametros()
+        {
+            imgBodyRay.Image = imageLista.Images[indiceImgNow];
+            imgBodyRay.SizeMode = PictureBoxSizeMode.Zoom;
+            sMonitor = new SettingSerialPort();
+            _Hsettings = new HumanSettings(cboProyeccion, cboEstructura, lblKVp, lblmAs);
+            _Hsettings.showBodyRayX(0);
+        }
 
         private void initBordeCuadrado()
         { /// BORDAR FIGURA CUADRA DE TEXT BOX
@@ -77,6 +83,21 @@ namespace RayPro
             this.WindowState = FormWindowState.Minimized;
         }
 
+
+        private void inhabilitarEvents(bool estadoAcual)
+        {
+            btnLeft.Enabled = estadoAcual;
+            btnRight.Enabled = estadoAcual;
+            btnPRE.Enabled = estadoAcual;
+            btnRX.Enabled = estadoAcual;
+            btnR.Enabled = estadoAcual;
+            btnDownKv.Enabled = estadoAcual;
+            btnUpKv.Enabled = estadoAcual;
+            btnDownMaS.Enabled = estadoAcual;
+            btnUpMaS.Enabled = estadoAcual;
+            tecla_Kv.Enabled = estadoAcual;
+            tecla_mAs.Enabled = estadoAcual;
+        }
 
         //BUTTONS CHANGES of IMAGES
         private void btnLeft_Click(object sender, EventArgs e)//Botón Izquierdo para Imagen
@@ -129,6 +150,7 @@ namespace RayPro
             lblEncender.ForeColor = Color.LimeGreen;
             sMonitor.EnviarDatosASerial("OFF");
             Thread.Sleep(500);
+            inhabilitarEvents(true);
             sMonitor.CerrarSerialPort();
         }
 
@@ -140,6 +162,7 @@ namespace RayPro
             lblEncender.ForeColor = Color.Brown;
             sMonitor.bootSerialPort();
             Thread.Sleep(500);
+            inhabilitarEvents(false);
             sMonitor.EnviarDatosASerial("ON");
         }
 
@@ -226,7 +249,7 @@ namespace RayPro
             lblKVp.Text = "70";
            
             Thread.Sleep(2000);
-            
+            InitFirstParametros();
 
         }
 
