@@ -211,7 +211,7 @@ namespace RayPro
                 nKVp = 100;
             }
             lblKVp.Text = "" + nKVp;*/
-            sMonitor.EnviarDatosASerial("right");
+            sMonitor.EnviarDatosASerial("r");
             Thread.Sleep(10);
         }
 
@@ -352,7 +352,7 @@ namespace RayPro
                 nKVp = 40;
             }
             lblKVp.Text = "" + nKVp;*/
-            sMonitor.EnviarDatosASerial("left");
+            sMonitor.EnviarDatosASerial("l");
             Thread.Sleep(10);
         }
 

@@ -37,7 +37,8 @@ namespace RayPro.Aplicaciones.tools
 
 
                 sPuerto.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-                sPuerto.WriteTimeout = 500;
+                sPuerto.WriteTimeout = 4900; // 5 segundos para escritura
+                sPuerto.ReadTimeout = 500;  // 5 segundos para lectura
 
                 sPuerto.Open();
             }
