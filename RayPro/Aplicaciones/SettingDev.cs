@@ -1,10 +1,12 @@
 ﻿using RayPro.Persistencia;
+using RayPro.Persistencia.db;
 using RayPro.Vista;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -17,7 +19,7 @@ namespace RayPro.Aplicaciones
     {
 
         private loginController objLog;
-
+        private BDExcell handerExcell;
         public SettingDev()
         {
             InitializeComponent();
@@ -26,6 +28,7 @@ namespace RayPro.Aplicaciones
             //string[] bitsDatos = { "8", "7", "otros..." };
             // paridad
             //string[] paridades = { "None", "Odd", "Even", "otros..." };
+            
         }
 
 
@@ -39,6 +42,9 @@ namespace RayPro.Aplicaciones
 
             string[] baudios = { "2400","4800","9600", "19200" , "115200" };
             cboBaud.Items.AddRange(baudios);
+
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DbSerial.xlsx");
+            handerExcell = new BDExcell(path);
 
             txtUsuario.Text = configuraciones.Settings.Default.userName;
             txtMaster.Focus();
@@ -72,6 +78,8 @@ namespace RayPro.Aplicaciones
             txtPassAnt.Clear();
             txtPassNew.Clear();
             txtUsuario.Focus();
+            txtMaster.Clear();
+            txtMaster.Focus();
         }
         //========================================================================================
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -121,9 +129,14 @@ namespace RayPro.Aplicaciones
         {
             if (objLog.AutenticarAdmin(txtMaster.Text.Trim(),""))
             {
-                configuraciones.Settings.Default.Puerto = cboComp.SelectedItem.ToString();
+                /*configuraciones.Settings.Default.Puerto = cboComp.SelectedItem.ToString();
                 configuraciones.Settings.Default.Baudios = int.Parse(cboBaud.SelectedItem.ToString());
-                configuraciones.Settings.Default.Save();
+                configuraciones.Settings.Default.Save();*/
+
+                string puerto = cboComp.SelectedItem.ToString();
+                int baud = int.Parse(cboBaud.SelectedItem.ToString());
+                handerExcell.SaveDataSerialExcell(puerto,baud);
+                FrCuadro.Show("Save Sufecull!", "Warning", MessageBoxButtons.YesNo);
             }
             else
             {

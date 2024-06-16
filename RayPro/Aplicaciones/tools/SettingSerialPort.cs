@@ -1,5 +1,7 @@
-﻿using System;
+﻿using RayPro.Persistencia.db;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -12,18 +14,22 @@ namespace RayPro.Aplicaciones.tools
     {
         private SerialPort sPuerto;
         private string receivedData;
+        private BDExcell handerExcell;
         public SettingSerialPort() {
             sPuerto = new SerialPort();
             receivedData = string.Empty;
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DbSerial.xlsx");
+            handerExcell = new BDExcell(path);
         }
 
 
         public void bootSerialPort()
         {
+            var dataExcell = handerExcell.GetDataSerialExcell(4);
             try
             {
-                sPuerto.PortName = configuraciones.Settings.Default.Puerto;
-                sPuerto.BaudRate = configuraciones.Settings.Default.Baudios;
+                sPuerto.PortName = dataExcell.com;
+                sPuerto.BaudRate = dataExcell.baudRate;
                 sPuerto.DataBits = 8;
                 sPuerto.Parity = Parity.None;
                 sPuerto.StopBits = StopBits.One;
