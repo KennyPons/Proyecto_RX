@@ -37,8 +37,8 @@ namespace RayPro.Aplicaciones.tools
 
 
                 sPuerto.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-                sPuerto.WriteTimeout = 4900; // 5 segundos para escritura
-                sPuerto.ReadTimeout = 500;  // 5 segundos para lectura
+                sPuerto.WriteTimeout = 1000; // 5 segundos para escritura
+                sPuerto.ReadTimeout = 500;  // 5 segundos para lectura*/
 
                 sPuerto.Open();
             }
@@ -48,25 +48,26 @@ namespace RayPro.Aplicaciones.tools
             }
         }
 
-        public void EnviarDatosASerial(string datos)
+        public async Task EnviarDatosASerial(string datos)
         {
-            try
+            await Task.Run(() =>
             {
-                // Verifica si el puerto serial está abierto antes de enviar datos
-                if (sPuerto.IsOpen)
+                try
                 {
-                    // Envía los datos al puerto serial
-                    sPuerto.Write(datos);
+                    if (sPuerto.IsOpen)
+                    {
+                        sPuerto.Write(datos);
+                    }
+                    else
+                    {
+                        MessageBox.Show("El puerto serial no está abierto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("El puerto serial no está abierto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al enviar datos por el puerto serial: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al enviar datos por el puerto serial: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            });
         }
 
         private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
