@@ -11,8 +11,10 @@ namespace RayPro.Aplicaciones.tools
     internal class SettingSerialPort
     {
         private SerialPort sPuerto;
+        private string receivedData;
         public SettingSerialPort() {
             sPuerto = new SerialPort();
+            receivedData = string.Empty;
         }
 
 
@@ -27,6 +29,8 @@ namespace RayPro.Aplicaciones.tools
                 sPuerto.StopBits = StopBits.One;
                 sPuerto.Handshake = Handshake.None;
 
+
+                sPuerto.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
                 sPuerto.WriteTimeout = 500;
 
                 sPuerto.Open();
@@ -58,6 +62,25 @@ namespace RayPro.Aplicaciones.tools
             }
         }
 
+        private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                if (sPuerto.IsOpen)
+                {
+                    receivedData = sPuerto.ReadLine().Trim(); // Lee la línea de datos del puerto serial y la recorta
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al recibir datos: " + ex.Message);
+            }
+        }
+
+        public string GetDatoRecibido()
+        {
+            return receivedData;
+        }
 
         public void CerrarSerialPort()
         {

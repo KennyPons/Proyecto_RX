@@ -31,42 +31,33 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainRayX));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblHora = new System.Windows.Forms.Label();
-            this.lblFecha = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panelShow = new System.Windows.Forms.Panel();
-            this.lblFoco = new System.Windows.Forms.Label();
-            this.lblKVp = new System.Windows.Forms.Label();
-            this.lblmAs = new System.Windows.Forms.Label();
-            this.textFilamento = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.panelCombo = new System.Windows.Forms.Panel();
-            this.cboProyeccion = new System.Windows.Forms.ComboBox();
-            this.cboEstructura = new System.Windows.Forms.ComboBox();
-            this.txtProyeccion = new System.Windows.Forms.TextBox();
-            this.txtEstructura = new System.Windows.Forms.TextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.lblEncender = new System.Windows.Forms.Label();
-            this.imageLista = new System.Windows.Forms.ImageList(this.components);
-            this.DATE_NOW = new System.Windows.Forms.Timer(this.components);
             this.imgBodyRay = new System.Windows.Forms.PictureBox();
             this.btnRight = new System.Windows.Forms.Button();
             this.btnLeft = new System.Windows.Forms.Button();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.lblHora = new System.Windows.Forms.Label();
+            this.lblFecha = new System.Windows.Forms.Label();
             this.btnON = new System.Windows.Forms.PictureBox();
             this.btnOFF = new System.Windows.Forms.PictureBox();
             this.btnR = new System.Windows.Forms.Button();
             this.btnRX = new System.Windows.Forms.Button();
             this.btnPRE = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panelShow = new System.Windows.Forms.Panel();
             this.tecla_Kv = new System.Windows.Forms.PictureBox();
             this.tecla_mAs = new System.Windows.Forms.PictureBox();
+            this.lblFoco = new System.Windows.Forms.Label();
             this.btnFoco_small = new System.Windows.Forms.PictureBox();
+            this.lblKVp = new System.Windows.Forms.Label();
+            this.lblmAs = new System.Windows.Forms.Label();
+            this.textFilamento = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.btnDownKv = new System.Windows.Forms.Button();
             this.btnUpKv = new System.Windows.Forms.Button();
             this.btnDownMaS = new System.Windows.Forms.Button();
@@ -74,28 +65,38 @@
             this.btnFoco_large = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.panelCombo = new System.Windows.Forms.Panel();
+            this.cboProyeccion = new System.Windows.Forms.ComboBox();
+            this.cboEstructura = new System.Windows.Forms.ComboBox();
+            this.txtProyeccion = new System.Windows.Forms.TextBox();
+            this.txtEstructura = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblEncender = new System.Windows.Forms.Label();
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.PictureBox();
+            this.imageLista = new System.Windows.Forms.ImageList(this.components);
+            this.DATE_NOW = new System.Windows.Forms.Timer(this.components);
+            this.TiempoKv = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panelShow.SuspendLayout();
-            this.panelCombo.SuspendLayout();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgBodyRay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnON)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOFF)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelShow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tecla_Kv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tecla_mAs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFoco_small)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFoco_large)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            this.panelCombo.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.SuspendLayout();
@@ -133,285 +134,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1070, 620);
             this.splitContainer1.SplitterDistance = 356;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
-            this.panel1.Controls.Add(this.pictureBox2);
-            this.panel1.Controls.Add(this.pictureBox3);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(356, 66);
-            this.panel1.TabIndex = 0;
-            // 
-            // lblHora
-            // 
-            this.lblHora.AutoSize = true;
-            this.lblHora.Font = new System.Drawing.Font("Century Gothic", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHora.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(180)))));
-            this.lblHora.Location = new System.Drawing.Point(530, 47);
-            this.lblHora.Name = "lblHora";
-            this.lblHora.Size = new System.Drawing.Size(84, 25);
-            this.lblHora.TabIndex = 15;
-            this.lblHora.Text = "lblHora";
-            // 
-            // lblFecha
-            // 
-            this.lblFecha.AutoSize = true;
-            this.lblFecha.Font = new System.Drawing.Font("Century Gothic", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFecha.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lblFecha.Location = new System.Drawing.Point(514, 72);
-            this.lblFecha.Name = "lblFecha";
-            this.lblFecha.Size = new System.Drawing.Size(59, 16);
-            this.lblFecha.TabIndex = 14;
-            this.lblFecha.Text = "lblfecha";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Tomato;
-            this.label3.Location = new System.Drawing.Point(561, 593);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(21, 19);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "R";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Tomato;
-            this.label2.Location = new System.Drawing.Point(345, 593);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 19);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "RX";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Tomato;
-            this.label1.Location = new System.Drawing.Point(104, 593);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 19);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "PRE";
-            // 
-            // panelShow
-            // 
-            this.panelShow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelShow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(55)))), ((int)(((byte)(125)))));
-            this.panelShow.Controls.Add(this.tecla_Kv);
-            this.panelShow.Controls.Add(this.tecla_mAs);
-            this.panelShow.Controls.Add(this.lblFoco);
-            this.panelShow.Controls.Add(this.btnFoco_small);
-            this.panelShow.Controls.Add(this.lblKVp);
-            this.panelShow.Controls.Add(this.lblmAs);
-            this.panelShow.Controls.Add(this.textFilamento);
-            this.panelShow.Controls.Add(this.label5);
-            this.panelShow.Controls.Add(this.label4);
-            this.panelShow.Controls.Add(this.btnDownKv);
-            this.panelShow.Controls.Add(this.btnUpKv);
-            this.panelShow.Controls.Add(this.btnDownMaS);
-            this.panelShow.Controls.Add(this.btnUpMaS);
-            this.panelShow.Controls.Add(this.btnFoco_large);
-            this.panelShow.Controls.Add(this.pictureBox5);
-            this.panelShow.Controls.Add(this.pictureBox6);
-            this.panelShow.Location = new System.Drawing.Point(27, 214);
-            this.panelShow.Name = "panelShow";
-            this.panelShow.Size = new System.Drawing.Size(654, 251);
-            this.panelShow.TabIndex = 2;
-            // 
-            // lblFoco
-            // 
-            this.lblFoco.AutoSize = true;
-            this.lblFoco.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFoco.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(14)))), ((int)(((byte)(14)))));
-            this.lblFoco.Location = new System.Drawing.Point(270, 3);
-            this.lblFoco.Name = "lblFoco";
-            this.lblFoco.Size = new System.Drawing.Size(124, 39);
-            this.lblFoco.TabIndex = 18;
-            this.lblFoco.Text = "SMALL";
-            // 
-            // lblKVp
-            // 
-            this.lblKVp.AutoSize = true;
-            this.lblKVp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblKVp.Font = new System.Drawing.Font("Tahoma", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblKVp.ForeColor = System.Drawing.Color.Tomato;
-            this.lblKVp.Location = new System.Drawing.Point(472, 99);
-            this.lblKVp.Name = "lblKVp";
-            this.lblKVp.Size = new System.Drawing.Size(103, 52);
-            this.lblKVp.TabIndex = 16;
-            this.lblKVp.Text = "100";
-            this.lblKVp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblmAs
-            // 
-            this.lblmAs.AutoSize = true;
-            this.lblmAs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblmAs.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblmAs.ForeColor = System.Drawing.Color.Tomato;
-            this.lblmAs.Location = new System.Drawing.Point(84, 93);
-            this.lblmAs.Name = "lblmAs";
-            this.lblmAs.Size = new System.Drawing.Size(87, 58);
-            this.lblmAs.TabIndex = 15;
-            this.lblmAs.Text = "20";
-            this.lblmAs.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // textFilamento
-            // 
-            this.textFilamento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textFilamento.AutoSize = true;
-            this.textFilamento.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textFilamento.ForeColor = System.Drawing.Color.Tomato;
-            this.textFilamento.Location = new System.Drawing.Point(294, 204);
-            this.textFilamento.Name = "textFilamento";
-            this.textFilamento.Size = new System.Drawing.Size(70, 29);
-            this.textFilamento.TabIndex = 14;
-            this.textFilamento.Text = "Foco";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 17.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Tomato;
-            this.label5.Location = new System.Drawing.Point(497, 15);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(58, 28);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "KVp";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Tomato;
-            this.label4.Location = new System.Drawing.Point(107, 13);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 29);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "mAs";
-            // 
-            // panelCombo
-            // 
-            this.panelCombo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelCombo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panelCombo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(55)))), ((int)(((byte)(125)))));
-            this.panelCombo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panelCombo.Controls.Add(this.cboProyeccion);
-            this.panelCombo.Controls.Add(this.cboEstructura);
-            this.panelCombo.Controls.Add(this.txtProyeccion);
-            this.panelCombo.Controls.Add(this.txtEstructura);
-            this.panelCombo.Location = new System.Drawing.Point(27, 108);
-            this.panelCombo.Name = "panelCombo";
-            this.panelCombo.Size = new System.Drawing.Size(654, 100);
-            this.panelCombo.TabIndex = 1;
-            // 
-            // cboProyeccion
-            // 
-            this.cboProyeccion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboProyeccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
-            this.cboProyeccion.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboProyeccion.FormattingEnabled = true;
-            this.cboProyeccion.Location = new System.Drawing.Point(324, 52);
-            this.cboProyeccion.Name = "cboProyeccion";
-            this.cboProyeccion.Size = new System.Drawing.Size(314, 33);
-            this.cboProyeccion.TabIndex = 5;
-            // 
-            // cboEstructura
-            // 
-            this.cboEstructura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboEstructura.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
-            this.cboEstructura.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboEstructura.FormattingEnabled = true;
-            this.cboEstructura.Location = new System.Drawing.Point(324, 9);
-            this.cboEstructura.Name = "cboEstructura";
-            this.cboEstructura.Size = new System.Drawing.Size(314, 33);
-            this.cboEstructura.TabIndex = 4;
-            this.cboEstructura.SelectedIndexChanged += new System.EventHandler(this.cboEstructura_SelectedIndexChanged);
-            // 
-            // txtProyeccion
-            // 
-            this.txtProyeccion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtProyeccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
-            this.txtProyeccion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtProyeccion.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProyeccion.ForeColor = System.Drawing.Color.Tomato;
-            this.txtProyeccion.Location = new System.Drawing.Point(27, 57);
-            this.txtProyeccion.Multiline = true;
-            this.txtProyeccion.Name = "txtProyeccion";
-            this.txtProyeccion.ReadOnly = true;
-            this.txtProyeccion.Size = new System.Drawing.Size(272, 26);
-            this.txtProyeccion.TabIndex = 3;
-            this.txtProyeccion.Text = "PROYECCIÓN";
-            this.txtProyeccion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // txtEstructura
-            // 
-            this.txtEstructura.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
-            this.txtEstructura.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEstructura.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEstructura.ForeColor = System.Drawing.Color.Tomato;
-            this.txtEstructura.Location = new System.Drawing.Point(27, 9);
-            this.txtEstructura.Multiline = true;
-            this.txtEstructura.Name = "txtEstructura";
-            this.txtEstructura.ReadOnly = true;
-            this.txtEstructura.Size = new System.Drawing.Size(272, 28);
-            this.txtEstructura.TabIndex = 0;
-            this.txtEstructura.Text = "ESTRUCTURA";
-            this.txtEstructura.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
-            this.panel2.Controls.Add(this.lblEncender);
-            this.panel2.Controls.Add(this.btnMinimizar);
-            this.panel2.Controls.Add(this.btnClose);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(710, 40);
-            this.panel2.TabIndex = 0;
-            // 
-            // lblEncender
-            // 
-            this.lblEncender.AutoSize = true;
-            this.lblEncender.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEncender.ForeColor = System.Drawing.Color.Brown;
-            this.lblEncender.Location = new System.Drawing.Point(182, 7);
-            this.lblEncender.Name = "lblEncender";
-            this.lblEncender.Size = new System.Drawing.Size(68, 33);
-            this.lblEncender.TabIndex = 14;
-            this.lblEncender.Text = "OFF";
-            // 
-            // imageLista
-            // 
-            this.imageLista.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageLista.ImageStream")));
-            this.imageLista.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageLista.Images.SetKeyName(0, "head.png");
-            this.imageLista.Images.SetKeyName(1, "neck.png");
-            this.imageLista.Images.SetKeyName(2, "arms.png");
-            this.imageLista.Images.SetKeyName(3, "Column.png");
-            this.imageLista.Images.SetKeyName(4, "abdomen.png");
-            this.imageLista.Images.SetKeyName(5, "hips.png");
-            this.imageLista.Images.SetKeyName(6, "legs.png");
-            // 
-            // DATE_NOW
-            // 
-            this.DATE_NOW.Enabled = true;
-            this.DATE_NOW.Tick += new System.EventHandler(this.DATE_NOW_Tick);
             // 
             // imgBodyRay
             // 
@@ -458,15 +180,16 @@
             this.btnLeft.UseVisualStyleBackColor = true;
             this.btnLeft.Click += new System.EventHandler(this.btnLeft_Click);
             // 
-            // pictureBox3
+            // panel1
             // 
-            this.pictureBox3.Image = global::RayPro.Properties.Resources.mynamelogo_removebg_preview;
-            this.pictureBox3.Location = new System.Drawing.Point(59, 3);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(217, 55);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 1;
-            this.pictureBox3.TabStop = false;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.panel1.Controls.Add(this.pictureBox2);
+            this.panel1.Controls.Add(this.pictureBox3);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(356, 66);
+            this.panel1.TabIndex = 0;
             // 
             // pictureBox2
             // 
@@ -477,6 +200,38 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::RayPro.Properties.Resources.mynamelogo_removebg_preview;
+            this.pictureBox3.Location = new System.Drawing.Point(59, 3);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(217, 55);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 1;
+            this.pictureBox3.TabStop = false;
+            // 
+            // lblHora
+            // 
+            this.lblHora.AutoSize = true;
+            this.lblHora.Font = new System.Drawing.Font("Century Gothic", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHora.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(180)))));
+            this.lblHora.Location = new System.Drawing.Point(530, 47);
+            this.lblHora.Name = "lblHora";
+            this.lblHora.Size = new System.Drawing.Size(84, 25);
+            this.lblHora.TabIndex = 15;
+            this.lblHora.Text = "lblHora";
+            // 
+            // lblFecha
+            // 
+            this.lblFecha.AutoSize = true;
+            this.lblFecha.Font = new System.Drawing.Font("Century Gothic", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFecha.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblFecha.Location = new System.Drawing.Point(514, 72);
+            this.lblFecha.Name = "lblFecha";
+            this.lblFecha.Size = new System.Drawing.Size(59, 16);
+            this.lblFecha.TabIndex = 14;
+            this.lblFecha.Text = "lblfecha";
             // 
             // btnON
             // 
@@ -551,6 +306,42 @@
             this.btnPRE.UseVisualStyleBackColor = true;
             this.btnPRE.Click += new System.EventHandler(this.btnPRE_Click);
             // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Tomato;
+            this.label3.Location = new System.Drawing.Point(561, 593);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(21, 19);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "R";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Tomato;
+            this.label2.Location = new System.Drawing.Point(345, 593);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(32, 19);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "RX";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Tomato;
+            this.label1.Location = new System.Drawing.Point(104, 593);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 19);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "PRE";
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -561,6 +352,33 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
+            // 
+            // panelShow
+            // 
+            this.panelShow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelShow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(55)))), ((int)(((byte)(125)))));
+            this.panelShow.Controls.Add(this.tecla_Kv);
+            this.panelShow.Controls.Add(this.tecla_mAs);
+            this.panelShow.Controls.Add(this.lblFoco);
+            this.panelShow.Controls.Add(this.btnFoco_small);
+            this.panelShow.Controls.Add(this.lblKVp);
+            this.panelShow.Controls.Add(this.lblmAs);
+            this.panelShow.Controls.Add(this.textFilamento);
+            this.panelShow.Controls.Add(this.label5);
+            this.panelShow.Controls.Add(this.label4);
+            this.panelShow.Controls.Add(this.btnDownKv);
+            this.panelShow.Controls.Add(this.btnUpKv);
+            this.panelShow.Controls.Add(this.btnDownMaS);
+            this.panelShow.Controls.Add(this.btnUpMaS);
+            this.panelShow.Controls.Add(this.btnFoco_large);
+            this.panelShow.Controls.Add(this.pictureBox5);
+            this.panelShow.Controls.Add(this.pictureBox6);
+            this.panelShow.Location = new System.Drawing.Point(27, 214);
+            this.panelShow.Name = "panelShow";
+            this.panelShow.Size = new System.Drawing.Size(654, 251);
+            this.panelShow.TabIndex = 2;
             // 
             // tecla_Kv
             // 
@@ -584,6 +402,17 @@
             this.tecla_mAs.TabStop = false;
             this.tecla_mAs.Click += new System.EventHandler(this.tecla_mAs_Click);
             // 
+            // lblFoco
+            // 
+            this.lblFoco.AutoSize = true;
+            this.lblFoco.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFoco.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(14)))), ((int)(((byte)(14)))));
+            this.lblFoco.Location = new System.Drawing.Point(270, 3);
+            this.lblFoco.Name = "lblFoco";
+            this.lblFoco.Size = new System.Drawing.Size(124, 39);
+            this.lblFoco.TabIndex = 18;
+            this.lblFoco.Text = "SMALL";
+            // 
             // btnFoco_small
             // 
             this.btnFoco_small.Image = global::RayPro.Properties.Resources.focoOFF;
@@ -594,6 +423,68 @@
             this.btnFoco_small.TabIndex = 17;
             this.btnFoco_small.TabStop = false;
             this.btnFoco_small.Click += new System.EventHandler(this.btnFoco_small_Click);
+            // 
+            // lblKVp
+            // 
+            this.lblKVp.AutoSize = true;
+            this.lblKVp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.lblKVp.Font = new System.Drawing.Font("Tahoma", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKVp.ForeColor = System.Drawing.Color.Tomato;
+            this.lblKVp.Location = new System.Drawing.Point(472, 99);
+            this.lblKVp.Name = "lblKVp";
+            this.lblKVp.Size = new System.Drawing.Size(103, 52);
+            this.lblKVp.TabIndex = 16;
+            this.lblKVp.Text = "100";
+            this.lblKVp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblmAs
+            // 
+            this.lblmAs.AutoSize = true;
+            this.lblmAs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.lblmAs.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblmAs.ForeColor = System.Drawing.Color.Tomato;
+            this.lblmAs.Location = new System.Drawing.Point(84, 93);
+            this.lblmAs.Name = "lblmAs";
+            this.lblmAs.Size = new System.Drawing.Size(87, 58);
+            this.lblmAs.TabIndex = 15;
+            this.lblmAs.Text = "20";
+            this.lblmAs.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textFilamento
+            // 
+            this.textFilamento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textFilamento.AutoSize = true;
+            this.textFilamento.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textFilamento.ForeColor = System.Drawing.Color.Tomato;
+            this.textFilamento.Location = new System.Drawing.Point(294, 204);
+            this.textFilamento.Name = "textFilamento";
+            this.textFilamento.Size = new System.Drawing.Size(70, 29);
+            this.textFilamento.TabIndex = 14;
+            this.textFilamento.Text = "Foco";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Tahoma", 17.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Tomato;
+            this.label5.Location = new System.Drawing.Point(497, 15);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(58, 28);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "KVp";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Tomato;
+            this.label4.Location = new System.Drawing.Point(107, 13);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(64, 29);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "mAs";
             // 
             // btnDownKv
             // 
@@ -697,6 +588,99 @@
             this.pictureBox6.TabIndex = 1;
             this.pictureBox6.TabStop = false;
             // 
+            // panelCombo
+            // 
+            this.panelCombo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelCombo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelCombo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(55)))), ((int)(((byte)(125)))));
+            this.panelCombo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panelCombo.Controls.Add(this.cboProyeccion);
+            this.panelCombo.Controls.Add(this.cboEstructura);
+            this.panelCombo.Controls.Add(this.txtProyeccion);
+            this.panelCombo.Controls.Add(this.txtEstructura);
+            this.panelCombo.Location = new System.Drawing.Point(27, 108);
+            this.panelCombo.Name = "panelCombo";
+            this.panelCombo.Size = new System.Drawing.Size(654, 100);
+            this.panelCombo.TabIndex = 1;
+            // 
+            // cboProyeccion
+            // 
+            this.cboProyeccion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboProyeccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
+            this.cboProyeccion.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboProyeccion.FormattingEnabled = true;
+            this.cboProyeccion.Location = new System.Drawing.Point(324, 52);
+            this.cboProyeccion.Name = "cboProyeccion";
+            this.cboProyeccion.Size = new System.Drawing.Size(314, 33);
+            this.cboProyeccion.TabIndex = 5;
+            // 
+            // cboEstructura
+            // 
+            this.cboEstructura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboEstructura.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
+            this.cboEstructura.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboEstructura.FormattingEnabled = true;
+            this.cboEstructura.Location = new System.Drawing.Point(324, 9);
+            this.cboEstructura.Name = "cboEstructura";
+            this.cboEstructura.Size = new System.Drawing.Size(314, 33);
+            this.cboEstructura.TabIndex = 4;
+            this.cboEstructura.SelectedIndexChanged += new System.EventHandler(this.cboEstructura_SelectedIndexChanged);
+            // 
+            // txtProyeccion
+            // 
+            this.txtProyeccion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtProyeccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
+            this.txtProyeccion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtProyeccion.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtProyeccion.ForeColor = System.Drawing.Color.Tomato;
+            this.txtProyeccion.Location = new System.Drawing.Point(27, 57);
+            this.txtProyeccion.Multiline = true;
+            this.txtProyeccion.Name = "txtProyeccion";
+            this.txtProyeccion.ReadOnly = true;
+            this.txtProyeccion.Size = new System.Drawing.Size(272, 26);
+            this.txtProyeccion.TabIndex = 3;
+            this.txtProyeccion.Text = "PROYECCIÓN";
+            this.txtProyeccion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtEstructura
+            // 
+            this.txtEstructura.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
+            this.txtEstructura.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtEstructura.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEstructura.ForeColor = System.Drawing.Color.Tomato;
+            this.txtEstructura.Location = new System.Drawing.Point(27, 9);
+            this.txtEstructura.Multiline = true;
+            this.txtEstructura.Name = "txtEstructura";
+            this.txtEstructura.ReadOnly = true;
+            this.txtEstructura.Size = new System.Drawing.Size(272, 28);
+            this.txtEstructura.TabIndex = 0;
+            this.txtEstructura.Text = "ESTRUCTURA";
+            this.txtEstructura.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.panel2.Controls.Add(this.lblEncender);
+            this.panel2.Controls.Add(this.btnMinimizar);
+            this.panel2.Controls.Add(this.btnClose);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(710, 40);
+            this.panel2.TabIndex = 0;
+            // 
+            // lblEncender
+            // 
+            this.lblEncender.AutoSize = true;
+            this.lblEncender.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEncender.ForeColor = System.Drawing.Color.Brown;
+            this.lblEncender.Location = new System.Drawing.Point(182, 7);
+            this.lblEncender.Name = "lblEncender";
+            this.lblEncender.Size = new System.Drawing.Size(68, 33);
+            this.lblEncender.TabIndex = 14;
+            this.lblEncender.Text = "OFF";
+            // 
             // btnMinimizar
             // 
             this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -723,6 +707,27 @@
             this.btnClose.TabStop = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // imageLista
+            // 
+            this.imageLista.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageLista.ImageStream")));
+            this.imageLista.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageLista.Images.SetKeyName(0, "head.png");
+            this.imageLista.Images.SetKeyName(1, "neck.png");
+            this.imageLista.Images.SetKeyName(2, "arms.png");
+            this.imageLista.Images.SetKeyName(3, "Column.png");
+            this.imageLista.Images.SetKeyName(4, "abdomen.png");
+            this.imageLista.Images.SetKeyName(5, "hips.png");
+            this.imageLista.Images.SetKeyName(6, "legs.png");
+            // 
+            // DATE_NOW
+            // 
+            this.DATE_NOW.Enabled = true;
+            this.DATE_NOW.Tick += new System.EventHandler(this.DATE_NOW_Tick);
+            // 
+            // TiempoKv
+            // 
+            this.TiempoKv.Tick += new System.EventHandler(this.TiempoKv_Tick);
+            // 
             // MainRayX
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -740,25 +745,25 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panelShow.ResumeLayout(false);
-            this.panelShow.PerformLayout();
-            this.panelCombo.ResumeLayout(false);
-            this.panelCombo.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgBodyRay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnON)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOFF)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelShow.ResumeLayout(false);
+            this.panelShow.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tecla_Kv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tecla_mAs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFoco_small)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFoco_large)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            this.panelCombo.ResumeLayout(false);
+            this.panelCombo.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
             this.ResumeLayout(false);
@@ -813,6 +818,7 @@
         private System.Windows.Forms.PictureBox tecla_Kv;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Timer TiempoKv;
     }
 }
 

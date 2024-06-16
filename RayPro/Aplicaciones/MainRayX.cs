@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
@@ -31,7 +32,7 @@ namespace RayPro
         );
 
         //PRIMITIVOS DATA
-        private int indiceImgNow = 0; private int nKVp = 70, nmAs = 20;
+        private int indiceImgNow = 0; private int nKVp = 40, nmAs = 20;
         
         private HumanSettings _Hsettings;
         private SettingSerialPort sMonitor;
@@ -54,6 +55,7 @@ namespace RayPro
             sMonitor = new SettingSerialPort();
             _Hsettings = new HumanSettings(cboProyeccion, cboEstructura, lblKVp, lblmAs);
             _Hsettings.showBodyRayX(0);
+           
         }
 
         private void initBordeCuadrado()
@@ -148,10 +150,12 @@ namespace RayPro
             btnON.Visible = true;
             lblEncender.Text = "ON";
             lblEncender.ForeColor = Color.LimeGreen;
-            sMonitor.EnviarDatosASerial("OFF");
-            Thread.Sleep(500);
+            sMonitor.bootSerialPort();
+            sMonitor.EnviarDatosASerial("ON");
+            Thread.Sleep(400);
+            TiempoKv.Enabled = true;
             inhabilitarEvents(true);
-            sMonitor.CerrarSerialPort();
+            
         }
 
         private void btnON_Click(object sender, EventArgs e)
@@ -160,10 +164,12 @@ namespace RayPro
             btnON.Visible = false;
             lblEncender.Text = "OFF";
             lblEncender.ForeColor = Color.Brown;
-            sMonitor.bootSerialPort();
-            Thread.Sleep(500);
+            sMonitor.EnviarDatosASerial("APAGAR");
+            Thread.Sleep(300);
+            TiempoKv.Enabled = false;
             inhabilitarEvents(false);
-            sMonitor.EnviarDatosASerial("ON");
+            sMonitor.CerrarSerialPort();
+            sMonitor.EnviarDatosASerial("OFF");            
         }
 
 
@@ -199,12 +205,14 @@ namespace RayPro
         //Flechita Arriba o up Kv
         private void btnUpKv_Click(object sender, EventArgs e)
         {
-            nKVp += 1;
-            if(nKVp > 125)
+            /*nKVp += 1;
+            if(nKVp > 100)
             {
-                nKVp = 125;
+                nKVp = 100;
             }
-            lblKVp.Text = "" + nKVp;
+            lblKVp.Text = "" + nKVp;*/
+            sMonitor.EnviarDatosASerial("right");
+            Thread.Sleep(10);
         }
 
 
@@ -227,8 +235,9 @@ namespace RayPro
                 sonido.Play();
             }
 
-            int getVini = _Hsettings.initialVoltageInput(nKVp); double getTiempo = _Hsettings.sendTimeInput(nmAs);
-            String sendFactors = "t" + getTiempo + "v" + getVini;
+            /*int getVini = _Hsettings.initialVoltageInput(nKVp);*/
+            double getTiempo = _Hsettings.sendTimeInput(nmAs);
+            String sendFactors = "t" + getTiempo;
             sMonitor.EnviarDatosASerial(sendFactors);
         }
 
@@ -248,7 +257,7 @@ namespace RayPro
             lblmAs.Text = "20";
             lblKVp.Text = "70";
            
-            Thread.Sleep(2000);
+            Thread.Sleep(2000);// 2 seg
             InitFirstParametros();
 
         }
@@ -260,9 +269,11 @@ namespace RayPro
             if(Rs == DialogResult.Yes)
             {
                 btnFoco_small.Visible = false; btnFoco_large.Visible = true;
+                sMonitor.EnviarDatosASerial("FILAMENTO");
                 Thread.Sleep(4000);
                 lblFoco.Text = "LARGE";
                 _Hsettings.maSmallOrLarge(lblFoco.Text);
+                sMonitor.EnviarDatosASerial(lblFoco.Text);
             }
         }
 
@@ -272,9 +283,11 @@ namespace RayPro
             if(Rs == DialogResult.Yes)
             {
                 btnFoco_small.Visible = true; btnFoco_large.Visible = false;
+                sMonitor.EnviarDatosASerial("FILAMENTO");
                 Thread.Sleep(4000);
                 lblFoco.Text = "SMALL";
                 _Hsettings.maSmallOrLarge(lblFoco.Text);
+                sMonitor.EnviarDatosASerial(lblFoco.Text);
             }
         }
 
@@ -315,15 +328,32 @@ namespace RayPro
             nKVp = formTecla.SentNumerbs;
             lblKVp.Text = "" + nKVp;
         }
+
+        private void TiempoKv_Tick(object sender, EventArgs e)
+        {
+            string dataKv = sMonitor.GetDatoRecibido();
+            if (!string.IsNullOrEmpty(dataKv))
+            {
+                lblKVp.Text = dataKv; // Actualiza el Label con los datos recibidos
+            }
+            else
+            {
+                nKVp = 40;
+                lblKVp.Text = nKVp.ToString();
+            }
+        }
+
         //Flechita Abajo o Down Kv
         private void btnDownKv_Click(object sender, EventArgs e)
         {
-            nKVp -= 1;
+            /*nKVp -= 1;
             if(nKVp < 40)
             {
                 nKVp = 40;
             }
-            lblKVp.Text = "" + nKVp;
+            lblKVp.Text = "" + nKVp;*/
+            sMonitor.EnviarDatosASerial("left");
+            Thread.Sleep(10);
         }
 
 
