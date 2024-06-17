@@ -95,8 +95,6 @@ namespace RayPro
             btnUpKv.Enabled = estadoAcual;
             btnDownMaS.Enabled = estadoAcual;
             btnUpMaS.Enabled = estadoAcual;
-            tecla_Kv.Enabled = estadoAcual;
-            tecla_mAs.Enabled = estadoAcual;
         }
 
         //BUTTONS CHANGES of IMAGES
@@ -285,36 +283,27 @@ namespace RayPro
             this._Hsettings.changeShowCboProy(selectEstructura);
         }
 
-        //Botones teclado para mAs
-        private void tecla_mAs_Click(object sender, EventArgs e)
+        private void panelShow_Paint(object sender, PaintEventArgs e)
         {
-            FrKeyBoard formTecla = new FrKeyBoard("amperaje",300,0);
-            
-            formTecla.StartPosition = FormStartPosition.Manual;
-            formTecla.Location = new System.Drawing.Point(
-                    this.Left + tecla_mAs.Left,
-                    this.Top + tecla_mAs.Top + tecla_mAs.Height);
-            formTecla.ShowDialog();
 
-            nmAs = formTecla.SentNumerbs;
-            lblmAs.Text = "" + nmAs; 
         }
 
-        //Botones teclado para Kv
-        private void tecla_Kv_Click(object sender, EventArgs e)
+        private void pictureBox5_Click(object sender, EventArgs e)
         {
-            FrKeyBoard formTecla = new FrKeyBoard("kVolt", 125, 0);//change Kv
-            /*Solo para pocisionar el teclado a la Izquierda*/
-            formTecla.StartPosition = FormStartPosition.Manual;
-            formTecla.Location = new System.Drawing.Point(
-                    this.Left + tecla_Kv.Left,
-                    this.Top + tecla_Kv.Top + tecla_Kv.Height);
 
-            formTecla.ShowDialog();
-
-            nKVp = formTecla.SentNumerbs;
-            lblKVp.Text = "" + nKVp;
         }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void txtProyeccion_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
         //Flechita Abajo o Down Kv
         private void btnDownKv_Click(object sender, EventArgs e)
         {
