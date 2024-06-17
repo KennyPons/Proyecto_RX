@@ -92,7 +92,7 @@ namespace RayPro.Vista
         private void linkSetting_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             FrQuestion question = new FrQuestion();
-            question.Show();
+            question.ShowDialog();
             Hide();
         }
 

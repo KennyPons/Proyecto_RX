@@ -76,7 +76,10 @@ namespace RayPro.Aplicaciones
         //========================================================================================
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Login frLogin = new Login();
+            frLogin.Show();
+            this.Close();
+
         }
 
         private void btnMinimizar_Click(object sender, EventArgs e)
