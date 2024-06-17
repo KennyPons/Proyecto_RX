@@ -3,20 +3,13 @@ using RayPro.Aplicaciones.tools;
 using RayPro.Persistencia.db;
 using RayPro.Vista;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.IO.Ports;
-using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace RayPro
 {
@@ -157,7 +150,7 @@ namespace RayPro
             btnON.Visible = true;
             lblEncender.Text = "ON";
             lblEncender.ForeColor = Color.LimeGreen;
-            var dataExcell = handerExcell.GetDataSerialExcell(4);
+            var dataExcell = handerExcell.GetDataSerialExcell(5);
 
             sMonitor.OpenSerialPort(dataExcell.com,dataExcell.baudRate);
             // Enviar el primer comando de forma asincrónica
