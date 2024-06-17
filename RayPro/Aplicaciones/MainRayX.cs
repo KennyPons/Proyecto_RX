@@ -1,11 +1,13 @@
 ﻿using RayPro.Aplicaciones;
 using RayPro.Aplicaciones.tools;
+using RayPro.Persistencia.db;
 using RayPro.Vista;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Media;
@@ -37,6 +39,7 @@ namespace RayPro
 
         private HumanSettings _Hsettings;
         private SettingSerialPort sMonitor;
+        private BDExcell handerExcell;
         //CONSTRUCTORS
         public MainRayX()
         {
@@ -57,7 +60,8 @@ namespace RayPro
             sMonitor = new SettingSerialPort();
             _Hsettings = new HumanSettings(cboProyeccion, cboEstructura, lblKVp, lblmAs);
             _Hsettings.showBodyRayX(0);
-            sMonitor.bootSerialPort();
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DbSerial.xlsx");
+            handerExcell = new BDExcell(path);
 
         }
 
@@ -153,13 +157,14 @@ namespace RayPro
             btnON.Visible = true;
             lblEncender.Text = "ON";
             lblEncender.ForeColor = Color.LimeGreen;
-            
+            var dataExcell = handerExcell.GetDataSerialExcell(4);
+
+            sMonitor.OpenSerialPort(dataExcell.com,dataExcell.baudRate);
             // Enviar el primer comando de forma asincrónica
-            await sMonitor.EnviarDatosASerial("ON");
+            await sMonitor.EnviarDatosASerial(lblEncender.Text);
             await Task.Delay(300);
             TiempoKv.Enabled = true;
             inhabilitarEvents(true);
-            sMonitor.ReabrirSerialPort();
             
         }
 
@@ -169,20 +174,11 @@ namespace RayPro
             btnON.Visible = false;
             lblEncender.Text = "OFF";
             lblEncender.ForeColor = Color.Brown;
-
-            // Enviar el primer comando de forma asincrónica
-            await sMonitor.EnviarDatosASerial("APAGAR");
-
-            // Esperar 300 ms de forma asincrónica
-            await Task.Delay(300);
-
-            TiempoKv.Enabled = false;
+            await sMonitor.EnviarDatosASerial("cerrar");
             inhabilitarEvents(false);
-
-            // Enviar el segundo comando de forma asincrónica
-            await sMonitor.EnviarDatosASerial("OFF");
-            await Task.Delay(100);
-
+            await Task.Delay(300);
+            await sMonitor.EnviarDatosASerial(lblEncender.Text);
+            
             sMonitor.CerrarSerialPort();
         }
 
@@ -226,7 +222,7 @@ namespace RayPro
             }
             lblKVp.Text = "" + nKVp;*/
             await sMonitor.EnviarDatosASerial("r+");
-            await Task.Delay(10);
+            //await Task.Delay(10);
         }
 
 
@@ -284,7 +280,7 @@ namespace RayPro
             {
                 btnFoco_small.Visible = false; btnFoco_large.Visible = true;
                 await sMonitor.EnviarDatosASerial("FILAMENTO");
-                await Task.Delay(4000);
+                Thread.Sleep(4000);
                 lblFoco.Text = "LARGE";
                 _Hsettings.maSmallOrLarge(lblFoco.Text);
                 await sMonitor.EnviarDatosASerial(lblFoco.Text);
@@ -298,7 +294,7 @@ namespace RayPro
             {
                 btnFoco_small.Visible = true; btnFoco_large.Visible = false;
                 await sMonitor.EnviarDatosASerial("FILAMENTO");
-                await Task.Delay(4000);
+                Thread.Sleep(4000);
                 lblFoco.Text = "SMALL";
                 _Hsettings.maSmallOrLarge(lblFoco.Text);
                 await sMonitor.EnviarDatosASerial(lblFoco.Text);
@@ -357,6 +353,9 @@ namespace RayPro
             }
         }
 
+     
+
+
         //Flechita Abajo o Down Kv
         private async void btnDownKv_Click(object sender, EventArgs e)
         {
@@ -367,7 +366,7 @@ namespace RayPro
             }
             lblKVp.Text = "" + nKVp;*/
             await sMonitor.EnviarDatosASerial("l-");
-            await Task.Delay(10);
+            //await Task.Delay(10);
         }
 
 

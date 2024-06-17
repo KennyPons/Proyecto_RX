@@ -236,7 +236,7 @@
             // btnON
             // 
             this.btnON.Image = global::RayPro.Properties.Resources.ON;
-            this.btnON.Location = new System.Drawing.Point(155, 46);
+            this.btnON.Location = new System.Drawing.Point(164, 43);
             this.btnON.Name = "btnON";
             this.btnON.Size = new System.Drawing.Size(114, 56);
             this.btnON.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -248,7 +248,7 @@
             // btnOFF
             // 
             this.btnOFF.Image = global::RayPro.Properties.Resources.OFF;
-            this.btnOFF.Location = new System.Drawing.Point(155, 46);
+            this.btnOFF.Location = new System.Drawing.Point(164, 46);
             this.btnOFF.Name = "btnOFF";
             this.btnOFF.Size = new System.Drawing.Size(114, 56);
             this.btnOFF.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
