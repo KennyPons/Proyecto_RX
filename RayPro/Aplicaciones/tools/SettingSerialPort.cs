@@ -37,8 +37,7 @@ namespace RayPro.Aplicaciones.tools
 
 
                 sPuerto.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-                sPuerto.WriteTimeout = 1000; // 5 segundos para escritura
-                sPuerto.ReadTimeout = 500;  // 5 segundos para lectura*/
+
 
                 sPuerto.Open();
             }
@@ -106,5 +105,37 @@ namespace RayPro.Aplicaciones.tools
         }
 
 
+
+        public void ReabrirSerialPort()
+        {
+            // Intenta cerrar el puerto si ya está abierto
+            if (sPuerto.IsOpen)
+            {
+                sPuerto.Close();
+            }
+
+            // Configura los parámetros del puerto
+            var dataExcell = handerExcell.GetDataSerialExcell(4);
+            sPuerto.PortName = dataExcell.com;
+            sPuerto.BaudRate = dataExcell.baudRate;
+            sPuerto.DataBits = 8;
+            sPuerto.Parity = Parity.None;
+            sPuerto.StopBits = StopBits.One;
+            sPuerto.Handshake = Handshake.None;
+
+            // Vuelve a abrir el puerto
+            try
+            {
+                sPuerto.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir el puerto serial: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /////////////////////////////////////
     }
+
 }
+

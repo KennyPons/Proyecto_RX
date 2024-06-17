@@ -51,12 +51,14 @@ namespace RayPro
 
         private void InitFirstParametros()
         {
+            
             imgBodyRay.Image = imageLista.Images[indiceImgNow];
             imgBodyRay.SizeMode = PictureBoxSizeMode.Zoom;
             sMonitor = new SettingSerialPort();
             _Hsettings = new HumanSettings(cboProyeccion, cboEstructura, lblKVp, lblmAs);
             _Hsettings.showBodyRayX(0);
-           
+            sMonitor.bootSerialPort();
+
         }
 
         private void initBordeCuadrado()
@@ -151,12 +153,13 @@ namespace RayPro
             btnON.Visible = true;
             lblEncender.Text = "ON";
             lblEncender.ForeColor = Color.LimeGreen;
-            sMonitor.bootSerialPort();
+            
             // Enviar el primer comando de forma asincrónica
             await sMonitor.EnviarDatosASerial("ON");
             await Task.Delay(300);
             TiempoKv.Enabled = true;
             inhabilitarEvents(true);
+            sMonitor.ReabrirSerialPort();
             
         }
 
@@ -178,6 +181,9 @@ namespace RayPro
 
             // Enviar el segundo comando de forma asincrónica
             await sMonitor.EnviarDatosASerial("OFF");
+            await Task.Delay(100);
+
+            sMonitor.CerrarSerialPort();
         }
 
 
@@ -219,7 +225,7 @@ namespace RayPro
                 nKVp = 100;
             }
             lblKVp.Text = "" + nKVp;*/
-            await sMonitor.EnviarDatosASerial("r");
+            await sMonitor.EnviarDatosASerial("r+");
             await Task.Delay(10);
         }
 
@@ -360,7 +366,7 @@ namespace RayPro
                 nKVp = 40;
             }
             lblKVp.Text = "" + nKVp;*/
-            await sMonitor.EnviarDatosASerial("l");
+            await sMonitor.EnviarDatosASerial("l-");
             await Task.Delay(10);
         }
 
