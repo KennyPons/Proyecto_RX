@@ -63,12 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aplicaciones\FrKeyBoard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Aplicaciones\FrKeyBoard.Designer.cs">
-      <DependentUpon>FrKeyBoard.cs</DependentUpon>
-    </Compile>
     <Compile Include="Aplicaciones\MainRayX.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,9 +106,6 @@
     <Compile Include="Vista\Welcome.Designer.cs">
       <DependentUpon>Welcome.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Aplicaciones\FrKeyBoard.resx">
-      <DependentUpon>FrKeyBoard.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Aplicaciones\MainRayX.resx">
       <DependentUpon>MainRayX.cs</DependentUpon>
     </EmbeddedResource>
