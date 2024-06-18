@@ -724,10 +724,6 @@
             this.DATE_NOW.Enabled = true;
             this.DATE_NOW.Tick += new System.EventHandler(this.DATE_NOW_Tick);
             // 
-            // TiempoKv
-            // 
-            this.TiempoKv.Tick += new System.EventHandler(this.TiempoKv_Tick);
-            // 
             // MainRayX
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -740,6 +736,7 @@
             this.Name = "MainRayX";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rayos X";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainRayX_FormClosing);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();

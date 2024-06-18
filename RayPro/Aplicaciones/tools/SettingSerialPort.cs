@@ -1,6 +1,7 @@
 ﻿using RayPro.Persistencia.db;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
@@ -12,104 +13,57 @@ namespace RayPro.Aplicaciones.tools
 {
     internal class SettingSerialPort
     {
+        private string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt");
+
+
         private SerialPort sPuerto;
-        private string receivedData;
-        private readonly string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt");
+        private BackgroundWorker serialWorker;
 
-        public SettingSerialPort()
-        {
-            sPuerto = new SerialPort();
-            receivedData = string.Empty;
-            ConfigureSerialPort(); // Configuración inicial del puerto serial
-        }
+        public event EventHandler<string> DataReceived;
 
-        private void ConfigureSerialPort()
+        public SettingSerialPort(string portName, int baudRate)
         {
-            sPuerto.DataBits = 8;
-            sPuerto.Parity = Parity.None;
-            sPuerto.StopBits = StopBits.One;
-            sPuerto.Handshake = Handshake.None;
-            
-            sPuerto.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-        }
+            sPuerto = new SerialPort(portName, baudRate);
+            sPuerto.DataReceived += SerialPort_DataReceived;
 
-        public void OpenSerialPort(string portName, int baudRate)
-        {
+            serialWorker = new BackgroundWorker();
+            serialWorker.DoWork += SerialWorker_DoWork;
+            serialWorker.RunWorkerAsync();
+
             try
             {
-                if (!sPuerto.IsOpen)
-                {
-                    sPuerto.PortName = portName;
-                    sPuerto.BaudRate = baudRate;
-                    sPuerto.Open();
-                    LogData($"Puerto serial abierto en {portName} con velocidad {baudRate}.");
-                }
+                sPuerto.Open();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al abrir el puerto serial: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine($"Error al abrir el puerto serial: {ex.Message}");
             }
         }
 
-        public async Task EnviarDatosASerial(string datos)
+
+
+        //PRIVATE SERIAL//
+        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            try
-            {
-                if (sPuerto.IsOpen)
-                {
-                    sPuerto.Write(datos);
-                    LogData($"Enviado: {datos}");
-                }
-                else
-                {
-                    MessageBox.Show("El puerto serial no está abierto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                LogData($"Error al enviar datos por el puerto serial: {ex.Message}");
-                MessageBox.Show($"Error al enviar datos por el puerto serial: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            string data = sPuerto.ReadLine();
+            DataReceived?.Invoke(this, data);
         }
 
-        private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        private void SerialWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            try
+            while (true)
             {
                 if (sPuerto.IsOpen)
                 {
-                    string data = sPuerto.ReadExisting().Trim();
-                    if (!string.IsNullOrEmpty(data))
+                    try
                     {
-                        receivedData = data;
-                        LogData($"Recibido: {receivedData}");
+                        // Simplemente se mantiene escuchando en segundo plano
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error en el worker serial: {ex.Message}");
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                LogData($"Error al recibir datos: {ex.Message}");
-            }
-        }
-
-        public string GetDatoRecibido()
-        {
-            return receivedData;
-        }
-
-        public void CerrarSerialPort()
-        {
-            try
-            {
-                if (sPuerto.IsOpen)
-                {
-                    sPuerto.Close();
-                    LogData("Puerto serial cerrado.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cerrar el puerto serial: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -127,6 +81,58 @@ namespace RayPro.Aplicaciones.tools
                 MessageBox.Show($"Error al escribir en el archivo de registro: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /*private void ConfigureSerialPort()
+        {
+            sPuerto.DataBits = 8;
+            sPuerto.Parity = Parity.None;
+            sPuerto.StopBits = StopBits.One;
+            sPuerto.Handshake = Handshake.None;
+            
+            sPuerto.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+        }*/
+
+
+
+        public void senDataSerial(string datos)
+        {
+            try
+            {
+                if (sPuerto.IsOpen)
+                {
+                    sPuerto.WriteLine(datos);
+                    LogData($"Enviado: {datos}");
+                }
+                else
+                {
+                    MessageBox.Show("El puerto serial no está abierto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogData($"Error al enviar datos por el puerto serial: {ex.Message}");
+                MessageBox.Show($"Error al enviar datos por el puerto serial: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
+        public void CerrarSerialPort()
+        {
+            try
+            {
+                if (sPuerto != null && sPuerto.IsOpen)
+                {
+                    sPuerto.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cerrar el puerto serial: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////
     }
 }
 
