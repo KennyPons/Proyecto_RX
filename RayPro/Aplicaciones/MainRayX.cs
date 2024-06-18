@@ -92,6 +92,9 @@ namespace RayPro
         private void btnClose_Click(object sender, EventArgs e)//Cerrar App
         {
             Application.Exit();
+            sMonitor.senDataSerial("Cerrar");
+            Thread.Sleep(989);
+            sMonitor.senDataSerial("Off");
         }
 
         private void btnMinimizar_Click(object sender, EventArgs e)//Minimizar App
@@ -180,7 +183,7 @@ namespace RayPro
             lblEncender.ForeColor = Color.Brown;
             sMonitor.senDataSerial("Cerrar");
             inhabilitarEvents(false);
-            Thread.Sleep(1000);
+            Thread.Sleep(989);
             sMonitor.senDataSerial(lblEncender.Text);
         }
 
@@ -224,7 +227,7 @@ namespace RayPro
             }
             lblKVp.Text = "" + nKVp;*/
            sMonitor.senDataSerial("r+");
-           Thread.Sleep(89);
+           //Thread.Sleep(89);
         }
 
 
@@ -236,10 +239,10 @@ namespace RayPro
                 sonido.Play();
 
             }
-            sMonitor.senDataSerial("PRE");
+            sMonitor.senDataSerial("Pre");
 
 
-            Thread.Sleep(4000);
+            Thread.Sleep(4500);
 
             btnPRE.BackColor = Color.Transparent;
             using (var sonido = new SoundPlayer(@"../../Aplicaciones/tools/sonido/ready.wav"))
@@ -268,7 +271,8 @@ namespace RayPro
         {
             lblmAs.Text = "20";
             lblKVp.Text = "70";
-           
+
+            sMonitor.senDataSerial("Reseteo");
             Thread.Sleep(2000);// 2 seg
             InitFirstParametros();
 
@@ -359,7 +363,7 @@ namespace RayPro
             }
             lblKVp.Text = "" + nKVp;*/
            sMonitor.senDataSerial("l-");
-           Thread.Sleep(89);
+           //Thread.Sleep(89);
         }
 
 

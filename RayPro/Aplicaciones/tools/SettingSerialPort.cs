@@ -17,7 +17,7 @@ namespace RayPro.Aplicaciones.tools
 
 
         private SerialPort sPuerto;
-        private BackgroundWorker serialWorker;
+        //private BackgroundWorker serialWorker;
 
         public event EventHandler<string> DataReceived;
 
@@ -26,9 +26,9 @@ namespace RayPro.Aplicaciones.tools
             sPuerto = new SerialPort(portName, baudRate);
             sPuerto.DataReceived += SerialPort_DataReceived;
 
-            serialWorker = new BackgroundWorker();
+            /*serialWorker = new BackgroundWorker();
             serialWorker.DoWork += SerialWorker_DoWork;
-            serialWorker.RunWorkerAsync();
+            serialWorker.RunWorkerAsync();*/
 
             try
             {
@@ -49,23 +49,7 @@ namespace RayPro.Aplicaciones.tools
             DataReceived?.Invoke(this, data);
         }
 
-        private void SerialWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (true)
-            {
-                if (sPuerto.IsOpen)
-                {
-                    try
-                    {
-                        // Simplemente se mantiene escuchando en segundo plano
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error en el worker serial: {ex.Message}");
-                    }
-                }
-            }
-        }
+
 
         private void LogData(string message)
         {
