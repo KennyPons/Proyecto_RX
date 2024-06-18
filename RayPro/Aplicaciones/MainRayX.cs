@@ -29,6 +29,7 @@ namespace RayPro
 
         //PRIMITIVOS DATA
         private int indiceImgNow = 0; private int nKVp = 40, nmAs = 20; private double getTiempo;
+        //CHRISTIAN
         private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DbSerial.xlsx");
 
         private HumanSettings _Hsettings;
@@ -51,10 +52,10 @@ namespace RayPro
             
             imgBodyRay.Image = imageLista.Images[indiceImgNow];
             imgBodyRay.SizeMode = PictureBoxSizeMode.Zoom;
-            /*Excell*/
+            /*Excell*///CHRISTIAN
             obj_db_excell = new BDExcell(path);
             var dataExcell = obj_db_excell.GetDataSerialExcell(4);
-            /*Serial*/
+            /*Serial*///CHRISTIAN
             sMonitor = new SettingSerialPort(dataExcell.com,dataExcell.baudRate);
             sMonitor.DataReceived += SerialCommunication_DataReceived;
             /*Human*/

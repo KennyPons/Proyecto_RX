@@ -19,6 +19,7 @@ namespace RayPro.Aplicaciones
     {
 
         private loginController objLog;
+        //CHRISTIAN
         private BDExcell handerExcell;
         public SettingDev()
         {
@@ -42,7 +43,7 @@ namespace RayPro.Aplicaciones
 
             string[] baudios = { "2400","4800","9600", "19200" , "115200" };
             cboBaud.Items.AddRange(baudios);
-
+            //CHRISTIAN
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DbSerial.xlsx");
             handerExcell = new BDExcell(path);
 
@@ -135,6 +136,7 @@ namespace RayPro.Aplicaciones
 
                 string puerto = cboComp.SelectedItem.ToString();
                 int baud = int.Parse(cboBaud.SelectedItem.ToString());
+                //CHRISTIAN
                 handerExcell.SaveDataSerialExcell(puerto,baud);
                 FrCuadro.Show("Save Sufecull!", "Warning", MessageBoxButtons.YesNo);
             }
