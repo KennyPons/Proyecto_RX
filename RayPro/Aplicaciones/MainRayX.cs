@@ -55,7 +55,7 @@ namespace RayPro
             /*Excell*///CHRISTIAN
             obj_db_excell = new BDExcell(path);
             var dataExcell = obj_db_excell.GetDataSerialExcell(4);
-            /*Serial*///CHRISTIAN
+            /*Serial*///CHRISTIAN borra webon
             sMonitor = new SettingSerialPort(dataExcell.com,dataExcell.baudRate);
             sMonitor.DataReceived += SerialCommunication_DataReceived;
             /*Human*/
