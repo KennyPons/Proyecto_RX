@@ -18,13 +18,16 @@ namespace RayPro.Aplicaciones.tools
 
         private SerialPort sPuerto;
         //private BackgroundWorker serialWorker;
-
-        public event EventHandler<string> DataReceived;
+        private StringBuilder _buffer = new StringBuilder();
+        //public event EventHandler<string> DataReceived;
+        public event Action<string> DataReceived;
 
         public SettingSerialPort(string portName, int baudRate)
         {
             sPuerto = new SerialPort(portName, baudRate);
-            sPuerto.DataReceived += SerialPort_DataReceived;
+            sPuerto.DataReceived += OnDataReceived;
+
+            //sPuerto.DataReceived += SerialPort_DataReceived;
 
             /*serialWorker = new BackgroundWorker();
             serialWorker.DoWork += SerialWorker_DoWork;
@@ -43,13 +46,55 @@ namespace RayPro.Aplicaciones.tools
 
 
         //PRIVATE SERIAL//
-        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        /*private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             string data = sPuerto.ReadLine();
             DataReceived?.Invoke(this, data);
+        }*/
+
+        private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            Task.Run(() =>
+            {
+                try
+                {
+                    while (sPuerto.BytesToRead > 0)
+                    {
+                        // Leer los datos recibidos
+                        string data = sPuerto.ReadExisting();
+                        _buffer.Append(data);
+
+                        // Procesar líneas completas
+                        string bufferContent = _buffer.ToString();
+                        int newlineIndex;
+                        while ((newlineIndex = bufferContent.IndexOf('\n')) >= 0)
+                        {
+                            string line = bufferContent.Substring(0, newlineIndex).Trim();
+                            bufferContent = bufferContent.Substring(newlineIndex + 1);
+                            _buffer.Clear();
+                            _buffer.Append(bufferContent);
+
+                            // Validar y procesar la línea recibida
+                            if (float.TryParse(line, out float parsedValue))
+                            {
+                                Console.WriteLine("Data received: " + line); // Mensaje de depuración
+                                DataReceived?.Invoke(line);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid data received: " + line); // Manejo de datos inválidos
+                            }
+                        }
+                    }
+                        /*string dataLine = sPuerto.ReadLine();
+                        DataReceived?.Invoke(dataLine);*/
+                    }
+                catch (Exception ex)
+                {
+                    // Manejo de errores
+                }
+            });
         }
-
-
 
         private void LogData(string message)
         {
@@ -115,6 +160,7 @@ namespace RayPro.Aplicaciones.tools
                 MessageBox.Show($"Error al cerrar el puerto serial: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         ////////////////////////////////////////////////////////////////////////////////////////
     }

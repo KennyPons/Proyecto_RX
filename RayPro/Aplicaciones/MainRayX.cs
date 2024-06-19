@@ -76,7 +76,7 @@ namespace RayPro
             panelShow.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelShow.Width, panelShow.Height, 26, 26));
         }
 
-        private void SerialCommunication_DataReceived(object sender, string data)
+        /*private void SerialCommunication_DataReceived(object sender, string data)
         {
             // Manejar los datos recibidos, por ejemplo, actualizar un TextBox
             Invoke(new MethodInvoker(delegate
@@ -84,7 +84,22 @@ namespace RayPro
                 lblKVp.Text = data;
                 //Enviar a Tiempo real el Kv
             }));
+        }*/
+
+        private void SerialCommunication_DataReceived(string data)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<string>(SerialCommunication_DataReceived), data);
+                return;
+            }
+            //double convertKv= Double.Parse(data);
+            Console.WriteLine("Data processed: " + data); // Mensaje de depuración
+                                                          //int roundedNumberKv = (int)Math.Round(convertKv);
+            lblKVp.Text = data;
+
         }
+
 
 
 
@@ -92,8 +107,15 @@ namespace RayPro
         //==============================================================BUTTONS AND EVENTS=============================================//
         private void btnClose_Click(object sender, EventArgs e)//Cerrar App
         {
-            Application.Exit();
-            sMonitor.senDataSerial("Off");
+            
+            if(lblEncender.Text == "ON" && btnON.Visible == true)
+            {
+                FrCuadro.Show("Por favor Asegurese que el equipo este apagado correctamente", "Advertencia!", MessageBoxButtons.YesNo);
+            }
+            else
+            {
+                Application.Exit();
+            }
         }
 
         private void btnMinimizar_Click(object sender, EventArgs e)//Minimizar App
