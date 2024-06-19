@@ -93,8 +93,6 @@ namespace RayPro
         private void btnClose_Click(object sender, EventArgs e)//Cerrar App
         {
             Application.Exit();
-            sMonitor.senDataSerial("Cerrar");
-            Thread.Sleep(989);
             sMonitor.senDataSerial("Off");
         }
 
