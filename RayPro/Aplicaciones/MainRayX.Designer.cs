@@ -268,7 +268,7 @@
             this.btnR.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnR.Image = global::RayPro.Properties.Resources.btnReseteo__1;
-            this.btnR.Location = new System.Drawing.Point(768, 680);
+            this.btnR.Location = new System.Drawing.Point(768, 694);
             this.btnR.Name = "btnR";
             this.btnR.Size = new System.Drawing.Size(146, 119);
             this.btnR.TabIndex = 11;
