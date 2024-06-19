@@ -110,7 +110,7 @@ namespace RayPro
             
             if(lblEncender.Text == "ON" && btnON.Visible == true)
             {
-                FrCuadro.Show("Por favor Asegurese que el equipo este apagado correctamente", "Advertencia!", MessageBoxButtons.YesNo);
+                MessageBox.Show("Por favor Asegurese que el equipo este apagado correctamente", "Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -304,15 +304,35 @@ namespace RayPro
         }
 
 
-        private void btnRX_Click(object sender, EventArgs e)/*(DISPARO-RX)*/
+        private void btnRX_Click(object sender, EventArgs e)
         {
-            using (var sonido = new SoundPlayer(@"../../Resources/disparo.wav"))
-            {
-                sonido.Play();
-            }
-            sMonitor.senDataSerial("D_RX");
-            Thread.Sleep(1000);
+            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string soundFilePath = Path.Combine(appDirectory, "Resources", "disparo.wav");
 
+            try
+            {
+                // Imprimir el path absoluto para depuración
+                Console.WriteLine("Intentando cargar archivo de sonido desde: " + soundFilePath);
+
+                if (File.Exists(soundFilePath))
+                {
+                    using (var sonido = new SoundPlayer(soundFilePath))
+                    {
+                        sonido.Play();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El archivo de sonido no se encontró en la ubicación especificada.");
+                }
+
+                sMonitor.senDataSerial("D_RX");
+                Thread.Sleep(1000);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al intentar reproducir el sonido: " + ex.Message);
+            }
         }
 
         private void btnR_Click(object sender, EventArgs e)/*(RESETEAR)*/
