@@ -44,15 +44,23 @@ namespace RayPro.Vista
 
         private void Welcome_Load(object sender, EventArgs e)
         {
- 
-
             lblNameUser.Text = configuraciones.Settings.Default.userName;
-            using (var sonido = new SoundPlayer(@"../../Resources/welcome.wav"))
+            try
             {
-                sonido.Play();
+                using (Stream stream = Properties.Resources.welcome)
+                {
+                    using (var sonido = new SoundPlayer(stream))
+                    {
+                        sonido.Play();
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al reproducir el sonido: " + ex.Message);
+            }
+
             this.Opacity = 0.0;
-            
             circularProgressBar1.Value = 0;
             circularProgressBar1.Minimum = 0;
             circularProgressBar1.Maximum = 100;

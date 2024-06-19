@@ -281,7 +281,9 @@
     <Content Include="Resources\listo.wav" />
     <Content Include="Resources\preparando.wav" />
     <Content Include="Resources\ready.wav" />
-    <Content Include="Resources\welcome.wav" />
+    <Content Include="Resources\welcome.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\mynamelogo-removebg-preview.png" />
     <None Include="Resources\mynamelogo.png" />
     <None Include="Resources\mylogo-removebg-preview.png" />
