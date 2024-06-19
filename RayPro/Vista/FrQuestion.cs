@@ -36,7 +36,7 @@ namespace RayPro.Vista
                 if (objLogin.AutenticarAdmin("", txtPassDev.Text))
                 {
                     SettingDev frDev = new SettingDev();
-                    frDev.Show();
+                    frDev.ShowDialog();
                     this.Close();
                 }
                 else
