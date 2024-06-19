@@ -31,9 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainRayX));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.imgBodyRay = new System.Windows.Forms.PictureBox();
             this.btnRight = new System.Windows.Forms.Button();
             this.btnLeft = new System.Windows.Forms.Button();
+            this.imgBodyRay = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -49,6 +49,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelShow = new System.Windows.Forms.Panel();
+            this.btnUpMaS = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.tecla_Kv = new System.Windows.Forms.PictureBox();
             this.tecla_mAs = new System.Windows.Forms.PictureBox();
             this.lblFoco = new System.Windows.Forms.Label();
@@ -56,14 +59,11 @@
             this.lblKVp = new System.Windows.Forms.Label();
             this.lblmAs = new System.Windows.Forms.Label();
             this.textFilamento = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.btnDownKv = new System.Windows.Forms.Button();
-            this.btnUpKv = new System.Windows.Forms.Button();
             this.btnDownMaS = new System.Windows.Forms.Button();
-            this.btnUpMaS = new System.Windows.Forms.Button();
             this.btnFoco_large = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.btnUpKv = new System.Windows.Forms.Button();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.panelCombo = new System.Windows.Forms.Panel();
             this.cboProyeccion = new System.Windows.Forms.ComboBox();
@@ -108,11 +108,11 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.splitContainer1.Panel1.Controls.Add(this.btnRight);
             this.splitContainer1.Panel1.Controls.Add(this.btnLeft);
             this.splitContainer1.Panel1.Controls.Add(this.imgBodyRay);
             this.splitContainer1.Panel1.Controls.Add(this.panel1);
-            this.splitContainer1.Panel1.Enabled = false;
             // 
             // splitContainer1.Panel2
             // 
@@ -135,15 +135,6 @@
             this.splitContainer1.SplitterDistance = 532;
             this.splitContainer1.TabIndex = 0;
             // 
-            // imgBodyRay
-            // 
-            this.imgBodyRay.Location = new System.Drawing.Point(30, 72);
-            this.imgBodyRay.Name = "imgBodyRay";
-            this.imgBodyRay.Size = new System.Drawing.Size(470, 550);
-            this.imgBodyRay.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.imgBodyRay.TabIndex = 3;
-            this.imgBodyRay.TabStop = false;
-            // 
             // btnRight
             // 
             this.btnRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -154,7 +145,7 @@
             this.btnRight.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRight.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnRight.Image = global::RayPro.Properties.Resources.fechaRIGHT_1;
-            this.btnRight.Location = new System.Drawing.Point(262, 708);
+            this.btnRight.Location = new System.Drawing.Point(284, 708);
             this.btnRight.Name = "btnRight";
             this.btnRight.Size = new System.Drawing.Size(146, 91);
             this.btnRight.TabIndex = 2;
@@ -172,13 +163,22 @@
             this.btnLeft.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLeft.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnLeft.Image = global::RayPro.Properties.Resources.flechaLEFT_1;
-            this.btnLeft.Location = new System.Drawing.Point(71, 708);
+            this.btnLeft.Location = new System.Drawing.Point(87, 708);
             this.btnLeft.Name = "btnLeft";
             this.btnLeft.Size = new System.Drawing.Size(146, 91);
             this.btnLeft.TabIndex = 1;
             this.btnLeft.Text = "LEFT";
             this.btnLeft.UseVisualStyleBackColor = true;
             this.btnLeft.Click += new System.EventHandler(this.btnLeft_Click);
+            // 
+            // imgBodyRay
+            // 
+            this.imgBodyRay.Location = new System.Drawing.Point(30, 72);
+            this.imgBodyRay.Name = "imgBodyRay";
+            this.imgBodyRay.Size = new System.Drawing.Size(470, 550);
+            this.imgBodyRay.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgBodyRay.TabIndex = 3;
+            this.imgBodyRay.TabStop = false;
             // 
             // panel1
             // 
@@ -382,6 +382,47 @@
             this.panelShow.Size = new System.Drawing.Size(1008, 406);
             this.panelShow.TabIndex = 2;
             // 
+            // btnUpMaS
+            // 
+            this.btnUpMaS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpMaS.FlatAppearance.BorderSize = 0;
+            this.btnUpMaS.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.btnUpMaS.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Magenta;
+            this.btnUpMaS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpMaS.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpMaS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.btnUpMaS.Image = global::RayPro.Properties.Resources.arriba_cuadrado;
+            this.btnUpMaS.Location = new System.Drawing.Point(137, 337);
+            this.btnUpMaS.Name = "btnUpMaS";
+            this.btnUpMaS.Size = new System.Drawing.Size(43, 44);
+            this.btnUpMaS.TabIndex = 3;
+            this.btnUpMaS.UseVisualStyleBackColor = true;
+            this.btnUpMaS.Click += new System.EventHandler(this.btnUpMaS_Click);
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Tahoma", 17.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Tomato;
+            this.label5.Location = new System.Drawing.Point(770, 38);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(58, 28);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "KVp";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Tomato;
+            this.label4.Location = new System.Drawing.Point(170, 38);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(64, 29);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "mAs";
+            // 
             // tecla_Kv
             // 
             this.tecla_Kv.Image = global::RayPro.Properties.Resources.icons8_diez_llaves_641;
@@ -468,30 +509,6 @@
             this.textFilamento.TabIndex = 14;
             this.textFilamento.Text = "Foco";
             // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 17.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Tomato;
-            this.label5.Location = new System.Drawing.Point(770, 38);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(58, 28);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "KVp";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Tomato;
-            this.label4.Location = new System.Drawing.Point(170, 38);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 29);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "mAs";
-            // 
             // btnDownKv
             // 
             this.btnDownKv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -509,23 +526,6 @@
             this.btnDownKv.UseVisualStyleBackColor = true;
             this.btnDownKv.Click += new System.EventHandler(this.btnDownKv_Click);
             // 
-            // btnUpKv
-            // 
-            this.btnUpKv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpKv.FlatAppearance.BorderSize = 0;
-            this.btnUpKv.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btnUpKv.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Magenta;
-            this.btnUpKv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpKv.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpKv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
-            this.btnUpKv.Image = global::RayPro.Properties.Resources.arriba_cuadrado;
-            this.btnUpKv.Location = new System.Drawing.Point(751, 337);
-            this.btnUpKv.Name = "btnUpKv";
-            this.btnUpKv.Size = new System.Drawing.Size(43, 44);
-            this.btnUpKv.TabIndex = 5;
-            this.btnUpKv.UseVisualStyleBackColor = true;
-            this.btnUpKv.Click += new System.EventHandler(this.btnUpKv_Click);
-            // 
             // btnDownMaS
             // 
             this.btnDownMaS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -542,23 +542,6 @@
             this.btnDownMaS.TabIndex = 4;
             this.btnDownMaS.UseVisualStyleBackColor = true;
             this.btnDownMaS.Click += new System.EventHandler(this.btnDownMaS_Click);
-            // 
-            // btnUpMaS
-            // 
-            this.btnUpMaS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpMaS.FlatAppearance.BorderSize = 0;
-            this.btnUpMaS.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btnUpMaS.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Magenta;
-            this.btnUpMaS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpMaS.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpMaS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
-            this.btnUpMaS.Image = global::RayPro.Properties.Resources.arriba_cuadrado;
-            this.btnUpMaS.Location = new System.Drawing.Point(137, 337);
-            this.btnUpMaS.Name = "btnUpMaS";
-            this.btnUpMaS.Size = new System.Drawing.Size(43, 44);
-            this.btnUpMaS.TabIndex = 3;
-            this.btnUpMaS.UseVisualStyleBackColor = true;
-            this.btnUpMaS.Click += new System.EventHandler(this.btnUpMaS_Click);
             // 
             // btnFoco_large
             // 
@@ -582,6 +565,23 @@
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox5.TabIndex = 0;
             this.pictureBox5.TabStop = false;
+            // 
+            // btnUpKv
+            // 
+            this.btnUpKv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpKv.FlatAppearance.BorderSize = 0;
+            this.btnUpKv.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.btnUpKv.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Magenta;
+            this.btnUpKv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpKv.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpKv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.btnUpKv.Image = global::RayPro.Properties.Resources.arriba_cuadrado;
+            this.btnUpKv.Location = new System.Drawing.Point(751, 337);
+            this.btnUpKv.Name = "btnUpKv";
+            this.btnUpKv.Size = new System.Drawing.Size(43, 44);
+            this.btnUpKv.TabIndex = 5;
+            this.btnUpKv.UseVisualStyleBackColor = true;
+            this.btnUpKv.Click += new System.EventHandler(this.btnUpKv_Click);
             // 
             // pictureBox6
             // 
