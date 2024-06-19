@@ -52,10 +52,10 @@ namespace RayPro
             
             imgBodyRay.Image = imageLista.Images[indiceImgNow];
             imgBodyRay.SizeMode = PictureBoxSizeMode.Zoom;
-            /*Excell*///CHRISTIAN
+            /*Excell*///CHRISTIAN este excell
             obj_db_excell = new BDExcell(path);
             var dataExcell = obj_db_excell.GetDataSerialExcell(4);
-            /*Serial*///CHRISTIAN borra webon
+            /*Serial*///CHRISTIAN 
             sMonitor = new SettingSerialPort(dataExcell.com,dataExcell.baudRate);
             sMonitor.DataReceived += SerialCommunication_DataReceived;
             /*Human*/
