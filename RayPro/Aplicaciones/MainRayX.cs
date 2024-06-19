@@ -93,10 +93,22 @@ namespace RayPro
                 Invoke(new Action<string>(SerialCommunication_DataReceived), data);
                 return;
             }
-            //double convertKv= Double.Parse(data);
+
+            data = data.Trim();
+
             Console.WriteLine("Data processed: " + data); // Mensaje de depuración
-                                                          //int roundedNumberKv = (int)Math.Round(convertKv);
-            lblKVp.Text = data;
+
+            if (Double.TryParse(data, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double numberKv))
+            {
+                int roundedNumberKv = (int)Math.Round(numberKv);
+                lblKVp.Text = roundedNumberKv.ToString();
+                Console.WriteLine($"String convertido a entero redondeado es {roundedNumberKv}"); // Salida: String '4.5' convertido a entero redondeado es 5
+            }
+            else
+            {
+                Console.WriteLine("La cadena no se pudo convertir a double.");
+            }
+
 
         }
 
@@ -205,6 +217,18 @@ namespace RayPro
             sMonitor.senDataSerial("Cerrar");
             inhabilitarEvents(false);
             Thread.Sleep(989);
+            if (btnFoco_large.Visible == true && lblFoco.Text == "LARGE")
+            {
+                btnFoco_small.Visible = true; 
+                btnFoco_large.Visible = false;
+                lblFoco.Text = "SMALL";
+            }
+            else
+            {
+                btnFoco_small.Visible = true;
+                btnFoco_large.Visible = false;
+                lblFoco.Text = "SMALL";
+            }
             sMonitor.senDataSerial(lblEncender.Text);
         }
 
@@ -342,7 +366,7 @@ namespace RayPro
 
             sMonitor.senDataSerial("Reseteo");
             Thread.Sleep(2000);// 2 seg
-            InitFirstParametros();
+            _Hsettings.showBodyRayX(0);
 
         }
 
