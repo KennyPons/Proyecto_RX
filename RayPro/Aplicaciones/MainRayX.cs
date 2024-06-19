@@ -231,29 +231,56 @@ namespace RayPro
 
 
         //BOTONES IMPORTANTES ( PRE _ RX _ R )
-        private void btnPRE_Click(object sender, EventArgs e) /*(PRE)*/
+        private void btnPRE_Click(object sender, EventArgs e)
         {
-            using (var sonido = new SoundPlayer(@"../../Resources/preparando.wav"))
+            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string soundFilePath = Path.Combine(appDirectory, "Resources", "preparando.wav");
+
+            try
             {
-                sonido.Play();
+                // Imprimir el path absoluto para depuración
+                Console.WriteLine("Intentando cargar archivo de sonido desde: " + soundFilePath);
 
+                if (File.Exists(soundFilePath))
+                {
+                    using (var sonido = new SoundPlayer(soundFilePath))
+                    {
+                        sonido.Play();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El archivo de sonido no se encontró en la ubicación especificada.");
+                }
+
+                sMonitor.senDataSerial("Pre");
+
+                Thread.Sleep(4500);
+
+                btnPRE.BackColor = Color.Transparent;
+                soundFilePath = Path.Combine(appDirectory, "Resources", "ready.wav");
+                if (File.Exists(soundFilePath))
+                {
+                    using (var sonido = new SoundPlayer(soundFilePath))
+                    {
+                        sonido.Play();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El archivo de sonido 'ready.wav' no se encontró en la ubicación especificada.");
+                }
+
+                getTiempo = _Hsettings.sendTimeInput(nmAs);
+                String sendFactors = "t" + getTiempo;
+                sMonitor.senDataSerial(sendFactors);
             }
-            sMonitor.senDataSerial("Pre");
-
-
-            Thread.Sleep(4500);
-
-            btnPRE.BackColor = Color.Transparent;
-            using (var sonido = new SoundPlayer(@"../../Resources/ready.wav"))
+            catch (Exception ex)
             {
-                sonido.Play();
+                MessageBox.Show("Ocurrió un error al intentar reproducir el sonido: " + ex.Message);
             }
-
-            /*int getVini = _Hsettings.initialVoltageInput(nKVp);*/
-            getTiempo = _Hsettings.sendTimeInput(nmAs);
-            String sendFactors = "t" + getTiempo;
-            sMonitor.senDataSerial(sendFactors);
         }
+
 
         private void btnRX_Click(object sender, EventArgs e)/*(DISPARO-RX)*/
         {
