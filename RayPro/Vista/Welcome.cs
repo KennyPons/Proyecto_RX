@@ -47,7 +47,7 @@ namespace RayPro.Vista
  
 
             lblNameUser.Text = configuraciones.Settings.Default.userName;
-            using (var sonido = new SoundPlayer(@"../../Aplicaciones/tools/sonido/welcome.wav"))
+            using (var sonido = new SoundPlayer(@"../../Resources/welcome.wav"))
             {
                 sonido.Play();
             }

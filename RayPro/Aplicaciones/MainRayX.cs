@@ -233,7 +233,7 @@ namespace RayPro
         //BOTONES IMPORTANTES ( PRE _ RX _ R )
         private void btnPRE_Click(object sender, EventArgs e) /*(PRE)*/
         {
-            using (var sonido = new SoundPlayer(@"../../Aplicaciones/tools/sonido/preparando.wav"))
+            using (var sonido = new SoundPlayer(@"../../Resources/preparando.wav"))
             {
                 sonido.Play();
 
@@ -244,7 +244,7 @@ namespace RayPro
             Thread.Sleep(4500);
 
             btnPRE.BackColor = Color.Transparent;
-            using (var sonido = new SoundPlayer(@"../../Aplicaciones/tools/sonido/ready.wav"))
+            using (var sonido = new SoundPlayer(@"../../Resources/ready.wav"))
             {
                 sonido.Play();
             }
@@ -257,7 +257,7 @@ namespace RayPro
 
         private void btnRX_Click(object sender, EventArgs e)/*(DISPARO-RX)*/
         {
-            using (var sonido = new SoundPlayer(@"../../Aplicaciones/tools/sonido/disparo.wav"))
+            using (var sonido = new SoundPlayer(@"../../Resources/disparo.wav"))
             {
                 sonido.Play();
             }

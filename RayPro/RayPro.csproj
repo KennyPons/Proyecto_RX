@@ -244,14 +244,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Aplicaciones\tools\sonido\disparo.wav" />
-    <Content Include="Aplicaciones\tools\sonido\listo.wav" />
-    <Content Include="Aplicaciones\tools\sonido\preparando.wav" />
-    <Content Include="Aplicaciones\tools\sonido\ready.wav" />
-    <Content Include="Aplicaciones\tools\sonido\welcome.wav" />
     <Content Include="Persistencia\db\DB_USER.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\disparo.wav" />
+    <Content Include="Resources\listo.wav" />
+    <Content Include="Resources\preparando.wav" />
+    <Content Include="Resources\ready.wav" />
+    <Content Include="Resources\welcome.wav" />
     <None Include="Resources\mynamelogo-removebg-preview.png" />
     <None Include="Resources\mynamelogo.png" />
     <None Include="Resources\mylogo-removebg-preview.png" />
