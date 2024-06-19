@@ -277,10 +277,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Ray icon.ico" />
-    <Content Include="Resources\disparo.wav" />
-    <Content Include="Resources\listo.wav" />
-    <Content Include="Resources\preparando.wav" />
-    <Content Include="Resources\ready.wav" />
+    <Content Include="Resources\disparo.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\listo.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\preparando.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ready.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\welcome.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
