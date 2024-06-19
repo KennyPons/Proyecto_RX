@@ -92,7 +92,7 @@ namespace RayPro.Vista
         private void linkSetting_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             FrQuestion question = new FrQuestion();
-            question.Show();
+            question.ShowDialog();
             Hide();
         }
 
@@ -174,6 +174,15 @@ namespace RayPro.Vista
             }
         }
 
+        private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblErrorMsg_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
     

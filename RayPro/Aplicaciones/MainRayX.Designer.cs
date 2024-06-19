@@ -76,7 +76,6 @@
             this.btnClose = new System.Windows.Forms.PictureBox();
             this.imageLista = new System.Windows.Forms.ImageList(this.components);
             this.DATE_NOW = new System.Windows.Forms.Timer(this.components);
-            this.TiempoKv = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -815,7 +814,6 @@
         private System.Windows.Forms.PictureBox tecla_Kv;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.Timer TiempoKv;
     }
 }
 
