@@ -520,9 +520,9 @@ namespace RayPro
                 lblKVp.Text = valorActual.ToString(); // Actualiza el texto
 
                 // Asegurarse de que el valor no sea menor que un mínimo establecido, por ejemplo, 40
-                if (valorActual < 40)
+                if (valorActual < 48)
                 {
-                    valorActual = 40;
+                    valorActual = 48;
                     lblKVp.Text = valorActual.ToString();
                 }
             }
