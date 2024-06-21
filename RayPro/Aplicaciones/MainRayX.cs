@@ -16,6 +16,8 @@ namespace RayPro
 {
     public partial class MainRayX : Form
     {
+        private bool aumentando = false;
+
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn//crea borde rectangular
         (
@@ -42,7 +44,17 @@ namespace RayPro
             initBordeCuadrado();
             InitFirstParametros();
             inhabilitarEvents(false);
-            
+            increaseTimer = new System.Windows.Forms.Timer();
+            increaseTimer.Interval = 90; // Intervalo de actualización (en milisegundos)
+            increaseTimer.Tick += IncreaseTimer_Tick;
+
+            decreaseTimer = new System.Windows.Forms.Timer();
+            decreaseTimer.Interval = 90; // Intervalo en milisegundos (ajústalo según tus necesidades)
+            decreaseTimer.Tick += DecreaseTimer_Tick;
+
+            btnDownKv.MouseDown += btnDownKv_MouseDown;
+            btnDownKv.MouseUp += btnDownKv_MouseUp;
+            btnDownKv.MouseLeave += btnDownKv_MouseLeave;
         }
 
         //==========================================FUNCIONES INICIO AL SYSTEMA PRIVATE============================================================//
@@ -244,6 +256,7 @@ namespace RayPro
         private void btnUpMaS_Click(object sender, EventArgs e)
         {
             nmAs += 1;
+            aumentando = true;
 
             if(nmAs > 300)
             {
@@ -251,7 +264,34 @@ namespace RayPro
             }
 
             lblmAs.Text = (nmAs > 0 && nmAs < 10) ? "0" + nmAs : "" + nmAs;
+
         }
+        private void btnUpMaS_MouseDown(object sender, MouseEventArgs e)
+        {
+            aumentando = true; // Indica que se debe seguir aumentando el valor
+
+            // Inicia un bucle que aumenta continuamente el valor mientras el botón está pulsado
+            while (aumentando)
+            {
+                if (!string.IsNullOrEmpty(lblmAs.Text))
+                {
+                    int valorActual = int.Parse(lblmAs.Text); // Obtiene el valor actual del TextBox
+                    valorActual++; // Incrementa el valor actual en uno
+                    lblmAs.Text = valorActual.ToString(); // Actualiza el texto en el TextBox con el nuevo valor
+                }
+
+                // Espera un breve periodo para no saturar la interfaz gráfica
+                System.Threading.Thread.Sleep(100);
+                Application.DoEvents(); // Permite actualizar la interfaz gráfica durante el bucle
+            }
+        }
+
+        private void btnUpMaS_MouseUp(object sender, MouseEventArgs e)
+        {
+            aumentando = false; // Detiene el aumento del valor cuando se suelta el botón
+        }
+
+
         //Flechita Abajo o Down mAs
         private void btnDownMaS_Click(object sender, EventArgs e)
         {
@@ -262,20 +302,7 @@ namespace RayPro
             }
             lblmAs.Text = (nmAs > 0 && nmAs < 10) ? "0" + nmAs : "" + nmAs;
         }
-        //Flechita Arriba o up Kv
-        private void btnUpKv_Click(object sender, EventArgs e)
-        {
-            /*nKVp += 1;
-            if(nKVp > 100)
-            {
-                nKVp = 100;
-            }
-            lblKVp.Text = "" + nKVp;*/
-           sMonitor.senDataSerial("r+");
-           //Thread.Sleep(89);
-        }
-
-
+        
         //BOTONES IMPORTANTES ( PRE _ RX _ R )
         private void btnPRE_Click(object sender, EventArgs e)
         {
@@ -362,7 +389,7 @@ namespace RayPro
         private void btnR_Click(object sender, EventArgs e)/*(RESETEAR)*/
         {
             lblmAs.Text = "20";
-            lblKVp.Text = "70";
+            lblKVp.Text = "50";
 
             sMonitor.senDataSerial("Reseteo");
             Thread.Sleep(2000);// 2 seg
@@ -458,8 +485,91 @@ namespace RayPro
            //Thread.Sleep(89);
         }
 
+        private void btnDownKv_MouseDown(object sender, MouseEventArgs e)
+        {
+            aumentando = true; // Indica que se debe seguir decrementando el valor
+            sMonitor.senDataSerial("l+"); // Enviar comando para iniciar ("l+")
+            decreaseTimer.Start(); // Iniciar el timer para decrementar el valor
+        }
+
+        private void btnDownKv_MouseUp(object sender, MouseEventArgs e)
+        {
+            StopDecreasing();
+        }
+
+        private void btnDownKv_MouseLeave(object sender, EventArgs e)
+        {
+            StopDecreasing();
+        }
+
+        private void StopDecreasing()
+        {
+            aumentando = false; // Detiene el decremento del valor
+            sMonitor.senDataSerial("l-"); // Enviar comando para detener ("l-")
+            decreaseTimer.Stop(); // Detener el timer
+        }
 
 
+
+        private void DecreaseTimer_Tick(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(lblKVp.Text))
+            {
+                int valorActual = int.Parse(lblKVp.Text); // Obtiene el valor actual
+                valorActual--; // Decrementa el valor
+                lblKVp.Text = valorActual.ToString(); // Actualiza el texto
+
+                // Asegurarse de que el valor no sea menor que un mínimo establecido, por ejemplo, 40
+                if (valorActual < 40)
+                {
+                    valorActual = 40;
+                    lblKVp.Text = valorActual.ToString();
+                }
+            }
+        }
+
+        //Flechita Arriba o up Kv
+        private void btnUpKv_Click(object sender, EventArgs e)
+        {
+            /*nKVp += 1;
+            if(nKVp > 100)
+            {
+                nKVp = 100;
+            }
+            lblKVp.Text = "" + nKVp;*/
+            sMonitor.senDataSerial("r+");
+            //Thread.Sleep(89);
+        }
+
+        private void btnUpKv_MouseDown(object sender, MouseEventArgs e)
+        {
+            aumentando = true; // Indica que se debe seguir aumentando el valor
+            // Inicia un bucle que aumenta continuamente el valor mientras el botón está pulsado
+            sMonitor.senDataSerial("r+");
+            increaseTimer.Start();
+        }
+
+        private void btnUpKv_MouseUp(object sender, MouseEventArgs e)
+        {
+            aumentando = false; // Detiene el aumento del valor
+            sMonitor.senDataSerial("r-"); // Enviar comando para detener ("r-")
+            increaseTimer.Stop(); // Detener el timer
+        }
+
+        private void lblKVp_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void IncreaseTimer_Tick(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(lblKVp.Text))
+            {
+                int valorActual = int.Parse(lblKVp.Text); // Obtiene el valor actual
+                valorActual++; // Incrementa el valor
+                lblKVp.Text = valorActual.ToString(); // Actualiza el texto
+            }
+        }
 
 
     }

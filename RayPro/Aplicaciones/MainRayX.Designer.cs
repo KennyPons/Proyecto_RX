@@ -392,12 +392,14 @@
             this.btnUpMaS.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpMaS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnUpMaS.Image = global::RayPro.Properties.Resources.arriba_cuadrado;
-            this.btnUpMaS.Location = new System.Drawing.Point(137, 337);
+            this.btnUpMaS.Location = new System.Drawing.Point(220, 337);
             this.btnUpMaS.Name = "btnUpMaS";
             this.btnUpMaS.Size = new System.Drawing.Size(43, 44);
             this.btnUpMaS.TabIndex = 3;
             this.btnUpMaS.UseVisualStyleBackColor = true;
             this.btnUpMaS.Click += new System.EventHandler(this.btnUpMaS_Click);
+            this.btnUpMaS.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnUpMaS_MouseDown);
+            this.btnUpMaS.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnUpMaS_MouseUp);
             // 
             // label5
             // 
@@ -480,8 +482,9 @@
             this.lblKVp.Padding = new System.Windows.Forms.Padding(40);
             this.lblKVp.Size = new System.Drawing.Size(156, 132);
             this.lblKVp.TabIndex = 16;
-            this.lblKVp.Text = "10";
+            this.lblKVp.Text = "00";
             this.lblKVp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblKVp.Click += new System.EventHandler(this.lblKVp_Click);
             // 
             // lblmAs
             // 
@@ -519,12 +522,15 @@
             this.btnDownKv.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDownKv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnDownKv.Image = global::RayPro.Properties.Resources.abajo_cuadrado;
-            this.btnDownKv.Location = new System.Drawing.Point(822, 337);
+            this.btnDownKv.Location = new System.Drawing.Point(753, 337);
             this.btnDownKv.Name = "btnDownKv";
             this.btnDownKv.Size = new System.Drawing.Size(43, 44);
             this.btnDownKv.TabIndex = 6;
             this.btnDownKv.UseVisualStyleBackColor = true;
             this.btnDownKv.Click += new System.EventHandler(this.btnDownKv_Click);
+            this.btnDownKv.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnDownKv_MouseDown);
+            this.btnDownKv.MouseLeave += new System.EventHandler(this.btnDownKv_MouseLeave);
+            this.btnDownKv.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnDownKv_MouseUp);
             // 
             // btnDownMaS
             // 
@@ -536,7 +542,7 @@
             this.btnDownMaS.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDownMaS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnDownMaS.Image = global::RayPro.Properties.Resources.abajo_cuadrado;
-            this.btnDownMaS.Location = new System.Drawing.Point(208, 337);
+            this.btnDownMaS.Location = new System.Drawing.Point(147, 337);
             this.btnDownMaS.Name = "btnDownMaS";
             this.btnDownMaS.Size = new System.Drawing.Size(43, 44);
             this.btnDownMaS.TabIndex = 4;
@@ -576,12 +582,14 @@
             this.btnUpKv.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpKv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnUpKv.Image = global::RayPro.Properties.Resources.arriba_cuadrado;
-            this.btnUpKv.Location = new System.Drawing.Point(751, 337);
+            this.btnUpKv.Location = new System.Drawing.Point(822, 337);
             this.btnUpKv.Name = "btnUpKv";
             this.btnUpKv.Size = new System.Drawing.Size(43, 44);
             this.btnUpKv.TabIndex = 5;
             this.btnUpKv.UseVisualStyleBackColor = true;
             this.btnUpKv.Click += new System.EventHandler(this.btnUpKv_Click);
+            this.btnUpKv.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnUpKv_MouseDown);
+            this.btnUpKv.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnUpKv_MouseUp);
             // 
             // pictureBox6
             // 
@@ -801,6 +809,8 @@
         private System.Windows.Forms.Button btnUpMaS;
         private System.Windows.Forms.Button btnDownKv;
         private System.Windows.Forms.Button btnUpKv;
+        private System.Windows.Forms.Timer increaseTimer;
+        private System.Windows.Forms.Timer decreaseTimer;
         private System.Windows.Forms.Button btnDownMaS;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
