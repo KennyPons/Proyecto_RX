@@ -45,11 +45,11 @@ namespace RayPro
             InitFirstParametros();
             inhabilitarEvents(false);
             increaseTimer = new System.Windows.Forms.Timer();
-            increaseTimer.Interval = 90; // Intervalo de actualización (en milisegundos)
+            increaseTimer.Interval = 100; // Intervalo de actualización (en milisegundos)
             increaseTimer.Tick += IncreaseTimer_Tick;
 
             decreaseTimer = new System.Windows.Forms.Timer();
-            decreaseTimer.Interval = 90; // Intervalo en milisegundos (ajústalo según tus necesidades)
+            decreaseTimer.Interval = 100; // Intervalo en milisegundos (ajústalo según tus necesidades)
             decreaseTimer.Tick += DecreaseTimer_Tick;
 
             btnDownKv.MouseDown += btnDownKv_MouseDown;
@@ -72,6 +72,7 @@ namespace RayPro
             sMonitor.DataReceived += SerialCommunication_DataReceived;
             /*Human*/
             _Hsettings = new HumanSettings(cboProyeccion, cboEstructura, lblKVp, lblmAs);
+
             _Hsettings.showBodyRayX(0);
             
 

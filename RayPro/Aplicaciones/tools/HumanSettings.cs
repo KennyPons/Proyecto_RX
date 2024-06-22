@@ -107,13 +107,13 @@ namespace RayPro.Aplicaciones.tools
         {
             switch (countNow)
             {
-                case 0: mostrarDataRayX("Craneo");  showKVandMAS(20, 70); break;
-                case 1: mostrarDataRayX("Cuello");  showKVandMAS(18, 68); break;
-                case 2: mostrarDataRayX("Brazos");  showKVandMAS(20, 65); break;
-                case 3: mostrarDataRayX("Escapula");showKVandMAS(15, 72); break;
-                case 4: mostrarDataRayX("Abdomen"); showKVandMAS(35, 75); break;
-                case 5: mostrarDataRayX("Pelvis");  showKVandMAS(30, 75); break;
-                case 6: mostrarDataRayX("Femur");   showKVandMAS(20, 72); break;
+                case 0: mostrarDataRayX("Craneo");  showKVandMAS(20, 40); break;
+                case 1: mostrarDataRayX("Cuello");  showKVandMAS(18, 40); break;
+                case 2: mostrarDataRayX("Brazos");  showKVandMAS(20, 40); break;
+                case 3: mostrarDataRayX("Escapula");showKVandMAS(15, 40); break;
+                case 4: mostrarDataRayX("Abdomen"); showKVandMAS(35, 40); break;
+                case 5: mostrarDataRayX("Pelvis");  showKVandMAS(30, 40); break;
+                case 6: mostrarDataRayX("Femur");   showKVandMAS(20, 40); break;
 
             }
         }
@@ -123,31 +123,31 @@ namespace RayPro.Aplicaciones.tools
         {
             switch(selectEstructura)
             {
-                case "ESCAPÚLA":  mostrarSelectProyeccion(10); showKVandMAS(15, 70); break;
-                case "CLAVÍCULA": mostrarSelectProyeccion(20); showKVandMAS(15, 70); break;
-                case "TORÁX":     mostrarSelectProyeccion(30); showKVandMAS(4, 110); break;
-                case "COSTILLAS": mostrarSelectProyeccion(40); showKVandMAS(32, 70); break;
-                case "ESTERNÓN":  mostrarSelectProyeccion(50); showKVandMAS(20, 60); break;
-                case "ABDOMEN":   mostrarSelectProyeccion(60); showKVandMAS(35, 75); break;
-                case "COLUMNA LUMBAR": mostrarSelectProyeccion(70); showKVandMAS(45, 80); break;
-                case "PELVIS":    mostrarSelectProyeccion(80);  showKVandMAS(30, 75); break;
-                case "SACRO":     mostrarSelectProyeccion(81);  showKVandMAS(25, 75); break;
-                case "CADERA":    mostrarSelectProyeccion(90);  showKVandMAS(20, 70); break;
-                case "HOMBRO":    mostrarSelectProyeccion(100); showKVandMAS(20, 65); break;
+                case "ESCAPÚLA":  mostrarSelectProyeccion(10); showKVandMAS(15, 40); break;
+                case "CLAVÍCULA": mostrarSelectProyeccion(20); showKVandMAS(15, 40); break;
+                case "TORÁX":     mostrarSelectProyeccion(30); showKVandMAS(4, 40); break;
+                case "COSTILLAS": mostrarSelectProyeccion(40); showKVandMAS(32, 40); break;
+                case "ESTERNÓN":  mostrarSelectProyeccion(50); showKVandMAS(20, 40); break;
+                case "ABDOMEN":   mostrarSelectProyeccion(60); showKVandMAS(35, 45); break;
+                case "COLUMNA LUMBAR": mostrarSelectProyeccion(70); showKVandMAS(45, 40); break;
+                case "PELVIS":    mostrarSelectProyeccion(80);  showKVandMAS(30, 40); break;
+                case "SACRO":     mostrarSelectProyeccion(81);  showKVandMAS(25, 40); break;
+                case "CADERA":    mostrarSelectProyeccion(90);  showKVandMAS(20, 40); break;
+                case "HOMBRO":    mostrarSelectProyeccion(100); showKVandMAS(20, 40); break;
                 //TODO LA PARTE DE BRAZO
-                case "CODO":      mostrarSelectProyeccion(101); showKVandMAS(10, 56); break;
-                case "HÚMERO":    mostrarSelectProyeccion(102); showKVandMAS(18, 68); break;
-                case "ANTEBRAZO": mostrarSelectProyeccion(103); showKVandMAS(10, 75); break;
-                case "MUÑECA":    mostrarSelectProyeccion(104); showKVandMAS(3, 54); break;
-                case "MANO":      mostrarSelectProyeccion(105); showKVandMAS(5, 50); break;
-                case "FALANGES MANO": mostrarSelectProyeccion(106); showKVandMAS(5, 48); break;
+                case "CODO":      mostrarSelectProyeccion(101); showKVandMAS(10, 40); break;
+                case "HÚMERO":    mostrarSelectProyeccion(102); showKVandMAS(18, 40); break;
+                case "ANTEBRAZO": mostrarSelectProyeccion(103); showKVandMAS(10, 40); break;
+                case "MUÑECA":    mostrarSelectProyeccion(104); showKVandMAS(3, 40); break;
+                case "MANO":      mostrarSelectProyeccion(105); showKVandMAS(5, 40); break;
+                case "FALANGES MANO": mostrarSelectProyeccion(106); showKVandMAS(5, 40); break;
                 //TODO LA PARTE DE BRAZO
-                case "FEMUR":     mostrarSelectProyeccion(110); showKVandMAS(20, 72); break;
-                case "RODILLA":   mostrarSelectProyeccion(111); showKVandMAS(10, 65); break;
-                case "TIBIA Y PERONÉ": mostrarSelectProyeccion(112); showKVandMAS(8, 60); break;
-                case "TOBILLO":   mostrarSelectProyeccion(113); showKVandMAS(12, 65); break;
-                case "PIE":       mostrarSelectProyeccion(114); showKVandMAS(8, 60); break;
-                case "FALANGES DE PIE": mostrarSelectProyeccion(115); showKVandMAS(6, 55); break;
+                case "FEMUR":     mostrarSelectProyeccion(110); showKVandMAS(20, 40); break;
+                case "RODILLA":   mostrarSelectProyeccion(111); showKVandMAS(10, 40); break;
+                case "TIBIA Y PERONÉ": mostrarSelectProyeccion(112); showKVandMAS(8, 40); break;
+                case "TOBILLO":   mostrarSelectProyeccion(113); showKVandMAS(12, 40); break;
+                case "PIE":       mostrarSelectProyeccion(114); showKVandMAS(8, 40); break;
+                case "FALANGES DE PIE": mostrarSelectProyeccion(115); showKVandMAS(6, 40); break;
             }
         }
     }
