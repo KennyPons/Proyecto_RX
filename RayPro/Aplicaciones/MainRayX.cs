@@ -398,7 +398,7 @@ namespace RayPro
 
         }
 
-        //Botón para cambiar el Filamento
+        //Botón para cambiar el Fila mento
         private void btnFoco_small_Click(object sender, EventArgs e) /*(SMALL)*/
         {
             var Rs = FrCuadro.Show("¿Está seguro cambiar a Large?", "Configuración del Foco", MessageBoxButtons.YesNo);
