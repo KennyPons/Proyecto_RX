@@ -132,14 +132,14 @@ namespace RayPro
         //==============================================================BUTTONS AND EVENTS=============================================//
         private void btnClose_Click(object sender, EventArgs e)//Cerrar App
         {
-            
-            if(lblEncender.Text == "ON" && btnON.Visible == true)
+
+            if (lblEncender.Text == "ON" && btnON.Visible == true)
             {
-                MessageBox.Show("Por favor Asegurese que el equipo este apagado correctamente", "Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor asegúrese de que el equipo esté apagado correctamente", "Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
-                Application.Exit();
+                Close();
             }
         }
 
@@ -467,7 +467,12 @@ namespace RayPro
 
         private void MainRayX_FormClosing(object sender, FormClosingEventArgs e)
         {
-            sMonitor.CerrarSerialPort();
+            if (sMonitor != null)
+            {
+                sMonitor.CerrarSerialPort();
+                sMonitor.Dispose();
+                sMonitor = null;
+            }
         }
 
 
