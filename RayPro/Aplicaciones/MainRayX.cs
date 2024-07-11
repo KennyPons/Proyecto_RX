@@ -434,7 +434,6 @@ namespace RayPro
             this._Hsettings.changeShowCboProy(selectEstructura);
         }
 
-        //Botones teclado para mAs
         private void tecla_mAs_Click(object sender, EventArgs e)
         {
             FrKeyBoard formTecla = new FrKeyBoard("amperaje",300,0);
