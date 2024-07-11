@@ -91,7 +91,7 @@ namespace RayPro.Aplicaciones.tools
                     }
                 catch (Exception ex)
                 {
-                    // Manejo de errores
+                    Console.WriteLine(ex.Message);// Manejo de errores
                 }
             });
         }
