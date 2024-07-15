@@ -160,9 +160,6 @@ namespace RayPro.Aplicaciones.tools
                 MessageBox.Show($"Error al cerrar el puerto serial: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////
     }
 }
 

@@ -568,9 +568,18 @@ namespace RayPro
                 int valorActual = int.Parse(lblKVp.Text); // Obtiene el valor actual
                 valorActual++; // Incrementa el valor
                 lblKVp.Text = valorActual.ToString(); // Actualiza el texto
-            }
-        }
 
+
+                if (valorActual > 130)
+                {
+                    valorActual = 130;
+                    lblKVp.Text = valorActual.ToString();
+                }
+            }
+
+            
+        }
+            
 
     }
 }
