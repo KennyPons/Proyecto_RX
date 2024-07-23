@@ -398,8 +398,6 @@
             this.btnUpMaS.TabIndex = 3;
             this.btnUpMaS.UseVisualStyleBackColor = true;
             this.btnUpMaS.Click += new System.EventHandler(this.btnUpMaS_Click);
-            this.btnUpMaS.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnUpMaS_MouseDown);
-            this.btnUpMaS.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnUpMaS_MouseUp);
             // 
             // label5
             // 

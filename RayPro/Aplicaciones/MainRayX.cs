@@ -16,7 +16,6 @@ namespace RayPro
 {
     public partial class MainRayX : Form
     {
-        private bool aumentando = false;
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -211,8 +210,6 @@ namespace RayPro
         private void btnUpMaS_Click(object sender, EventArgs e)
         {
             nmAs += 1;
-            aumentando = true;
-
             if(nmAs > 300)
             {
                 nmAs = 300;
@@ -220,28 +217,6 @@ namespace RayPro
 
             lblmAs.Text = (nmAs > 0 && nmAs < 10) ? "0" + nmAs : "" + nmAs;
 
-        }
-        private void btnUpMaS_MouseDown(object sender, MouseEventArgs e)
-        {
-            aumentando = true; 
-
-            while (aumentando)
-            {
-                if (!string.IsNullOrEmpty(lblmAs.Text))
-                {
-                    int valorActual = int.Parse(lblmAs.Text); // Obtiene el valor actual del TextBox
-                    valorActual++; // Incrementa el valor actual en uno
-                    lblmAs.Text = valorActual.ToString(); // Actualiza el texto en el TextBox con el nuevo valor
-                }
-
-                System.Threading.Thread.Sleep(100);
-                Application.DoEvents(); // Permite actualizar la interfaz gráfica durante el bucle
-            }
-        }
-
-        private void btnUpMaS_MouseUp(object sender, MouseEventArgs e)
-        {
-            aumentando = false; // Detiene el aumento del valor cuando se suelta el botón
         }
 
         private void btnDownMaS_Click(object sender, EventArgs e)
@@ -418,7 +393,6 @@ namespace RayPro
 
         private void btnDownKv_MouseDown(object sender, MouseEventArgs e)
         {
-            aumentando = true;
             sMonitor.senDataSerial("l+");
             decreaseTimer.Start();
         }
@@ -435,7 +409,6 @@ namespace RayPro
 
         private void StopDecreasing()
         {
-            aumentando = false; 
             sMonitor.senDataSerial("l-");
             decreaseTimer.Stop(); 
         }
@@ -462,14 +435,12 @@ namespace RayPro
 
         private void btnUpKv_MouseDown(object sender, MouseEventArgs e)
         {
-            aumentando = true; 
             sMonitor.senDataSerial("r+");
             increaseTimer.Start();
         }
 
         private void btnUpKv_MouseUp(object sender, MouseEventArgs e)
         {
-            aumentando = false;
             sMonitor.senDataSerial("r-");
             increaseTimer.Stop(); 
         }
