@@ -19,7 +19,7 @@ namespace RayPro
         private bool aumentando = false;
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn//crea borde rectangular
+        private static extern IntPtr CreateRoundRectRgn
         (
         int nLeftRect,     
         int nTopRect,      
@@ -152,7 +152,7 @@ namespace RayPro
         }
 
 
-        private void button1_Click(object sender, EventArgs e)//Botón Derecho para cambiar imagenes
+        private void button1_Click(object sender, EventArgs e)
         {
 
             if (indiceImgNow < imageLista.Images.Count - 1)
@@ -358,7 +358,7 @@ namespace RayPro
             }
         }
 
-        private void btnFoco_large_Click(object sender, EventArgs e)/*(LARGE)*/
+        private void btnFoco_large_Click(object sender, EventArgs e)
         {
             var Rs = FrCuadro.Show("¿Está seguro cambiar a Small?", "Configuración del Foco", MessageBoxButtons.YesNo);
             if(Rs == DialogResult.Yes)
@@ -418,9 +418,9 @@ namespace RayPro
 
         private void btnDownKv_MouseDown(object sender, MouseEventArgs e)
         {
-            aumentando = true; // Indica que se debe seguir decrementando el valor
-            sMonitor.senDataSerial("l+"); // Enviar comando para iniciar ("l+")
-            decreaseTimer.Start(); // Iniciar el timer para decrementar el valor
+            aumentando = true;
+            sMonitor.senDataSerial("l+");
+            decreaseTimer.Start();
         }
 
         private void btnDownKv_MouseUp(object sender, MouseEventArgs e)
@@ -435,18 +435,18 @@ namespace RayPro
 
         private void StopDecreasing()
         {
-            aumentando = false; // Detiene el decremento del valor
-            sMonitor.senDataSerial("l-"); // Enviar comando para detener ("l-")
-            decreaseTimer.Stop(); // Detener el timer
+            aumentando = false; 
+            sMonitor.senDataSerial("l-");
+            decreaseTimer.Stop(); 
         }
 
         private void DecreaseTimer_Tick(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(lblKVp.Text))
             {
-                int valorActual = int.Parse(lblKVp.Text); // Obtiene el valor actual
-                valorActual--; // Decrementa el valor
-                lblKVp.Text = valorActual.ToString(); // Actualiza el texto
+                int valorActual = int.Parse(lblKVp.Text); 
+                valorActual--; 
+                lblKVp.Text = valorActual.ToString(); 
 
                 if (valorActual < 48)
                 {
@@ -469,9 +469,9 @@ namespace RayPro
 
         private void btnUpKv_MouseUp(object sender, MouseEventArgs e)
         {
-            aumentando = false; // Detiene el aumento del valor
-            sMonitor.senDataSerial("r-"); // Enviar comando para detener ("r-")
-            increaseTimer.Stop(); // Detener el timer
+            aumentando = false;
+            sMonitor.senDataSerial("r-");
+            increaseTimer.Stop(); 
         }
 
         private void lblKVp_Click(object sender, EventArgs e)
@@ -483,9 +483,9 @@ namespace RayPro
         {
             if (!string.IsNullOrEmpty(lblKVp.Text))
             {
-                int valorActual = int.Parse(lblKVp.Text); // Obtiene el valor actual
-                valorActual++; // Incrementa el valor
-                lblKVp.Text = valorActual.ToString(); // Actualiza el texto
+                int valorActual = int.Parse(lblKVp.Text);
+                valorActual++;
+                lblKVp.Text = valorActual.ToString();
 
                 if (valorActual > 130)
                 {
