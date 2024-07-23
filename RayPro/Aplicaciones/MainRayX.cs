@@ -21,23 +21,20 @@ namespace RayPro
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn//crea borde rectangular
         (
-        int nLeftRect,     // x-coordinate of upper-left corner
-        int nTopRect,      // y-coordinate of upper-left corner
-        int nRightRect,    // x-coordinate of lower-right corner
-        int nBottomRect,   // y-coordinate of lower-right corner
-        int nWidthEllipse, // height of ellipse
-        int nHeightEllipse // width of ellipse
+        int nLeftRect,     
+        int nTopRect,      
+        int nRightRect,    
+        int nBottomRect,   
+        int nWidthEllipse, 
+        int nHeightEllipse 
         );
 
-        //PRIMITIVOS DATA
         private int indiceImgNow = 0; private int nKVp = 40, nmAs = 20; private double getTiempo;
-        //CHRISTIAN
         private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DbSerial.xlsx");
 
         private HumanSettings _Hsettings;
         private SettingSerialPort sMonitor;
         private BDExcell obj_db_excell;
-        //CONSTRUCTORS
         public MainRayX()
         {
             InitializeComponent();
@@ -45,11 +42,11 @@ namespace RayPro
             InitFirstParametros();
             inhabilitarEvents(false);
             increaseTimer = new System.Windows.Forms.Timer();
-            increaseTimer.Interval = 90; // Intervalo de actualización (en milisegundos)
+            increaseTimer.Interval = 90;
             increaseTimer.Tick += IncreaseTimer_Tick;
 
             decreaseTimer = new System.Windows.Forms.Timer();
-            decreaseTimer.Interval = 90; // Intervalo en milisegundos (ajústalo según tus necesidades)
+            decreaseTimer.Interval = 90;
             decreaseTimer.Tick += DecreaseTimer_Tick;
 
             btnDownKv.MouseDown += btnDownKv_MouseDown;
@@ -57,46 +54,27 @@ namespace RayPro
             btnDownKv.MouseLeave += btnDownKv_MouseLeave;
         }
 
-        //==========================================FUNCIONES INICIO AL SYSTEMA PRIVATE============================================================//
-
         private void InitFirstParametros()
-        {
-            
+        {           
             imgBodyRay.Image = imageLista.Images[indiceImgNow];
             imgBodyRay.SizeMode = PictureBoxSizeMode.Zoom;
-            /*Excell*///CHRISTIAN este excell
             obj_db_excell = new BDExcell(path);
             var dataExcell = obj_db_excell.GetDataSerialExcell(4);
-            /*Serial*///CHRISTIAN 
             sMonitor = new SettingSerialPort(dataExcell.com,dataExcell.baudRate);
             sMonitor.DataReceived += SerialCommunication_DataReceived;
-            /*Human*/
             _Hsettings = new HumanSettings(cboProyeccion, cboEstructura, lblKVp, lblmAs);
             _Hsettings.showBodyRayX(0);
-            
-
         }
 
         private void initBordeCuadrado()
-        { /// BORDAR FIGURA CUADRA DE TEXT BOX
+        { 
             txtProyeccion.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, txtProyeccion.Width, txtProyeccion.Height, 20, 20));
             txtEstructura.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, txtEstructura.Width, txtEstructura.Height, 20, 20));
             lblKVp.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, lblKVp.Width, lblKVp.Height, 30, 30));
             lblmAs.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, lblmAs.Width, lblmAs.Height, 30, 30));
-            //Conexion_txt.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Conexion_txt.Width, Conexion_txt.Height, 29, 29));
             panelCombo.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelCombo.Width, panelCombo.Height, 26, 26));
             panelShow.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelShow.Width, panelShow.Height, 26, 26));
         }
-
-        /*private void SerialCommunication_DataReceived(object sender, string data)
-        {
-            // Manejar los datos recibidos, por ejemplo, actualizar un TextBox
-            Invoke(new MethodInvoker(delegate
-            {
-                lblKVp.Text = data;
-                //Enviar a Tiempo real el Kv
-            }));
-        }*/
 
         private void SerialCommunication_DataReceived(string data)
         {
@@ -108,13 +86,13 @@ namespace RayPro
 
             data = data.Trim();
 
-            Console.WriteLine("Data processed: " + data); // Mensaje de depuración
+            Console.WriteLine("Data processed: " + data);
 
             if (Double.TryParse(data, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double numberKv))
             {
                 int roundedNumberKv = (int)Math.Round(numberKv);
                 lblKVp.Text = roundedNumberKv.ToString();
-                Console.WriteLine($"String convertido a entero redondeado es {roundedNumberKv}"); // Salida: String '4.5' convertido a entero redondeado es 5
+                Console.WriteLine($"String convertido a entero redondeado es {roundedNumberKv}");
             }
             else
             {
@@ -123,15 +101,8 @@ namespace RayPro
 
 
         }
-
-
-
-
-
-        //==============================================================BUTTONS AND EVENTS=============================================//
-        private void btnClose_Click(object sender, EventArgs e)//Cerrar App
-        {
-            
+     private void btnClose_Click(object sender, EventArgs e)
+        {         
             if(lblEncender.Text == "ON" && btnON.Visible == true)
             {
                 MessageBox.Show("Por favor Asegurese que el equipo este apagado correctamente", "Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -142,11 +113,10 @@ namespace RayPro
             }
         }
 
-        private void btnMinimizar_Click(object sender, EventArgs e)//Minimizar App
+        private void btnMinimizar_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
-
 
         private void inhabilitarEvents(bool estadoAcual)
         {
@@ -165,13 +135,9 @@ namespace RayPro
            btnFoco_small.Enabled = estadoAcual;
         }
 
-        //BUTTONS CHANGES of IMAGES
-        private void btnLeft_Click(object sender, EventArgs e)//Botón Izquierdo para Imagen
+        private void btnLeft_Click(object sender, EventArgs e)
         {
 
-            /*indiceImgNow = (indiceImgNow - 1 + imageLista.Images.Count) % imageLista.Images.Count;
-
-            imgBodyRay.Image = imageLista.Images[indiceImgNow];*/
             if (indiceImgNow > 0)
             {
                 indiceImgNow--;
@@ -188,12 +154,6 @@ namespace RayPro
 
         private void button1_Click(object sender, EventArgs e)//Botón Derecho para cambiar imagenes
         {
-            /* indiceImgNow = (indiceImgNow + 1) % imageLista.Images.Count;
-
-           if (indiceImgNow != 0)
-           {
-               imgBodyRay.Image = imageLista.Images[indiceImgNow];
-           }*/
 
             if (indiceImgNow < imageLista.Images.Count - 1)
             {
@@ -204,8 +164,6 @@ namespace RayPro
             imgBodyRay.Image = imageLista.Images[indiceImgNow];
           
         }
-
-        //Buttons de prender y apagar
 
         private void btnOFF_Click(object sender, EventArgs e)
         {
@@ -244,15 +202,12 @@ namespace RayPro
             sMonitor.senDataSerial(lblEncender.Text);
         }
 
-
-        // Mostrando en la App el TIME 
         private void DATE_NOW_Tick(object sender, EventArgs e)
         {
             lblHora.Text = DateTime.Now.ToString("HH:mm:ss");
             lblFecha.Text = DateTime.Now.ToString("dd MMM yyy");
         }
 
-        //Flechita Arriba O Up mAs
         private void btnUpMaS_Click(object sender, EventArgs e)
         {
             nmAs += 1;
@@ -268,9 +223,8 @@ namespace RayPro
         }
         private void btnUpMaS_MouseDown(object sender, MouseEventArgs e)
         {
-            aumentando = true; // Indica que se debe seguir aumentando el valor
+            aumentando = true; 
 
-            // Inicia un bucle que aumenta continuamente el valor mientras el botón está pulsado
             while (aumentando)
             {
                 if (!string.IsNullOrEmpty(lblmAs.Text))
@@ -280,7 +234,6 @@ namespace RayPro
                     lblmAs.Text = valorActual.ToString(); // Actualiza el texto en el TextBox con el nuevo valor
                 }
 
-                // Espera un breve periodo para no saturar la interfaz gráfica
                 System.Threading.Thread.Sleep(100);
                 Application.DoEvents(); // Permite actualizar la interfaz gráfica durante el bucle
             }
@@ -291,8 +244,6 @@ namespace RayPro
             aumentando = false; // Detiene el aumento del valor cuando se suelta el botón
         }
 
-
-        //Flechita Abajo o Down mAs
         private void btnDownMaS_Click(object sender, EventArgs e)
         {
             nmAs -= 1;
@@ -303,7 +254,6 @@ namespace RayPro
             lblmAs.Text = (nmAs > 0 && nmAs < 10) ? "0" + nmAs : "" + nmAs;
         }
         
-        //BOTONES IMPORTANTES ( PRE _ RX _ R )
         private void btnPRE_Click(object sender, EventArgs e)
         {
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -311,7 +261,6 @@ namespace RayPro
 
             try
             {
-                // Imprimir el path absoluto para depuración
                 Console.WriteLine("Intentando cargar archivo de sonido desde: " + soundFilePath);
 
                 if (File.Exists(soundFilePath))
@@ -354,7 +303,6 @@ namespace RayPro
             }
         }
 
-
         private void btnRX_Click(object sender, EventArgs e)
         {
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -362,7 +310,6 @@ namespace RayPro
 
             try
             {
-                // Imprimir el path absoluto para depuración
                 Console.WriteLine("Intentando cargar archivo de sonido desde: " + soundFilePath);
 
                 if (File.Exists(soundFilePath))
@@ -397,7 +344,6 @@ namespace RayPro
 
         }
 
-        //Botón para cambiar el Filamento
         private void btnFoco_small_Click(object sender, EventArgs e) /*(SMALL)*/
         {
             var Rs = FrCuadro.Show("¿Está seguro cambiar a Large?", "Configuración del Foco", MessageBoxButtons.YesNo);
@@ -426,14 +372,12 @@ namespace RayPro
             }
         }
 
-        //El combo de "Estructura" realizando cambios
         private void cboEstructura_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectEstructura = cboEstructura.SelectedItem.ToString();
             this._Hsettings.changeShowCboProy(selectEstructura);
         }
 
-        //Botones teclado para mAs
         private void tecla_mAs_Click(object sender, EventArgs e)
         {
             FrKeyBoard formTecla = new FrKeyBoard("amperaje",300,0);
@@ -448,11 +392,9 @@ namespace RayPro
             lblmAs.Text = "" + nmAs; 
         }
 
-        //Botones teclado para Kv
         private void tecla_Kv_Click(object sender, EventArgs e)
         {
-            FrKeyBoard formTecla = new FrKeyBoard("kVolt", 125, 0);//change Kv
-            /*Solo para pocisionar el teclado a la Izquierda*/
+            FrKeyBoard formTecla = new FrKeyBoard("kVolt", 125, 0);
             formTecla.StartPosition = FormStartPosition.Manual;
             formTecla.Location = new System.Drawing.Point(
                     this.Left + tecla_Kv.Left,
@@ -469,20 +411,9 @@ namespace RayPro
             sMonitor.CerrarSerialPort();
         }
 
-
-
-
-        //Flechita Abajo o Down Kv
         private void btnDownKv_Click(object sender, EventArgs e)
         {
-            /*nKVp -= 1;
-            if(nKVp < 40)
-            {
-                nKVp = 40;
-            }
-            lblKVp.Text = "" + nKVp;*/
            sMonitor.senDataSerial("l-");
-           //Thread.Sleep(89);
         }
 
         private void btnDownKv_MouseDown(object sender, MouseEventArgs e)
@@ -509,8 +440,6 @@ namespace RayPro
             decreaseTimer.Stop(); // Detener el timer
         }
 
-
-
         private void DecreaseTimer_Tick(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(lblKVp.Text))
@@ -519,7 +448,6 @@ namespace RayPro
                 valorActual--; // Decrementa el valor
                 lblKVp.Text = valorActual.ToString(); // Actualiza el texto
 
-                // Asegurarse de que el valor no sea menor que un mínimo establecido, por ejemplo, 40
                 if (valorActual < 48)
                 {
                     valorActual = 48;
@@ -527,24 +455,14 @@ namespace RayPro
                 }
             }
         }
-
-        //Flechita Arriba o up Kv
         private void btnUpKv_Click(object sender, EventArgs e)
         {
-            /*nKVp += 1;
-            if(nKVp > 100)
-            {
-                nKVp = 100;
-            }
-            lblKVp.Text = "" + nKVp;*/
             sMonitor.senDataSerial("r+");
-            //Thread.Sleep(89);
         }
 
         private void btnUpKv_MouseDown(object sender, MouseEventArgs e)
         {
-            aumentando = true; // Indica que se debe seguir aumentando el valor
-            // Inicia un bucle que aumenta continuamente el valor mientras el botón está pulsado
+            aumentando = true; 
             sMonitor.senDataSerial("r+");
             increaseTimer.Start();
         }
@@ -569,17 +487,12 @@ namespace RayPro
                 valorActual++; // Incrementa el valor
                 lblKVp.Text = valorActual.ToString(); // Actualiza el texto
 
-
                 if (valorActual > 130)
                 {
                     valorActual = 130;
                     lblKVp.Text = valorActual.ToString();
                 }
-            }
-
-            
+            }            
         }
-            
-
     }
 }
