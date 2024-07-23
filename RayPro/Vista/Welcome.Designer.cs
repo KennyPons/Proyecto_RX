@@ -112,12 +112,12 @@
             // 
             // timeInicio
             // 
-            this.timeInicio.Interval = 40;
+            this.timeInicio.Interval = 15;
             this.timeInicio.Tick += new System.EventHandler(this.timeInicio_Tick);
             // 
             // timeFin
             // 
-            this.timeFin.Interval = 40;
+            this.timeFin.Interval = 15;
             this.timeFin.Tick += new System.EventHandler(this.timeFin_Tick);
             // 
             // label1

@@ -13,25 +13,14 @@ namespace RayPro.Aplicaciones.tools
 {
     internal class SettingSerialPort
     {
-        private string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt");
-
-
         private SerialPort sPuerto;
-        //private BackgroundWorker serialWorker;
         private StringBuilder _buffer = new StringBuilder();
-        //public event EventHandler<string> DataReceived;
         public event Action<string> DataReceived;
 
         public SettingSerialPort(string portName, int baudRate)
         {
             sPuerto = new SerialPort(portName, baudRate);
             sPuerto.DataReceived += OnDataReceived;
-
-            //sPuerto.DataReceived += SerialPort_DataReceived;
-
-            /*serialWorker = new BackgroundWorker();
-            serialWorker.DoWork += SerialWorker_DoWork;
-            serialWorker.RunWorkerAsync();*/
 
             try
             {
@@ -43,15 +32,6 @@ namespace RayPro.Aplicaciones.tools
             }
         }
 
-
-
-        //PRIVATE SERIAL//
-        /*private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            string data = sPuerto.ReadLine();
-            DataReceived?.Invoke(this, data);
-        }*/
-
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             Task.Run(() =>
@@ -60,11 +40,9 @@ namespace RayPro.Aplicaciones.tools
                 {
                     while (sPuerto.BytesToRead > 0)
                     {
-                        // Leer los datos recibidos
                         string data = sPuerto.ReadExisting();
                         _buffer.Append(data);
 
-                        // Procesar líneas completas
                         string bufferContent = _buffer.ToString();
                         int newlineIndex;
                         while ((newlineIndex = bufferContent.IndexOf('\n')) >= 0)
@@ -74,54 +52,24 @@ namespace RayPro.Aplicaciones.tools
                             _buffer.Clear();
                             _buffer.Append(bufferContent);
 
-                            // Validar y procesar la línea recibida
                             if (float.TryParse(line, out float parsedValue))
                             {
-                                Console.WriteLine("Data received: " + line); // Mensaje de depuración
+                                Console.WriteLine("Data received: " + line);
                                 DataReceived?.Invoke(line);
                             }
                             else
                             {
-                                Console.WriteLine("Invalid data received: " + line); // Manejo de datos inválidos
+                                Console.WriteLine("Invalid data received: " + line);
                             }
                         }
                     }
-                        /*string dataLine = sPuerto.ReadLine();
-                        DataReceived?.Invoke(dataLine);*/
-                    }
+                }
                 catch (Exception ex)
                 {
-                    // Manejo de errores
+                    Console.WriteLine($"Error al procesar datos del puerto serial: {ex.Message}");
                 }
             });
         }
-
-        private void LogData(string message)
-        {
-            try
-            {
-                using (StreamWriter sw = new StreamWriter(logFilePath, true))
-                {
-                    sw.WriteLine($"{DateTime.Now}: {message}");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al escribir en el archivo de registro: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /*private void ConfigureSerialPort()
-        {
-            sPuerto.DataBits = 8;
-            sPuerto.Parity = Parity.None;
-            sPuerto.StopBits = StopBits.One;
-            sPuerto.Handshake = Handshake.None;
-            
-            sPuerto.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-        }*/
-
-
 
         public void senDataSerial(string datos)
         {
@@ -130,7 +78,6 @@ namespace RayPro.Aplicaciones.tools
                 if (sPuerto.IsOpen)
                 {
                     sPuerto.WriteLine(datos);
-                    LogData($"Enviado: {datos}");
                 }
                 else
                 {
@@ -139,12 +86,9 @@ namespace RayPro.Aplicaciones.tools
             }
             catch (Exception ex)
             {
-                LogData($"Error al enviar datos por el puerto serial: {ex.Message}");
                 MessageBox.Show($"Error al enviar datos por el puerto serial: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
 
         public void CerrarSerialPort()
         {
