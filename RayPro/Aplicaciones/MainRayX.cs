@@ -18,17 +18,11 @@ namespace RayPro
     {
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn
-        (
-        int nLeftRect,     
-        int nTopRect,      
-        int nRightRect,    
-        int nBottomRect,   
-        int nWidthEllipse, 
-        int nHeightEllipse 
-        );
+        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
 
-        private int indiceImgNow = 0; private int nKVp = 40, nmAs = 20; private double getTiempo;
+
+        private int indiceImgNow = 0, nKVp = 40, nmAs = 20; 
+        private double getTiempo;
         private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DbSerial.xlsx");
 
         private HumanSettings _Hsettings;
@@ -37,9 +31,15 @@ namespace RayPro
         public MainRayX()
         {
             InitializeComponent();
-            initBordeCuadrado();
             InitFirstParametros();
+            InitializeTimers();
+            InitializeRoundedBorders();
             inhabilitarEvents(false);
+   
+        }
+
+        private void InitializeTimers()
+        {
             increaseTimer = new System.Windows.Forms.Timer();
             increaseTimer.Interval = 90;
             increaseTimer.Tick += IncreaseTimer_Tick;
@@ -50,7 +50,11 @@ namespace RayPro
 
             btnDownKv.MouseDown += btnDownKv_MouseDown;
             btnDownKv.MouseUp += btnDownKv_MouseUp;
-            btnDownKv.MouseLeave += btnDownKv_MouseLeave;
+
+            var freezeDetectionTimer = new System.Windows.Forms.Timer();
+            freezeDetectionTimer.Interval = 6000; // Cada 6 segundos
+            freezeDetectionTimer.Tick += FreezeDetectionTimer_Tick;
+            freezeDetectionTimer.Start();
         }
 
         private void InitFirstParametros()
@@ -65,8 +69,8 @@ namespace RayPro
             _Hsettings.showBodyRayX(0);
         }
 
-        private void initBordeCuadrado()
-        { 
+        private void InitializeRoundedBorders()
+        {
             txtProyeccion.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, txtProyeccion.Width, txtProyeccion.Height, 20, 20));
             txtEstructura.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, txtEstructura.Width, txtEstructura.Height, 20, 20));
             lblKVp.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, lblKVp.Width, lblKVp.Height, 30, 30));
@@ -74,7 +78,6 @@ namespace RayPro
             panelCombo.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelCombo.Width, panelCombo.Height, 26, 26));
             panelShow.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelShow.Width, panelShow.Height, 26, 26));
         }
-
         private void SerialCommunication_DataReceived(string data)
         {
             if (InvokeRequired)
@@ -84,10 +87,9 @@ namespace RayPro
             }
 
             data = data.Trim();
-
             Console.WriteLine("Data processed: " + data);
 
-            if (Double.TryParse(data, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double numberKv))
+            if (double.TryParse(data, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double numberKv))
             {
                 int roundedNumberKv = (int)Math.Round(numberKv);
                 lblKVp.Text = roundedNumberKv.ToString();
@@ -97,10 +99,30 @@ namespace RayPro
             {
                 Console.WriteLine("La cadena no se pudo convertir a double.");
             }
-
-
         }
-     private void btnClose_Click(object sender, EventArgs e)
+
+        private void FreezeDetectionTimer_Tick(object sender, EventArgs e)
+        {
+            if (!this.IsHandleCreated)
+            {
+                return;
+            }
+
+            if (!this.IsDisposed && !this.Disposing)
+            {
+                try
+                {
+                    this.Invoke((MethodInvoker)delegate { });
+                }
+                catch (InvalidOperationException)
+                {
+                    sMonitor.CerrarSerialPort();
+                    Application.Exit();
+                }
+            }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
         {         
             if(lblEncender.Text == "ON" && btnON.Visible == true)
             {
