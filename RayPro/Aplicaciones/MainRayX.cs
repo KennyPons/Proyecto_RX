@@ -48,9 +48,6 @@ namespace RayPro
             decreaseTimer.Interval = 90;
             decreaseTimer.Tick += DecreaseTimer_Tick;
 
-            btnDownKv.MouseDown += btnDownKv_MouseDown;
-            btnDownKv.MouseUp += btnDownKv_MouseUp;
-
             var freezeDetectionTimer = new System.Windows.Forms.Timer();
             freezeDetectionTimer.Interval = 6000; // Cada 6 segundos
             freezeDetectionTimer.Tick += FreezeDetectionTimer_Tick;
@@ -410,7 +407,7 @@ namespace RayPro
 
         private void btnDownKv_Click(object sender, EventArgs e)
         {
-           sMonitor.senDataSerial("l-");
+            //sMonitor.senDataSerial("l+");
         }
 
         private void btnDownKv_MouseDown(object sender, MouseEventArgs e)
@@ -421,27 +418,23 @@ namespace RayPro
 
         private void btnDownKv_MouseUp(object sender, MouseEventArgs e)
         {
-            StopDecreasing();
+            sMonitor.senDataSerial("l-");
+            decreaseTimer.Stop();
         }
 
         private void btnDownKv_MouseLeave(object sender, EventArgs e)
         {
-            StopDecreasing();
-        }
-
-        private void StopDecreasing()
-        {
-            sMonitor.senDataSerial("l-");
-            decreaseTimer.Stop(); 
+            //sMonitor.senDataSerial("l-");
+            //decreaseTimer.Stop();
         }
 
         private void DecreaseTimer_Tick(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(lblKVp.Text))
             {
-                int valorActual = int.Parse(lblKVp.Text); 
-                valorActual--; 
-                lblKVp.Text = valorActual.ToString(); 
+                int valorActual = int.Parse(lblKVp.Text);
+                valorActual--;
+                lblKVp.Text = valorActual.ToString();
 
                 if (valorActual < 48)
                 {
@@ -450,9 +443,10 @@ namespace RayPro
                 }
             }
         }
+
         private void btnUpKv_Click(object sender, EventArgs e)
         {
-            sMonitor.senDataSerial("r+");
+           // sMonitor.senDataSerial("r+");
         }
 
         private void btnUpKv_MouseDown(object sender, MouseEventArgs e)
@@ -464,12 +458,12 @@ namespace RayPro
         private void btnUpKv_MouseUp(object sender, MouseEventArgs e)
         {
             sMonitor.senDataSerial("r-");
-            increaseTimer.Stop(); 
+            increaseTimer.Stop();
         }
 
         private void lblKVp_Click(object sender, EventArgs e)
         {
-
+            // Posiblemente alguna lógica aquí
         }
 
         private void IncreaseTimer_Tick(object sender, EventArgs e)
@@ -485,7 +479,8 @@ namespace RayPro
                     valorActual = 130;
                     lblKVp.Text = valorActual.ToString();
                 }
-            }            
+            }
         }
+
     }
 }
