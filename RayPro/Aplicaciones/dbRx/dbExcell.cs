@@ -9,11 +9,11 @@ using WinFormAnimation;
 
 namespace RayPro.Persistencia.db
 {
-    internal class BDExcell
+    internal class dbExcell
     {
 
         private string filePath;
-        public BDExcell(string path) {
+        public dbExcell(string path) {
             filePath = path;
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Establecer el contexto de licencia
         }

@@ -165,10 +165,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aplicaciones\FrKeyBoard.cs">
+    <Compile Include="Vista\FrKeyBoard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Aplicaciones\FrKeyBoard.Designer.cs">
+    <Compile Include="Vista\FrKeyBoard.Designer.cs">
       <DependentUpon>FrKeyBoard.cs</DependentUpon>
     </Compile>
     <Compile Include="Aplicaciones\MainRayX.cs">
@@ -186,9 +186,9 @@
     <Compile Include="Aplicaciones\tools\DatosRadiologia.cs" />
     <Compile Include="Aplicaciones\tools\HumanSettings.cs" />
     <Compile Include="Aplicaciones\tools\SettingSerialPort.cs" />
-    <Compile Include="Persistencia\db\BDExcell.cs" />
-    <Compile Include="Persistencia\db\conexionDB.cs" />
-    <Compile Include="Persistencia\loginController.cs" />
+    <Compile Include="Aplicaciones\dbRx\dbExcell.cs" />
+    <Compile Include="Aplicaciones\dbRx\conexionDB.cs" />
+    <Compile Include="Aplicaciones\dbRx\loginController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vista\FrCuadro.cs">
@@ -203,19 +203,19 @@
     <Compile Include="Vista\FrQuestion.Designer.cs">
       <DependentUpon>FrQuestion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Login.cs">
+    <Compile Include="Aplicaciones\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Login.Designer.cs">
+    <Compile Include="Aplicaciones\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Welcome.cs">
+    <Compile Include="Aplicaciones\Welcome.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Welcome.Designer.cs">
+    <Compile Include="Aplicaciones\Welcome.Designer.cs">
       <DependentUpon>Welcome.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Aplicaciones\FrKeyBoard.resx">
+    <EmbeddedResource Include="Vista\FrKeyBoard.resx">
       <DependentUpon>FrKeyBoard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Aplicaciones\MainRayX.resx">
@@ -240,10 +240,10 @@
     <EmbeddedResource Include="Vista\FrQuestion.resx">
       <DependentUpon>FrQuestion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Vista\Login.resx">
+    <EmbeddedResource Include="Aplicaciones\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Vista\Welcome.resx">
+    <EmbeddedResource Include="Aplicaciones\Welcome.resx">
       <DependentUpon>Welcome.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -273,13 +273,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Persistencia\db\DB_USER.accdb">
+    <Content Include="Aplicaciones\dbRx\DB_USER.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Ray icon.ico" />
     <Content Include="Resources\disparo.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\down2.png" />
     <Content Include="Resources\listo.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -289,6 +290,9 @@
     <Content Include="Resources\ready.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\up1.png" />
+    <None Include="Resources\up2.png" />
+    <None Include="Resources\up21.png" />
     <Content Include="Resources\welcome.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

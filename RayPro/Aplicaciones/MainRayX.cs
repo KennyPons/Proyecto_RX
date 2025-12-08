@@ -27,7 +27,7 @@ namespace RayPro
 
         private HumanSettings _Hsettings;
         private SettingSerialPort sMonitor;
-        private BDExcell obj_db_excell;
+        private dbExcell obj_db_excell;
         public MainRayX()
         {
             InitializeComponent();
@@ -58,7 +58,7 @@ namespace RayPro
         {           
             imgBodyRay.Image = imageLista.Images[indiceImgNow];
             imgBodyRay.SizeMode = PictureBoxSizeMode.Zoom;
-            obj_db_excell = new BDExcell(path);
+            obj_db_excell = new dbExcell(path);
             var dataExcell = obj_db_excell.GetDataSerialExcell(4);
             sMonitor = new SettingSerialPort(dataExcell.com,dataExcell.baudRate);
             sMonitor.DataReceived += SerialCommunication_DataReceived;
@@ -146,9 +146,7 @@ namespace RayPro
             btnDownKv.Enabled = estadoAcual;
             btnUpKv.Enabled = estadoAcual;
             btnDownMaS.Enabled = estadoAcual;
-            btnUpMaS.Enabled = estadoAcual;
-            tecla_Kv.Enabled = estadoAcual;
-            tecla_mAs.Enabled = estadoAcual;
+            btnUpMaS.Enabled = estadoAcual;;
             btnFoco_large.Enabled = estadoAcual;
            btnFoco_small.Enabled = estadoAcual;
         }
@@ -205,18 +203,7 @@ namespace RayPro
             sMonitor.senDataSerial("Cerrar");
             inhabilitarEvents(false);
             Thread.Sleep(989);
-            if (btnFoco_large.Visible == true && lblFoco.Text == "LARGE")
-            {
-                btnFoco_small.Visible = true; 
-                btnFoco_large.Visible = false;
-                lblFoco.Text = "SMALL";
-            }
-            else
-            {
-                btnFoco_small.Visible = true;
-                btnFoco_large.Visible = false;
-                lblFoco.Text = "SMALL";
-            }
+
             sMonitor.senDataSerial(lblEncender.Text);
         }
 
@@ -338,7 +325,7 @@ namespace RayPro
 
         }
 
-        private void btnFoco_small_Click(object sender, EventArgs e) /*(SMALL)*/
+        /*private void btnFoco_small_Click(object sender, EventArgs e)
         {
             var Rs = FrCuadro.Show("¿Está seguro cambiar a Large?", "Configuración del Foco", MessageBoxButtons.YesNo);
             if(Rs == DialogResult.Yes)
@@ -350,21 +337,9 @@ namespace RayPro
                 _Hsettings.maSmallOrLarge(lblFoco.Text);
                 sMonitor.senDataSerial(lblFoco.Text);
             }
-        }
+        }*/
 
-        private void btnFoco_large_Click(object sender, EventArgs e)
-        {
-            var Rs = FrCuadro.Show("¿Está seguro cambiar a Small?", "Configuración del Foco", MessageBoxButtons.YesNo);
-            if(Rs == DialogResult.Yes)
-            {
-                btnFoco_small.Visible = true; btnFoco_large.Visible = false;
-                sMonitor.senDataSerial("Filamento");
-                Thread.Sleep(4000);
-                lblFoco.Text = "SMALL";
-                _Hsettings.maSmallOrLarge(lblFoco.Text);
-                sMonitor.senDataSerial(lblFoco.Text);
-            }
-        }
+
 
         private void cboEstructura_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -372,7 +347,7 @@ namespace RayPro
             this._Hsettings.changeShowCboProy(selectEstructura);
         }
 
-        private void tecla_mAs_Click(object sender, EventArgs e)
+        /*private void tecla_mAs_Click(object sender, EventArgs e)
         {
             FrKeyBoard formTecla = new FrKeyBoard("amperaje",300,0);
             
@@ -384,22 +359,9 @@ namespace RayPro
 
             nmAs = formTecla.SentNumerbs;
             lblmAs.Text = "" + nmAs; 
-        }
+        }*/
 
-        private void tecla_Kv_Click(object sender, EventArgs e)
-        {
-            FrKeyBoard formTecla = new FrKeyBoard("kVolt", 125, 0);
-            formTecla.StartPosition = FormStartPosition.Manual;
-            formTecla.Location = new System.Drawing.Point(
-                    this.Left + tecla_Kv.Left,
-                    this.Top + tecla_Kv.Top + tecla_Kv.Height);
-
-            formTecla.ShowDialog();
-
-            nKVp = formTecla.SentNumerbs;
-            lblKVp.Text = "" + nKVp;
-        }
-
+       
         private void MainRayX_FormClosing(object sender, FormClosingEventArgs e)
         {
             sMonitor.CerrarSerialPort();

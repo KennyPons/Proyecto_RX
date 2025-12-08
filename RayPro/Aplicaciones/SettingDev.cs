@@ -20,7 +20,7 @@ namespace RayPro.Aplicaciones
 
         private loginController objLog;
         //CHRISTIAN
-        private BDExcell handerExcell;
+        private dbExcell handerExcell;
         public SettingDev()
         {
             InitializeComponent();
@@ -45,7 +45,7 @@ namespace RayPro.Aplicaciones
             cboBaud.Items.AddRange(baudios);
             //CHRISTIAN
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DbSerial.xlsx");
-            handerExcell = new BDExcell(path);
+            handerExcell = new dbExcell(path);
 
             txtUsuario.Text = configuraciones.Settings.Default.userName;
             txtMaster.Focus();

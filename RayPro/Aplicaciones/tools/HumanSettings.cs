@@ -150,5 +150,8 @@ namespace RayPro.Aplicaciones.tools
                 case "FALANGES DE PIE": mostrarSelectProyeccion(115); showKVandMAS(6, 55); break;
             }
         }
+
+
+
     }
 }
