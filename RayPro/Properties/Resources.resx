@@ -139,6 +139,9 @@
   <data name="up1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\up1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="btnYelown3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnYelown3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="gente" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gente.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -148,8 +151,11 @@
   <data name="f-removebg-preview" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\f-removebg-preview.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnRX" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnRX.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="up21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\up21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonyellown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonyellown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="focoOFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\focoOFF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -157,8 +163,8 @@
   <data name="MedicoW" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MedicoW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="lblErrorMsg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lblErrorMsg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="buttonyellow2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonyellow2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnRX -1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnRX -1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -193,23 +199,29 @@
   <data name="preparando" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\preparando.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="focoON" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\focoON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="mynamelogo-removebg-preview" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mynamelogo-removebg-preview.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lblErrorMsg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lblErrorMsg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dar-enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dar-enter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="focoON" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\focoON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cuadro3d-RM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cuadro3d-RM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnReseteo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnReseteo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="OFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OFF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="izq-borrando" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\izq-borrando.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnRX" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnRX.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="up2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\up2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -247,8 +259,8 @@
   <data name="imgRandom1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\imgRandom1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cuadro3d-RM" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cuadro3d-RM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="OFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OFF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mylogo-removebg-preview" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mylogo-removebg-preview.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -268,7 +280,7 @@
   <data name="flechaLEFT-1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flechaLEFT-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="up21" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\up21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ready1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ready1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

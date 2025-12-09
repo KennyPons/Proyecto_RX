@@ -163,6 +163,36 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap btnYelown3 {
+            get {
+                object obj = ResourceManager.GetObject("btnYelown3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap buttonyellow2 {
+            get {
+                object obj = ResourceManager.GetObject("buttonyellow2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap buttonyellown {
+            get {
+                object obj = ResourceManager.GetObject("buttonyellown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap campanita {
             get {
                 object obj = ResourceManager.GetObject("campanita", resourceCulture);
@@ -523,6 +553,16 @@ namespace RayPro.Properties {
         internal static System.IO.UnmanagedMemoryStream ready {
             get {
                 return ResourceManager.GetStream("ready", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ready1 {
+            get {
+                object obj = ResourceManager.GetObject("ready1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

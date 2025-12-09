@@ -1,23 +1,33 @@
-﻿using System;
+﻿using RayPro.Vista;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RayPro.Aplicaciones.tools
 {
-    internal class HumanSettings
+    internal class HumanSupport
     {
         
         private DatosRadiologia _datosRadiologia; private ComboBox cboProy, cboEstruct; private Label lblKVp, lblMaS;
+
         private double mil = Math.Pow(10, 3);
+
         private int MA = 50;
+
         //constructor
-        public HumanSettings(ComboBox cboProy, ComboBox cboEstruct, Label lblKVp, Label lblMaS) {
-            this.cboEstruct = cboEstruct; this.cboProy = cboProy;
-            this.lblKVp = lblKVp; this.lblMaS = lblMaS;
+        public HumanSupport(ComboBox cboProy, ComboBox cboEstruct, Label lblKVp, Label lblMaS) {
+            this.cboEstruct = cboEstruct; 
+            this.cboProy = cboProy;
+            this.lblKVp = lblKVp; 
+            this.lblMaS = lblMaS;
             _datosRadiologia = new DatosRadiologia();
+
         }
 
        
@@ -29,9 +39,7 @@ namespace RayPro.Aplicaciones.tools
             {
                 cboBox.Items.Add(ray);
             }
-        }
-
-        
+        }   
 
         private void mostrarDataRayX(string selectEstructura)
         {
@@ -57,15 +65,10 @@ namespace RayPro.Aplicaciones.tools
 
         }
 
-        private void showKVandMAS(int n_mas, int n_kv)
-        {
-            lblKVp.Text = "" + n_kv;
-
-            lblMaS.Text = (n_mas > 0 && n_mas < 10) ? "0" + n_mas : "" + n_mas;
-        }
+        
 
 
-        /////////////////METHODS - USE MAINS///////////////////////////////////////////////////
+        /////////////////METODOS PUBLICOS - AUXILIARES PARA MAIN RX///////////////////////////////////////////////////
 
         public int initialVoltageInput(int kvNeed)
         {
@@ -78,6 +81,42 @@ namespace RayPro.Aplicaciones.tools
             
         }
 
+        /// <summary>
+        /// Gestor de Ejecutar Musica
+        /// </summary>
+        /// 
+
+        public void playSoundRx(string sound)
+        {
+            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string soundFilePath = Path.Combine(appDirectory, "Resources", sound);
+
+            try
+            {
+                Console.WriteLine("Intentando cargar archivo de sonido desde: " + soundFilePath);
+
+                if (File.Exists(soundFilePath))
+                {
+                    using (var sonido = new SoundPlayer(soundFilePath))
+                    {
+                        sonido.Play();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El archivo de sonido no se encontró en la ubicación especificada.");
+                }
+            }
+            catch (Exception ex)
+            {
+                FrCuadro.Show("Ocurrió un error al intentar reproducir el sonido: " + ex.Message, "Error de Sonido", MessageBoxButtons.YesNo);
+
+            }
+        }
+
+        /// <summary>
+        /// Gestor de convertir en tiempo la entrada de mAs
+        /// </summary>
         public double sendTimeInput(int mAsInput)
         {
             double resultTiempo = (double )mAsInput / MA;
@@ -102,6 +141,21 @@ namespace RayPro.Aplicaciones.tools
             }
         }
 
+        public string formatoStrMaS(int MaS)
+        {
+            return (MaS < 10) ? "0" + MaS.ToString() : MaS.ToString();
+        }
+
+        /// <summary>
+        /// Mostrar 
+        /// </summary>
+
+        private void showKVandMAS(int n_mas, int n_kv)
+        {
+            lblKVp.Text = "" + n_kv;
+
+            lblMaS.Text = formatoStrMaS(n_mas);
+        }
 
         public void showBodyRayX(int countNow)
         {
@@ -118,7 +172,10 @@ namespace RayPro.Aplicaciones.tools
             }
         }
 
-
+        /// <summary>
+        /// SIRVE PARA CAMBIAR LA PROYECCION SEGUN LA ESTRUCTURA SELECCIONADA
+        /// </summary>
+       
         public void changeShowCboProy(string selectEstructura)
         {
             switch(selectEstructura)
@@ -151,7 +208,7 @@ namespace RayPro.Aplicaciones.tools
             }
         }
 
-
+        ////////////////////////////////////FIN DE METODOS AUXILIARES//////////////////////////////////////////////////////////
 
     }
 }

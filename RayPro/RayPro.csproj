@@ -184,8 +184,8 @@
       <DependentUpon>SettingDev.cs</DependentUpon>
     </Compile>
     <Compile Include="Aplicaciones\tools\DatosRadiologia.cs" />
-    <Compile Include="Aplicaciones\tools\HumanSettings.cs" />
-    <Compile Include="Aplicaciones\tools\SettingSerialPort.cs" />
+    <Compile Include="Aplicaciones\tools\HumanSupport.cs" />
+    <Compile Include="Aplicaciones\tools\SerialPortManager.cs" />
     <Compile Include="Aplicaciones\dbRx\dbExcell.cs" />
     <Compile Include="Aplicaciones\dbRx\conexionDB.cs" />
     <Compile Include="Aplicaciones\dbRx\loginController.cs" />
@@ -277,6 +277,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Ray icon.ico" />
+    <None Include="Resources\buttonyellown.png" />
+    <None Include="Resources\buttonyellow2.png" />
+    <None Include="Resources\btnYelown3.png" />
     <Content Include="Resources\disparo.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -284,6 +287,7 @@
     <Content Include="Resources\listo.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\NoRespirar.wav" />
     <Content Include="Resources\preparando.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -293,6 +297,8 @@
     <None Include="Resources\up1.png" />
     <None Include="Resources\up2.png" />
     <None Include="Resources\up21.png" />
+    <None Include="Resources\ready1.png" />
+    <Content Include="Resources\Respirar.wav" />
     <Content Include="Resources\welcome.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

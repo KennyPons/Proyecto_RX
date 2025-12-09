@@ -6,6 +6,8 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Media;
+using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,105 +21,97 @@ namespace RayPro
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+        private Action valorCambiaAction;
 
+        private int kv = 40, mAs = 1, indiceImgNow = 0;
 
-        private int indiceImgNow = 0, nKVp = 40, nmAs = 20; 
         private double getTiempo;
-        private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DbSerial.xlsx");
+        /*Se cambia a Large, estado para ser = True, si cambia a Small va ser estado = False*/
+        private bool estadoFoco, NoExecute = false; 
 
-        private HumanSettings _Hsettings;
-        private SettingSerialPort sMonitor;
-        private dbExcell obj_db_excell;
+        private HumanSupport hSupport;
+        private SerialPortManager sMonitor;
+
         public MainRayX()
         {
             InitializeComponent();
             InitFirstParametros();
-            InitializeTimers();
-            InitializeRoundedBorders();
-            inhabilitarEvents(false);
+            ControlCambioFlechas();
    
         }
 
-        private void InitializeTimers()
-        {
-            increaseTimer = new System.Windows.Forms.Timer();
-            increaseTimer.Interval = 90;
-            increaseTimer.Tick += IncreaseTimer_Tick;
-
-            decreaseTimer = new System.Windows.Forms.Timer();
-            decreaseTimer.Interval = 90;
-            decreaseTimer.Tick += DecreaseTimer_Tick;
-
-            var freezeDetectionTimer = new System.Windows.Forms.Timer();
-            freezeDetectionTimer.Interval = 6000; // Cada 6 segundos
-            freezeDetectionTimer.Tick += FreezeDetectionTimer_Tick;
-            freezeDetectionTimer.Start();
-        }
+        
 
         private void InitFirstParametros()
-        {           
-            imgBodyRay.Image = imageLista.Images[indiceImgNow];
-            imgBodyRay.SizeMode = PictureBoxSizeMode.Zoom;
-            obj_db_excell = new dbExcell(path);
-            var dataExcell = obj_db_excell.GetDataSerialExcell(4);
-            sMonitor = new SettingSerialPort(dataExcell.com,dataExcell.baudRate);
-            sMonitor.DataReceived += SerialCommunication_DataReceived;
-            _Hsettings = new HumanSettings(cboProyeccion, cboEstructura, lblKVp, lblmAs);
-            _Hsettings.showBodyRayX(0);
+        {
+            initRoundedBorders();
+            showBodyRay.Image = imgLstBody.Images[indiceImgNow];
+            ShowSecuenciaRx.Image = lstSecuenciaRx.Images[0];
+            lblmAs.Text = "0" + mAs;
+            lblKVp.Text = kv.ToString();
+
+            enableSystemEvents(false);
+
+            // Inicializar la comunicación serial
+            //sMonitor = new SerialPortManager(dataExcell.com,dataExcell.baudRate);
+            //sMonitor.DataReceived += SerialCommunication_DataReceived;
+            hSupport = new HumanSupport(cboProyeccion, cboEstructura, lblKVp, lblmAs);
         }
 
-        private void InitializeRoundedBorders()
+        /*CONTROL DE TIEMPO O SECUENCIAL DE KV Y MAS*/
+        private void ControlCambioFlechas()
+        {
+            btnUpKv.MouseDown += (s, e) => startValorChange(() => CambiarKv(1));
+            btnUpKv.MouseUp += (s, e) => stopValorChange();
+            btnDownKv.MouseDown += (s, e) => startValorChange(() => CambiarKv(-1));
+            btnDownKv.MouseUp += (s, e) => stopValorChange();
+
+            btnUpMaS.MouseDown += (s, e) => startValorChange(() => CambiarMaS(1));
+            btnUpMaS.MouseUp += (s, e) => stopValorChange();
+            btnDownMaS.MouseDown += (s, e) => startValorChange(() => CambiarMaS(-1));
+            btnDownMaS.MouseUp += (s, e) => stopValorChange();
+        }
+
+
+        private void enableSystemEvents(bool status)
+        {
+            btnLeft.Enabled = status;
+            btnRight.Enabled = status;
+            btnPRE.Enabled = status;
+            btnRX.Enabled = status;
+            btnR.Enabled = status;
+            btnFilamento.Enabled = status;
+            panelShow.Enabled = status;
+        }
+
+        private void parametrosSecuencia(int wight, int high, int pointY)
+        {
+            ShowSecuenciaRx.Size = new Size(130, 140);
+            ShowSecuenciaRx.Location = new Point(478, 40);
+        }
+        private void visualBtnRx(bool status)
+        {
+            btnPRE.Visible = status;
+            btnFilamento.Visible = status;
+            NoExecute = !status;
+            
+        }
+
+        private void initRoundedBorders()
         {
             txtProyeccion.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, txtProyeccion.Width, txtProyeccion.Height, 20, 20));
             txtEstructura.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, txtEstructura.Width, txtEstructura.Height, 20, 20));
             lblKVp.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, lblKVp.Width, lblKVp.Height, 30, 30));
             lblmAs.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, lblmAs.Width, lblmAs.Height, 30, 30));
-            panelCombo.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelCombo.Width, panelCombo.Height, 26, 26));
+            panelFoco.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelFoco.Width, panelFoco.Height, 26, 26));
             panelShow.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelShow.Width, panelShow.Height, 26, 26));
         }
-        private void SerialCommunication_DataReceived(string data)
-        {
-            if (InvokeRequired)
-            {
-                Invoke(new Action<string>(SerialCommunication_DataReceived), data);
-                return;
-            }
 
-            data = data.Trim();
-            Console.WriteLine("Data processed: " + data);
 
-            if (double.TryParse(data, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double numberKv))
-            {
-                int roundedNumberKv = (int)Math.Round(numberKv);
-                lblKVp.Text = roundedNumberKv.ToString();
-                Console.WriteLine($"String convertido a entero redondeado es {roundedNumberKv}");
-            }
-            else
-            {
-                Console.WriteLine("La cadena no se pudo convertir a double.");
-            }
-        }
-
-        private void FreezeDetectionTimer_Tick(object sender, EventArgs e)
-        {
-            if (!this.IsHandleCreated)
-            {
-                return;
-            }
-
-            if (!this.IsDisposed && !this.Disposing)
-            {
-                try
-                {
-                    this.Invoke((MethodInvoker)delegate { });
-                }
-                catch (InvalidOperationException)
-                {
-                    sMonitor.CerrarSerialPort();
-                    Application.Exit();
-                }
-            }
-        }
+        /// <summary>
+        /// EVENTOS DE CERRA Y MINIMIZAR APP
+        /// </summary>
+        ///
 
         private void btnClose_Click(object sender, EventArgs e)
         {         
@@ -133,23 +127,55 @@ namespace RayPro
 
         private void btnMinimizar_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
+             WindowState = FormWindowState.Minimized;
         }
 
-        private void inhabilitarEvents(bool estadoAcual)
+       
+
+        /// <summary>
+        /// METODOS PARA CONTROLAR LA FECHAS DE KV Y MAS
+        /// </summary>
+        /// 
+
+        private void startValorChange(Action action)
         {
-            btnLeft.Enabled = estadoAcual;
-            btnRight.Enabled = estadoAcual;
-            btnPRE.Enabled = estadoAcual;
-            btnRX.Enabled = estadoAcual;
-            btnR.Enabled = estadoAcual;
-            btnDownKv.Enabled = estadoAcual;
-            btnUpKv.Enabled = estadoAcual;
-            btnDownMaS.Enabled = estadoAcual;
-            btnUpMaS.Enabled = estadoAcual;;
-            btnFoco_large.Enabled = estadoAcual;
-           btnFoco_small.Enabled = estadoAcual;
+            valorCambiaAction = action;
+            changeTimer.Start();
+            action();// Ejecuta una vez al presionar
         }
+
+        private void stopValorChange()
+        {
+            changeTimer.Stop();
+            valorCambiaAction = null;
+        }
+
+        private void CambiarKv(int value)
+        {
+            int newKv = kv + value;
+            if (newKv >= 40 && newKv <= 110)
+            {
+                kv = newKv;
+                lblKVp.Text = kv.ToString();
+            }
+        }
+
+        private void CambiarMaS(int value)
+        {
+            int newMaS = mAs + value;
+            if (newMaS >= 1 && newMaS <= 300)
+            {
+                mAs = newMaS;
+
+                lblmAs.Text = hSupport.formatoStrMaS(mAs);
+            }
+        }
+
+
+        /// <summary>
+        ///////////////// EVENTOS DE BOTONES DE RAYOS X ///////////////////
+        /// </summary>
+
 
         private void btnLeft_Click(object sender, EventArgs e)
         {
@@ -163,21 +189,21 @@ namespace RayPro
                 indiceImgNow = 0;
             }
 
-            this._Hsettings.showBodyRayX(indiceImgNow);
-            imgBodyRay.Image = imageLista.Images[indiceImgNow];
+            hSupport.showBodyRayX(indiceImgNow);
+            showBodyRay.Image = imgLstBody.Images[indiceImgNow];
         }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
 
-            if (indiceImgNow < imageLista.Images.Count - 1)
+            if (indiceImgNow < imgLstBody.Images.Count - 1)
             {
                 indiceImgNow++;
             }
 
-            this._Hsettings.showBodyRayX(indiceImgNow);
-            imgBodyRay.Image = imageLista.Images[indiceImgNow];
+            hSupport.showBodyRayX(indiceImgNow);
+            showBodyRay.Image = imgLstBody.Images[indiceImgNow];
           
         }
 
@@ -189,8 +215,8 @@ namespace RayPro
             lblEncender.Text = "ON";
             lblEncender.ForeColor = Color.LimeGreen;
             
-            sMonitor.senDataSerial(lblEncender.Text);
-            inhabilitarEvents(true);
+            //sMonitor.senDataSerial(lblEncender.Text);
+            enableSystemEvents(true);
             
         }
 
@@ -200,11 +226,11 @@ namespace RayPro
             btnON.Visible = false;
             lblEncender.Text = "OFF";
             lblEncender.ForeColor = Color.Brown;
-            sMonitor.senDataSerial("Cerrar");
-            inhabilitarEvents(false);
-            Thread.Sleep(989);
+            //sMonitor.senDataSerial("Cerrar");
+            enableSystemEvents(false);
+            //Thread.Sleep(989);
 
-            sMonitor.senDataSerial(lblEncender.Text);
+            //sMonitor.senDataSerial(lblEncender.Text);
         }
 
         private void DATE_NOW_Tick(object sender, EventArgs e)
@@ -213,117 +239,100 @@ namespace RayPro
             lblFecha.Text = DateTime.Now.ToString("dd MMM yyy");
         }
 
-        private void btnUpMaS_Click(object sender, EventArgs e)
-        {
-            nmAs += 1;
-            if(nmAs > 300)
-            {
-                nmAs = 300;
-            }
 
-            lblmAs.Text = (nmAs > 0 && nmAs < 10) ? "0" + nmAs : "" + nmAs;
-
-        }
-
-        private void btnDownMaS_Click(object sender, EventArgs e)
-        {
-            nmAs -= 1;
-            if (nmAs < 0)
-            {
-                nmAs = 0;
-            }
-            lblmAs.Text = (nmAs > 0 && nmAs < 10) ? "0" + nmAs : "" + nmAs;
-        }
         
         private void btnPRE_Click(object sender, EventArgs e)
         {
-            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string soundFilePath = Path.Combine(appDirectory, "Resources", "preparando.wav");
-
-            try
+            if (cboEstructura.Text == "TORÁX")
             {
-                Console.WriteLine("Intentando cargar archivo de sonido desde: " + soundFilePath);
-
-                if (File.Exists(soundFilePath))
-                {
-                    using (var sonido = new SoundPlayer(soundFilePath))
-                    {
-                        sonido.Play();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("El archivo de sonido no se encontró en la ubicación especificada.");
-                }
-
-                sMonitor.senDataSerial("Pre");
-
-                Thread.Sleep(4500);
-
-                btnPRE.BackColor = Color.Transparent;
-                soundFilePath = Path.Combine(appDirectory, "Resources", "ready.wav");
-                if (File.Exists(soundFilePath))
-                {
-                    using (var sonido = new SoundPlayer(soundFilePath))
-                    {
-                        sonido.Play();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("El archivo de sonido 'ready.wav' no se encontró en la ubicación especificada.");
-                }
-
-                getTiempo = _Hsettings.sendTimeInput(nmAs);
-                String sendFactors = "t" + getTiempo;
-                sMonitor.senDataSerial(sendFactors);
+                hSupport.playSoundRx("NoRespirar.wav");
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Ocurrió un error al intentar reproducir el sonido: " + ex.Message);
+                hSupport.playSoundRx("preparando.wav");
             }
+            
+            visualBtnRx(false);
+            //sMonitor.senDataSerial("Pre");
+
+
+            Thread.Sleep(3500);
+
+            hSupport.playSoundRx("ready.wav");
+            lblFoco.Text = "LISTO";
+            ShowSecuenciaRx.Image = lstSecuenciaRx.Images[2];
+            parametrosSecuencia(100, 100, 78);
+
+            getTiempo = hSupport.sendTimeInput(mAs);
+            string sendFactors = "t" + getTiempo;
+            //sMonitor.senDataSerial(sendFactors);
+
         }
 
         private void btnRX_Click(object sender, EventArgs e)
         {
-            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string soundFilePath = Path.Combine(appDirectory, "Resources", "disparo.wav");
+            if(!NoExecute)
+                return;
 
-            try
+            hSupport.playSoundRx("disparo.wav");
+            parametrosSecuencia(130, 140, 40);
+            //sMonitor.senDataSerial("D_RX");
+
+            Thread.Sleep(3000);
+
+            if (cboEstructura.Text == "TORÁX")
             {
-                Console.WriteLine("Intentando cargar archivo de sonido desde: " + soundFilePath);
-
-                if (File.Exists(soundFilePath))
-                {
-                    using (var sonido = new SoundPlayer(soundFilePath))
-                    {
-                        sonido.Play();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("El archivo de sonido no se encontró en la ubicación especificada.");
-                }
-
-                sMonitor.senDataSerial("D_RX");
-                Thread.Sleep(1000);
+                hSupport.playSoundRx("Respirar.wav");
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ocurrió un error al intentar reproducir el sonido: " + ex.Message);
-            }
+            
+
+            visualBtnRx(true);
+            lblFoco.Text = (!estadoFoco)? "SMALL":"LARGE";//Si esta activo el Foco Large, Es True pero se convierte a Falso y muestra LARGE Actual
+            ShowSecuenciaRx.Image = (!estadoFoco) ? lstSecuenciaRx.Images[0]: lstSecuenciaRx.Images[1];
+   
         }
 
         private void btnR_Click(object sender, EventArgs e)/*(RESETEAR)*/
         {
-            lblmAs.Text = "20";
-            lblKVp.Text = "50";
+            if (!NoExecute)
+                return;
 
-            sMonitor.senDataSerial("Reseteo");
-            Thread.Sleep(2000);// 2 seg
-            _Hsettings.showBodyRayX(0);
+            //sMonitor.senDataSerial("Reseteo");
+            parametrosSecuencia(130, 140, 40);
+            Thread.Sleep(500);
+
+            visualBtnRx(true);
+            lblFoco.Text = (!estadoFoco) ? "SMALL" : "LARGE";//Si esta activo el Foco Large, Es True pero se convierte a Falso y muestra LARGE Actual
+            ShowSecuenciaRx.Image = (!estadoFoco) ? lstSecuenciaRx.Images[0] : lstSecuenciaRx.Images[1];
+            hSupport.showBodyRayX(0);
 
         }
+
+
+        private void btnFilamento_Click(object sender, EventArgs e)
+        {
+            if(lblFoco.Text == "SMALL") 
+            {
+               Thread.Sleep(2000);
+               lblFoco.Text = "LARGE";
+               estadoFoco = true;
+               ShowSecuenciaRx.Image = lstSecuenciaRx.Images[1];
+            }
+            else
+            {
+                Thread.Sleep(2000);
+                lblFoco.Text = "SMALL";
+                estadoFoco = false;
+                ShowSecuenciaRx.Image = lstSecuenciaRx.Images[0];
+            }
+        }
+
+        private void changeTimer_Tick(object sender, EventArgs e)
+        {
+            valorCambiaAction?.Invoke();
+        }
+
+        
 
         /*private void btnFoco_small_Click(object sender, EventArgs e)
         {
@@ -344,7 +353,7 @@ namespace RayPro
         private void cboEstructura_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectEstructura = cboEstructura.SelectedItem.ToString();
-            this._Hsettings.changeShowCboProy(selectEstructura);
+            hSupport.changeShowCboProy(selectEstructura);
         }
 
         /*private void tecla_mAs_Click(object sender, EventArgs e)
@@ -364,85 +373,14 @@ namespace RayPro
        
         private void MainRayX_FormClosing(object sender, FormClosingEventArgs e)
         {
-            sMonitor.CerrarSerialPort();
+            //sMonitor.CerrarSerialPort();
         }
 
-        private void btnDownKv_Click(object sender, EventArgs e)
-        {
-            //sMonitor.senDataSerial("l+");
-        }
 
-        private void btnDownKv_MouseDown(object sender, MouseEventArgs e)
-        {
-            sMonitor.senDataSerial("l+");
-            decreaseTimer.Start();
-        }
 
-        private void btnDownKv_MouseUp(object sender, MouseEventArgs e)
-        {
-            sMonitor.senDataSerial("l-");
-            decreaseTimer.Stop();
-        }
 
-        private void btnDownKv_MouseLeave(object sender, EventArgs e)
-        {
-            //sMonitor.senDataSerial("l-");
-            //decreaseTimer.Stop();
-        }
 
-        private void DecreaseTimer_Tick(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(lblKVp.Text))
-            {
-                int valorActual = int.Parse(lblKVp.Text);
-                valorActual--;
-                lblKVp.Text = valorActual.ToString();
-
-                if (valorActual < 48)
-                {
-                    valorActual = 48;
-                    lblKVp.Text = valorActual.ToString();
-                }
-            }
-        }
-
-        private void btnUpKv_Click(object sender, EventArgs e)
-        {
-           // sMonitor.senDataSerial("r+");
-        }
-
-        private void btnUpKv_MouseDown(object sender, MouseEventArgs e)
-        {
-            sMonitor.senDataSerial("r+");
-            increaseTimer.Start();
-        }
-
-        private void btnUpKv_MouseUp(object sender, MouseEventArgs e)
-        {
-            sMonitor.senDataSerial("r-");
-            increaseTimer.Stop();
-        }
-
-        private void lblKVp_Click(object sender, EventArgs e)
-        {
-            // Posiblemente alguna lógica aquí
-        }
-
-        private void IncreaseTimer_Tick(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(lblKVp.Text))
-            {
-                int valorActual = int.Parse(lblKVp.Text);
-                valorActual++;
-                lblKVp.Text = valorActual.ToString();
-
-                if (valorActual > 130)
-                {
-                    valorActual = 130;
-                    lblKVp.Text = valorActual.ToString();
-                }
-            }
-        }
+        //////FIN DE SOFTWARE/////
 
     }
 }

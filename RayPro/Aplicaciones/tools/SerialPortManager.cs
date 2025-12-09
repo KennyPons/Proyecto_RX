@@ -11,13 +11,13 @@ using System.Windows.Forms;
 
 namespace RayPro.Aplicaciones.tools
 {
-    internal class SettingSerialPort
+    internal class SerialPortManager
     {
         private SerialPort sPuerto;
         private StringBuilder _buffer = new StringBuilder();
         public event Action<string> DataReceived;
 
-        public SettingSerialPort(string portName, int baudRate)
+        public SerialPortManager(string portName, int baudRate)
         {
             sPuerto = new SerialPort(portName, baudRate);
             sPuerto.DataReceived += OnDataReceived;

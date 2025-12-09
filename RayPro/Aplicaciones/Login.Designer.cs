@@ -64,7 +64,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(480, 900);
+            this.panel1.Size = new System.Drawing.Size(493, 900);
             this.panel1.TabIndex = 0;
             // 
             // linkSetting
@@ -99,11 +99,11 @@
             this.lblmedical.AutoSize = true;
             this.lblmedical.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblmedical.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblmedical.Location = new System.Drawing.Point(105, 550);
+            this.lblmedical.Location = new System.Drawing.Point(82, 554);
             this.lblmedical.Name = "lblmedical";
-            this.lblmedical.Size = new System.Drawing.Size(267, 39);
+            this.lblmedical.Size = new System.Drawing.Size(311, 39);
             this.lblmedical.TabIndex = 1;
-            this.lblmedical.Text = "Medical System";
+            this.lblmedical.Text = "Equipo de Rayos X";
             // 
             // pictureBox1
             // 
@@ -230,7 +230,7 @@
             this.lblErrorMsg.Text = "ErrorMsg";
             this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.lblErrorMsg.Visible = false;
-            this.lblErrorMsg.Click += new System.EventHandler(this.lblErrorMsg_Click);
+           
             // 
             // btnMinimizar
             // 

@@ -179,10 +179,7 @@ namespace RayPro.Vista
 
         }
 
-        private void lblErrorMsg_Click(object sender, EventArgs e)
-        {
 
-        }
     }
 }
     
