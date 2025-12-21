@@ -165,6 +165,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aplicaciones\tools\UsbCdcManager.cs" />
     <Compile Include="Vista\FrKeyBoard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,7 +186,6 @@
     </Compile>
     <Compile Include="Aplicaciones\tools\DatosRadiologia.cs" />
     <Compile Include="Aplicaciones\tools\HumanSupport.cs" />
-    <Compile Include="Aplicaciones\tools\SerialPortManager.cs" />
     <Compile Include="Aplicaciones\dbRx\dbExcell.cs" />
     <Compile Include="Aplicaciones\dbRx\conexionDB.cs" />
     <Compile Include="Aplicaciones\dbRx\loginController.cs" />
@@ -280,6 +280,9 @@
     <None Include="Resources\buttonyellown.png" />
     <None Include="Resources\buttonyellow2.png" />
     <None Include="Resources\btnYelown3.png" />
+    <None Include="Resources\4703650.png" />
+    <None Include="Resources\2752488.png" />
+    <None Include="Resources\config1.png" />
     <Content Include="Resources\disparo.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -298,6 +301,7 @@
     <None Include="Resources\up2.png" />
     <None Include="Resources\up21.png" />
     <None Include="Resources\ready1.png" />
+    <None Include="Resources\resetred.png" />
     <Content Include="Resources\Respirar.wav" />
     <Content Include="Resources\welcome.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

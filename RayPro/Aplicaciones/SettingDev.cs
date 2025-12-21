@@ -19,8 +19,7 @@ namespace RayPro.Aplicaciones
     {
 
         private loginController objLog;
-        //CHRISTIAN
-        private dbExcell handerExcell;
+
         public SettingDev()
         {
             InitializeComponent();
@@ -43,12 +42,9 @@ namespace RayPro.Aplicaciones
 
             string[] baudios = { "2400","4800","9600", "19200" , "115200" };
             cboBaud.Items.AddRange(baudios);
-            //CHRISTIAN
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DbSerial.xlsx");
-            handerExcell = new dbExcell(path);
 
             txtUsuario.Text = configuraciones.Settings.Default.userName;
-            txtMaster.Focus();
+            //txtMaster.Focus();
             txtUsuario.Focus();
             lblErrorMsg.Visible = false;
         }
@@ -79,8 +75,7 @@ namespace RayPro.Aplicaciones
             txtPassAnt.Clear();
             txtPassNew.Clear();
             txtUsuario.Focus();
-            txtMaster.Clear();
-            txtMaster.Focus();
+
         }
         //========================================================================================
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -128,23 +123,7 @@ namespace RayPro.Aplicaciones
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (objLog.AutenticarAdmin(txtMaster.Text.Trim(),""))
-            {
-                /*configuraciones.Settings.Default.Puerto = cboComp.SelectedItem.ToString();
-                configuraciones.Settings.Default.Baudios = int.Parse(cboBaud.SelectedItem.ToString());
-                configuraciones.Settings.Default.Save();*/
-
-                string puerto = cboComp.SelectedItem.ToString();
-                int baud = int.Parse(cboBaud.SelectedItem.ToString());
-                //CHRISTIAN
-                handerExcell.SaveDataSerialExcell(puerto,baud);
-                FrCuadro.Show("Save Sufecull!", "Warning", MessageBoxButtons.YesNo);
-            }
-            else
-            {
-                FrCuadro.Show("It is not the correct master's degree", "Warning", MessageBoxButtons.YesNo);
-                reset();
-            }
+  
         }
     }
 }

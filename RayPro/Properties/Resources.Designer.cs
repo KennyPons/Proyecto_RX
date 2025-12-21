@@ -63,9 +63,9 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap abajo_cuadrado {
+        internal static System.Drawing.Bitmap _2752488 {
             get {
-                object obj = ResourceManager.GetObject("abajo-cuadrado", resourceCulture);
+                object obj = ResourceManager.GetObject("2752488", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arriba_cuadrado {
+        internal static System.Drawing.Bitmap _4703650 {
             get {
-                object obj = ResourceManager.GetObject("arriba-cuadrado", resourceCulture);
+                object obj = ResourceManager.GetObject("4703650", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -223,6 +223,16 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap config1 {
+            get {
+                object obj = ResourceManager.GetObject("config1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cuadrito_RM {
             get {
                 object obj = ResourceManager.GetObject("cuadrito_RM", resourceCulture);
@@ -295,16 +305,6 @@ namespace RayPro.Properties {
         internal static System.Drawing.Bitmap etestocopio_removebg_preview {
             get {
                 object obj = ResourceManager.GetObject("etestocopio-removebg-preview", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap f_removebg_preview {
-            get {
-                object obj = ResourceManager.GetObject("f-removebg-preview", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -415,16 +415,6 @@ namespace RayPro.Properties {
         internal static System.Drawing.Bitmap icons8_diez_llaves_64 {
             get {
                 object obj = ResourceManager.GetObject("icons8-diez-llaves-64", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_diez_llaves_641 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-diez-llaves-641", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -562,6 +552,16 @@ namespace RayPro.Properties {
         internal static System.Drawing.Bitmap ready1 {
             get {
                 object obj = ResourceManager.GetObject("ready1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap resetred {
+            get {
+                object obj = ResourceManager.GetObject("resetred", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -117,7 +117,7 @@ namespace RayPro
         {         
             if(lblEncender.Text == "ON" && btnON.Visible == true)
             {
-                MessageBox.Show("Por favor Asegurese que el equipo este apagado correctamente", "Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrCuadro.Show("Por favor apague el equipo" , "Advertencia", MessageBoxButtons.YesNo);
             }
             else
             {
