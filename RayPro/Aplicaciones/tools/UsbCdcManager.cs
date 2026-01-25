@@ -42,21 +42,22 @@ namespace RayPro.Aplicaciones.tools
             }
         }
 
-        public string LastError { get; private set; }
+        public string LastError { get; private set; }// una propiedad publica, donde get es publico y set es privado
         public string PortName { get; private set; }
         public int BaudRate { get; private set; } = 115200;
-        public bool AutoConnect { get; private set; }
+        public bool AutoConnect { get; private set; }//autovonectar
 
         // Filtrado opcional
-        public string MessagePrefix { get; set; }
+        public string MessagePrefix { get; set; } //Prefijo de mensaje
         public Regex MessageRegex { get; set; }
 
         // Reintento
-        public int ReconnectMaxAttempts { get; set; } = 5;
-        public TimeSpan ReconnectBaseDelay { get; set; } = TimeSpan.FromSeconds(1);
+        public int ReconnectMaxAttempts { get; set; } = 5;//Intentos máximos de reconexión
+        public TimeSpan ReconnectBaseDelay { get; set; } = TimeSpan.FromSeconds(1); //Retardo de reconexión de la base
 
         public UsbCdcManager()
         {
+            //CONTRUCTORS
             _syncContext = SynchronizationContext.Current;
             LoadSettings();
         }
@@ -114,9 +115,9 @@ namespace RayPro.Aplicaciones.tools
         {
             try
             {
-                var settings = Settings.Settings.Default;
+                var settings = Settings.Default;
                 var props = settings.Properties;
-                if (props["ComPort"] != null) PortName = settings.ComPort;
+                if (props["ComPortName"] != null) PortName = settings.ComPortName;
                 if (props["BaudRate"] != null && settings.BaudRate > 0) BaudRate = settings.BaudRate;
                 if (props["AutoConnect"] != null) AutoConnect = settings.AutoConnect;
             }
@@ -130,9 +131,9 @@ namespace RayPro.Aplicaciones.tools
         {
             try
             {
-                var settings = Properties.Settings.Default;
+                var settings = Settings.Default;
                 var props = settings.Properties;
-                if (props["ComPort"] != null) settings.ComPort = PortName;
+                if (props["ComPortName"] != null) settings.ComPortName = PortName;
                 if (props["BaudRate"] != null) settings.BaudRate = BaudRate;
                 if (props["AutoConnect"] != null) settings.AutoConnect = AutoConnect;
                 settings.Save();

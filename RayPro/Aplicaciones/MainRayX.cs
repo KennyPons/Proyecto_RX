@@ -30,7 +30,7 @@ namespace RayPro
         private bool estadoFoco, NoExecute = false; 
 
         private HumanSupport hSupport;
-        private SerialPortManager sMonitor;
+        //private SerialPortManager sMonitor;
 
         public MainRayX()
         {
@@ -99,10 +99,10 @@ namespace RayPro
 
         private void initRoundedBorders()
         {
-            txtProyeccion.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, txtProyeccion.Width, txtProyeccion.Height, 20, 20));
-            txtEstructura.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, txtEstructura.Width, txtEstructura.Height, 20, 20));
-            lblKVp.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, lblKVp.Width, lblKVp.Height, 30, 30));
-            lblmAs.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, lblmAs.Width, lblmAs.Height, 30, 30));
+            //txtProyeccion.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, txtProyeccion.Width, txtProyeccion.Height, 20, 20));
+            //txtEstructura.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, txtEstructura.Width, txtEstructura.Height, 20, 20));
+            pnlMaS.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pnlMaS.Width, pnlMaS.Height, 30, 30));
+            pnlKvp.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pnlKvp.Width, pnlKvp.Height, 30, 30));
             panelFoco.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelFoco.Width, panelFoco.Height, 26, 26));
             panelShow.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelShow.Width, panelShow.Height, 26, 26));
         }
@@ -149,7 +149,7 @@ namespace RayPro
             changeTimer.Stop();
             valorCambiaAction = null;
         }
-
+         /*AQUI LA FUNCION DE LOS CAMBIOS CON LOS NUMEROS EN KV*/
         private void CambiarKv(int value)
         {
             int newKv = kv + value;
@@ -159,7 +159,7 @@ namespace RayPro
                 lblKVp.Text = kv.ToString();
             }
         }
-
+        /*AQUI LA FUNCION DE LOS CAMBIOS CON LOS NUMEROS EN MAS*/
         private void CambiarMaS(int value)
         {
             int newMaS = mAs + value;
