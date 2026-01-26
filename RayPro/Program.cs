@@ -1,10 +1,12 @@
 ﻿using RayPro.Aplicaciones;
+using RayPro.Aplicaciones.tools;
 using RayPro.Vista;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace RayPro
 {
@@ -18,8 +20,14 @@ namespace RayPro
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            AppSession.Usb = new UsbCdcManager();
+
             Application.Run(new MainRayX());
             //Application.Run(new Welcome());
+
+            // Al salir del software
+            AppSession.Usb?.Dispose();
 
         }
     }

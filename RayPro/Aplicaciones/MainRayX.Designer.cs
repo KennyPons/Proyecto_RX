@@ -76,6 +76,7 @@
             this.DATE_NOW = new System.Windows.Forms.Timer(this.components);
             this.lstSecuenciaRx = new System.Windows.Forms.ImageList(this.components);
             this.changeTimer = new System.Windows.Forms.Timer(this.components);
+            this.lblErrorMsg = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -114,6 +115,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.splitContainer1.Panel2.Controls.Add(this.lblErrorMsg);
             this.splitContainer1.Panel2.Controls.Add(this.lblHora);
             this.splitContainer1.Panel2.Controls.Add(this.lblFecha);
             this.splitContainer1.Panel2.Controls.Add(this.btnON);
@@ -696,6 +698,21 @@
             this.changeTimer.Interval = 147;
             this.changeTimer.Tick += new System.EventHandler(this.changeTimer_Tick);
             // 
+            // lblErrorMsg
+            // 
+            this.lblErrorMsg.AutoSize = true;
+            this.lblErrorMsg.Font = new System.Drawing.Font("MS Reference Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErrorMsg.ForeColor = System.Drawing.Color.Brown;
+            this.lblErrorMsg.Image = global::RayPro.Properties.Resources.lblErrorMsg;
+            this.lblErrorMsg.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.lblErrorMsg.Location = new System.Drawing.Point(512, 58);
+            this.lblErrorMsg.Name = "lblErrorMsg";
+            this.lblErrorMsg.Size = new System.Drawing.Size(107, 26);
+            this.lblErrorMsg.TabIndex = 13;
+            this.lblErrorMsg.Text = "ErrorMsg";
+            this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.lblErrorMsg.Visible = false;
+            // 
             // MainRayX
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -709,6 +726,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rayos X";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainRayX_FormClosing);
+            this.Load += new System.EventHandler(this.MainRayX_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
@@ -788,6 +806,7 @@
         private System.Windows.Forms.Panel pnlKvp;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblErrorMsg;
     }
 }
 

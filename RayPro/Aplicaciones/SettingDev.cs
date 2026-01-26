@@ -1,5 +1,5 @@
-﻿using RayPro.Persistencia;
-using RayPro.Persistencia.db;
+﻿using RayPro.Aplicaciones.tools;
+using RayPro.configuraciones;
 using RayPro.Vista;
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace RayPro.Aplicaciones
     public partial class SettingDev : Form
     {
 
-        private loginController objLog;
+        private UsbCdcManager _usb;
 
         public SettingDev()
         {
@@ -36,17 +36,9 @@ namespace RayPro.Aplicaciones
         //===============================METHODS=========================================================
         private void inicializandoComponentes()
         {
-            objLog = new loginController();   
-            string[] puertos = SerialPort.GetPortNames();
-            cboComp.Items.AddRange(puertos);
-
-            string[] baudios = { "2400","4800","9600", "19200" , "115200" };
-            cboBaud.Items.AddRange(baudios);
-
-            txtUsuario.Text = configuraciones.Settings.Default.userName;
-            //txtMaster.Focus();
-            txtUsuario.Focus();
-            lblErrorMsg.Visible = false;
+            _usb = new UsbCdcManager();
+            WireEvents();
+            LoadCombos();
         }
 
         private void mensajeDeError(String msge)
@@ -77,6 +69,50 @@ namespace RayPro.Aplicaciones
             txtUsuario.Focus();
 
         }
+
+        private void WireEvents()
+        {
+            _usb.ConnectionChanged += OnConnectionChanged;
+            _usb.DataReceived += OnDataReceived;
+            _usb.ErrorOccurred += OnErrorOccurred;
+        }
+
+        //Implementación de los handlers:
+        private void OnConnectionChanged(bool connected)
+        {
+            btnConectado.Text = connected ? "Disconnect" : "Connect";
+            lblMensaje.Text = connected ? "Conexión correcta" : "Desconectado";
+        }
+
+        private void OnDataReceived(string data)
+        {
+            Rx_txt.AppendText(data + Environment.NewLine);
+        }
+
+        private void OnErrorOccurred(string error)
+        {
+            lblMensaje.Text = error;
+        }
+
+        // Cargar combos de configuración
+        private void LoadCombos()
+        {
+            cboComp.Items.Clear();
+            cboComp.Items.AddRange(UsbCdcManager.GetPorts());
+
+            cboBaud.Items.Clear();
+            foreach (var b in UsbCdcManager.GetBaudRates())
+                cboBaud.Items.Add(b);
+
+            // Restaurar settings guardados
+            if (!string.IsNullOrEmpty(Settings.Default.ComPortName))
+                cboComp.SelectedItem = Settings.Default.ComPortName;
+
+            if (Settings.Default.BaudRate > 0)
+                cboBaud.SelectedItem = Settings.Default.BaudRate;
+        }
+
+
         //========================================================================================
         private void pictureBox2_Click(object sender, EventArgs e)
         {
@@ -102,28 +138,63 @@ namespace RayPro.Aplicaciones
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if(txtPassAnt.Text != configuraciones.Settings.Default.PassTemp)
-            {
-                mensajeDeError("No es la contraseña correcta, digite nuevamente");
-                reset();
-            }
-            else
-            {
-                if(objLog.createNewUser(txtUsuario.Text, txtPassNew.Text))
-                {
-
-                    reset();
-                }
-                else
-                {
-                    mensajeDeError("No se pudo modificar correctamente,"+"\nintentelo nuecamente");
-                }
-            }
+            
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-  
+            if (cboComp.SelectedItem == null || cboBaud.SelectedItem == null)
+            {
+                lblMensaje.Text = "No hay configuración válida";
+                return;
+            }
+
+            _usb.Configure(
+                cboComp.SelectedItem.ToString(),
+                Convert.ToInt32(cboBaud.SelectedItem),
+                autoConnect: true
+            );
+
+            lblMensaje.Text = "Configuración guardada correctamente";
         }
+
+        private void btnRst_Click(object sender, EventArgs e)
+        {
+            LoadCombos();
+            lblMensaje.Text = "Lista de puertos actualizada";
+        }
+
+        private void btnConectado_Click(object sender, EventArgs e)
+        {
+            if (_usb.IsConnected)
+            {
+                _usb.Disconnect();
+                return;
+            }
+
+            if (cboComp.SelectedItem == null || cboBaud.SelectedItem == null)
+            {
+                lblMensaje.Text = "Seleccione Compuerta y Baudio";
+                return;
+            }
+
+            _usb.Configure(
+                cboComp.SelectedItem.ToString(),
+                Convert.ToInt32(cboBaud.SelectedItem),
+                autoConnect: false
+            );
+
+            _usb.Connect();
+        }
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(Tx_txt.Text))
+                return;
+
+            _usb.Send(Tx_txt.Text);
+        }
+
+        //////////////////////////////////////////////////////////////////////////////
     }
 }

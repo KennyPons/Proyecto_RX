@@ -4,15 +4,16 @@ using RayPro.Persistencia.db;
 using RayPro.Vista;
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 using System.IO;
 using System.Media;
 using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Timers;
 
 namespace RayPro
 {
@@ -51,6 +52,7 @@ namespace RayPro
             lblKVp.Text = kv.ToString();
 
             enableSystemEvents(false);
+            WireEvents();
 
             // Inicializar la comunicación serial
             //sMonitor = new SerialPortManager(dataExcell.com,dataExcell.baudRate);
@@ -107,6 +109,61 @@ namespace RayPro
             panelShow.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelShow.Width, panelShow.Height, 26, 26));
         }
 
+        private void mensajeDeError(String msge)
+        {
+            System.Windows.Forms.Timer temporizador = new System.Windows.Forms.Timer();
+            temporizador.Interval = 5000;
+
+            lblErrorMsg.Text = "   " + msge;
+            lblErrorMsg.ForeColor = Color.OrangeRed;
+            lblErrorMsg.Visible = true;
+
+            temporizador.Tick += (sender, e) =>
+            {
+                lblErrorMsg.Visible = false;
+
+                temporizador.Stop();
+            };
+
+
+            temporizador.Start();
+        }
+
+
+        ///<sumary>
+        ///CONEXION DIRECTA CON EL STM32
+        ///
+        private void WireEvents()
+        {
+            AppSession.Usb.ConnectionChanged += OnConnectionChanged;
+            AppSession.Usb.ErrorOccurred += OnErrorOccurred;
+        }
+
+        private void OnConnectionChanged(bool connected)
+        {
+            string msg = connected
+                ? "Equipo conectado correctamente"
+                : "Equipo desconectado";
+
+            mensajeDeError(msg);
+        }
+
+        private void OnErrorOccurred(string error)
+        {
+            mensajeDeError("No se pudo establecer conexión con el equipo");
+        }
+
+        private void SendCommand(string command)
+        {
+            if (!AppSession.Usb.IsConnected)
+            {
+  
+                mensajeDeError("Equipo no conectado");
+                return;
+            }
+
+            AppSession.Usb.Send(command);
+        }
 
         /// <summary>
         /// EVENTOS DE CERRA Y MINIMIZAR APP
@@ -217,7 +274,9 @@ namespace RayPro
             
             //sMonitor.senDataSerial(lblEncender.Text);
             enableSystemEvents(true);
-            
+
+            SendCommand("ON");
+
         }
 
         private void btnON_Click(object sender, EventArgs e)
@@ -231,6 +290,7 @@ namespace RayPro
             //Thread.Sleep(989);
 
             //sMonitor.senDataSerial(lblEncender.Text);
+            SendCommand("OFF");
         }
 
         private void DATE_NOW_Tick(object sender, EventArgs e)
@@ -254,7 +314,7 @@ namespace RayPro
             
             visualBtnRx(false);
             //sMonitor.senDataSerial("Pre");
-
+            SendCommand("PRE");
 
             Thread.Sleep(3500);
 
@@ -277,7 +337,7 @@ namespace RayPro
             hSupport.playSoundRx("disparo.wav");
             parametrosSecuencia(130, 140, 40);
             //sMonitor.senDataSerial("D_RX");
-
+            SendCommand("D_RX");
             Thread.Sleep(3000);
 
             if (cboEstructura.Text == "TORÁX")
@@ -305,7 +365,7 @@ namespace RayPro
             lblFoco.Text = (!estadoFoco) ? "SMALL" : "LARGE";//Si esta activo el Foco Large, Es True pero se convierte a Falso y muestra LARGE Actual
             ShowSecuenciaRx.Image = (!estadoFoco) ? lstSecuenciaRx.Images[0] : lstSecuenciaRx.Images[1];
             hSupport.showBodyRayX(0);
-
+            SendCommand("RESET");
         }
 
 
@@ -317,6 +377,7 @@ namespace RayPro
                lblFoco.Text = "LARGE";
                estadoFoco = true;
                ShowSecuenciaRx.Image = lstSecuenciaRx.Images[1];
+                SendCommand("LARG");
             }
             else
             {
@@ -324,7 +385,13 @@ namespace RayPro
                 lblFoco.Text = "SMALL";
                 estadoFoco = false;
                 ShowSecuenciaRx.Image = lstSecuenciaRx.Images[0];
+                SendCommand("S");
             }
+        }
+
+        private void MainRayX_Load(object sender, EventArgs e)
+        {
+            AppSession.Usb.TryAutoConnect();
         }
 
         private void changeTimer_Tick(object sender, EventArgs e)
@@ -370,7 +437,14 @@ namespace RayPro
             lblmAs.Text = "" + nmAs; 
         }*/
 
-       
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            AppSession.Usb?.Disconnect();
+            base.OnFormClosing(e);
+        }
+
+
         private void MainRayX_FormClosing(object sender, FormClosingEventArgs e)
         {
             //sMonitor.CerrarSerialPort();

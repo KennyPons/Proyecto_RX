@@ -45,16 +45,16 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnRst = new System.Windows.Forms.PictureBox();
+            this.btnSend = new System.Windows.Forms.Button();
             this.lblMensaje = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.btnConectado = new System.Windows.Forms.Button();
+            this.calib_MaS = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Rx_txt = new System.Windows.Forms.TextBox();
+            this.Tx_txt = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cboBaud = new System.Windows.Forms.ComboBox();
@@ -88,7 +88,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnReset)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
@@ -267,16 +267,16 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.pictureBox4);
-            this.tabPage2.Controls.Add(this.pictureBox3);
-            this.tabPage2.Controls.Add(this.button2);
+            this.tabPage2.Controls.Add(this.btnRst);
+            this.tabPage2.Controls.Add(this.btnSend);
             this.tabPage2.Controls.Add(this.lblMensaje);
-            this.tabPage2.Controls.Add(this.button1);
-            this.tabPage2.Controls.Add(this.textBox3);
+            this.tabPage2.Controls.Add(this.btnConectado);
+            this.tabPage2.Controls.Add(this.calib_MaS);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.textBox2);
-            this.tabPage2.Controls.Add(this.textBox1);
+            this.tabPage2.Controls.Add(this.Rx_txt);
+            this.tabPage2.Controls.Add(this.Tx_txt);
             this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.cboBaud);
@@ -301,30 +301,32 @@
             this.pictureBox4.TabIndex = 22;
             this.pictureBox4.TabStop = false;
             // 
-            // pictureBox3
+            // btnRst
             // 
-            this.pictureBox3.Image = global::RayPro.Properties.Resources.resetred;
-            this.pictureBox3.Location = new System.Drawing.Point(421, 96);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(70, 70);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 21;
-            this.pictureBox3.TabStop = false;
+            this.btnRst.Image = global::RayPro.Properties.Resources.resetred;
+            this.btnRst.Location = new System.Drawing.Point(421, 96);
+            this.btnRst.Name = "btnRst";
+            this.btnRst.Size = new System.Drawing.Size(70, 70);
+            this.btnRst.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnRst.TabIndex = 21;
+            this.btnRst.TabStop = false;
+            this.btnRst.Click += new System.EventHandler(this.btnRst_Click);
             // 
-            // button2
+            // btnSend
             // 
-            this.button2.BackColor = System.Drawing.Color.OrangeRed;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Cyan;
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkBlue;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
-            this.button2.Location = new System.Drawing.Point(298, 302);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(129, 31);
-            this.button2.TabIndex = 20;
-            this.button2.Text = "Send";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnSend.BackColor = System.Drawing.Color.OrangeRed;
+            this.btnSend.FlatAppearance.BorderSize = 0;
+            this.btnSend.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Cyan;
+            this.btnSend.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkBlue;
+            this.btnSend.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSend.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnSend.Location = new System.Drawing.Point(298, 302);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(129, 31);
+            this.btnSend.TabIndex = 20;
+            this.btnSend.Text = "Send";
+            this.btnSend.UseVisualStyleBackColor = false;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
             // lblMensaje
             // 
@@ -336,29 +338,31 @@
             this.lblMensaje.Size = new System.Drawing.Size(79, 18);
             this.lblMensaje.TabIndex = 19;
             this.lblMensaje.Text = "mensaje";
+            this.lblMensaje.Visible = false;
             // 
-            // button1
+            // btnConectado
             // 
-            this.button1.BackColor = System.Drawing.Color.LimeGreen;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button1.FlatAppearance.BorderSize = 10;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Cyan;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkBlue;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
-            this.button1.Location = new System.Drawing.Point(203, 172);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(129, 31);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Connect";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnConectado.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnConectado.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnConectado.FlatAppearance.BorderSize = 10;
+            this.btnConectado.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Cyan;
+            this.btnConectado.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkBlue;
+            this.btnConectado.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnConectado.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnConectado.Location = new System.Drawing.Point(203, 172);
+            this.btnConectado.Name = "btnConectado";
+            this.btnConectado.Size = new System.Drawing.Size(129, 31);
+            this.btnConectado.TabIndex = 18;
+            this.btnConectado.Text = "Connect";
+            this.btnConectado.UseVisualStyleBackColor = false;
+            this.btnConectado.Click += new System.EventHandler(this.btnConectado_Click);
             // 
-            // textBox3
+            // calib_MaS
             // 
-            this.textBox3.Location = new System.Drawing.Point(203, 248);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(126, 28);
-            this.textBox3.TabIndex = 17;
+            this.calib_MaS.Location = new System.Drawing.Point(203, 248);
+            this.calib_MaS.Name = "calib_MaS";
+            this.calib_MaS.Size = new System.Drawing.Size(126, 28);
+            this.calib_MaS.TabIndex = 17;
             // 
             // label9
             // 
@@ -387,21 +391,21 @@
             this.label5.TabIndex = 14;
             this.label5.Text = "Calibración mAs";
             // 
-            // textBox2
+            // Rx_txt
             // 
-            this.textBox2.Location = new System.Drawing.Point(118, 355);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(293, 85);
-            this.textBox2.TabIndex = 13;
+            this.Rx_txt.Location = new System.Drawing.Point(118, 355);
+            this.Rx_txt.Multiline = true;
+            this.Rx_txt.Name = "Rx_txt";
+            this.Rx_txt.ReadOnly = true;
+            this.Rx_txt.Size = new System.Drawing.Size(293, 85);
+            this.Rx_txt.TabIndex = 13;
             // 
-            // textBox1
+            // Tx_txt
             // 
-            this.textBox1.Location = new System.Drawing.Point(118, 302);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(174, 28);
-            this.textBox1.TabIndex = 12;
+            this.Tx_txt.Location = new System.Drawing.Point(118, 302);
+            this.Tx_txt.Name = "Tx_txt";
+            this.Tx_txt.Size = new System.Drawing.Size(174, 28);
+            this.Tx_txt.TabIndex = 12;
             // 
             // label7
             // 
@@ -704,7 +708,7 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRst)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
@@ -748,16 +752,16 @@
         private System.Windows.Forms.ComboBox cboComp;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Label lblErrorMsg;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox Rx_txt;
+        private System.Windows.Forms.TextBox Tx_txt;
         private System.Windows.Forms.Label lblMensaje;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnConectado;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.TextBox calib_MaS;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
@@ -770,7 +774,7 @@
         private System.Windows.Forms.Label State;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox btnRst;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.PictureBox pictureBox6;
