@@ -324,8 +324,10 @@ namespace RayPro
             parametrosSecuencia(100, 100, 78);
 
             getTiempo = hSupport.sendTimeInput(mAs);
-            string sendFactors = "t" + getTiempo;
+            
+            string sendFactors = kv + "KV,"+getTiempo+"T";
             //sMonitor.senDataSerial(sendFactors);
+            SendCommand(sendFactors);
 
         }
 
@@ -337,7 +339,7 @@ namespace RayPro
             hSupport.playSoundRx("disparo.wav");
             parametrosSecuencia(130, 140, 40);
             //sMonitor.senDataSerial("D_RX");
-            SendCommand("D_RX");
+            SendCommand("RX");
             Thread.Sleep(3000);
 
             if (cboEstructura.Text == "TORÁX")

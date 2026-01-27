@@ -39,6 +39,7 @@ namespace RayPro.Aplicaciones
             _usb = new UsbCdcManager();
             WireEvents();
             LoadCombos();
+            Rx_txt.AppendText("En Espera...");
         }
 
         private void mensajeDeError(String msge)
@@ -82,16 +83,19 @@ namespace RayPro.Aplicaciones
         {
             btnConectado.Text = connected ? "Disconnect" : "Connect";
             lblMensaje.Text = connected ? "Conexión correcta" : "Desconectado";
+            lblMensaje.Visible = true;
         }
 
         private void OnDataReceived(string data)
         {
+            Rx_txt.Clear();
             Rx_txt.AppendText(data + Environment.NewLine);
         }
 
         private void OnErrorOccurred(string error)
         {
             lblMensaje.Text = error;
+            lblMensaje.Visible = true;
         }
 
         // Cargar combos de configuración
@@ -108,8 +112,8 @@ namespace RayPro.Aplicaciones
             if (!string.IsNullOrEmpty(Settings.Default.ComPortName))
                 cboComp.SelectedItem = Settings.Default.ComPortName;
 
-            if (Settings.Default.BaudRate > 0)
-                cboBaud.SelectedItem = Settings.Default.BaudRate;
+            if (Settings.Default.Baudios > 0)
+                cboBaud.SelectedItem = Settings.Default.Baudios;
         }
 
 
@@ -193,6 +197,7 @@ namespace RayPro.Aplicaciones
                 return;
 
             _usb.Send(Tx_txt.Text);
+            Tx_txt.Clear();
         }
 
         //////////////////////////////////////////////////////////////////////////////

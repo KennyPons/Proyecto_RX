@@ -19,8 +19,8 @@
     <Setting Name="ComPortName" Type="System.String" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="BaudRate" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="Baudios" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">112500</Value>
     </Setting>
     <Setting Name="AutoConnect" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

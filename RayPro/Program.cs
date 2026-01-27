@@ -23,7 +23,7 @@ namespace RayPro
 
             AppSession.Usb = new UsbCdcManager();
 
-            Application.Run(new MainRayX());
+            Application.Run(new Login());
             //Application.Run(new Welcome());
 
             // Al salir del software
