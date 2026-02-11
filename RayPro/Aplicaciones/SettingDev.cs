@@ -24,10 +24,7 @@ namespace RayPro.Aplicaciones
         {
             InitializeComponent();
             inicializandoComponentes();
-            // bits de datos
-            //string[] bitsDatos = { "8", "7", "otros..." };
-            // paridad
-            //string[] paridades = { "None", "Odd", "Even", "otros..." };
+
             
         }
 
@@ -66,7 +63,7 @@ namespace RayPro.Aplicaciones
         {
             txtUsuario.Clear();
             txtPassAnt.Clear();
-            txtPassNew.Clear();
+            //txtPassNew.Clear();
             txtUsuario.Focus();
 
         }
@@ -81,7 +78,7 @@ namespace RayPro.Aplicaciones
         //Implementación de los handlers:
         private void OnConnectionChanged(bool connected)
         {
-            btnConectado.Text = connected ? "Disconnect" : "Connect";
+            //btnConectado.Text = connected ? "Disconnect" : "Connect";
             lblMensaje.Text = connected ? "Conexión correcta" : "Desconectado";
             lblMensaje.Visible = true;
         }

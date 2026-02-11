@@ -36,25 +36,25 @@ namespace RayPro.configuraciones {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string userName {
+        [global::System.Configuration.DefaultSettingValueAttribute("Radiologia")]
+        public string Usuarios {
             get {
-                return ((string)(this["userName"]));
+                return ((string)(this["Usuarios"]));
             }
             set {
-                this["userName"] = value;
+                this["Usuarios"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string PassTemp {
+        [global::System.Configuration.DefaultSettingValueAttribute("123")]
+        public string PassUser {
             get {
-                return ((string)(this["PassTemp"]));
+                return ((string)(this["PassUser"]));
             }
             set {
-                this["PassTemp"] = value;
+                this["PassUser"] = value;
             }
         }
         

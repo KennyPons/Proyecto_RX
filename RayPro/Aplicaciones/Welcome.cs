@@ -44,7 +44,7 @@ namespace RayPro.Vista
 
         private void Welcome_Load(object sender, EventArgs e)
         {
-            lblNameUser.Text = configuraciones.Settings.Default.userName;
+            lblNameUser.Text = configuraciones.Settings.Default.Usuarios;
             try
             {
                 using (Stream stream = Properties.Resources.welcome)

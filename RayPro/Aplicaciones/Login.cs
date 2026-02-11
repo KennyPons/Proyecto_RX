@@ -1,4 +1,5 @@
 ﻿using RayPro.Aplicaciones;
+using RayPro.configuraciones;
 using RayPro.Persistencia;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
+
+
 namespace RayPro.Vista
 {
     public partial class Login : Form
     {
 
-        private loginController objLogin;
+        Settings configurar= Settings.Default;
         public Login()
         {
             InitializeComponent();
-            objLogin = new loginController();
+            loadCmboUser();
             // Habilitar la propiedad KeyPreview para capturar las pulsaciones de teclas en el formulario
             this.KeyPreview = true;
 
@@ -38,23 +41,6 @@ namespace RayPro.Vista
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void txtUsuario_Enter(object sender, EventArgs e)
-        {
-            if (txtUsuario.Text.Equals("Usuario"))
-            {
-                txtUsuario.Text = "";
-                txtUsuario.ForeColor = Color.DimGray;
-            }
-        }
-
-        private void txtUsuario_Leave(object sender, EventArgs e)
-        {
-            if (txtUsuario.Text == "")
-            {
-                txtUsuario.Text = "Usuario";
-                txtUsuario.ForeColor = Color.DimGray;
-            }
-        }
 
         private void textBox2_Enter(object sender, EventArgs e)
         {
@@ -76,14 +62,7 @@ namespace RayPro.Vista
             }
         }
 
-        private void txtUsuario_KeyDown(object sender, KeyEventArgs e)
-        {
-        }
-
-        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
-        {
-        }
-
+        /*BOTON DE ACCEDER AL LOGIN*/
         private void btnAcceder_Click(object sender, EventArgs e)
         {
            
@@ -99,7 +78,7 @@ namespace RayPro.Vista
 
 
 
-        //=====================================methods==========================================================//
+        //=====================================METODOS AUXILIARES==========================================================//
 
         private void mensajeDeError(String msge)
         {
@@ -125,45 +104,39 @@ namespace RayPro.Vista
 
         private void limpiar()
         {
-            txtUsuario.Clear();
+            cboUsuario.SelectedIndex = 0; // selecciona el primero
             txtPassword.Clear();
-            txtUsuario.Focus();
+            txtPassword.Focus();
         }
 
+        private void loadCmboUser()
+        {
+            cboUsuario.Items.Add("Admin");
+            cboUsuario.Items.Add(configurar.Usuarios);
+            cboUsuario.SelectedIndex = 0;
+
+            cboUsuario.DrawMode = DrawMode.OwnerDrawFixed;
+            cboUsuario.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboUsuario.DrawItem += cboUsuario_DrawItem;
+        }
+        
 
         private void InitializationLoginSystem()
         {
-            if (txtUsuario.Text != "" && txtPassword.Text != "")
+            string rol = cboUsuario.SelectedItem?.ToString();
+            if (rol == configurar.Usuarios && txtPassword.Text == configurar.PassUser)
             {
-                /*if (objLogin.AutenticarUsuario(txtUsuario.Text, txtPassword.Text))
-                {
-                    configuraciones.Settings.Default.userName = txtUsuario.Text;
-                    configuraciones.Settings.Default.PassTemp = txtPassword.Text;
-                    configuraciones.Settings.Default.Save();
-                    Welcome frWelcome = new Welcome();
-                    frWelcome.ShowDialog();
-                    MainRayX frMain = new MainRayX();
-                    frMain.Show();
-                    this.Hide();
-                }*/
-                if(txtUsuario.Text == "admin" && txtPassword.Text == "12345678")
-                {
-                    Welcome frWelcome = new Welcome();
-                    frWelcome.ShowDialog();
-                    MainRayX frMain = new MainRayX();
-                    frMain.Show();
-                    this.Hide();
-                }
-                else if (txtUsuario.Text == "config" && txtPassword.Text == "123"){
-                    SettingDev frDev = new SettingDev();
-                    frDev.ShowDialog();
-                    Hide();
-                }
-                else
-                {
-                     mensajeDeError("Error de Authentificación!");
-                     limpiar();
-                }
+                Welcome frWelcome = new Welcome();
+                frWelcome.ShowDialog();
+                MainRayX frMain = new MainRayX();
+                frMain.Show();
+                Hide();
+
+            } else if (rol.Equals("Admin") && txtPassword.Text  == "configuracion123456")
+            {
+                SettingDev frDev = new SettingDev();
+                frDev.ShowDialog();
+                Hide();
             }
             else
             {
@@ -174,11 +147,7 @@ namespace RayPro.Vista
  //===================================================================================================================//
         private void Login_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Up)
-            {
-                txtUsuario.Focus();
-            }
-            else if (e.KeyCode == Keys.Down)
+             if (e.KeyCode == Keys.Down)
             {
                 txtPassword.Focus();
             }
@@ -188,9 +157,28 @@ namespace RayPro.Vista
             }
         }
 
+        private void cboUsuario_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+            if (e.Index < 0) return;
+
+            var cb = (System.Windows.Forms.ComboBox)sender;
+            string text = cb.GetItemText(cb.Items[e.Index]);
+
+            using (var sf = new StringFormat())
+            using (var brush = new SolidBrush(e.ForeColor))
+            {
+                sf.Alignment = StringAlignment.Center;
+                sf.LineAlignment = StringAlignment.Center;
+                e.Graphics.DrawString(text, e.Font, brush, e.Bounds, sf);
+            }
+
+            e.DrawFocusRectangle();
+        }
+
         private void Login_Load(object sender, EventArgs e)
         {
-
+            cboUsuario.Invalidate();
         }
 
 

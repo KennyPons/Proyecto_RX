@@ -176,6 +176,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aplicaciones\Front\LargeRadioButton .cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Aplicaciones\tools\AppSession.cs" />
     <Compile Include="Aplicaciones\tools\UsbCdcManager.cs" />
     <Compile Include="Vista\FrKeyBoard.cs">
@@ -198,7 +201,6 @@
     </Compile>
     <Compile Include="Aplicaciones\tools\DatosRadiologia.cs" />
     <Compile Include="Aplicaciones\tools\HumanSupport.cs" />
-    <Compile Include="Aplicaciones\dbRx\dbExcell.cs" />
     <Compile Include="Aplicaciones\dbRx\conexionDB.cs" />
     <Compile Include="Aplicaciones\dbRx\loginController.cs" />
     <Compile Include="Program.cs" />
@@ -295,6 +297,8 @@
     <None Include="Resources\4703650.png" />
     <None Include="Resources\2752488.png" />
     <None Include="Resources\config1.png" />
+    <None Include="Resources\ACTUALIZAR.png" />
+    <None Include="Resources\config2.png" />
     <Content Include="Resources\disparo.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

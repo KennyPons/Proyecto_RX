@@ -10,11 +10,11 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Persistencia\db\DB_USER.accdb</Value>
     </Setting>
-    <Setting Name="userName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="Usuarios" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Radiologia</Value>
     </Setting>
-    <Setting Name="PassTemp" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="PassUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">123</Value>
     </Setting>
     <Setting Name="ComPortName" Type="System.String" Scope="User">
       <Value Profile="(Default)">0</Value>

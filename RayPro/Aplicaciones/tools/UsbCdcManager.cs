@@ -118,7 +118,7 @@ namespace RayPro.Aplicaciones.tools
                 var settings = Settings.Default;
                 var props = settings.Properties;
                 if (props["ComPortName"] != null) PortName = settings.ComPortName;
-                if (props["BaudRate"] != null && settings.Baudios > 0) BaudRate = settings.Baudios;
+                if (props["Baudios"] != null && settings.Baudios > 0) BaudRate = settings.Baudios;
                 if (props["AutoConnect"] != null) AutoConnect = settings.AutoConnect;
             }
             catch (Exception ex)
