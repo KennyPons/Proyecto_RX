@@ -30,20 +30,21 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingDev));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.txtNameHospital = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.cboRol = new System.Windows.Forms.ComboBox();
             this.lblErrorMsg = new System.Windows.Forms.Label();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.btnReset = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtPassAnt = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.Rx_txt = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -52,10 +53,12 @@
             this.lblMensaje = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.cboBaud = new System.Windows.Forms.ComboBox();
-            this.cboComp = new System.Windows.Forms.ComboBox();
+            this.cboBaudios = new System.Windows.Forms.ComboBox();
+            this.cboCom = new System.Windows.Forms.ComboBox();
             this.btnConnect = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -74,30 +77,36 @@
             this.lblFechaIni = new System.Windows.Forms.Label();
             this.dateFin = new System.Windows.Forms.DateTimePicker();
             this.dateInicio = new System.Windows.Forms.DateTimePicker();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.rdoMensual = new MamografiaGP.Mamorx.Front.LargeRadioButton();
-            this.rdoPermanente = new MamografiaGP.Mamorx.Front.LargeRadioButton();
+            this.btnSaveLicencse = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.btnReset = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.btnSaveUsb = new System.Windows.Forms.Button();
+            this.btnReseteo = new System.Windows.Forms.Button();
+            this.rdoPermanente = new MamografiaGP.Mamorx.Front.LargeRadioButton();
+            this.rdoMensual = new MamografiaGP.Mamorx.Front.LargeRadioButton();
+            this.cboOffset = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.btnGuardarAccount = new System.Windows.Forms.Button();
+            this.btn_mini_picbox = new System.Windows.Forms.PictureBox();
+            this.btn_cerrar_picbox = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnReset)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnReset)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_mini_picbox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_cerrar_picbox)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -113,34 +122,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Properties";
             // 
-            // btnCancel
-            // 
-            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnCancel.FlatAppearance.BorderSize = 0;
-            this.btnCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Crimson;
-            this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Pink;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnCancel.Location = new System.Drawing.Point(202, 587);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(129, 31);
-            this.btnCancel.TabIndex = 4;
-            this.btnCancel.Text = "EXIT";
-            this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.MidnightBlue;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.label1.ForeColor = System.Drawing.Color.LightGray;
-            this.label1.Location = new System.Drawing.Point(214, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 39);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Setting";
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -154,6 +135,9 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnGuardarAccount);
+            this.tabPage1.Controls.Add(this.label18);
+            this.tabPage1.Controls.Add(this.cboOffset);
             this.tabPage1.Controls.Add(this.txtNameHospital);
             this.tabPage1.Controls.Add(this.label17);
             this.tabPage1.Controls.Add(this.cboRol);
@@ -177,7 +161,7 @@
             // 
             this.txtNameHospital.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.txtNameHospital.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNameHospital.Location = new System.Drawing.Point(93, 319);
+            this.txtNameHospital.Location = new System.Drawing.Point(102, 319);
             this.txtNameHospital.Name = "txtNameHospital";
             this.txtNameHospital.Size = new System.Drawing.Size(314, 28);
             this.txtNameHospital.TabIndex = 16;
@@ -195,9 +179,9 @@
             // 
             this.cboRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboRol.FormattingEnabled = true;
-            this.cboRol.Location = new System.Drawing.Point(147, 265);
+            this.cboRol.Location = new System.Drawing.Point(102, 265);
             this.cboRol.Name = "cboRol";
-            this.cboRol.Size = new System.Drawing.Size(229, 28);
+            this.cboRol.Size = new System.Drawing.Size(150, 28);
             this.cboRol.TabIndex = 14;
             // 
             // lblErrorMsg
@@ -214,6 +198,31 @@
             this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.lblErrorMsg.Visible = false;
             // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::RayPro.Properties.Resources._2752488;
+            this.pictureBox5.Location = new System.Drawing.Point(234, 16);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(95, 87);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox5.TabIndex = 11;
+            this.pictureBox5.TabStop = false;
+            // 
+            // btnReset
+            // 
+            this.btnReset.AccessibleDescription = "Reset";
+            this.btnReset.AccessibleName = "Reset";
+            this.btnReset.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnReset.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.btnReset.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.btnReset.Image = global::RayPro.Properties.Resources.ACTUALIZAR;
+            this.btnReset.Location = new System.Drawing.Point(442, 226);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(55, 51);
+            this.btnReset.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnReset.TabIndex = 10;
+            this.btnReset.TabStop = false;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -226,7 +235,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(237, 242);
+            this.label3.Location = new System.Drawing.Point(174, 242);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(30, 20);
             this.label3.TabIndex = 8;
@@ -235,7 +244,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(237, 125);
+            this.label2.Location = new System.Drawing.Point(251, 125);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 20);
             this.label2.TabIndex = 7;
@@ -257,6 +266,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnReseteo);
+            this.tabPage2.Controls.Add(this.btnSaveUsb);
             this.tabPage2.Controls.Add(this.pictureBox3);
             this.tabPage2.Controls.Add(this.Rx_txt);
             this.tabPage2.Controls.Add(this.btnSend);
@@ -266,8 +277,8 @@
             this.tabPage2.Controls.Add(this.lblMensaje);
             this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.cboBaud);
-            this.tabPage2.Controls.Add(this.cboComp);
+            this.tabPage2.Controls.Add(this.cboBaudios);
+            this.tabPage2.Controls.Add(this.cboCom);
             this.tabPage2.Controls.Add(this.btnConnect);
             this.tabPage2.Controls.Add(this.pictureBox2);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
@@ -277,6 +288,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Tools";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::RayPro.Properties.Resources.config2;
+            this.pictureBox3.Location = new System.Drawing.Point(438, 3);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(104, 73);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 32;
+            this.pictureBox3.TabStop = false;
             // 
             // Rx_txt
             // 
@@ -301,6 +322,7 @@
             this.btnSend.TabIndex = 30;
             this.btnSend.Text = "Send";
             this.btnSend.UseVisualStyleBackColor = false;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click_1);
             // 
             // label8
             // 
@@ -357,24 +379,25 @@
             this.label6.TabIndex = 10;
             this.label6.Text = "Baudios:";
             // 
-            // cboBaud
+            // cboBaudios
             // 
-            this.cboBaud.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.cboBaud.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboBaud.FormattingEnabled = true;
-            this.cboBaud.Location = new System.Drawing.Point(161, 130);
-            this.cboBaud.Name = "cboBaud";
-            this.cboBaud.Size = new System.Drawing.Size(229, 28);
-            this.cboBaud.TabIndex = 6;
+            this.cboBaudios.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.cboBaudios.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboBaudios.FormattingEnabled = true;
+            this.cboBaudios.Location = new System.Drawing.Point(161, 130);
+            this.cboBaudios.Name = "cboBaudios";
+            this.cboBaudios.Size = new System.Drawing.Size(229, 28);
+            this.cboBaudios.TabIndex = 6;
             // 
-            // cboComp
+            // cboCom
             // 
-            this.cboComp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboComp.FormattingEnabled = true;
-            this.cboComp.Location = new System.Drawing.Point(161, 76);
-            this.cboComp.Name = "cboComp";
-            this.cboComp.Size = new System.Drawing.Size(229, 28);
-            this.cboComp.TabIndex = 5;
+            this.cboCom.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.cboCom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCom.FormattingEnabled = true;
+            this.cboCom.Location = new System.Drawing.Point(161, 76);
+            this.cboCom.Name = "cboCom";
+            this.cboCom.Size = new System.Drawing.Size(229, 28);
+            this.cboCom.TabIndex = 5;
             // 
             // btnConnect
             // 
@@ -391,12 +414,20 @@
             this.btnConnect.Text = "Conectar";
             this.btnConnect.UseVisualStyleBackColor = false;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::RayPro.Properties.Resources._4703650;
+            this.pictureBox2.Location = new System.Drawing.Point(51, 76);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(104, 73);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 8;
+            this.pictureBox2.TabStop = false;
+            // 
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.tabPage3.Controls.Add(this.pictureBox4);
-            this.tabPage3.Controls.Add(this.rdoPermanente);
-            this.tabPage3.Controls.Add(this.rdoMensual);
             this.tabPage3.Controls.Add(this.panel2);
             this.tabPage3.Controls.Add(this.label15);
             this.tabPage3.Controls.Add(this.panel1);
@@ -415,13 +446,25 @@
             this.tabPage3.Controls.Add(this.lblFechaIni);
             this.tabPage3.Controls.Add(this.dateFin);
             this.tabPage3.Controls.Add(this.dateInicio);
-            this.tabPage3.Controls.Add(this.btnSave);
+            this.tabPage3.Controls.Add(this.btnSaveLicencse);
+            this.tabPage3.Controls.Add(this.rdoPermanente);
+            this.tabPage3.Controls.Add(this.rdoMensual);
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(542, 507);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "License";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::RayPro.Properties.Resources.config2;
+            this.pictureBox4.Location = new System.Drawing.Point(435, 3);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(104, 73);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 33;
+            this.pictureBox4.TabStop = false;
             // 
             // panel2
             // 
@@ -610,20 +653,118 @@
             this.dateInicio.TabIndex = 8;
             this.dateInicio.Value = new System.DateTime(2026, 2, 9, 0, 0, 0, 0);
             // 
-            // btnSave
+            // btnSaveLicencse
             // 
-            this.btnSave.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnSave.FlatAppearance.BorderSize = 0;
-            this.btnSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Crimson;
-            this.btnSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Pink;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnSave.Location = new System.Drawing.Point(398, 437);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(129, 63);
-            this.btnSave.TabIndex = 7;
-            this.btnSave.Text = "SAVE";
-            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSaveLicencse.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnSaveLicencse.FlatAppearance.BorderSize = 0;
+            this.btnSaveLicencse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Crimson;
+            this.btnSaveLicencse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Pink;
+            this.btnSaveLicencse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveLicencse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnSaveLicencse.Location = new System.Drawing.Point(398, 437);
+            this.btnSaveLicencse.Name = "btnSaveLicencse";
+            this.btnSaveLicencse.Size = new System.Drawing.Size(129, 63);
+            this.btnSaveLicencse.TabIndex = 7;
+            this.btnSaveLicencse.Text = "SAVE";
+            this.btnSaveLicencse.UseVisualStyleBackColor = false;
+            this.btnSaveLicencse.Click += new System.EventHandler(this.btnSaveLicencse_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Crimson;
+            this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Pink;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnCancel.Location = new System.Drawing.Point(202, 587);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(129, 31);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.Text = "EXIT";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.MidnightBlue;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.label1.ForeColor = System.Drawing.Color.LightGray;
+            this.label1.Location = new System.Drawing.Point(214, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(132, 39);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Setting";
+            // 
+            // btnMinimizar
+            // 
+            this.btnMinimizar.Image = global::RayPro.Properties.Resources.imgRandom1;
+            this.btnMinimizar.Location = new System.Drawing.Point(644, -2);
+            this.btnMinimizar.Name = "btnMinimizar";
+            this.btnMinimizar.Size = new System.Drawing.Size(25, 25);
+            this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnMinimizar.TabIndex = 2;
+            this.btnMinimizar.TabStop = false;
+            // 
+            // btnClose
+            // 
+            this.btnClose.Image = global::RayPro.Properties.Resources.btnCerrar;
+            this.btnClose.Location = new System.Drawing.Point(675, -2);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(25, 25);
+            this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnClose.TabIndex = 0;
+            this.btnClose.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::RayPro.Properties.Resources.IconLaptop;
+            this.pictureBox1.Location = new System.Drawing.Point(352, -2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // btnSaveUsb
+            // 
+            this.btnSaveUsb.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnSaveUsb.FlatAppearance.BorderSize = 0;
+            this.btnSaveUsb.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Crimson;
+            this.btnSaveUsb.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Pink;
+            this.btnSaveUsb.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveUsb.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnSaveUsb.Location = new System.Drawing.Point(407, 438);
+            this.btnSaveUsb.Name = "btnSaveUsb";
+            this.btnSaveUsb.Size = new System.Drawing.Size(129, 63);
+            this.btnSaveUsb.TabIndex = 33;
+            this.btnSaveUsb.Text = "SAVE";
+            this.btnSaveUsb.UseVisualStyleBackColor = false;
+            this.btnSaveUsb.Click += new System.EventHandler(this.btnSaveUsb_Click);
+            // 
+            // btnReseteo
+            // 
+            this.btnReseteo.Location = new System.Drawing.Point(407, 143);
+            this.btnReseteo.Name = "btnReseteo";
+            this.btnReseteo.Size = new System.Drawing.Size(75, 35);
+            this.btnReseteo.TabIndex = 34;
+            this.btnReseteo.Text = "reset";
+            this.btnReseteo.UseVisualStyleBackColor = true;
+            this.btnReseteo.Click += new System.EventHandler(this.btnReseteo_Click);
+            // 
+            // rdoPermanente
+            // 
+            this.rdoPermanente.BorderColor = System.Drawing.Color.MediumTurquoise;
+            this.rdoPermanente.Checked = false;
+            this.rdoPermanente.CheckedColor = System.Drawing.Color.DodgerBlue;
+            this.rdoPermanente.CircleSize = 16;
+            this.rdoPermanente.CircleThickness = 2;
+            this.rdoPermanente.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdoPermanente.Location = new System.Drawing.Point(3, 262);
+            this.rdoPermanente.Name = "rdoPermanente";
+            this.rdoPermanente.Size = new System.Drawing.Size(305, 50);
+            this.rdoPermanente.TabIndex = 25;
+            this.rdoPermanente.Text = "Perpetual License";
             // 
             // rdoMensual
             // 
@@ -640,105 +781,64 @@
             this.rdoMensual.TabIndex = 6;
             this.rdoMensual.Text = "Monthly License";
             // 
-            // rdoPermanente
+            // cboOffset
             // 
-            this.rdoPermanente.BorderColor = System.Drawing.Color.MediumTurquoise;
-            this.rdoPermanente.Checked = false;
-            this.rdoPermanente.CheckedColor = System.Drawing.Color.DodgerBlue;
-            this.rdoPermanente.CircleSize = 16;
-            this.rdoPermanente.CircleThickness = 2;
-            this.rdoPermanente.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdoPermanente.Location = new System.Drawing.Point(3, 262);
-            this.rdoPermanente.Name = "rdoPermanente";
-            this.rdoPermanente.Size = new System.Drawing.Size(305, 50);
-            this.rdoPermanente.TabIndex = 25;
-            this.rdoPermanente.Text = "Perpetual License";
+            this.cboOffset.FormattingEnabled = true;
+            this.cboOffset.Location = new System.Drawing.Point(286, 265);
+            this.cboOffset.Name = "cboOffset";
+            this.cboOffset.Size = new System.Drawing.Size(121, 28);
+            this.cboOffset.TabIndex = 17;
             // 
-            // btnMinimizar
+            // label18
             // 
-            this.btnMinimizar.Image = global::RayPro.Properties.Resources.imgRandom1;
-            this.btnMinimizar.Location = new System.Drawing.Point(644, -2);
-            this.btnMinimizar.Name = "btnMinimizar";
-            this.btnMinimizar.Size = new System.Drawing.Size(25, 25);
-            this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnMinimizar.TabIndex = 2;
-            this.btnMinimizar.TabStop = false;
-            this.btnMinimizar.Click += new System.EventHandler(this.btnMinimizar_Click);
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(301, 242);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(88, 20);
+            this.label18.TabIndex = 18;
+            this.label18.Text = "Calibración";
             // 
-            // btnClose
+            // btnGuardarAccount
             // 
-            this.btnClose.Image = global::RayPro.Properties.Resources.btnCerrar;
-            this.btnClose.Location = new System.Drawing.Point(675, -2);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(25, 25);
-            this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnClose.TabIndex = 0;
-            this.btnClose.TabStop = false;
-            this.btnClose.Click += new System.EventHandler(this.pictureBox2_Click);
+            this.btnGuardarAccount.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnGuardarAccount.FlatAppearance.BorderSize = 0;
+            this.btnGuardarAccount.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Crimson;
+            this.btnGuardarAccount.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Pink;
+            this.btnGuardarAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardarAccount.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnGuardarAccount.Location = new System.Drawing.Point(407, 438);
+            this.btnGuardarAccount.Name = "btnGuardarAccount";
+            this.btnGuardarAccount.Size = new System.Drawing.Size(129, 63);
+            this.btnGuardarAccount.TabIndex = 34;
+            this.btnGuardarAccount.Text = "GUARDAR";
+            this.btnGuardarAccount.UseVisualStyleBackColor = false;
+            this.btnGuardarAccount.Click += new System.EventHandler(this.btnGuardarAccount_Click);
             // 
-            // pictureBox1
+            // btn_mini_picbox
             // 
-            this.pictureBox1.Image = global::RayPro.Properties.Resources.IconLaptop;
-            this.pictureBox1.Location = new System.Drawing.Point(352, -2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.btn_mini_picbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_mini_picbox.Image = global::RayPro.Properties.Resources.imgRandom1;
+            this.btn_mini_picbox.Location = new System.Drawing.Point(543, -2);
+            this.btn_mini_picbox.Name = "btn_mini_picbox";
+            this.btn_mini_picbox.Size = new System.Drawing.Size(25, 25);
+            this.btn_mini_picbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btn_mini_picbox.TabIndex = 35;
+            this.btn_mini_picbox.TabStop = false;
+            this.btn_mini_picbox.Click += new System.EventHandler(this.btn_mini_picbox_Click);
             // 
-            // pictureBox5
+            // btn_cerrar_picbox
             // 
-            this.pictureBox5.Image = global::RayPro.Properties.Resources._2752488;
-            this.pictureBox5.Location = new System.Drawing.Point(234, 16);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(95, 87);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox5.TabIndex = 11;
-            this.pictureBox5.TabStop = false;
-            // 
-            // btnReset
-            // 
-            this.btnReset.AccessibleDescription = "Reset";
-            this.btnReset.AccessibleName = "Reset";
-            this.btnReset.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnReset.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.btnReset.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.btnReset.Image = global::RayPro.Properties.Resources.ACTUALIZAR;
-            this.btnReset.Location = new System.Drawing.Point(413, 252);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(55, 51);
-            this.btnReset.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnReset.TabIndex = 10;
-            this.btnReset.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::RayPro.Properties.Resources.config2;
-            this.pictureBox3.Location = new System.Drawing.Point(438, 3);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(104, 73);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 32;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::RayPro.Properties.Resources._4703650;
-            this.pictureBox2.Location = new System.Drawing.Point(51, 76);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(104, 73);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 8;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::RayPro.Properties.Resources.config2;
-            this.pictureBox4.Location = new System.Drawing.Point(435, 3);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(104, 73);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 33;
-            this.pictureBox4.TabStop = false;
+            this.btn_cerrar_picbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_cerrar_picbox.Image = global::RayPro.Properties.Resources.btnCerrar;
+            this.btn_cerrar_picbox.Location = new System.Drawing.Point(574, -2);
+            this.btn_cerrar_picbox.Name = "btn_cerrar_picbox";
+            this.btn_cerrar_picbox.Size = new System.Drawing.Size(25, 25);
+            this.btn_cerrar_picbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btn_cerrar_picbox.TabIndex = 36;
+            this.btn_cerrar_picbox.TabStop = false;
+            this.btn_cerrar_picbox.Click += new System.EventHandler(this.btn_cerrar_picbox_Click);
             // 
             // SettingDev
             // 
@@ -746,6 +846,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(600, 690);
+            this.Controls.Add(this.btn_cerrar_picbox);
+            this.Controls.Add(this.btn_mini_picbox);
             this.Controls.Add(this.btnMinimizar);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.pictureBox1);
@@ -760,18 +862,20 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnReset)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnReset)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_mini_picbox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_cerrar_picbox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -808,8 +912,8 @@
         private System.Windows.Forms.Label lblMensaje;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cboBaud;
-        private System.Windows.Forms.ComboBox cboComp;
+        private System.Windows.Forms.ComboBox cboBaudios;
+        private System.Windows.Forms.ComboBox cboCom;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.TabPage tabPage3;
@@ -831,10 +935,17 @@
         private System.Windows.Forms.Label lblFechaIni;
         private System.Windows.Forms.DateTimePicker dateFin;
         private System.Windows.Forms.DateTimePicker dateInicio;
-        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnSaveLicencse;
         private MamografiaGP.Mamorx.Front.LargeRadioButton rdoPermanente;
         private MamografiaGP.Mamorx.Front.LargeRadioButton rdoMensual;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Button btnSaveUsb;
+        private System.Windows.Forms.Button btnReseteo;
+        private System.Windows.Forms.Button btnGuardarAccount;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ComboBox cboOffset;
+        private System.Windows.Forms.PictureBox btn_mini_picbox;
+        private System.Windows.Forms.PictureBox btn_cerrar_picbox;
     }
 }

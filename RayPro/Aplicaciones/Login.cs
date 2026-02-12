@@ -58,7 +58,7 @@ namespace RayPro.Vista
             {
                 txtPassword.Text = "Contraseña";
                 txtPassword.ForeColor = Color.DimGray;
-                txtPassword.UseSystemPasswordChar = false;
+                txtPassword.UseSystemPasswordChar = true;
             }
         }
 
@@ -132,7 +132,7 @@ namespace RayPro.Vista
                 frMain.Show();
                 Hide();
 
-            } else if (rol.Equals("Admin") && txtPassword.Text  == "configuracion123456")
+            } else if (rol.Equals("Admin") && txtPassword.Text  == "configuracion7070")
             {
                 SettingDev frDev = new SettingDev();
                 frDev.ShowDialog();

@@ -1,6 +1,8 @@
 ﻿using RayPro.configuraciones;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
@@ -8,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+
 
 namespace RayPro.Aplicaciones.tools
 {
@@ -32,6 +35,16 @@ namespace RayPro.Aplicaciones.tools
         public event Action<string> DataReceived;
         public event Action<bool> ConnectionChanged;
         public event Action<string> ErrorOccurred;
+
+        // Dentro de la clase UsbCdcManager: nuevos campos y evento
+        private readonly ConcurrentQueue<string> _lineQueue = new ConcurrentQueue<string>();
+        private CancellationTokenSource _consumerCts;
+        private Task _consumerTask;
+        private const int MAX_RX_BUFFER = 64 * 1024; // 64 KB tocapara el StringBuilder
+        public event Action<float, DateTime> VoltageReceived; // evento específico para voltaje (V)
+
+
+        public int VoltageOffset { get; set; } = 2;
 
         // Estado y configuración
         public bool IsConnected
@@ -60,6 +73,10 @@ namespace RayPro.Aplicaciones.tools
             //CONTRUCTORS
             _syncContext = SynchronizationContext.Current;
             LoadSettings();
+
+            // Iniciar consumer que procesará las líneas recibidas
+            _consumerCts = new CancellationTokenSource();
+            _consumerTask = Task.Run(() => ConsumerLoopAsync(_consumerCts.Token));
         }
 
         #region UI helpers
@@ -330,40 +347,39 @@ namespace RayPro.Aplicaciones.tools
 
                 lock (_rxBuffer)
                 {
-                    _rxBuffer.Append(incoming);
-                    var all = _rxBuffer.ToString();
-                    var parts = all.Split(new[] { '\n' }, StringSplitOptions.None);
-                    bool endsWithNewline = all.EndsWith("\n");
-                    int completeCount = endsWithNewline ? parts.Length : parts.Length - 1;
-
-                    for (int i = 0; i < completeCount; i++)
+                    // Limitar crecimiento del buffer
+                    if (_rxBuffer.Length + incoming.Length > MAX_RX_BUFFER)
                     {
-                        var line = parts[i].Trim('\r', '\n', '\0').Trim();
+                        int overflow = (_rxBuffer.Length + incoming.Length) - MAX_RX_BUFFER;
+                        _rxBuffer.Remove(0, overflow);
+                        SetError("Buffer de recepción recortado por exceso.");
+                    }
+
+                    _rxBuffer.Append(incoming);
+
+                    // Extraer líneas completas y encolarlas
+                    int nlIndex;
+                    while ((nlIndex = _rxBuffer.ToString().IndexOf('\n')) >= 0)
+                    {
+                        string line = _rxBuffer.ToString(0, nlIndex + 1);
+                        _rxBuffer.Remove(0, nlIndex + 1);
+                        line = line.Trim('\r', '\n', '\0').Trim();
                         if (string.IsNullOrEmpty(line)) continue;
 
+                        // Filtrado temprano
                         if (!string.IsNullOrEmpty(MessagePrefix) && !line.StartsWith(MessagePrefix, StringComparison.Ordinal)) continue;
                         if (MessageRegex != null && !MessageRegex.IsMatch(line)) continue;
 
-                        PostToUi(() => DataReceived?.Invoke(line));
-                    }
-
-                    _rxBuffer.Clear();
-                    if (!endsWithNewline)
-                    {
-                        _rxBuffer.Append(parts[parts.Length - 1]);
+                        _lineQueue.Enqueue(line);
                     }
                 }
             }
             catch (IOException ioEx)
             {
-                // puerto desconectado físicamente
                 SetError("IO error en recepción: " + ioEx.Message);
                 HandleUnexpectedDisconnect();
             }
-            catch (ObjectDisposedException)
-            {
-                // ignore during disposal
-            }
+            catch (ObjectDisposedException) { }
             catch (Exception ex)
             {
                 SetError("Error procesando datos recibidos: " + ex.Message);
@@ -386,16 +402,66 @@ namespace RayPro.Aplicaciones.tools
         }
         #endregion
 
+
+        private async Task ConsumerLoopAsync(CancellationToken ct)
+        {
+            try
+            {
+                while (!ct.IsCancellationRequested)
+                {
+                    if (_lineQueue.TryDequeue(out var line))
+                    {
+                        var ts = DateTime.UtcNow;
+
+                        // Procesar VAC=... -> publicar SOLO número entero ajustado (redondeo - 2)
+                        if (line.StartsWith("VAC=", StringComparison.OrdinalIgnoreCase))
+                        {
+                            var payload = line.Substring(4).Trim();
+                            payload = payload.Replace(',', '.');
+
+                            if (float.TryParse(payload, NumberStyles.Float, CultureInfo.InvariantCulture, out var v))
+                            {
+                                int adjusted = (int)Math.Round(v) - VoltageOffset;//--------> aqui ajustamos el valor restando el offset, y redondeamos al entero más cercano
+                                // Opcional: evitar negativos:
+                                // if (adjusted < 0) adjusted = 0;
+
+                                // Publicar SOLO número (ej. "123")
+                                PostToUi(() => DataReceived?.Invoke(adjusted.ToString()));
+                                continue;
+                            }
+                            else
+                            {
+                                // Si no parseó, ignorar la línea (no publicar basura)
+                                continue;
+                            }
+                        }
+
+                        // Si no es VAC, publicar la línea tal cual
+                        PostToUi(() => DataReceived?.Invoke(line));
+                    }
+                    else
+                    {
+                        await Task.Delay(8, ct).ConfigureAwait(false);
+                    }
+                }
+            }
+            catch (TaskCanceledException) { }
+            catch (Exception ex)
+            {
+                SetError("Error en consumer loop: " + ex.Message);
+            }
+        }
+
         #region IDisposable
         public void Dispose()
         {
             if (_disposed) return;
             _disposed = true;
-            try
-            {
-                _reconnectCts?.Cancel();
-            }
-            catch { }
+
+            try { _consumerCts?.Cancel(); } catch { }
+            try { _consumerTask?.Wait(200); } catch { }
+
+            try { _reconnectCts?.Cancel(); } catch { }
             Disconnect();
             GC.SuppressFinalize(this);
         }

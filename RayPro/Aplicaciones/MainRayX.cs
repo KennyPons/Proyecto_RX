@@ -12,7 +12,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Timers;
 
 namespace RayPro
@@ -25,7 +24,8 @@ namespace RayPro
         private Action valorCambiaAction;
 
         private int kv = 40, mAs = 1, indiceImgNow = 0;
-
+        private bool _rightPressed = false;
+        private bool _leftPressed = false;
         private double getTiempo;
         /*Se cambia a Large, estado para ser = True, si cambia a Small va ser estado = False*/
         private bool estadoFoco, NoExecute = false; 
@@ -45,7 +45,7 @@ namespace RayPro
 
         private void InitFirstParametros()
         {
-            initRoundedBorders();
+            setPanelBorders();
             showBodyRay.Image = imgLstBody.Images[indiceImgNow];
             ShowSecuenciaRx.Image = lstSecuenciaRx.Images[0];
             lblmAs.Text = "0" + mAs;
@@ -54,24 +54,7 @@ namespace RayPro
             enableSystemEvents(false);
             WireEvents();
 
-            // Inicializar la comunicación serial
-            //sMonitor = new SerialPortManager(dataExcell.com,dataExcell.baudRate);
-            //sMonitor.DataReceived += SerialCommunication_DataReceived;
             hSupport = new HumanSupport(cboProyeccion, cboEstructura, lblKVp, lblmAs);
-        }
-
-        /*CONTROL DE TIEMPO O SECUENCIAL DE KV Y MAS*/
-        private void ControlCambioFlechas()
-        {
-            btnUpKv.MouseDown += (s, e) => startValorChange(() => CambiarKv(1));
-            btnUpKv.MouseUp += (s, e) => stopValorChange();
-            btnDownKv.MouseDown += (s, e) => startValorChange(() => CambiarKv(-1));
-            btnDownKv.MouseUp += (s, e) => stopValorChange();
-
-            btnUpMaS.MouseDown += (s, e) => startValorChange(() => CambiarMaS(1));
-            btnUpMaS.MouseUp += (s, e) => stopValorChange();
-            btnDownMaS.MouseDown += (s, e) => startValorChange(() => CambiarMaS(-1));
-            btnDownMaS.MouseUp += (s, e) => stopValorChange();
         }
 
 
@@ -99,10 +82,8 @@ namespace RayPro
             
         }
 
-        private void initRoundedBorders()
+        private void setPanelBorders()
         {
-            //txtProyeccion.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, txtProyeccion.Width, txtProyeccion.Height, 20, 20));
-            //txtEstructura.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, txtEstructura.Width, txtEstructura.Height, 20, 20));
             pnlMaS.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pnlMaS.Width, pnlMaS.Height, 30, 30));
             pnlKvp.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pnlKvp.Width, pnlKvp.Height, 30, 30));
             panelFoco.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelFoco.Width, panelFoco.Height, 26, 26));
@@ -130,13 +111,14 @@ namespace RayPro
         }
 
 
-        ///<sumary>
-        ///CONEXION DIRECTA CON EL STM32
-        ///
+        #region COMUNICACION CON EL DISPOSITIVO USB
         private void WireEvents()
         {
             AppSession.Usb.ConnectionChanged += OnConnectionChanged;
             AppSession.Usb.ErrorOccurred += OnErrorOccurred;
+
+            // NUEVO: subscribir DataReceived para actualizar lblKVp con valores numéricos
+            AppSession.Usb.DataReceived += OnUsbDataReceived;
         }
 
         private void OnConnectionChanged(bool connected)
@@ -165,10 +147,24 @@ namespace RayPro
             AppSession.Usb.Send(command);
         }
 
-        /// <summary>
-        /// EVENTOS DE CERRA Y MINIMIZAR APP
-        /// </summary>
-        ///
+        private void OnUsbDataReceived(string data)
+        {
+            // data debería ser SOLO un número como "123" (según UsbCdcManager)
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action(() => OnUsbDataReceived(data)));
+                return;
+            }
+
+            // sanity: aceptar sólo dígitos (evitar basura)
+            if (!string.IsNullOrEmpty(data) && System.Text.RegularExpressions.Regex.IsMatch(data, @"^\d+$"))
+            {
+                lblKVp.Text = data; // actualiza label con el entero recibido
+            }
+            // si necesitas mostrar otra info, la puedes procesar aquí
+        }
+
+        #endregion
 
         private void btnClose_Click(object sender, EventArgs e)
         {         
@@ -187,12 +183,30 @@ namespace RayPro
              WindowState = FormWindowState.Minimized;
         }
 
-       
+        #region Eventos para cambiar los datos de KV y MaS (En este caso se usara solo el mAs para mostrar el cambio)
+        /*CONTROL DE TIEMPO O SECUENCIAL DE KV Y MAS*/
+        private void ControlCambioFlechas()
+        {
+            /*btnUpKv.MouseDown += (s, e) => startValorChange(() => CambiarKv(1));
+            btnUpKv.MouseUp += (s, e) => stopValorChange();
+            btnDownKv.MouseDown += (s, e) => startValorChange(() => CambiarKv(-1));
+            btnDownKv.MouseUp += (s, e) => stopValorChange();*/
 
-        /// <summary>
-        /// METODOS PARA CONTROLAR LA FECHAS DE KV Y MAS
-        /// </summary>
-        /// 
+            //Eventos para Kv en Rx Lineal
+            btnUpKv.MouseDown += btnUpKv_MouseDown;
+            btnUpKv.MouseUp += btnUpKv_MouseUp;
+            btnUpKv.MouseLeave += btnUpKv_MouseLeave;
+
+            btnDownKv.MouseDown += btnDownKv_MouseDown;
+            btnDownKv.MouseUp += btnDownKv_MouseUp;
+            btnDownKv.MouseLeave += btnDownKv_MouseLeave;
+
+            btnUpMaS.MouseDown += (s, e) => startValorChange(() => CambiarMaS(1));
+            btnUpMaS.MouseUp += (s, e) => stopValorChange();
+            btnDownMaS.MouseDown += (s, e) => startValorChange(() => CambiarMaS(-1));
+            btnDownMaS.MouseUp += (s, e) => stopValorChange();
+        }
+
 
         private void startValorChange(Action action)
         {
@@ -227,7 +241,7 @@ namespace RayPro
                 lblmAs.Text = hSupport.formatoStrMaS(mAs);
             }
         }
-
+        #endregion
 
         /// <summary>
         ///////////////// EVENTOS DE BOTONES DE RAYOS X ///////////////////
@@ -317,7 +331,7 @@ namespace RayPro
             SendCommand("PRE");
 
             Thread.Sleep(3500);
-
+            //cambio de imagen para mostrar la secuencia de disparo
             hSupport.playSoundRx("ready.wav");
             lblFoco.Text = "LISTO";
             ShowSecuenciaRx.Image = lstSecuenciaRx.Images[2];
@@ -391,31 +405,74 @@ namespace RayPro
             }
         }
 
+        #region Intentar conectar con el USB
         private void MainRayX_Load(object sender, EventArgs e)
         {
             AppSession.Usb.TryAutoConnect();
         }
+        #endregion
+
 
         private void changeTimer_Tick(object sender, EventArgs e)
         {
             valorCambiaAction?.Invoke();
         }
-
-        
-
-        /*private void btnFoco_small_Click(object sender, EventArgs e)
+        #region Evento Presionar y Soltar para los botones de KV ==> Up y Down
+        private void btnUpKv_MouseUp(object sender, MouseEventArgs e)
         {
-            var Rs = FrCuadro.Show("¿Está seguro cambiar a Large?", "Configuración del Foco", MessageBoxButtons.YesNo);
-            if(Rs == DialogResult.Yes)
+            if (_rightPressed)
             {
-                btnFoco_small.Visible = false; btnFoco_large.Visible = true;
-                sMonitor.senDataSerial("Filamento");
-                Thread.Sleep(4000);
-                lblFoco.Text = "LARGE";
-                _Hsettings.maSmallOrLarge(lblFoco.Text);
-                sMonitor.senDataSerial(lblFoco.Text);
+                _rightPressed = false;
+                SendCommand("DER_OFF");
             }
-        }*/
+        }
+
+        private void btnUpKv_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (!_rightPressed)
+            {
+                _rightPressed = true;
+                SendCommand("DER_ON");
+            }
+        }
+
+        private void btnDownKv_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (_leftPressed)
+            {
+                _leftPressed = false;
+                SendCommand("IZQ_OFF");
+            }
+        }
+
+        private void btnDownKv_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (!_leftPressed)
+            {
+                _leftPressed = true;
+                SendCommand("IZQ_ON");
+            }
+        }
+        private void btnUpKv_MouseLeave(object sender, EventArgs e)
+        {
+            // si arrastras fuera mientras presionas, aseguramos el OFF
+            if (_rightPressed)
+            {
+                _rightPressed = false;
+                SendCommand("DER_OFF");
+            }
+        }
+
+        private void btnDownKv_MouseLeave(object sender, EventArgs e)
+        {
+            if (_leftPressed)
+            {
+                _leftPressed = false;
+                SendCommand("IZQ_OFF");
+            }
+        }
+        #endregion Final de eventos para los botones de KV
+
 
 
 
@@ -425,36 +482,20 @@ namespace RayPro
             hSupport.changeShowCboProy(selectEstructura);
         }
 
-        /*private void tecla_mAs_Click(object sender, EventArgs e)
-        {
-            FrKeyBoard formTecla = new FrKeyBoard("amperaje",300,0);
-            
-            formTecla.StartPosition = FormStartPosition.Manual;
-            formTecla.Location = new System.Drawing.Point(
-                    this.Left + tecla_mAs.Left,
-                    this.Top + tecla_mAs.Top + tecla_mAs.Height);
-            formTecla.ShowDialog();
-
-            nmAs = formTecla.SentNumerbs;
-            lblmAs.Text = "" + nmAs; 
-        }*/
-
-
+        #region Cierre para desconectar USB
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            AppSession.Usb.DataReceived -= OnUsbDataReceived;
             AppSession.Usb?.Disconnect();
             base.OnFormClosing(e);
-        }
 
+        }
+        #endregion
 
         private void MainRayX_FormClosing(object sender, FormClosingEventArgs e)
         {
             //sMonitor.CerrarSerialPort();
         }
-
-
-
-
 
         //////FIN DE SOFTWARE/////
 

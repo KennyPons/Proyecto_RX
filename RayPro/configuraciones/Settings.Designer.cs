@@ -93,5 +93,17 @@ namespace RayPro.configuraciones {
                 this["AutoConnect"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int VoltageOffset {
+            get {
+                return ((int)(this["VoltageOffset"]));
+            }
+            set {
+                this["VoltageOffset"] = value;
+            }
+        }
     }
 }

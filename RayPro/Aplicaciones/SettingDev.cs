@@ -18,14 +18,13 @@ namespace RayPro.Aplicaciones
     public partial class SettingDev : Form
     {
 
-        private UsbCdcManager _usb;
+        private UsbCdcManager _usb => AppSession.Usb; //Una sola instancia, no se debe colocar otra instancia de UsbCdcManager, si no no guarda los datos
 
         public SettingDev()
         {
             InitializeComponent();
             inicializandoComponentes();
-
-            
+            initAccountSettings();
         }
 
 
@@ -33,7 +32,6 @@ namespace RayPro.Aplicaciones
         //===============================METHODS=========================================================
         private void inicializandoComponentes()
         {
-            _usb = new UsbCdcManager();
             WireEvents();
             LoadCombos();
             Rx_txt.AppendText("En Espera...");
@@ -59,7 +57,7 @@ namespace RayPro.Aplicaciones
             temporizador.Start();
         }
 
-        private void reset()
+        private void clearText()
         {
             txtUsuario.Clear();
             txtPassAnt.Clear();
@@ -68,6 +66,7 @@ namespace RayPro.Aplicaciones
 
         }
 
+        #region CONECTAR CON EL DISPOSITIVO USB
         private void WireEvents()
         {
             _usb.ConnectionChanged += OnConnectionChanged;
@@ -78,7 +77,7 @@ namespace RayPro.Aplicaciones
         //Implementación de los handlers:
         private void OnConnectionChanged(bool connected)
         {
-            //btnConectado.Text = connected ? "Disconnect" : "Connect";
+            btnConnect.Text = connected ? "Disconnect" : "Connect";
             lblMensaje.Text = connected ? "Conexión correcta" : "Desconectado";
             lblMensaje.Visible = true;
         }
@@ -91,104 +90,68 @@ namespace RayPro.Aplicaciones
 
         private void OnErrorOccurred(string error)
         {
-            lblMensaje.Text = error;
-            lblMensaje.Visible = true;
+            mensajeDeError(error);
         }
 
+        #endregion
         // Cargar combos de configuración
         private void LoadCombos()
         {
-            cboComp.Items.Clear();
-            cboComp.Items.AddRange(UsbCdcManager.GetPorts());
+            cboCom.Items.Clear();
+            cboCom.Items.AddRange(UsbCdcManager.GetPorts());
 
-            cboBaud.Items.Clear();
+            cboBaudios.Items.Clear();
             foreach (var b in UsbCdcManager.GetBaudRates())
-                cboBaud.Items.Add(b);
+                cboBaudios.Items.Add(b);
 
             // Restaurar settings guardados
             if (!string.IsNullOrEmpty(Settings.Default.ComPortName))
-                cboComp.SelectedItem = Settings.Default.ComPortName;
+                cboCom.SelectedItem = Settings.Default.ComPortName;
 
             if (Settings.Default.Baudios > 0)
-                cboBaud.SelectedItem = Settings.Default.Baudios;
+                cboBaudios.SelectedItem = Settings.Default.Baudios;
         }
 
 
+        /*ACCOUNT*/
+
+        private void initAccountSettings()
+        {
+            cboOffset.Items.Clear();
+            for (int i = 0; i <= 6; i++)
+                cboOffset.Items.Add(i);
+            cboOffset.SelectedItem = AppSession.Usb?.VoltageOffset ?? 2;
+        }
+
         //========================================================================================
-        private void pictureBox2_Click(object sender, EventArgs e)
+
+        #region BOTONES DE MINIMIZAR Y CERRAR
+        private void btn_mini_picbox_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void btn_cerrar_picbox_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
-        private void btnMinimizar_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Login frLogin = new Login();
             frLogin.Show();
-            this.Close();
+            Close();
         }
 
-        private void btnReset_Click(object sender, EventArgs e)
-        {
-            reset();
-        }
-
-        private void btnAceptar_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            if (cboComp.SelectedItem == null || cboBaud.SelectedItem == null)
-            {
-                lblMensaje.Text = "No hay configuración válida";
-                return;
-            }
-
-            _usb.Configure(
-                cboComp.SelectedItem.ToString(),
-                Convert.ToInt32(cboBaud.SelectedItem),
-                autoConnect: true
-            );
-
-            lblMensaje.Text = "Configuración guardada correctamente";
-        }
-
-        private void btnRst_Click(object sender, EventArgs e)
+        #endregion
+        private void btnReseteo_Click(object sender, EventArgs e)
         {
             LoadCombos();
             lblMensaje.Text = "Lista de puertos actualizada";
         }
 
-        private void btnConectado_Click(object sender, EventArgs e)
-        {
-            if (_usb.IsConnected)
-            {
-                _usb.Disconnect();
-                return;
-            }
+        
 
-            if (cboComp.SelectedItem == null || cboBaud.SelectedItem == null)
-            {
-                lblMensaje.Text = "Seleccione Compuerta y Baudio";
-                return;
-            }
-
-            _usb.Configure(
-                cboComp.SelectedItem.ToString(),
-                Convert.ToInt32(cboBaud.SelectedItem),
-                autoConnect: false
-            );
-
-            _usb.Connect();
-        }
-
-        private void btnSend_Click(object sender, EventArgs e)
+        private void btnSend_Click_1(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Tx_txt.Text))
                 return;
@@ -196,7 +159,59 @@ namespace RayPro.Aplicaciones
             _usb.Send(Tx_txt.Text);
             Tx_txt.Clear();
         }
+        #region BUTTONS PARA GUARDAR CONFIGURACIONES DE LAS 3 PESTAÑAS
+        private void btnGuardarAccount_Click(object sender, EventArgs e)
+        {
+            if (cboOffset.SelectedItem == null) return;
 
+            // Leer y validar
+            int value;
+            if (!int.TryParse(cboOffset.SelectedItem.ToString(), out value)) return;
+            if (value < 0) value = 0;
+            if (value > 6) value = 6;
+
+            // Aplicar a la instancia del manager (si existe)
+            if (AppSession.Usb != null)
+            {
+                AppSession.Usb.VoltageOffset = value;
+            }
+
+            // Guardar en Settings (opcional pero recomendado)
+            Settings.Default.VoltageOffset = value;
+            Settings.Default.Save();
+        }
+
+
+        private void btnSaveUsb_Click(object sender, EventArgs e)
+        {
+            if (_usb.IsConnected)
+            {
+                _usb.Disconnect();
+                return;
+            }
+
+            if (cboCom.SelectedItem == null || cboBaudios.SelectedItem == null)
+            {
+                lblMensaje.Text = "Seleccione Compuerta y Baudio";
+                return;
+            }
+
+            _usb.Configure(
+                cboCom.SelectedItem.ToString(),
+                Convert.ToInt32(cboBaudios.SelectedItem),
+                autoConnect: false
+            );
+
+            _usb.Connect();
+        }
+
+        private void btnSaveLicencse_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        #endregion
         //////////////////////////////////////////////////////////////////////////////
     }
 }

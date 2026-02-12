@@ -37,16 +37,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.lblErrorMsg = new System.Windows.Forms.Label();
             this.lblHora = new System.Windows.Forms.Label();
             this.lblFecha = new System.Windows.Forms.Label();
             this.btnON = new System.Windows.Forms.PictureBox();
             this.btnOFF = new System.Windows.Forms.PictureBox();
-            this.btnR = new System.Windows.Forms.Button();
-            this.btnRX = new System.Windows.Forms.Button();
-            this.btnPRE = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelShow = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
@@ -56,8 +51,14 @@
             this.pnlMaS = new System.Windows.Forms.Panel();
             this.lblmAs = new System.Windows.Forms.Label();
             this.btnFilamento = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnR = new System.Windows.Forms.Button();
             this.cboProyeccion = new System.Windows.Forms.ComboBox();
+            this.btnRX = new System.Windows.Forms.Button();
             this.textFilamento = new System.Windows.Forms.Label();
+            this.btnPRE = new System.Windows.Forms.Button();
             this.ShowSecuenciaRx = new System.Windows.Forms.PictureBox();
             this.cboEstructura = new System.Windows.Forms.ComboBox();
             this.panelFoco = new System.Windows.Forms.Panel();
@@ -76,7 +77,6 @@
             this.DATE_NOW = new System.Windows.Forms.Timer(this.components);
             this.lstSecuenciaRx = new System.Windows.Forms.ImageList(this.components);
             this.changeTimer = new System.Windows.Forms.Timer(this.components);
-            this.lblErrorMsg = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -120,12 +120,6 @@
             this.splitContainer1.Panel2.Controls.Add(this.lblFecha);
             this.splitContainer1.Panel2.Controls.Add(this.btnON);
             this.splitContainer1.Panel2.Controls.Add(this.btnOFF);
-            this.splitContainer1.Panel2.Controls.Add(this.btnR);
-            this.splitContainer1.Panel2.Controls.Add(this.btnRX);
-            this.splitContainer1.Panel2.Controls.Add(this.btnPRE);
-            this.splitContainer1.Panel2.Controls.Add(this.label3);
-            this.splitContainer1.Panel2.Controls.Add(this.label2);
-            this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
             this.splitContainer1.Panel2.Controls.Add(this.panelShow);
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
@@ -171,9 +165,9 @@
             // 
             // showBodyRay
             // 
-            this.showBodyRay.Location = new System.Drawing.Point(30, 72);
+            this.showBodyRay.Location = new System.Drawing.Point(29, 106);
             this.showBodyRay.Name = "showBodyRay";
-            this.showBodyRay.Size = new System.Drawing.Size(470, 550);
+            this.showBodyRay.Size = new System.Drawing.Size(470, 570);
             this.showBodyRay.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.showBodyRay.TabIndex = 3;
             this.showBodyRay.TabStop = false;
@@ -204,12 +198,27 @@
             // pictureBox3
             // 
             this.pictureBox3.Image = global::RayPro.Properties.Resources.mynamelogo_removebg_preview;
-            this.pictureBox3.Location = new System.Drawing.Point(59, 3);
+            this.pictureBox3.Location = new System.Drawing.Point(62, 11);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(217, 55);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 1;
             this.pictureBox3.TabStop = false;
+            // 
+            // lblErrorMsg
+            // 
+            this.lblErrorMsg.AutoSize = true;
+            this.lblErrorMsg.Font = new System.Drawing.Font("MS Reference Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErrorMsg.ForeColor = System.Drawing.Color.Brown;
+            this.lblErrorMsg.Image = global::RayPro.Properties.Resources.lblErrorMsg;
+            this.lblErrorMsg.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.lblErrorMsg.Location = new System.Drawing.Point(512, 58);
+            this.lblErrorMsg.Name = "lblErrorMsg";
+            this.lblErrorMsg.Size = new System.Drawing.Size(107, 26);
+            this.lblErrorMsg.TabIndex = 13;
+            this.lblErrorMsg.Text = "ErrorMsg";
+            this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.lblErrorMsg.Visible = false;
             // 
             // lblHora
             // 
@@ -226,7 +235,7 @@
             // 
             this.lblFecha.AutoSize = true;
             this.lblFecha.Font = new System.Drawing.Font("Century Gothic", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFecha.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblFecha.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(172)))), ((int)(((byte)(185)))));
             this.lblFecha.Location = new System.Drawing.Point(842, 79);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(86, 23);
@@ -236,9 +245,9 @@
             // btnON
             // 
             this.btnON.Image = global::RayPro.Properties.Resources.ON;
-            this.btnON.Location = new System.Drawing.Point(164, 43);
+            this.btnON.Location = new System.Drawing.Point(154, 43);
             this.btnON.Name = "btnON";
-            this.btnON.Size = new System.Drawing.Size(114, 56);
+            this.btnON.Size = new System.Drawing.Size(124, 56);
             this.btnON.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnON.TabIndex = 13;
             this.btnON.TabStop = false;
@@ -255,92 +264,6 @@
             this.btnOFF.TabIndex = 12;
             this.btnOFF.TabStop = false;
             this.btnOFF.Click += new System.EventHandler(this.btnOFF_Click);
-            // 
-            // btnR
-            // 
-            this.btnR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnR.FlatAppearance.BorderSize = 0;
-            this.btnR.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
-            this.btnR.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.btnR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnR.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
-            this.btnR.Image = global::RayPro.Properties.Resources.btnReseteo__1;
-            this.btnR.Location = new System.Drawing.Point(822, 693);
-            this.btnR.Name = "btnR";
-            this.btnR.Size = new System.Drawing.Size(146, 120);
-            this.btnR.TabIndex = 11;
-            this.btnR.UseVisualStyleBackColor = true;
-            this.btnR.Click += new System.EventHandler(this.btnR_Click);
-            // 
-            // btnRX
-            // 
-            this.btnRX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRX.FlatAppearance.BorderSize = 0;
-            this.btnRX.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gold;
-            this.btnRX.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.btnRX.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRX.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRX.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
-            this.btnRX.Image = global::RayPro.Properties.Resources.btnRX__1;
-            this.btnRX.Location = new System.Drawing.Point(505, 693);
-            this.btnRX.Name = "btnRX";
-            this.btnRX.Size = new System.Drawing.Size(146, 120);
-            this.btnRX.TabIndex = 10;
-            this.btnRX.UseVisualStyleBackColor = true;
-            this.btnRX.Click += new System.EventHandler(this.btnRX_Click);
-            // 
-            // btnPRE
-            // 
-            this.btnPRE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnPRE.FlatAppearance.BorderSize = 0;
-            this.btnPRE.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnPRE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPRE.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPRE.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
-            this.btnPRE.Image = global::RayPro.Properties.Resources.btnPre__1;
-            this.btnPRE.Location = new System.Drawing.Point(164, 693);
-            this.btnPRE.Name = "btnPRE";
-            this.btnPRE.Size = new System.Drawing.Size(146, 120);
-            this.btnPRE.TabIndex = 3;
-            this.btnPRE.UseVisualStyleBackColor = true;
-            this.btnPRE.Click += new System.EventHandler(this.btnPRE_Click);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Tomato;
-            this.label3.Location = new System.Drawing.Point(881, 826);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 29);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "R";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Tomato;
-            this.label2.Location = new System.Drawing.Point(557, 826);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 29);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "RX";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Tomato;
-            this.label1.Location = new System.Drawing.Point(204, 826);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 29);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "PRE";
             // 
             // pictureBox1
             // 
@@ -364,8 +287,14 @@
             this.panelShow.Controls.Add(this.pnlKvp);
             this.panelShow.Controls.Add(this.pnlMaS);
             this.panelShow.Controls.Add(this.btnFilamento);
+            this.panelShow.Controls.Add(this.label1);
+            this.panelShow.Controls.Add(this.label2);
+            this.panelShow.Controls.Add(this.label3);
+            this.panelShow.Controls.Add(this.btnR);
             this.panelShow.Controls.Add(this.cboProyeccion);
+            this.panelShow.Controls.Add(this.btnRX);
             this.panelShow.Controls.Add(this.textFilamento);
+            this.panelShow.Controls.Add(this.btnPRE);
             this.panelShow.Controls.Add(this.ShowSecuenciaRx);
             this.panelShow.Controls.Add(this.cboEstructura);
             this.panelShow.Controls.Add(this.panelFoco);
@@ -375,9 +304,9 @@
             this.panelShow.Controls.Add(this.btnDownKv);
             this.panelShow.Controls.Add(this.btnDownMaS);
             this.panelShow.Controls.Add(this.btnUpKv);
-            this.panelShow.Location = new System.Drawing.Point(27, 108);
+            this.panelShow.Location = new System.Drawing.Point(24, 132);
             this.panelShow.Name = "panelShow";
-            this.panelShow.Size = new System.Drawing.Size(1086, 548);
+            this.panelShow.Size = new System.Drawing.Size(1075, 737);
             this.panelShow.TabIndex = 2;
             // 
             // label7
@@ -385,8 +314,8 @@
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.LightSkyBlue;
-            this.label7.Location = new System.Drawing.Point(790, 41);
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(172)))), ((int)(((byte)(185)))));
+            this.label7.Location = new System.Drawing.Point(781, 63);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(176, 29);
             this.label7.TabIndex = 23;
@@ -397,8 +326,8 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.LightSkyBlue;
-            this.label6.Location = new System.Drawing.Point(132, 41);
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(172)))), ((int)(((byte)(185)))));
+            this.label6.Location = new System.Drawing.Point(126, 48);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(175, 29);
             this.label6.TabIndex = 22;
@@ -408,9 +337,9 @@
             // 
             this.pnlKvp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.pnlKvp.Controls.Add(this.lblKVp);
-            this.pnlKvp.Location = new System.Drawing.Point(772, 210);
+            this.pnlKvp.Location = new System.Drawing.Point(763, 214);
             this.pnlKvp.Name = "pnlKvp";
-            this.pnlKvp.Size = new System.Drawing.Size(235, 105);
+            this.pnlKvp.Size = new System.Drawing.Size(260, 110);
             this.pnlKvp.TabIndex = 21;
             // 
             // lblKVp
@@ -418,8 +347,8 @@
             this.lblKVp.AutoSize = true;
             this.lblKVp.BackColor = System.Drawing.Color.Transparent;
             this.lblKVp.Font = new System.Drawing.Font("Consolas", 50.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblKVp.ForeColor = System.Drawing.Color.Tomato;
-            this.lblKVp.Location = new System.Drawing.Point(50, 5);
+            this.lblKVp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.lblKVp.Location = new System.Drawing.Point(62, 4);
             this.lblKVp.Name = "lblKVp";
             this.lblKVp.Padding = new System.Windows.Forms.Padding(10);
             this.lblKVp.Size = new System.Drawing.Size(128, 99);
@@ -431,9 +360,9 @@
             // 
             this.pnlMaS.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.pnlMaS.Controls.Add(this.lblmAs);
-            this.pnlMaS.Location = new System.Drawing.Point(109, 210);
+            this.pnlMaS.Location = new System.Drawing.Point(99, 214);
             this.pnlMaS.Name = "pnlMaS";
-            this.pnlMaS.Size = new System.Drawing.Size(235, 105);
+            this.pnlMaS.Size = new System.Drawing.Size(260, 110);
             this.pnlMaS.TabIndex = 20;
             // 
             // lblmAs
@@ -441,8 +370,8 @@
             this.lblmAs.AutoSize = true;
             this.lblmAs.BackColor = System.Drawing.Color.Transparent;
             this.lblmAs.Font = new System.Drawing.Font("Consolas", 50.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblmAs.ForeColor = System.Drawing.Color.Tomato;
-            this.lblmAs.Location = new System.Drawing.Point(59, 10);
+            this.lblmAs.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.lblmAs.Location = new System.Drawing.Point(75, 10);
             this.lblmAs.Name = "lblmAs";
             this.lblmAs.Padding = new System.Windows.Forms.Padding(5);
             this.lblmAs.Size = new System.Drawing.Size(118, 89);
@@ -460,12 +389,67 @@
             this.btnFilamento.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFilamento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnFilamento.Image = global::RayPro.Properties.Resources.btnYelown3;
-            this.btnFilamento.Location = new System.Drawing.Point(488, 342);
+            this.btnFilamento.Location = new System.Drawing.Point(482, 348);
             this.btnFilamento.Name = "btnFilamento";
             this.btnFilamento.Size = new System.Drawing.Size(140, 120);
             this.btnFilamento.TabIndex = 16;
             this.btnFilamento.UseVisualStyleBackColor = true;
             this.btnFilamento.Click += new System.EventHandler(this.btnFilamento_Click);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(55)))), ((int)(((byte)(125)))));
+            this.label1.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.label1.Location = new System.Drawing.Point(193, 675);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 29);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "PRE";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(55)))), ((int)(((byte)(125)))));
+            this.label2.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.label2.Location = new System.Drawing.Point(540, 675);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(46, 29);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "RX";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(172)))), ((int)(((byte)(185)))));
+            this.label3.Location = new System.Drawing.Point(887, 675);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(30, 29);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "R";
+            // 
+            // btnR
+            // 
+            this.btnR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnR.FlatAppearance.BorderSize = 0;
+            this.btnR.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.btnR.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.btnR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnR.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.btnR.Image = global::RayPro.Properties.Resources.btnReseteo__1;
+            this.btnR.Location = new System.Drawing.Point(826, 547);
+            this.btnR.Name = "btnR";
+            this.btnR.Size = new System.Drawing.Size(146, 120);
+            this.btnR.TabIndex = 11;
+            this.btnR.UseVisualStyleBackColor = true;
+            this.btnR.Click += new System.EventHandler(this.btnR_Click);
             // 
             // cboProyeccion
             // 
@@ -473,26 +457,59 @@
             this.cboProyeccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
             this.cboProyeccion.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboProyeccion.FormattingEnabled = true;
-            this.cboProyeccion.Location = new System.Drawing.Point(713, 75);
+            this.cboProyeccion.Location = new System.Drawing.Point(709, 95);
             this.cboProyeccion.Name = "cboProyeccion";
             this.cboProyeccion.Size = new System.Drawing.Size(314, 33);
             this.cboProyeccion.TabIndex = 5;
+            // 
+            // btnRX
+            // 
+            this.btnRX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRX.FlatAppearance.BorderSize = 0;
+            this.btnRX.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gold;
+            this.btnRX.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.btnRX.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRX.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRX.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.btnRX.Image = global::RayPro.Properties.Resources.btnRX__1;
+            this.btnRX.Location = new System.Drawing.Point(491, 547);
+            this.btnRX.Name = "btnRX";
+            this.btnRX.Size = new System.Drawing.Size(146, 120);
+            this.btnRX.TabIndex = 10;
+            this.btnRX.UseVisualStyleBackColor = true;
+            this.btnRX.Click += new System.EventHandler(this.btnRX_Click);
             // 
             // textFilamento
             // 
             this.textFilamento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textFilamento.AutoSize = true;
             this.textFilamento.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textFilamento.ForeColor = System.Drawing.Color.Tomato;
-            this.textFilamento.Location = new System.Drawing.Point(482, 465);
+            this.textFilamento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.textFilamento.Location = new System.Drawing.Point(476, 471);
             this.textFilamento.Name = "textFilamento";
             this.textFilamento.Size = new System.Drawing.Size(161, 35);
             this.textFilamento.TabIndex = 14;
             this.textFilamento.Text = "Filamento";
             // 
+            // btnPRE
+            // 
+            this.btnPRE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPRE.FlatAppearance.BorderSize = 0;
+            this.btnPRE.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnPRE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPRE.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPRE.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.btnPRE.Image = global::RayPro.Properties.Resources.btnPre__1;
+            this.btnPRE.Location = new System.Drawing.Point(155, 547);
+            this.btnPRE.Name = "btnPRE";
+            this.btnPRE.Size = new System.Drawing.Size(146, 120);
+            this.btnPRE.TabIndex = 3;
+            this.btnPRE.UseVisualStyleBackColor = true;
+            this.btnPRE.Click += new System.EventHandler(this.btnPRE_Click);
+            // 
             // ShowSecuenciaRx
             // 
-            this.ShowSecuenciaRx.Location = new System.Drawing.Point(488, 41);
+            this.ShowSecuenciaRx.Location = new System.Drawing.Point(482, 25);
             this.ShowSecuenciaRx.Name = "ShowSecuenciaRx";
             this.ShowSecuenciaRx.Size = new System.Drawing.Size(130, 140);
             this.ShowSecuenciaRx.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -505,7 +522,7 @@
             this.cboEstructura.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
             this.cboEstructura.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboEstructura.FormattingEnabled = true;
-            this.cboEstructura.Location = new System.Drawing.Point(74, 75);
+            this.cboEstructura.Location = new System.Drawing.Point(59, 80);
             this.cboEstructura.Name = "cboEstructura";
             this.cboEstructura.Size = new System.Drawing.Size(314, 33);
             this.cboEstructura.TabIndex = 4;
@@ -515,9 +532,9 @@
             // 
             this.panelFoco.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.panelFoco.Controls.Add(this.lblFoco);
-            this.panelFoco.Location = new System.Drawing.Point(442, 210);
+            this.panelFoco.Location = new System.Drawing.Point(429, 214);
             this.panelFoco.Name = "panelFoco";
-            this.panelFoco.Size = new System.Drawing.Size(235, 105);
+            this.panelFoco.Size = new System.Drawing.Size(260, 110);
             this.panelFoco.TabIndex = 19;
             // 
             // lblFoco
@@ -525,7 +542,7 @@
             this.lblFoco.AutoSize = true;
             this.lblFoco.Font = new System.Drawing.Font("Consolas", 50.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFoco.ForeColor = System.Drawing.Color.Gold;
-            this.lblFoco.Location = new System.Drawing.Point(13, 9);
+            this.lblFoco.Location = new System.Drawing.Point(23, 14);
             this.lblFoco.Name = "lblFoco";
             this.lblFoco.Size = new System.Drawing.Size(219, 79);
             this.lblFoco.TabIndex = 18;
@@ -541,7 +558,7 @@
             this.btnUpMaS.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpMaS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnUpMaS.Image = global::RayPro.Properties.Resources.up2;
-            this.btnUpMaS.Location = new System.Drawing.Point(109, 347);
+            this.btnUpMaS.Location = new System.Drawing.Point(112, 348);
             this.btnUpMaS.Name = "btnUpMaS";
             this.btnUpMaS.Size = new System.Drawing.Size(118, 110);
             this.btnUpMaS.TabIndex = 3;
@@ -552,8 +569,8 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Tomato;
-            this.label5.Location = new System.Drawing.Point(836, 165);
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.label5.Location = new System.Drawing.Point(855, 169);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(88, 42);
             this.label5.TabIndex = 13;
@@ -564,8 +581,8 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Tomato;
-            this.label4.Location = new System.Drawing.Point(175, 165);
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.label4.Location = new System.Drawing.Point(185, 156);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(93, 42);
             this.label4.TabIndex = 12;
@@ -581,11 +598,15 @@
             this.btnDownKv.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDownKv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnDownKv.Image = global::RayPro.Properties.Resources.down2;
-            this.btnDownKv.Location = new System.Drawing.Point(889, 342);
+            this.btnDownKv.Location = new System.Drawing.Point(892, 339);
             this.btnDownKv.Name = "btnDownKv";
             this.btnDownKv.Size = new System.Drawing.Size(118, 110);
             this.btnDownKv.TabIndex = 6;
             this.btnDownKv.UseVisualStyleBackColor = true;
+            
+            this.btnDownKv.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnDownKv_MouseDown);
+            this.btnDownKv.MouseLeave += new System.EventHandler(this.btnDownKv_MouseLeave);
+            this.btnDownKv.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnDownKv_MouseUp);
             // 
             // btnDownMaS
             // 
@@ -597,7 +618,7 @@
             this.btnDownMaS.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDownMaS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnDownMaS.Image = global::RayPro.Properties.Resources.down2;
-            this.btnDownMaS.Location = new System.Drawing.Point(244, 347);
+            this.btnDownMaS.Location = new System.Drawing.Point(232, 348);
             this.btnDownMaS.Name = "btnDownMaS";
             this.btnDownMaS.Size = new System.Drawing.Size(118, 110);
             this.btnDownMaS.TabIndex = 4;
@@ -613,11 +634,14 @@
             this.btnUpKv.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpKv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
             this.btnUpKv.Image = global::RayPro.Properties.Resources.up2;
-            this.btnUpKv.Location = new System.Drawing.Point(783, 342);
+            this.btnUpKv.Location = new System.Drawing.Point(786, 339);
             this.btnUpKv.Name = "btnUpKv";
             this.btnUpKv.Size = new System.Drawing.Size(118, 110);
             this.btnUpKv.TabIndex = 5;
             this.btnUpKv.UseVisualStyleBackColor = true;
+            this.btnUpKv.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnUpKv_MouseDown);
+            this.btnUpKv.MouseLeave += new System.EventHandler(this.btnUpKv_MouseLeave);
+            this.btnUpKv.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnUpKv_MouseUp);
             // 
             // panel2
             // 
@@ -636,7 +660,7 @@
             this.lblEncender.AutoSize = true;
             this.lblEncender.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEncender.ForeColor = System.Drawing.Color.Brown;
-            this.lblEncender.Location = new System.Drawing.Point(182, 7);
+            this.lblEncender.Location = new System.Drawing.Point(186, 7);
             this.lblEncender.Name = "lblEncender";
             this.lblEncender.Size = new System.Drawing.Size(68, 33);
             this.lblEncender.TabIndex = 14;
@@ -672,13 +696,14 @@
             // 
             this.imgLstBody.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgLstBody.ImageStream")));
             this.imgLstBody.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgLstBody.Images.SetKeyName(0, "head.png");
-            this.imgLstBody.Images.SetKeyName(1, "neck.png");
-            this.imgLstBody.Images.SetKeyName(2, "arms.png");
-            this.imgLstBody.Images.SetKeyName(3, "Column.png");
-            this.imgLstBody.Images.SetKeyName(4, "abdomen.png");
-            this.imgLstBody.Images.SetKeyName(5, "hips.png");
-            this.imgLstBody.Images.SetKeyName(6, "legs.png");
+            this.imgLstBody.Images.SetKeyName(0, "bodyrx.png");
+            this.imgLstBody.Images.SetKeyName(1, "craneo_ap.png");
+            this.imgLstBody.Images.SetKeyName(2, "craneo_pa.png");
+            this.imgLstBody.Images.SetKeyName(3, "columna_cervical.png");
+            this.imgLstBody.Images.SetKeyName(4, "Torax_ap.png");
+            this.imgLstBody.Images.SetKeyName(5, "torax_lateral.png");
+            this.imgLstBody.Images.SetKeyName(6, "columna.png");
+            this.imgLstBody.Images.SetKeyName(7, "columna_lateral.png");
             // 
             // DATE_NOW
             // 
@@ -697,21 +722,6 @@
             // 
             this.changeTimer.Interval = 147;
             this.changeTimer.Tick += new System.EventHandler(this.changeTimer_Tick);
-            // 
-            // lblErrorMsg
-            // 
-            this.lblErrorMsg.AutoSize = true;
-            this.lblErrorMsg.Font = new System.Drawing.Font("MS Reference Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblErrorMsg.ForeColor = System.Drawing.Color.Brown;
-            this.lblErrorMsg.Image = global::RayPro.Properties.Resources.lblErrorMsg;
-            this.lblErrorMsg.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.lblErrorMsg.Location = new System.Drawing.Point(512, 58);
-            this.lblErrorMsg.Name = "lblErrorMsg";
-            this.lblErrorMsg.Size = new System.Drawing.Size(107, 26);
-            this.lblErrorMsg.TabIndex = 13;
-            this.lblErrorMsg.Text = "ErrorMsg";
-            this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.lblErrorMsg.Visible = false;
             // 
             // MainRayX
             // 
