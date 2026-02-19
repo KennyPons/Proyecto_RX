@@ -170,7 +170,7 @@ namespace RayPro
         {         
             if(lblEncender.Text == "ON" && btnON.Visible == true)
             {
-                FrCuadro.Show("Por favor apague el equipo" , "Advertencia", MessageBoxButtons.YesNo);
+                QuestionBox.Show("Por favor apague el equipo" , "Advertencia", MessageBoxButtons.YesNo);
             }
             else
             {

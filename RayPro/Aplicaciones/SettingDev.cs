@@ -74,23 +74,47 @@ namespace RayPro.Aplicaciones
             _usb.ErrorOccurred += OnErrorOccurred;
         }
 
+        private void UnwireEvents()
+        {
+            _usb.ConnectionChanged -= OnConnectionChanged;
+            _usb.DataReceived -= OnDataReceived;
+            _usb.ErrorOccurred -= OnErrorOccurred;
+        }
+
         //Implementación de los handlers:
         private void OnConnectionChanged(bool connected)
         {
             btnConnect.Text = connected ? "Disconnect" : "Connect";
             lblMensaje.Text = connected ? "Conexión correcta" : "Desconectado";
             lblMensaje.Visible = true;
+
+            // Limpiar RX al conectar para empezar limpio
+            if (connected)
+            {
+                Rx_txt.Clear();
+                Rx_txt.AppendText("Conectado. Esperando datos..." + Environment.NewLine);
+            }
         }
 
         private void OnDataReceived(string data)
         {
-            Rx_txt.Clear();
+            // Acumular datos como Hercules (no borrar cada vez)
+            if (Rx_txt.TextLength > 32000)
+            {
+                Rx_txt.Clear();
+            }
             Rx_txt.AppendText(data + Environment.NewLine);
         }
 
         private void OnErrorOccurred(string error)
         {
             mensajeDeError(error);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            UnwireEvents();
+            base.OnFormClosing(e);
         }
 
         #endregion
@@ -111,6 +135,32 @@ namespace RayPro.Aplicaciones
             if (Settings.Default.Baudios > 0)
                 cboBaudios.SelectedItem = Settings.Default.Baudios;
         }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            if (_usb.IsConnected)
+            {
+                _usb.Disconnect();
+                return;
+            }
+
+            if (cboCom.SelectedItem == null || cboBaudios.SelectedItem == null)
+            {
+                lblMensaje.Text = "Seleccione Compuerta y Baudio";
+                lblMensaje.Visible = true;
+                return;
+            }
+
+            _usb.Configure(
+                cboCom.SelectedItem.ToString(),
+                Convert.ToInt32(cboBaudios.SelectedItem),
+                autoConnect: false
+            );
+
+            _usb.Connect();
+
+        }
+
 
 
         /*ACCOUNT*/
@@ -184,31 +234,26 @@ namespace RayPro.Aplicaciones
 
         private void btnSaveUsb_Click(object sender, EventArgs e)
         {
-            if (_usb.IsConnected)
-            {
-                _usb.Disconnect();
-                return;
-            }
-
             if (cboCom.SelectedItem == null || cboBaudios.SelectedItem == null)
             {
-                lblMensaje.Text = "Seleccione Compuerta y Baudio";
+                lblMensaje.Text = "No hay configuración válida";
                 return;
             }
 
             _usb.Configure(
                 cboCom.SelectedItem.ToString(),
                 Convert.ToInt32(cboBaudios.SelectedItem),
-                autoConnect: false
+                autoConnect: true
             );
 
-            _usb.Connect();
+            QuestionBox.Show("Configuración guardada correctamente.", "Configuración", MessageBoxButtons.YesNo);
         }
 
         private void btnSaveLicencse_Click(object sender, EventArgs e)
         {
 
         }
+
 
 
         #endregion

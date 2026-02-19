@@ -1,6 +1,6 @@
 ﻿namespace RayPro.Vista
 {
-    partial class FrCuadro
+    partial class QuestionBox
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrCuadro));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuestionBox));
             this.panelSuperior = new System.Windows.Forms.Panel();
             this.panelInferior = new System.Windows.Forms.Panel();
             this.btnOne = new System.Windows.Forms.Button();

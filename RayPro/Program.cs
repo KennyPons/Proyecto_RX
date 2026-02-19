@@ -23,12 +23,16 @@ namespace RayPro
 
             AppSession.Usb = new UsbCdcManager();
 
-            Application.Run(new Login());
-            //Application.Run(new Welcome());
+            var loginForm = new Login();
+
+            // Capturar SynchronizationContext DESPUÉS de crear el primer Form
+            // (WinForms lo instala al crear el primer Form con message loop)
+            AppSession.Usb.CaptureSyncContext();
+
+            Application.Run(loginForm);
 
             // Al salir del software
             AppSession.Usb?.Dispose();
-
         }
     }
 }

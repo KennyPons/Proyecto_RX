@@ -27,7 +27,7 @@ namespace RayPro.Aplicaciones.tools
         private SerialPort _port;
         private readonly object _lock = new object();
         private readonly StringBuilder _rxBuffer = new StringBuilder();
-        private readonly SynchronizationContext _syncContext;
+        private SynchronizationContext _syncContext;
         private bool _disposed;
         private CancellationTokenSource _reconnectCts;
 
@@ -40,7 +40,7 @@ namespace RayPro.Aplicaciones.tools
         private readonly ConcurrentQueue<string> _lineQueue = new ConcurrentQueue<string>();
         private CancellationTokenSource _consumerCts;
         private Task _consumerTask;
-        private const int MAX_RX_BUFFER = 64 * 1024; // 64 KB tocapara el StringBuilder
+        private const int MAX_RX_BUFFER = 64 * 1024; // 64 KB para el StringBuilder
         public event Action<float, DateTime> VoltageReceived; // evento específico para voltaje (V)
 
 
@@ -55,22 +55,22 @@ namespace RayPro.Aplicaciones.tools
             }
         }
 
-        public string LastError { get; private set; }// una propiedad publica, donde get es publico y set es privado
+        public string LastError { get; private set; }
         public string PortName { get; private set; }
         public int BaudRate { get; private set; } = 115200;
-        public bool AutoConnect { get; private set; }//autovonectar
+        public bool AutoConnect { get; private set; }
 
         // Filtrado opcional
-        public string MessagePrefix { get; set; } //Prefijo de mensaje
+        public string MessagePrefix { get; set; }
         public Regex MessageRegex { get; set; }
 
         // Reintento
-        public int ReconnectMaxAttempts { get; set; } = 5;//Intentos máximos de reconexión
-        public TimeSpan ReconnectBaseDelay { get; set; } = TimeSpan.FromSeconds(1); //Retardo de reconexión de la base
+        public int ReconnectMaxAttempts { get; set; } = 5;
+        public TimeSpan ReconnectBaseDelay { get; set; } = TimeSpan.FromSeconds(1);
 
         public UsbCdcManager()
         {
-            //CONTRUCTORS
+            // Capturar contexto UI si existe (puede ser null si se crea antes de Application.Run)
             _syncContext = SynchronizationContext.Current;
             LoadSettings();
 
@@ -80,12 +80,34 @@ namespace RayPro.Aplicaciones.tools
         }
 
         #region UI helpers
+
+        /// <summary>
+        /// Permite capturar el SynchronizationContext después de que Application.Run() haya iniciado.
+        /// Llamar desde el primer Form que se cargue (ej. Login o MainRayX).
+        /// </summary>
+        public void CaptureSyncContext()
+        {
+            var ctx = SynchronizationContext.Current;
+            if (ctx != null)
+            {
+                _syncContext = ctx;
+            }
+        }
+
         private void PostToUi(Action action)
         {
             try
             {
-                if (_syncContext != null) _syncContext.Post(_ => SafeInvoke(action), null);
-                else SafeInvoke(action);
+                var ctx = _syncContext;
+                if (ctx != null)
+                {
+                    ctx.Post(_ => SafeInvoke(action), null);
+                }
+                else
+                {
+                    // Sin contexto UI: ejecutar directo (modo consola o pre-Application.Run)
+                    SafeInvoke(action);
+                }
             }
             catch
             {
@@ -151,7 +173,7 @@ namespace RayPro.Aplicaciones.tools
                 var settings = Settings.Default;
                 var props = settings.Properties;
                 if (props["ComPortName"] != null) settings.ComPortName = PortName;
-                if (props["Baudios"] != null) settings.Baudios = BaudRate;//corregido
+                if (props["Baudios"] != null) settings.Baudios = BaudRate;
                 if (props["AutoConnect"] != null) settings.AutoConnect = AutoConnect;
                 settings.Save();
             }
@@ -192,14 +214,21 @@ namespace RayPro.Aplicaciones.tools
                         Encoding = Encoding.ASCII,
                         NewLine = "\n",
                         ReadTimeout = 500,
-                        WriteTimeout = 500
+                        WriteTimeout = 500,
+                        DtrEnable = true,
+                        RtsEnable = true,
+                        ReceivedBytesThreshold = 1
                     };
 
                     _port.DataReceived += OnDataReceived;
+                    _port.ErrorReceived += OnErrorReceived;
                     _port.Open();
 
+                    // Descartar basura que pudiera haber en el buffer del driver
+                    _port.DiscardInBuffer();
+                    _port.DiscardOutBuffer();
+
                     PostToUi(() => ConnectionChanged?.Invoke(true));
-                    // cancelar cualquier ciclo de reconexión en curso
                     _reconnectCts?.Cancel();
                     return true;
                 }
@@ -207,7 +236,6 @@ namespace RayPro.Aplicaciones.tools
                 {
                     CleanupPort();
                     SetError("Error al conectar USB CDC: " + ex.Message);
-                    // iniciar reintento si corresponde
                     if (AutoConnect) _ = AttemptReconnectAsync();
                     return false;
                 }
@@ -223,7 +251,7 @@ namespace RayPro.Aplicaciones.tools
                 {
                     if (_port != null && _port.IsOpen)
                     {
-                        try { _port.Close(); } catch { /* ignore */ }
+                        try { _port.Close(); } catch { }
                     }
                 }
                 finally
@@ -241,6 +269,7 @@ namespace RayPro.Aplicaciones.tools
                 if (_port != null)
                 {
                     try { _port.DataReceived -= OnDataReceived; } catch { }
+                    try { _port.ErrorReceived -= OnErrorReceived; } catch { }
                     try { _port.Dispose(); } catch { }
                 }
             }
@@ -253,7 +282,6 @@ namespace RayPro.Aplicaciones.tools
 
         private async Task AttemptReconnectAsync()
         {
-            // evita múltiples ciclos paralelos
             if (_reconnectCts != null && !_reconnectCts.IsCancellationRequested) return;
 
             _reconnectCts = new CancellationTokenSource();
@@ -266,14 +294,12 @@ namespace RayPro.Aplicaciones.tools
                     var delay = TimeSpan.FromMilliseconds(ReconnectBaseDelay.TotalMilliseconds * Math.Pow(2, attempt - 1));
                     await Task.Delay(delay, ct).ConfigureAwait(false);
                     if (ct.IsCancellationRequested) break;
-
-                    if (Connect()) return; // éxito
+                    if (Connect()) return;
                 }
                 catch (TaskCanceledException) { break; }
-                catch { /* ignorar y continuar */ }
+                catch { }
             }
 
-            // al final, notificar fallo si sigue desconectado
             if (!IsConnected) SetError("No fue posible reconectar automáticamente al dispositivo.");
         }
         #endregion
@@ -331,17 +357,38 @@ namespace RayPro.Aplicaciones.tools
         }
         #endregion
 
-        #region Recepción (ensamblado de líneas) y filtrado
+        #region Recepción — estilo Hercules (leer todo, ensamblar líneas por \r o \n)
+        private void OnErrorReceived(object sender, SerialErrorReceivedEventArgs e)
+        {
+            SetError("Serial error: " + e.EventType);
+        }
+
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             try
             {
-                string incoming;
+                // Obtener referencia al puerto fuera del lock pesado
+                SerialPort sp;
                 lock (_lock)
                 {
-                    if (_port == null || !_port.IsOpen) return;
-                    incoming = _port.ReadExisting();
+                    sp = _port;
+                    if (sp == null || !sp.IsOpen) return;
                 }
+
+                // Leer FUERA del lock — ReadExisting() es thread-safe y no bloquea
+                // Esto es exactamente lo que hace Hercules internamente
+                string incoming;
+                try
+                {
+                    incoming = sp.ReadExisting();
+                }
+                catch (IOException ioEx)
+                {
+                    SetError("IO error en recepción: " + ioEx.Message);
+                    HandleUnexpectedDisconnect();
+                    return;
+                }
+                catch (InvalidOperationException) { return; }
 
                 if (string.IsNullOrEmpty(incoming)) return;
 
@@ -350,28 +397,36 @@ namespace RayPro.Aplicaciones.tools
                     // Limitar crecimiento del buffer
                     if (_rxBuffer.Length + incoming.Length > MAX_RX_BUFFER)
                     {
-                        int overflow = (_rxBuffer.Length + incoming.Length) - MAX_RX_BUFFER;
-                        _rxBuffer.Remove(0, overflow);
-                        SetError("Buffer de recepción recortado por exceso.");
+                        _rxBuffer.Remove(0, incoming.Length);
                     }
 
                     _rxBuffer.Append(incoming);
 
-                    // Extraer líneas completas y encolarlas
-                    int nlIndex;
-                    while ((nlIndex = _rxBuffer.ToString().IndexOf('\n')) >= 0)
+                    // Extraer líneas completas terminadas en \r, \n, o \r\n
+                    // El STM32 envía con \r\n (UART_Printf usa "...\r\n"))
+                    string all = _rxBuffer.ToString();
+                    int idx;
+                    while ((idx = all.IndexOfAny(new[] { '\n', '\r' })) >= 0)
                     {
-                        string line = _rxBuffer.ToString(0, nlIndex + 1);
-                        _rxBuffer.Remove(0, nlIndex + 1);
-                        line = line.Trim('\r', '\n', '\0').Trim();
+                        string line = all.Substring(0, idx);
+                        // Saltar secuencia \r\n completa
+                        int skip = idx;
+                        while (skip < all.Length && (all[skip] == '\r' || all[skip] == '\n')) skip++;
+                        all = all.Substring(skip);
+
+                        line = line.Trim();
                         if (string.IsNullOrEmpty(line)) continue;
 
-                        // Filtrado temprano
+                        // Filtrado temprano (si está configurado)
                         if (!string.IsNullOrEmpty(MessagePrefix) && !line.StartsWith(MessagePrefix, StringComparison.Ordinal)) continue;
                         if (MessageRegex != null && !MessageRegex.IsMatch(line)) continue;
 
                         _lineQueue.Enqueue(line);
                     }
+
+                    // Guardar fragmento parcial (datos sin terminador aún)
+                    _rxBuffer.Clear();
+                    if (!string.IsNullOrEmpty(all)) _rxBuffer.Append(all);
                 }
             }
             catch (IOException ioEx)
@@ -394,7 +449,7 @@ namespace RayPro.Aplicaciones.tools
         }
         #endregion
 
-        #region Errores y util
+        #region Errores
         private void SetError(string message)
         {
             LastError = message;
@@ -402,7 +457,7 @@ namespace RayPro.Aplicaciones.tools
         }
         #endregion
 
-
+        #region Consumer Loop — procesa líneas encoladas y publica eventos
         private async Task ConsumerLoopAsync(CancellationToken ct)
         {
             try
@@ -411,9 +466,7 @@ namespace RayPro.Aplicaciones.tools
                 {
                     if (_lineQueue.TryDequeue(out var line))
                     {
-                        var ts = DateTime.UtcNow;
-
-                        // Procesar VAC=... -> publicar SOLO número entero ajustado (redondeo - 2)
+                        // Procesar VAC=xxx.xx → publicar número entero ajustado
                         if (line.StartsWith("VAC=", StringComparison.OrdinalIgnoreCase))
                         {
                             var payload = line.Substring(4).Trim();
@@ -421,27 +474,19 @@ namespace RayPro.Aplicaciones.tools
 
                             if (float.TryParse(payload, NumberStyles.Float, CultureInfo.InvariantCulture, out var v))
                             {
-                                int adjusted = (int)Math.Round(v) - VoltageOffset;//--------> aqui ajustamos el valor restando el offset, y redondeamos al entero más cercano
-                                // Opcional: evitar negativos:
-                                // if (adjusted < 0) adjusted = 0;
-
-                                // Publicar SOLO número (ej. "123")
+                                int adjusted = (int)Math.Round(v) - VoltageOffset;
                                 PostToUi(() => DataReceived?.Invoke(adjusted.ToString()));
-                                continue;
                             }
-                            else
-                            {
-                                // Si no parseó, ignorar la línea (no publicar basura)
-                                continue;
-                            }
+                            // Si no parseó, ignorar (no publicar basura)
+                            continue;
                         }
 
-                        // Si no es VAC, publicar la línea tal cual
+                        // Cualquier otra línea del STM32: publicar tal cual
                         PostToUi(() => DataReceived?.Invoke(line));
                     }
                     else
                     {
-                        await Task.Delay(8, ct).ConfigureAwait(false);
+                        await Task.Delay(5, ct).ConfigureAwait(false);
                     }
                 }
             }
@@ -451,6 +496,7 @@ namespace RayPro.Aplicaciones.tools
                 SetError("Error en consumer loop: " + ex.Message);
             }
         }
+        #endregion
 
         #region IDisposable
         public void Dispose()
@@ -460,7 +506,6 @@ namespace RayPro.Aplicaciones.tools
 
             try { _consumerCts?.Cancel(); } catch { }
             try { _consumerTask?.Wait(200); } catch { }
-
             try { _reconnectCts?.Cancel(); } catch { }
             Disconnect();
             GC.SuppressFinalize(this);

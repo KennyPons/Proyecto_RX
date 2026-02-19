@@ -72,7 +72,7 @@ namespace RayPro.configuraciones {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("112500")]
+        [global::System.Configuration.DefaultSettingValueAttribute("115200")]
         public int Baudios {
             get {
                 return ((int)(this["Baudios"]));

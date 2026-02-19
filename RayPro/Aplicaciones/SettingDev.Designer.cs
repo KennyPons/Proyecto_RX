@@ -32,6 +32,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnGuardarAccount = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.cboOffset = new System.Windows.Forms.ComboBox();
             this.txtNameHospital = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.cboRol = new System.Windows.Forms.ComboBox();
@@ -44,6 +47,8 @@
             this.txtPassAnt = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnReseteo = new System.Windows.Forms.Button();
+            this.btnSaveUsb = new System.Windows.Forms.Button();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.Rx_txt = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
@@ -78,18 +83,13 @@
             this.dateFin = new System.Windows.Forms.DateTimePicker();
             this.dateInicio = new System.Windows.Forms.DateTimePicker();
             this.btnSaveLicencse = new System.Windows.Forms.Button();
+            this.rdoPermanente = new MamografiaGP.Mamorx.Front.LargeRadioButton();
+            this.rdoMensual = new MamografiaGP.Mamorx.Front.LargeRadioButton();
             this.btnCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnSaveUsb = new System.Windows.Forms.Button();
-            this.btnReseteo = new System.Windows.Forms.Button();
-            this.rdoPermanente = new MamografiaGP.Mamorx.Front.LargeRadioButton();
-            this.rdoMensual = new MamografiaGP.Mamorx.Front.LargeRadioButton();
-            this.cboOffset = new System.Windows.Forms.ComboBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.btnGuardarAccount = new System.Windows.Forms.Button();
             this.btn_mini_picbox = new System.Windows.Forms.PictureBox();
             this.btn_cerrar_picbox = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
@@ -156,6 +156,39 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Account";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnGuardarAccount
+            // 
+            this.btnGuardarAccount.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnGuardarAccount.FlatAppearance.BorderSize = 0;
+            this.btnGuardarAccount.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Crimson;
+            this.btnGuardarAccount.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Pink;
+            this.btnGuardarAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardarAccount.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnGuardarAccount.Location = new System.Drawing.Point(407, 438);
+            this.btnGuardarAccount.Name = "btnGuardarAccount";
+            this.btnGuardarAccount.Size = new System.Drawing.Size(129, 63);
+            this.btnGuardarAccount.TabIndex = 34;
+            this.btnGuardarAccount.Text = "GUARDAR";
+            this.btnGuardarAccount.UseVisualStyleBackColor = false;
+            this.btnGuardarAccount.Click += new System.EventHandler(this.btnGuardarAccount_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(301, 242);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(88, 20);
+            this.label18.TabIndex = 18;
+            this.label18.Text = "Calibración";
+            // 
+            // cboOffset
+            // 
+            this.cboOffset.FormattingEnabled = true;
+            this.cboOffset.Location = new System.Drawing.Point(286, 265);
+            this.cboOffset.Name = "cboOffset";
+            this.cboOffset.Size = new System.Drawing.Size(121, 28);
+            this.cboOffset.TabIndex = 17;
             // 
             // txtNameHospital
             // 
@@ -289,6 +322,32 @@
             this.tabPage2.Text = "Tools";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // btnReseteo
+            // 
+            this.btnReseteo.Location = new System.Drawing.Point(407, 143);
+            this.btnReseteo.Name = "btnReseteo";
+            this.btnReseteo.Size = new System.Drawing.Size(75, 35);
+            this.btnReseteo.TabIndex = 34;
+            this.btnReseteo.Text = "reset";
+            this.btnReseteo.UseVisualStyleBackColor = true;
+            this.btnReseteo.Click += new System.EventHandler(this.btnReseteo_Click);
+            // 
+            // btnSaveUsb
+            // 
+            this.btnSaveUsb.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnSaveUsb.FlatAppearance.BorderSize = 0;
+            this.btnSaveUsb.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Crimson;
+            this.btnSaveUsb.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Pink;
+            this.btnSaveUsb.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveUsb.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnSaveUsb.Location = new System.Drawing.Point(407, 438);
+            this.btnSaveUsb.Name = "btnSaveUsb";
+            this.btnSaveUsb.Size = new System.Drawing.Size(129, 63);
+            this.btnSaveUsb.TabIndex = 33;
+            this.btnSaveUsb.Text = "SAVE";
+            this.btnSaveUsb.UseVisualStyleBackColor = false;
+            this.btnSaveUsb.Click += new System.EventHandler(this.btnSaveUsb_Click);
+            // 
             // pictureBox3
             // 
             this.pictureBox3.Image = global::RayPro.Properties.Resources.config2;
@@ -413,6 +472,7 @@
             this.btnConnect.TabIndex = 4;
             this.btnConnect.Text = "Conectar";
             this.btnConnect.UseVisualStyleBackColor = false;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // pictureBox2
             // 
@@ -669,6 +729,35 @@
             this.btnSaveLicencse.UseVisualStyleBackColor = false;
             this.btnSaveLicencse.Click += new System.EventHandler(this.btnSaveLicencse_Click);
             // 
+            // rdoPermanente
+            // 
+            this.rdoPermanente.BorderColor = System.Drawing.Color.MediumTurquoise;
+            this.rdoPermanente.Checked = false;
+            this.rdoPermanente.CheckedColor = System.Drawing.Color.DodgerBlue;
+            this.rdoPermanente.CircleSize = 16;
+            this.rdoPermanente.CircleThickness = 2;
+            this.rdoPermanente.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdoPermanente.Location = new System.Drawing.Point(3, 262);
+            this.rdoPermanente.Name = "rdoPermanente";
+            this.rdoPermanente.Size = new System.Drawing.Size(305, 50);
+            this.rdoPermanente.TabIndex = 25;
+            this.rdoPermanente.Text = "Perpetual License";
+            // 
+            // rdoMensual
+            // 
+            this.rdoMensual.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.rdoMensual.BorderColor = System.Drawing.Color.MediumTurquoise;
+            this.rdoMensual.Checked = false;
+            this.rdoMensual.CheckedColor = System.Drawing.Color.DodgerBlue;
+            this.rdoMensual.CircleSize = 16;
+            this.rdoMensual.CircleThickness = 2;
+            this.rdoMensual.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdoMensual.Location = new System.Drawing.Point(6, 45);
+            this.rdoMensual.Name = "rdoMensual";
+            this.rdoMensual.Size = new System.Drawing.Size(305, 50);
+            this.rdoMensual.TabIndex = 6;
+            this.rdoMensual.Text = "Monthly License";
+            // 
             // btnCancel
             // 
             this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -725,94 +814,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(50, 50);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // btnSaveUsb
-            // 
-            this.btnSaveUsb.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnSaveUsb.FlatAppearance.BorderSize = 0;
-            this.btnSaveUsb.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Crimson;
-            this.btnSaveUsb.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Pink;
-            this.btnSaveUsb.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveUsb.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnSaveUsb.Location = new System.Drawing.Point(407, 438);
-            this.btnSaveUsb.Name = "btnSaveUsb";
-            this.btnSaveUsb.Size = new System.Drawing.Size(129, 63);
-            this.btnSaveUsb.TabIndex = 33;
-            this.btnSaveUsb.Text = "SAVE";
-            this.btnSaveUsb.UseVisualStyleBackColor = false;
-            this.btnSaveUsb.Click += new System.EventHandler(this.btnSaveUsb_Click);
-            // 
-            // btnReseteo
-            // 
-            this.btnReseteo.Location = new System.Drawing.Point(407, 143);
-            this.btnReseteo.Name = "btnReseteo";
-            this.btnReseteo.Size = new System.Drawing.Size(75, 35);
-            this.btnReseteo.TabIndex = 34;
-            this.btnReseteo.Text = "reset";
-            this.btnReseteo.UseVisualStyleBackColor = true;
-            this.btnReseteo.Click += new System.EventHandler(this.btnReseteo_Click);
-            // 
-            // rdoPermanente
-            // 
-            this.rdoPermanente.BorderColor = System.Drawing.Color.MediumTurquoise;
-            this.rdoPermanente.Checked = false;
-            this.rdoPermanente.CheckedColor = System.Drawing.Color.DodgerBlue;
-            this.rdoPermanente.CircleSize = 16;
-            this.rdoPermanente.CircleThickness = 2;
-            this.rdoPermanente.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdoPermanente.Location = new System.Drawing.Point(3, 262);
-            this.rdoPermanente.Name = "rdoPermanente";
-            this.rdoPermanente.Size = new System.Drawing.Size(305, 50);
-            this.rdoPermanente.TabIndex = 25;
-            this.rdoPermanente.Text = "Perpetual License";
-            // 
-            // rdoMensual
-            // 
-            this.rdoMensual.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.rdoMensual.BorderColor = System.Drawing.Color.MediumTurquoise;
-            this.rdoMensual.Checked = false;
-            this.rdoMensual.CheckedColor = System.Drawing.Color.DodgerBlue;
-            this.rdoMensual.CircleSize = 16;
-            this.rdoMensual.CircleThickness = 2;
-            this.rdoMensual.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdoMensual.Location = new System.Drawing.Point(6, 45);
-            this.rdoMensual.Name = "rdoMensual";
-            this.rdoMensual.Size = new System.Drawing.Size(305, 50);
-            this.rdoMensual.TabIndex = 6;
-            this.rdoMensual.Text = "Monthly License";
-            // 
-            // cboOffset
-            // 
-            this.cboOffset.FormattingEnabled = true;
-            this.cboOffset.Location = new System.Drawing.Point(286, 265);
-            this.cboOffset.Name = "cboOffset";
-            this.cboOffset.Size = new System.Drawing.Size(121, 28);
-            this.cboOffset.TabIndex = 17;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(301, 242);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(88, 20);
-            this.label18.TabIndex = 18;
-            this.label18.Text = "Calibración";
-            // 
-            // btnGuardarAccount
-            // 
-            this.btnGuardarAccount.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnGuardarAccount.FlatAppearance.BorderSize = 0;
-            this.btnGuardarAccount.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Crimson;
-            this.btnGuardarAccount.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Pink;
-            this.btnGuardarAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardarAccount.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnGuardarAccount.Location = new System.Drawing.Point(407, 438);
-            this.btnGuardarAccount.Name = "btnGuardarAccount";
-            this.btnGuardarAccount.Size = new System.Drawing.Size(129, 63);
-            this.btnGuardarAccount.TabIndex = 34;
-            this.btnGuardarAccount.Text = "GUARDAR";
-            this.btnGuardarAccount.UseVisualStyleBackColor = false;
-            this.btnGuardarAccount.Click += new System.EventHandler(this.btnGuardarAccount_Click);
             // 
             // btn_mini_picbox
             // 

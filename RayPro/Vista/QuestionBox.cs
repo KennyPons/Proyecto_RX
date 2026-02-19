@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace RayPro.Vista
 {
-    public partial class FrCuadro : Form
+    public partial class QuestionBox : Form
     {
 
         private Color primaryColor = Color.CornflowerBlue;
@@ -39,13 +39,13 @@ namespace RayPro.Vista
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
 
         //constructors
-        public FrCuadro()
+        public QuestionBox()
         {
             InitializeComponent();
             IniciandoItems();
         }
 
-        public FrCuadro(String texto, String Caption, MessageBoxButtons bottons)
+        public QuestionBox(String texto, String Caption, MessageBoxButtons bottons)
         {
             InitializeComponent();
             IniciandoItems();
@@ -160,7 +160,7 @@ namespace RayPro.Vista
         public static DialogResult Show(String texto, String Captiom, MessageBoxButtons btn)
         {
             DialogResult result;
-            using (var msgForm = new FrCuadro(texto, Captiom, btn))
+            using (var msgForm = new QuestionBox(texto, Captiom, btn))
                 result = msgForm.ShowDialog();
             return result;
         }

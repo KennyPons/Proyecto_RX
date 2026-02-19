@@ -107,7 +107,7 @@ namespace RayPro.Aplicaciones.tools
             }
             catch (Exception ex)
             {
-                FrCuadro.Show("Ocurrió un error al intentar reproducir el sonido: " + ex.Message, "Error de Sonido", MessageBoxButtons.YesNo);
+                QuestionBox.Show("Ocurrió un error al intentar reproducir el sonido: " + ex.Message, "Error de Sonido", MessageBoxButtons.YesNo);
 
             }
         }
