@@ -322,6 +322,16 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap downarrowgray {
+            get {
+                object obj = ResourceManager.GetObject("downarrowgray", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap etestocopio_removebg_preview {
             get {
                 object obj = ResourceManager.GetObject("etestocopio-removebg-preview", resourceCulture);
@@ -481,6 +491,26 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logoempresa {
+            get {
+                object obj = ResourceManager.GetObject("logoempresa", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logoempresa1 {
+            get {
+                object obj = ResourceManager.GetObject("logoempresa1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MedicoW {
             get {
                 object obj = ResourceManager.GetObject("MedicoW", resourceCulture);
@@ -612,6 +642,16 @@ namespace RayPro.Properties {
         internal static System.Drawing.Bitmap up21 {
             get {
                 object obj = ResourceManager.GetObject("up21", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap uparrowgray {
+            get {
+                object obj = ResourceManager.GetObject("uparrowgray", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

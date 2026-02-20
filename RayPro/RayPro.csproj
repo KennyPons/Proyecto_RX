@@ -303,9 +303,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\down2.png" />
+    <None Include="Resources\downarrowgray.png" />
     <Content Include="Resources\listo.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\logoempresa.jpeg" />
+    <None Include="Resources\logoempresa1.jpeg" />
     <Content Include="Resources\NoRespirar.wav" />
     <Content Include="Resources\preparando.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -319,6 +322,7 @@
     <None Include="Resources\ready1.png" />
     <None Include="Resources\resetred.png" />
     <Content Include="Resources\Respirar.wav" />
+    <None Include="Resources\uparrowgray.png" />
     <Content Include="Resources\welcome.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

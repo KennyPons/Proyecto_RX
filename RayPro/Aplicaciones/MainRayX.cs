@@ -352,7 +352,7 @@ namespace RayPro
 
             hSupport.playSoundRx("disparo.wav");
             parametrosSecuencia(130, 140, 40);
-            //sMonitor.senDataSerial("D_RX");
+
             SendCommand("RX");
             Thread.Sleep(3000);
 

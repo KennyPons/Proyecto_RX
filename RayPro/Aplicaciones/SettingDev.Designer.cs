@@ -234,7 +234,7 @@
             // pictureBox5
             // 
             this.pictureBox5.Image = global::RayPro.Properties.Resources._2752488;
-            this.pictureBox5.Location = new System.Drawing.Point(234, 16);
+            this.pictureBox5.Location = new System.Drawing.Point(225, 16);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(95, 87);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -277,7 +277,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(251, 125);
+            this.label2.Location = new System.Drawing.Point(238, 125);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 20);
             this.label2.TabIndex = 7;
