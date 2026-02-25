@@ -111,8 +111,8 @@ namespace RayPro.Vista
 
         private void loadCmboUser()
         {
-            cboUsuario.Items.Add("Admin");
             cboUsuario.Items.Add(configurar.Usuarios);
+            cboUsuario.Items.Add("Admin");
             cboUsuario.SelectedIndex = 0;
 
             cboUsuario.DrawMode = DrawMode.OwnerDrawFixed;

@@ -309,6 +309,7 @@
     </Content>
     <None Include="Resources\logoempresa.jpeg" />
     <None Include="Resources\logoempresa1.jpeg" />
+    <None Include="Resources\LOGO_EMPRESA_MEDIC-.png" />
     <Content Include="Resources\NoRespirar.wav" />
     <Content Include="Resources\preparando.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

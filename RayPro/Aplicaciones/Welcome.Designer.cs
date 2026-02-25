@@ -48,7 +48,7 @@
             // 
             // panelSuperior
             // 
-            this.panelSuperior.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(33)))), ((int)(((byte)(49)))));
+            this.panelSuperior.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(24)))), ((int)(((byte)(75)))));
             this.panelSuperior.Controls.Add(this.lblmedical);
             this.panelSuperior.Controls.Add(this.pictureBox2);
             this.panelSuperior.Dock = System.Windows.Forms.DockStyle.Top;
@@ -62,11 +62,11 @@
             this.lblmedical.AutoSize = true;
             this.lblmedical.Font = new System.Drawing.Font("Tahoma", 18F);
             this.lblmedical.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblmedical.Location = new System.Drawing.Point(656, 33);
+            this.lblmedical.Location = new System.Drawing.Point(609, 33);
             this.lblmedical.Name = "lblmedical";
-            this.lblmedical.Size = new System.Drawing.Size(177, 29);
+            this.lblmedical.Size = new System.Drawing.Size(208, 29);
             this.lblmedical.TabIndex = 5;
-            this.lblmedical.Text = "Medical System";
+            this.lblmedical.Text = "Tecnologia Médica";
             // 
             // pictureBox2
             // 
@@ -123,22 +123,22 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 39.75F);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(180)))));
-            this.label1.Location = new System.Drawing.Point(405, 103);
+            this.label1.Location = new System.Drawing.Point(420, 118);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(351, 64);
+            this.label1.Size = new System.Drawing.Size(369, 71);
             this.label1.TabIndex = 5;
             this.label1.Text = "BIENVENIDO!";
             // 
             // lblNameUser
             // 
             this.lblNameUser.AutoSize = true;
-            this.lblNameUser.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNameUser.Font = new System.Drawing.Font("Segoe UI Semibold", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNameUser.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblNameUser.Location = new System.Drawing.Point(629, 232);
             this.lblNameUser.Name = "lblNameUser";
-            this.lblNameUser.Size = new System.Drawing.Size(99, 32);
+            this.lblNameUser.Size = new System.Drawing.Size(104, 40);
             this.lblNameUser.TabIndex = 6;
             this.lblNameUser.Text = "Admin";
             // 

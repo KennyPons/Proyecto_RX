@@ -105,5 +105,29 @@ namespace RayPro.configuraciones {
                 this["VoltageOffset"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("MEDIC SYSTEM")]
+        public string NameHospital {
+            get {
+                return ((string)(this["NameHospital"]));
+            }
+            set {
+                this["NameHospital"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ADMIN")]
+        public string NameUsers {
+            get {
+                return ((string)(this["NameUsers"]));
+            }
+            set {
+                this["NameUsers"] = value;
+            }
+        }
     }
 }

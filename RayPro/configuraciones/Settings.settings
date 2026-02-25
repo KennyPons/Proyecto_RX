@@ -28,5 +28,11 @@
     <Setting Name="VoltageOffset" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
+    <Setting Name="NameHospital" Type="System.String" Scope="User">
+      <Value Profile="(Default)">MEDIC SYSTEM</Value>
+    </Setting>
+    <Setting Name="NameUsers" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ADMIN</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

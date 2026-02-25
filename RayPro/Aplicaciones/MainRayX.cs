@@ -46,13 +46,14 @@ namespace RayPro
         private void InitFirstParametros()
         {
             setPanelBorders();
-            showBodyRay.Image = imgLstBody.Images[indiceImgNow];
-            ShowSecuenciaRx.Image = lstSecuenciaRx.Images[0];
+            showPartsRx.Image = imgLstBody.Images[indiceImgNow];
+            showSecuenciaRx.Image = lstSecuenciaRx.Images[0];
             lblmAs.Text = "0" + mAs;
             lblKVp.Text = kv.ToString();
 
             enableSystemEvents(false);
             WireEvents();
+            WireBodyButtons();
 
             hSupport = new HumanSupport(cboProyeccion, cboEstructura, lblKVp, lblmAs);
         }
@@ -60,8 +61,7 @@ namespace RayPro
 
         private void enableSystemEvents(bool status)
         {
-            btnLeft.Enabled = status;
-            btnRight.Enabled = status;
+
             btnPRE.Enabled = status;
             btnRX.Enabled = status;
             btnR.Enabled = status;
@@ -71,8 +71,8 @@ namespace RayPro
 
         private void parametrosSecuencia(int wight, int high, int pointY)
         {
-            ShowSecuenciaRx.Size = new Size(130, 140);
-            ShowSecuenciaRx.Location = new Point(478, 40);
+            showSecuenciaRx.Size = new Size(130, 140);
+            showSecuenciaRx.Location = new Point(478, 40);
         }
         private void visualBtnRx(bool status)
         {
@@ -220,7 +220,7 @@ namespace RayPro
             changeTimer.Stop();
             valorCambiaAction = null;
         }
-         /*AQUI LA FUNCION DE LOS CAMBIOS CON LOS NUMEROS EN KV*/
+         /*AQUÍ LA FUNCION DE LOS CAMBIOS CON LOS NUMEROS EN KV*/
         private void CambiarKv(int value)
         {
             int newKv = kv + value;
@@ -230,7 +230,7 @@ namespace RayPro
                 lblKVp.Text = kv.ToString();
             }
         }
-        /*AQUI LA FUNCION DE LOS CAMBIOS CON LOS NUMEROS EN MAS*/
+        /*AQUÍ LA FUNCION DE LOS CAMBIOS CON LOS NUMEROS EN MAS*/
         private void CambiarMaS(int value)
         {
             int newMaS = mAs + value;
@@ -248,35 +248,49 @@ namespace RayPro
         /// </summary>
 
 
-        private void btnLeft_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Asigna el índice de imagen a cada botón anatómico vía Tag
+        /// y conecta un SOLO handler para todos.
+        /// </summary>
+        private void WireBodyButtons()
         {
-
-            if (indiceImgNow > 0)
+            // Tag = índice en imgLstBody  (orden: Craneo=0, Columna=1, Hombro=2, Torax=3, Abdomen=4, Pelvis=5, Femur=6)
+            var zonas = new (Button btn, int index)[]
             {
-                indiceImgNow--;
-            }
-            else
-            {
-                indiceImgNow = 0;
-            }
+                (btnCraneo,  0),
+                (btnColumna, 1),
+                (btnHombro,  2),
+                (btnTorax,   3),
+                (btnAbdomen, 4),
+                (btnPelvis,  5),
+                (btnFemur,   6),
+            };
 
+            foreach (var zona in zonas)
+            {
+                zona.btn.Tag = zona.index;
+                zona.btn.Click += BtnZona_Click;
+            }
+        }
+
+        /// <summary>
+        /// Handler único para todos los botones de zona anatómica.
+        /// Lee el índice desde Tag, actualiza imagen y estructura.
+        /// </summary>
+        private void BtnZona_Click(object sender, EventArgs e)
+        {
+            var btn = (Button)sender;
+            int index = (int)btn.Tag;
+
+            if (index < 0 || index >= imgLstBody.Images.Count) return;
+
+            indiceImgNow = index;
+            showPartsRx.Image = imgLstBody.Images[indiceImgNow];
             hSupport.showBodyRayX(indiceImgNow);
-            showBodyRay.Image = imgLstBody.Images[indiceImgNow];
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            if (indiceImgNow < imgLstBody.Images.Count - 1)
-            {
-                indiceImgNow++;
-            }
-
-            hSupport.showBodyRayX(indiceImgNow);
-            showBodyRay.Image = imgLstBody.Images[indiceImgNow];
-          
-        }
+    
 
         private void btnOFF_Click(object sender, EventArgs e)
         {
@@ -334,7 +348,7 @@ namespace RayPro
             //cambio de imagen para mostrar la secuencia de disparo
             hSupport.playSoundRx("ready.wav");
             lblFoco.Text = "LISTO";
-            ShowSecuenciaRx.Image = lstSecuenciaRx.Images[2];
+            showSecuenciaRx.Image = lstSecuenciaRx.Images[2];
             parametrosSecuencia(100, 100, 78);
 
             getTiempo = hSupport.sendTimeInput(mAs);
@@ -364,7 +378,7 @@ namespace RayPro
 
             visualBtnRx(true);
             lblFoco.Text = (!estadoFoco)? "SMALL":"LARGE";//Si esta activo el Foco Large, Es True pero se convierte a Falso y muestra LARGE Actual
-            ShowSecuenciaRx.Image = (!estadoFoco) ? lstSecuenciaRx.Images[0]: lstSecuenciaRx.Images[1];
+            showSecuenciaRx.Image = (!estadoFoco) ? lstSecuenciaRx.Images[0]: lstSecuenciaRx.Images[1];
    
         }
 
@@ -379,7 +393,7 @@ namespace RayPro
 
             visualBtnRx(true);
             lblFoco.Text = (!estadoFoco) ? "SMALL" : "LARGE";//Si esta activo el Foco Large, Es True pero se convierte a Falso y muestra LARGE Actual
-            ShowSecuenciaRx.Image = (!estadoFoco) ? lstSecuenciaRx.Images[0] : lstSecuenciaRx.Images[1];
+            showSecuenciaRx.Image = (!estadoFoco) ? lstSecuenciaRx.Images[0] : lstSecuenciaRx.Images[1];
             hSupport.showBodyRayX(0);
             SendCommand("RESET");
         }
@@ -392,7 +406,7 @@ namespace RayPro
                Thread.Sleep(2000);
                lblFoco.Text = "LARGE";
                estadoFoco = true;
-               ShowSecuenciaRx.Image = lstSecuenciaRx.Images[1];
+               showSecuenciaRx.Image = lstSecuenciaRx.Images[1];
                 SendCommand("LARG");
             }
             else
@@ -400,7 +414,7 @@ namespace RayPro
                 Thread.Sleep(2000);
                 lblFoco.Text = "SMALL";
                 estadoFoco = false;
-                ShowSecuenciaRx.Image = lstSecuenciaRx.Images[0];
+                showSecuenciaRx.Image = lstSecuenciaRx.Images[0];
                 SendCommand("S");
             }
         }

@@ -402,6 +402,16 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap hospitalico {
+            get {
+                object obj = ResourceManager.GetObject("hospitalico", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icon_reiniciar {
             get {
                 object obj = ResourceManager.GetObject("icon reiniciar", resourceCulture);
@@ -485,6 +495,26 @@ namespace RayPro.Properties {
         internal static System.IO.UnmanagedMemoryStream listo {
             get {
                 return ResourceManager.GetStream("listo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LOGO_EMPRESA_MEDIC {
+            get {
+                object obj = ResourceManager.GetObject("LOGO EMPRESA MEDIC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LOGO_EMPRESA_MEDIC_ {
+            get {
+                object obj = ResourceManager.GetObject("LOGO_EMPRESA_MEDIC-", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
