@@ -64,7 +64,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(493, 900);
+            this.panel1.Size = new System.Drawing.Size(493, 890);
             this.panel1.TabIndex = 0;
             // 
             // linkSetting
@@ -123,7 +123,7 @@
             this.lblLogin.AutoSize = true;
             this.lblLogin.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLogin.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblLogin.Location = new System.Drawing.Point(960, 240);
+            this.lblLogin.Location = new System.Drawing.Point(881, 220);
             this.lblLogin.Name = "lblLogin";
             this.lblLogin.Size = new System.Drawing.Size(219, 38);
             this.lblLogin.TabIndex = 1;
@@ -141,9 +141,9 @@
             this.btnAcceder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAcceder.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAcceder.ForeColor = System.Drawing.Color.LightGray;
-            this.btnAcceder.Location = new System.Drawing.Point(780, 620);
+            this.btnAcceder.Location = new System.Drawing.Point(743, 653);
             this.btnAcceder.Name = "btnAcceder";
-            this.btnAcceder.Size = new System.Drawing.Size(600, 70);
+            this.btnAcceder.Size = new System.Drawing.Size(500, 60);
             this.btnAcceder.TabIndex = 6;
             this.btnAcceder.Text = "ACCEDER";
             this.btnAcceder.UseVisualStyleBackColor = false;
@@ -158,7 +158,7 @@
             this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPassword.Font = new System.Drawing.Font("Century Gothic", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.txtPassword.Location = new System.Drawing.Point(780, 490);
+            this.txtPassword.Location = new System.Drawing.Point(692, 500);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(600, 34);
             this.txtPassword.TabIndex = 8;
@@ -173,9 +173,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox4.Image = global::RayPro.Properties.Resources.imgRandom1;
-            this.pictureBox4.Location = new System.Drawing.Point(780, 490);
+            this.pictureBox4.Location = new System.Drawing.Point(692, 500);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(600, 80);
+            this.pictureBox4.Size = new System.Drawing.Size(600, 70);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 10;
             this.pictureBox4.TabStop = false;
@@ -186,9 +186,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.Image = global::RayPro.Properties.Resources.imgRandom1;
-            this.pictureBox3.Location = new System.Drawing.Point(784, 370);
+            this.pictureBox3.Location = new System.Drawing.Point(692, 362);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(600, 80);
+            this.pictureBox3.Size = new System.Drawing.Size(600, 70);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 9;
             this.pictureBox3.TabStop = false;
@@ -203,7 +203,7 @@
             this.lblErrorMsg.ForeColor = System.Drawing.Color.Brown;
             this.lblErrorMsg.Image = global::RayPro.Properties.Resources.lblErrorMsg;
             this.lblErrorMsg.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.lblErrorMsg.Location = new System.Drawing.Point(780, 585);
+            this.lblErrorMsg.Location = new System.Drawing.Point(1033, 590);
             this.lblErrorMsg.Name = "lblErrorMsg";
             this.lblErrorMsg.Size = new System.Drawing.Size(86, 22);
             this.lblErrorMsg.TabIndex = 5;
@@ -214,7 +214,7 @@
             // btnMinimizar
             // 
             this.btnMinimizar.Image = global::RayPro.Properties.Resources.imgRandom1;
-            this.btnMinimizar.Location = new System.Drawing.Point(1515, 23);
+            this.btnMinimizar.Location = new System.Drawing.Point(1441, 0);
             this.btnMinimizar.Name = "btnMinimizar";
             this.btnMinimizar.Size = new System.Drawing.Size(25, 25);
             this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -225,7 +225,7 @@
             // btnCerrar
             // 
             this.btnCerrar.Image = global::RayPro.Properties.Resources.btnCerrar;
-            this.btnCerrar.Location = new System.Drawing.Point(1552, 23);
+            this.btnCerrar.Location = new System.Drawing.Point(1472, 0);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(25, 25);
             this.btnCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -239,9 +239,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.Image = global::RayPro.Properties.Resources.IconMedic;
-            this.pictureBox2.Location = new System.Drawing.Point(1180, 220);
+            this.pictureBox2.Location = new System.Drawing.Point(1091, 220);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(60, 60);
+            this.pictureBox2.Size = new System.Drawing.Size(50, 50);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
@@ -253,7 +253,7 @@
             this.cboUsuario.Font = new System.Drawing.Font("Century Gothic", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.cboUsuario.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.cboUsuario.FormattingEnabled = true;
-            this.cboUsuario.Location = new System.Drawing.Point(784, 370);
+            this.cboUsuario.Location = new System.Drawing.Point(692, 353);
             this.cboUsuario.Name = "cboUsuario";
             this.cboUsuario.Size = new System.Drawing.Size(600, 41);
             this.cboUsuario.TabIndex = 12;
@@ -263,7 +263,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.ClientSize = new System.Drawing.Size(1600, 900);
+            this.ClientSize = new System.Drawing.Size(1500, 890);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.cboUsuario);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.pictureBox4);
@@ -274,7 +275,6 @@
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.lblLogin);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.pictureBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Login";

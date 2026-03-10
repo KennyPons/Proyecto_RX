@@ -1,5 +1,4 @@
 ﻿using RayPro.Aplicaciones;
-using RayPro.Persistencia;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,11 +13,9 @@ namespace RayPro.Vista
 {
     public partial class FrQuestion : Form
     {
-        private loginController objLogin;
         public FrQuestion()
         {
             InitializeComponent();
-            objLogin = new loginController();
             txtPassDev.Text = "Password...";
         }
 
@@ -33,7 +30,7 @@ namespace RayPro.Vista
         {
             if (txtPassDev.Text != "")
             {
-                if (objLogin.AutenticarAdmin("", txtPassDev.Text))
+                if (txtPassDev.Text == "CONFIGURAR2050.")
                 {
                     SettingDev frDev = new SettingDev();
                     frDev.ShowDialog();

@@ -180,6 +180,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Aplicaciones\tools\AppSession.cs" />
+    <Compile Include="Aplicaciones\tools\LicenciaDatos.cs" />
+    <Compile Include="Aplicaciones\tools\LicenciaManager.cs" />
     <Compile Include="Aplicaciones\tools\UsbCdcManager.cs" />
     <Compile Include="Vista\FrKeyBoard.cs">
       <SubType>Form</SubType>
@@ -201,8 +203,6 @@
     </Compile>
     <Compile Include="Aplicaciones\tools\DatosRadiologia.cs" />
     <Compile Include="Aplicaciones\tools\HumanSupport.cs" />
-    <Compile Include="Aplicaciones\dbRx\conexionDB.cs" />
-    <Compile Include="Aplicaciones\dbRx\loginController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vista\QuestionBox.cs">
@@ -287,9 +287,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Aplicaciones\dbRx\DB_USER.accdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Ray icon.ico" />
     <None Include="Resources\buttonyellown.png" />
     <None Include="Resources\buttonyellow2.png" />

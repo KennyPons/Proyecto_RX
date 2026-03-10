@@ -1,18 +1,13 @@
-﻿using RayPro.Aplicaciones;
-using RayPro.Aplicaciones.tools;
-using RayPro.Persistencia.db;
+﻿using RayPro.Aplicaciones.tools;
+
 using RayPro.Vista;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
-using System.IO;
-using System.Media;
-using System.Net.NetworkInformation;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows.Forms;
 
-using System.Timers;
 
 namespace RayPro
 {
@@ -28,30 +23,32 @@ namespace RayPro
         private bool _leftPressed = false;
         private double getTiempo;
         /*Se cambia a Large, estado para ser = True, si cambia a Small va ser estado = False*/
-        private bool estadoFoco, NoExecute = false; 
+        private bool estadoFoco, NoExecute = false;
 
         private HumanSupport hSupport;
-        //private SerialPortManager sMonitor;
+        private Size originalSize;
+        private Dictionary<Control, Rectangle> originalControls = new Dictionary<Control, Rectangle>();
+        private Dictionary<Control, Font> originalFonts = new Dictionary<Control, Font>();
 
         public MainRayX()
         {
             InitializeComponent();
             InitFirstParametros();
             ControlCambioFlechas();
-   
+            this.DoubleBuffered = true;
+
         }
 
-        
+
 
         private void InitFirstParametros()
         {
-            setPanelBorders();
             showPartsRx.Image = imgLstBody.Images[indiceImgNow];
             showSecuenciaRx.Image = lstSecuenciaRx.Images[0];
             lblmAs.Text = "0" + mAs;
             lblKVp.Text = kv.ToString();
 
-            enableSystemEvents(false);
+            SetControlsEnabled(false);
             WireEvents();
             WireBodyButtons();
 
@@ -59,14 +56,21 @@ namespace RayPro
         }
 
 
-        private void enableSystemEvents(bool status)
+        private void SetControlsEnabled(bool status)
         {
+            Control[] controls =
+   {
+        btnPRE,
+        btnRX,
+        btnR,
+        btnFilamento,
+        panelShow
+    };
 
-            btnPRE.Enabled = status;
-            btnRX.Enabled = status;
-            btnR.Enabled = status;
-            btnFilamento.Enabled = status;
-            panelShow.Enabled = status;
+            foreach (var control in controls)
+            {
+                control.Enabled = status;
+            }
         }
 
         private void parametrosSecuencia(int wight, int high, int pointY)
@@ -79,7 +83,7 @@ namespace RayPro
             btnPRE.Visible = status;
             btnFilamento.Visible = status;
             NoExecute = !status;
-            
+
         }
 
         private void setPanelBorders()
@@ -139,7 +143,7 @@ namespace RayPro
         {
             if (!AppSession.Usb.IsConnected)
             {
-  
+
                 mensajeDeError("Equipo no conectado");
                 return;
             }
@@ -150,9 +154,9 @@ namespace RayPro
         private void OnUsbDataReceived(string data)
         {
             // data debería ser SOLO un número como "123" (según UsbCdcManager)
-            if (this.InvokeRequired)
+            if (InvokeRequired)
             {
-                this.BeginInvoke(new Action(() => OnUsbDataReceived(data)));
+                BeginInvoke(new Action(() => OnUsbDataReceived(data)));
                 return;
             }
 
@@ -167,10 +171,10 @@ namespace RayPro
         #endregion
 
         private void btnClose_Click(object sender, EventArgs e)
-        {         
-            if(lblEncender.Text == "ON" && btnON.Visible == true)
+        {
+            if (lblEncender.Text == "ON" && btnON.Visible == true)
             {
-                QuestionBox.Show("Por favor apague el equipo" , "Advertencia", MessageBoxButtons.YesNo);
+                QuestionBox.Show("Por favor apague el equipo", "Advertencia", MessageBoxButtons.YesNo);
             }
             else
             {
@@ -180,7 +184,7 @@ namespace RayPro
 
         private void btnMinimizar_Click(object sender, EventArgs e)
         {
-             WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized;
         }
 
         #region Eventos para cambiar los datos de KV y MaS (En este caso se usara solo el mAs para mostrar el cambio)
@@ -220,7 +224,7 @@ namespace RayPro
             changeTimer.Stop();
             valorCambiaAction = null;
         }
-         /*AQUÍ LA FUNCION DE LOS CAMBIOS CON LOS NUMEROS EN KV*/
+        /*AQUÍ LA FUNCION DE LOS CAMBIOS CON LOS NUMEROS EN KV*/
         private void CambiarKv(int value)
         {
             int newKv = kv + value;
@@ -290,7 +294,7 @@ namespace RayPro
         }
 
 
-    
+
 
         private void btnOFF_Click(object sender, EventArgs e)
         {
@@ -299,9 +303,9 @@ namespace RayPro
             btnON.Visible = true;
             lblEncender.Text = "ON";
             lblEncender.ForeColor = Color.LimeGreen;
-            
-            //sMonitor.senDataSerial(lblEncender.Text);
-            enableSystemEvents(true);
+
+
+            SetControlsEnabled(true);
 
             SendCommand("ON");
 
@@ -313,9 +317,9 @@ namespace RayPro
             btnON.Visible = false;
             lblEncender.Text = "OFF";
             lblEncender.ForeColor = Color.Brown;
-            //sMonitor.senDataSerial("Cerrar");
-            enableSystemEvents(false);
-            //Thread.Sleep(989);
+
+            SetControlsEnabled(false);
+
 
             //sMonitor.senDataSerial(lblEncender.Text);
             SendCommand("OFF");
@@ -328,7 +332,7 @@ namespace RayPro
         }
 
 
-        
+
         private void btnPRE_Click(object sender, EventArgs e)
         {
             if (cboEstructura.Text == "TORÁX")
@@ -339,9 +343,9 @@ namespace RayPro
             {
                 hSupport.playSoundRx("preparando.wav");
             }
-            
+
             visualBtnRx(false);
-            //sMonitor.senDataSerial("Pre");
+
             SendCommand("PRE");
 
             Thread.Sleep(3500);
@@ -349,23 +353,22 @@ namespace RayPro
             hSupport.playSoundRx("ready.wav");
             lblFoco.Text = "LISTO";
             showSecuenciaRx.Image = lstSecuenciaRx.Images[2];
-            parametrosSecuencia(100, 100, 78);
+
 
             getTiempo = hSupport.sendTimeInput(mAs);
-            
-            string sendFactors = kv + "KV,"+getTiempo+"T";
-            //sMonitor.senDataSerial(sendFactors);
+
+            string sendFactors = getTiempo + "T";
+
             SendCommand(sendFactors);
 
         }
 
         private void btnRX_Click(object sender, EventArgs e)
         {
-            if(!NoExecute)
+            if (!NoExecute)
                 return;
 
             hSupport.playSoundRx("disparo.wav");
-            parametrosSecuencia(130, 140, 40);
 
             SendCommand("RX");
             Thread.Sleep(3000);
@@ -374,12 +377,12 @@ namespace RayPro
             {
                 hSupport.playSoundRx("Respirar.wav");
             }
-            
+
 
             visualBtnRx(true);
-            lblFoco.Text = (!estadoFoco)? "SMALL":"LARGE";//Si esta activo el Foco Large, Es True pero se convierte a Falso y muestra LARGE Actual
-            showSecuenciaRx.Image = (!estadoFoco) ? lstSecuenciaRx.Images[0]: lstSecuenciaRx.Images[1];
-   
+            lblFoco.Text = (!estadoFoco) ? "SMALL" : "LARGE";//Si esta activo el Foco Large, Es True pero se convierte a Falso y muestra LARGE Actual
+            showSecuenciaRx.Image = (!estadoFoco) ? lstSecuenciaRx.Images[0] : lstSecuenciaRx.Images[1];
+
         }
 
         private void btnR_Click(object sender, EventArgs e)/*(RESETEAR)*/
@@ -387,8 +390,6 @@ namespace RayPro
             if (!NoExecute)
                 return;
 
-            //sMonitor.senDataSerial("Reseteo");
-            parametrosSecuencia(130, 140, 40);
             Thread.Sleep(500);
 
             visualBtnRx(true);
@@ -401,12 +402,12 @@ namespace RayPro
 
         private void btnFilamento_Click(object sender, EventArgs e)
         {
-            if(lblFoco.Text == "SMALL") 
+            if (lblFoco.Text == "SMALL")
             {
-               Thread.Sleep(2000);
-               lblFoco.Text = "LARGE";
-               estadoFoco = true;
-               showSecuenciaRx.Image = lstSecuenciaRx.Images[1];
+                Thread.Sleep(2000);
+                lblFoco.Text = "LARGE";
+                estadoFoco = true;
+                showSecuenciaRx.Image = lstSecuenciaRx.Images[1];
                 SendCommand("LARG");
             }
             else
@@ -423,6 +424,14 @@ namespace RayPro
         private void MainRayX_Load(object sender, EventArgs e)
         {
             AppSession.Usb.TryAutoConnect();
+            originalSize = this.ClientSize;
+            SaveControlBounds(this);
+
+            WindowState = FormWindowState.Maximized;
+
+            lblKVp.AutoSize = true;
+            lblFoco.AutoSize = true;
+            lblmAs.AutoSize = true;
         }
         #endregion
 
@@ -490,11 +499,74 @@ namespace RayPro
 
 
 
+        #region FRONT PARA ADAPTARSE A PANTALLAS, ESCALABLE
+
         private void cboEstructura_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectEstructura = cboEstructura.SelectedItem.ToString();
             hSupport.changeShowCboProy(selectEstructura);
         }
+
+        private void SaveControlBounds(Control parent)
+        {
+            foreach (Control c in parent.Controls)
+            {
+                originalControls[c] = new Rectangle(c.Location, c.Size);
+                originalFonts[c] = c.Font;
+
+                if (c.Controls.Count > 0)
+                    SaveControlBounds(c);
+            }
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            // 🔥 evitar escalado cuando está minimizado
+            if (WindowState == FormWindowState.Minimized)
+                return;
+
+            if (originalSize.Width == 0 || originalSize.Height == 0)
+                return;
+
+            float xRatio = (float)this.ClientSize.Width / originalSize.Width;
+            float yRatio = (float)this.ClientSize.Height / originalSize.Height;
+
+            ResizeControls(this, xRatio, yRatio);
+
+            setPanelBorders();
+        }
+
+        private void ResizeControls(Control parent, float xRatio, float yRatio)
+        {
+            foreach (Control c in parent.Controls)
+            {
+                if (!originalControls.ContainsKey(c))
+                    continue;
+
+                Rectangle r = originalControls[c];
+
+                c.Location = new Point((int)(r.X * xRatio), (int)(r.Y * yRatio));
+                c.Size = new Size((int)(r.Width * xRatio), (int)(r.Height * yRatio));
+
+                // 🔥 ESCALAR FUENTE DESDE EL VALOR ORIGINAL
+                if (originalFonts.ContainsKey(c))
+                {
+                    float newFontSize = originalFonts[c].Size * yRatio;
+
+                    if (newFontSize < 1)
+                        newFontSize = 1;
+
+                    c.Font = new Font(originalFonts[c].FontFamily, newFontSize, originalFonts[c].Style);
+                }
+
+                if (c.Controls.Count > 0)
+                    ResizeControls(c, xRatio, yRatio);
+            }
+        }
+        #endregion
+
 
         #region Cierre para desconectar USB
         protected override void OnFormClosing(FormClosingEventArgs e)

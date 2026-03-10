@@ -1,6 +1,6 @@
 ﻿using RayPro.Aplicaciones;
 using RayPro.configuraciones;
-using RayPro.Persistencia;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,7 +38,7 @@ namespace RayPro.Vista
 
         private void btnMinimizar_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized;
         }
 
 

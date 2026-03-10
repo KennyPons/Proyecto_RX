@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("RayPro")]
 [assembly: AssemblyDescription("Aplicacion de escritotio para cotrol de rayos X")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ELVIMEDIC")]
+[assembly: AssemblyCompany("CEOSIL MEDIC")]
 [assembly: AssemblyProduct("RayPro")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // Puede especificar todos los valores o usar los valores predeterminados de número de compilación y de revisión
 // utilizando el carácter "*", como se muestra a continuación:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.1")]
-[assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: AssemblyVersion("1.2.0.1")]
+[assembly: AssemblyFileVersion("1.2.0.1")]
