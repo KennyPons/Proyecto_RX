@@ -65,15 +65,15 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label15 = new System.Windows.Forms.Label();
+            this.lblError2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtPassHas = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.datesVigencia = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.txtLicense = new System.Windows.Forms.TextBox();
+            this.txtLicenseCode = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtCodeSecurity = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -489,15 +489,15 @@
             this.tabPage3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.tabPage3.Controls.Add(this.pictureBox4);
             this.tabPage3.Controls.Add(this.panel2);
-            this.tabPage3.Controls.Add(this.label15);
+            this.tabPage3.Controls.Add(this.lblError2);
             this.tabPage3.Controls.Add(this.panel1);
             this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.textBox3);
+            this.tabPage3.Controls.Add(this.txtPassHas);
             this.tabPage3.Controls.Add(this.label16);
             this.tabPage3.Controls.Add(this.datesVigencia);
             this.tabPage3.Controls.Add(this.label14);
             this.tabPage3.Controls.Add(this.label13);
-            this.tabPage3.Controls.Add(this.txtLicense);
+            this.tabPage3.Controls.Add(this.txtLicenseCode);
             this.tabPage3.Controls.Add(this.label12);
             this.tabPage3.Controls.Add(this.txtCodeSecurity);
             this.tabPage3.Controls.Add(this.label11);
@@ -534,19 +534,19 @@
             this.panel2.Size = new System.Drawing.Size(510, 2);
             this.panel2.TabIndex = 24;
             // 
-            // label15
+            // lblError2
             // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.5F);
-            this.label15.ForeColor = System.Drawing.Color.Brown;
-            this.label15.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.label15.Location = new System.Drawing.Point(323, 45);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(72, 18);
-            this.label15.TabIndex = 24;
-            this.label15.Text = "ErrorMsg";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.label15.Visible = false;
+            this.lblError2.AutoSize = true;
+            this.lblError2.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblError2.ForeColor = System.Drawing.Color.Brown;
+            this.lblError2.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.lblError2.Location = new System.Drawing.Point(8, 470);
+            this.lblError2.Name = "lblError2";
+            this.lblError2.Size = new System.Drawing.Size(79, 20);
+            this.lblError2.TabIndex = 24;
+            this.lblError2.Text = "ErrorMsg";
+            this.lblError2.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.lblError2.Visible = false;
             // 
             // panel1
             // 
@@ -567,12 +567,13 @@
             this.label5.TabIndex = 22;
             this.label5.Text = "ADD LICENSE";
             // 
-            // textBox3
+            // txtPassHas
             // 
-            this.textBox3.Location = new System.Drawing.Point(307, 373);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(192, 28);
-            this.textBox3.TabIndex = 21;
+            this.txtPassHas.Location = new System.Drawing.Point(307, 373);
+            this.txtPassHas.Name = "txtPassHas";
+            this.txtPassHas.Size = new System.Drawing.Size(192, 28);
+            this.txtPassHas.TabIndex = 21;
+            this.txtPassHas.UseSystemPasswordChar = true;
             // 
             // label16
             // 
@@ -613,12 +614,12 @@
             this.label13.TabIndex = 17;
             this.label13.Text = "Resumen";
             // 
-            // txtLicense
+            // txtLicenseCode
             // 
-            this.txtLicense.Location = new System.Drawing.Point(162, 307);
-            this.txtLicense.Name = "txtLicense";
-            this.txtLicense.Size = new System.Drawing.Size(309, 28);
-            this.txtLicense.TabIndex = 16;
+            this.txtLicenseCode.Location = new System.Drawing.Point(162, 307);
+            this.txtLicenseCode.Name = "txtLicenseCode";
+            this.txtLicenseCode.Size = new System.Drawing.Size(309, 28);
+            this.txtLicenseCode.TabIndex = 16;
             // 
             // label12
             // 
@@ -859,6 +860,7 @@
             this.Name = "SettingDev";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Advanced Settings";
+            this.Load += new System.EventHandler(this.SettingDev_Load);
             this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -919,15 +921,15 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lblError2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtPassHas;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label datesVigencia;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox txtLicense;
+        private System.Windows.Forms.TextBox txtLicenseCode;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtCodeSecurity;
         private System.Windows.Forms.Label label11;

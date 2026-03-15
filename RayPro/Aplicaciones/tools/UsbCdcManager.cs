@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -29,19 +30,39 @@ namespace RayPro.Aplicaciones.tools
         private readonly StringBuilder _rxBuffer = new StringBuilder();
         private SynchronizationContext _syncContext;
         private bool _disposed;
+
+        // Watchdog
+        private CancellationTokenSource _watchdogCts;
+        private static readonly TimeSpan WatchdogInterval = TimeSpan.FromSeconds(5);
+
+        // WMI — detecta inserción de USB en tiempo real
+        private ManagementEventWatcher _usbArrivalWatcher;
+
+        // Reconexión — un solo flag atómico evita múltiples tareas paralelas
+        private int _reconnecting = 0; // 0 = libre, 1 = en progreso (Interlocked)
         private CancellationTokenSource _reconnectCts;
+
+        // Dentro de la clase UsbCdcManager: nuevos campos y evento
+        private readonly ConcurrentQueue<string> _lineQueue = new ConcurrentQueue<string>();
+        private CancellationTokenSource _consumerCts;
+        private Task _consumerTask;
 
         // Eventos (se publican en hilo UI si es posible)
         public event Action<string> DataReceived;
         public event Action<bool> ConnectionChanged;
         public event Action<string> ErrorOccurred;
 
-        // Dentro de la clase UsbCdcManager: nuevos campos y evento
-        private readonly ConcurrentQueue<string> _lineQueue = new ConcurrentQueue<string>();
-        private CancellationTokenSource _consumerCts;
-        private Task _consumerTask;
+       
+
         private const int MAX_RX_BUFFER = 64 * 1024; // 64 KB para el StringBuilder
-        public event Action<float, DateTime> VoltageReceived; // evento específico para voltaje (V)
+
+       
+
+        /// <summary>
+        /// Voltaje en tiempo real. El ESP32 envía decimales (ej: 35.5).
+        /// Se publica como entero redondeado (35.5 → 36, 35.4 → 35).
+        /// </summary>
+        public event Action<int, DateTime> VoltageReceived;
 
 
         public int VoltageOffset { get; set; } = 2;
@@ -65,7 +86,7 @@ namespace RayPro.Aplicaciones.tools
         public Regex MessageRegex { get; set; }
 
         // Reintento
-        public int ReconnectMaxAttempts { get; set; } = 5;
+        
         public TimeSpan ReconnectBaseDelay { get; set; } = TimeSpan.FromSeconds(1);
 
         public UsbCdcManager()
@@ -74,9 +95,11 @@ namespace RayPro.Aplicaciones.tools
             _syncContext = SynchronizationContext.Current;
             LoadSettings();
 
-            // Iniciar consumer que procesará las líneas recibidas
             _consumerCts = new CancellationTokenSource();
             _consumerTask = Task.Run(() => ConsumerLoopAsync(_consumerCts.Token));
+
+            StartWatchdog();
+            StartUsbWatcher();
         }
 
         #region UI helpers
@@ -154,17 +177,15 @@ namespace RayPro.Aplicaciones.tools
         {
             try
             {
-                var settings = Settings.Default;
-                var props = settings.Properties;
-                if (props["ComPortName"] != null) PortName = settings.ComPortName;
-                if (props["Baudios"] != null && settings.Baudios > 0) BaudRate = settings.Baudios;
-                if (props["AutoConnect"] != null) AutoConnect = settings.AutoConnect;
+                var s = Settings.Default;
+                var p = s.Properties;
+                if (p["ComPortName"] != null) PortName = s.ComPortName;
+                if (p["Baudios"] != null && s.Baudios > 0) BaudRate = s.Baudios;
+                if (p["AutoConnect"] != null) AutoConnect = s.AutoConnect;
             }
-            catch (Exception ex)
-            {
-                SetError("Error cargando settings: " + ex.Message);
-            }
+            catch (Exception ex) { SetError("Error cargando settings: " + ex.Message); }
         }
+
 
         private void SaveSettings()
         {
@@ -188,20 +209,30 @@ namespace RayPro.Aplicaciones.tools
         public bool TryAutoConnect()
         {
             if (!AutoConnect) return false;
-            if (string.IsNullOrWhiteSpace(PortName)) return false;
-            return Connect();
+            if (!string.IsNullOrWhiteSpace(PortName))
+            {
+                if (Connect()) return true;
+            }
+
+            // Puerto no disponible todavía → esperar en background
+            _ = AttemptReconnectAsync();
+            return false;
         }
 
         public bool Connect()
         {
+            if (string.IsNullOrWhiteSpace(PortName))
+            {
+                SetError("Puerto COM no configurado. Contacte al soporte técnico.");
+                return false;
+            }
+
+            bool success = false;
+            bool shouldReconnect = false;
+
             lock (_lock)
             {
-                if (IsConnected) return true;
-                if (string.IsNullOrWhiteSpace(PortName))
-                {
-                    SetError("Puerto COM no configurado.");
-                    return false;
-                }
+                if (_port != null && _port.IsOpen) return true;
 
                 try
                 {
@@ -211,59 +242,62 @@ namespace RayPro.Aplicaciones.tools
                         Parity = Parity.None,
                         StopBits = StopBits.One,
                         Handshake = Handshake.None,
-                        Encoding = Encoding.ASCII,
+                        Encoding = Encoding.UTF8,
                         NewLine = "\n",
                         ReadTimeout = 500,
                         WriteTimeout = 500,
-                        DtrEnable = true,
-                        RtsEnable = true,
+                        DtrEnable = false,
+                        RtsEnable = false,
                         ReceivedBytesThreshold = 1
                     };
 
                     _port.DataReceived += OnDataReceived;
                     _port.ErrorReceived += OnErrorReceived;
                     _port.Open();
-
-                    // Descartar basura que pudiera haber en el buffer del driver
                     _port.DiscardInBuffer();
                     _port.DiscardOutBuffer();
 
-                    PostToUi(() => ConnectionChanged?.Invoke(true));
-                    _reconnectCts?.Cancel();
-                    return true;
+                    success = true;
                 }
-                catch (Exception ex)
+                catch
                 {
                     CleanupPort();
-                    SetError("Error al conectar USB CDC: " + ex.Message);
-                    if (AutoConnect) _ = AttemptReconnectAsync();
-                    return false;
+                    shouldReconnect = AutoConnect;
                 }
             }
+
+            if (success)
+            {
+                _reconnectCts?.Cancel();
+                Interlocked.Exchange(ref _reconnecting, 0);
+                PostToUi(() => ConnectionChanged?.Invoke(true));
+            }
+            else if (shouldReconnect)
+            {
+                _ = AttemptReconnectAsync();
+            }
+
+            return success;
         }
 
         public void Disconnect()
         {
+            _reconnectCts?.Cancel();
+            Interlocked.Exchange(ref _reconnecting, 0);
+
             lock (_lock)
             {
-                _reconnectCts?.Cancel();
-                try
-                {
-                    if (_port != null && _port.IsOpen)
-                    {
-                        try { _port.Close(); } catch { }
-                    }
-                }
-                finally
-                {
-                    CleanupPort();
-                    PostToUi(() => ConnectionChanged?.Invoke(false));
-                }
+                try { if (_port != null && _port.IsOpen) _port.Close(); }
+                catch { }
+                finally { CleanupPort(); }
             }
+
+            PostToUi(() => ConnectionChanged?.Invoke(false));
         }
 
         private void CleanupPort()
         {
+            // Siempre llamar dentro de lock(_portLock)
             try
             {
                 if (_port != null)
@@ -280,79 +314,189 @@ namespace RayPro.Aplicaciones.tools
             }
         }
 
+
+        // ── Reconexión segura ────────────────────────────────────────────────
+        /// <summary>
+        /// Reconexión con backoff exponencial.
+        /// Interlocked garantiza que solo UNA tarea de reconexión exista a la vez.
+        /// </summary>
         private async Task AttemptReconnectAsync()
         {
-            if (_reconnectCts != null && !_reconnectCts.IsCancellationRequested) return;
+            // Solo 1 tarea de reconexión a la vez
+            if (Interlocked.CompareExchange(ref _reconnecting, 1, 0) != 0) return;
 
+            _reconnectCts?.Dispose();
             _reconnectCts = new CancellationTokenSource();
             var ct = _reconnectCts.Token;
 
-            for (int attempt = 1; attempt <= ReconnectMaxAttempts && !ct.IsCancellationRequested; attempt++)
+            try
             {
-                try
+                int attempt = 0;
+                while (!ct.IsCancellationRequested)
                 {
-                    var delay = TimeSpan.FromMilliseconds(ReconnectBaseDelay.TotalMilliseconds * Math.Pow(2, attempt - 1));
-                    await Task.Delay(delay, ct).ConfigureAwait(false);
-                    if (ct.IsCancellationRequested) break;
-                    if (Connect()) return;
-                }
-                catch (TaskCanceledException) { break; }
-                catch { }
-            }
+                    attempt++;
 
-            if (!IsConnected) SetError("No fue posible reconectar automáticamente al dispositivo.");
+                    // Backoff exponencial: 1s, 2s, 4s, 8s, 16s, 30s (techo)
+                    double delaySec = Math.Min(
+                        ReconnectBaseDelay.TotalSeconds * Math.Pow(2, Math.Min(attempt - 1, 5)),
+                        30.0);
+
+                    try { await Task.Delay(TimeSpan.FromSeconds(delaySec), ct).ConfigureAwait(false); }
+                    catch (TaskCanceledException) { break; }
+
+                    if (ct.IsCancellationRequested || string.IsNullOrWhiteSpace(PortName)) continue;
+
+                    bool connected = false;
+                    lock (_lock)
+                    {
+                        if (_port != null && _port.IsOpen)
+                        {
+                            connected = true;
+                        }
+                        else
+                        {
+                            try
+                            {
+                                _port = new SerialPort(PortName, BaudRate)
+                                {
+                                    DataBits = 8,
+                                    Parity = Parity.None,
+                                    StopBits = StopBits.One,
+                                    Handshake = Handshake.None,
+                                    Encoding = Encoding.UTF8,
+                                    NewLine = "\n",
+                                    ReadTimeout = 500,
+                                    WriteTimeout = 500,
+                                    DtrEnable = false,
+                                    RtsEnable = false,
+                                    ReceivedBytesThreshold = 1
+                                };
+                                _port.DataReceived += OnDataReceived;
+                                _port.ErrorReceived += OnErrorReceived;
+                                _port.Open();
+                                _port.DiscardInBuffer();
+                                _port.DiscardOutBuffer();
+                                connected = true;
+                            }
+                            catch { CleanupPort(); }
+                        }
+                    }
+
+                    if (connected)
+                    {
+                        Interlocked.Exchange(ref _reconnecting, 0);
+                        PostToUi(() => ConnectionChanged?.Invoke(true));
+                        return;
+                    }
+                }
+            }
+            finally
+            {
+                Interlocked.Exchange(ref _reconnecting, 0);
+            }
         }
+        #endregion
+
+        #region Watchdog 24/7
+
+        private void StartWatchdog()
+        {
+            _watchdogCts = new CancellationTokenSource();
+            Task.Run(() => WatchdogLoopAsync(_watchdogCts.Token));
+        }
+
+        private async Task WatchdogLoopAsync(CancellationToken ct)
+        {
+            try
+            {
+                while (!ct.IsCancellationRequested)
+                {
+                    await Task.Delay(WatchdogInterval, ct).ConfigureAwait(false);
+
+                    if (!IsConnected)
+                    {
+                        // Puerto cerrado → lanzar reconexión si no hay una activa
+                        if (AutoConnect &&
+                            Interlocked.CompareExchange(ref _reconnecting, 0, 0) == 0)
+                            _ = AttemptReconnectAsync();
+                        continue;
+                    }
+
+                    // Verificar que el COM sigue existiendo en Windows
+                    bool portExists = SerialPort.GetPortNames()
+                        .Any(p => string.Equals(p, PortName, StringComparison.OrdinalIgnoreCase));
+
+                    if (!portExists)
+                    {
+                        // Cable desconectado → limpiar y reconectar
+                        lock (_lock) { CleanupPort(); }
+                        PostToUi(() => ConnectionChanged?.Invoke(false));
+                        if (AutoConnect) _ = AttemptReconnectAsync();
+                    }
+                }
+            }
+            catch (TaskCanceledException) { }
+            catch (Exception ex) { SetError("Error en watchdog: " + ex.Message); }
+        }
+
+
+        #endregion
+
+        #region WMI — reconexión inmediata al insertar el USB
+        // ── WMI — reconexión inmediata al insertar el USB ────────────────────
+        private void StartUsbWatcher()
+        {
+            try
+            {
+                _usbArrivalWatcher = new ManagementEventWatcher(
+                    new WqlEventQuery("SELECT * FROM Win32_DeviceChangeEvent WHERE EventType = 2"));
+                _usbArrivalWatcher.EventArrived += OnUsbDeviceArrived;
+                _usbArrivalWatcher.Start();
+            }
+            catch { }
+        }
+
+        private void OnUsbDeviceArrived(object sender, EventArrivedEventArgs e)
+        {
+            // Dispositivo USB conectado → intentar reconectar si no estamos conectados
+            if (!IsConnected && AutoConnect)
+            {
+                // 1.5s para que Windows asigne el puerto COM
+                Task.Delay(1500).ContinueWith(_ =>
+                {
+                    if (!IsConnected && !string.IsNullOrWhiteSpace(PortName))
+                        Connect();
+                });
+            }
+        }
+
         #endregion
 
         #region Envío
         public bool Send(string text, bool appendNewLine = true)
         {
             if (string.IsNullOrEmpty(text)) return true;
-
             lock (_lock)
             {
-                if (!IsConnected)
-                {
-                    SetError("No hay conexión con el STM32.");
-                    return false;
-                }
-
+                if (!IsConnected) { SetError("Sin conexión con el ESP32."); return false; }
                 try
                 {
                     if (appendNewLine) _port.WriteLine(text);
                     else _port.Write(text);
                     return true;
                 }
-                catch (Exception ex)
-                {
-                    SetError("Error enviando datos: " + ex.Message);
-                    return false;
-                }
+                catch (Exception ex) { SetError("Error enviando datos: " + ex.Message); return false; }
             }
         }
 
         public bool SendBytes(byte[] buffer)
         {
             if (buffer == null || buffer.Length == 0) return true;
-
             lock (_lock)
             {
-                if (!IsConnected)
-                {
-                    SetError("No hay conexión con el STM32.");
-                    return false;
-                }
-
-                try
-                {
-                    _port.Write(buffer, 0, buffer.Length);
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    SetError("Error enviando bytes: " + ex.Message);
-                    return false;
-                }
+                if (!IsConnected) { SetError("Sin conexión con el ESP32."); return false; }
+                try { _port.Write(buffer, 0, buffer.Length); return true; }
+                catch (Exception ex) { SetError("Error enviando bytes: " + ex.Message); return false; }
             }
         }
         #endregion
@@ -367,7 +511,6 @@ namespace RayPro.Aplicaciones.tools
         {
             try
             {
-                // Obtener referencia al puerto fuera del lock pesado
                 SerialPort sp;
                 lock (_lock)
                 {
@@ -375,16 +518,11 @@ namespace RayPro.Aplicaciones.tools
                     if (sp == null || !sp.IsOpen) return;
                 }
 
-                // Leer FUERA del lock — ReadExisting() es thread-safe y no bloquea
-                // Esto es exactamente lo que hace Hercules internamente
                 string incoming;
-                try
-                {
-                    incoming = sp.ReadExisting();
-                }
+                try { incoming = sp.ReadExisting(); }
                 catch (IOException ioEx)
                 {
-                    SetError("IO error en recepción: " + ioEx.Message);
+                    SetError("IO error recepción: " + ioEx.Message);
                     HandleUnexpectedDisconnect();
                     return;
                 }
@@ -394,22 +532,20 @@ namespace RayPro.Aplicaciones.tools
 
                 lock (_rxBuffer)
                 {
-                    // Limitar crecimiento del buffer
                     if (_rxBuffer.Length + incoming.Length > MAX_RX_BUFFER)
                     {
-                        _rxBuffer.Remove(0, incoming.Length);
+                        int remove = (_rxBuffer.Length + incoming.Length) - MAX_RX_BUFFER;
+                        if (remove > _rxBuffer.Length) remove = _rxBuffer.Length;
+                        _rxBuffer.Remove(0, remove);
                     }
 
                     _rxBuffer.Append(incoming);
 
-                    // Extraer líneas completas terminadas en \r, \n, o \r\n
-                    // El STM32 envía con \r\n (UART_Printf usa "...\r\n"))
                     string all = _rxBuffer.ToString();
                     int idx;
                     while ((idx = all.IndexOfAny(new[] { '\n', '\r' })) >= 0)
                     {
                         string line = all.Substring(0, idx);
-                        // Saltar secuencia \r\n completa
                         int skip = idx;
                         while (skip < all.Length && (all[skip] == '\r' || all[skip] == '\n')) skip++;
                         all = all.Substring(skip);
@@ -417,33 +553,29 @@ namespace RayPro.Aplicaciones.tools
                         line = line.Trim();
                         if (string.IsNullOrEmpty(line)) continue;
 
-                        // Filtrado temprano (si está configurado)
-                        if (!string.IsNullOrEmpty(MessagePrefix) && !line.StartsWith(MessagePrefix, StringComparison.Ordinal)) continue;
+                        if (!string.IsNullOrEmpty(MessagePrefix) &&
+                            !line.StartsWith(MessagePrefix, StringComparison.Ordinal)) continue;
                         if (MessageRegex != null && !MessageRegex.IsMatch(line)) continue;
 
                         _lineQueue.Enqueue(line);
                     }
 
-                    // Guardar fragmento parcial (datos sin terminador aún)
                     _rxBuffer.Clear();
                     if (!string.IsNullOrEmpty(all)) _rxBuffer.Append(all);
                 }
             }
             catch (IOException ioEx)
             {
-                SetError("IO error en recepción: " + ioEx.Message);
+                SetError("IO error: " + ioEx.Message);
                 HandleUnexpectedDisconnect();
             }
             catch (ObjectDisposedException) { }
-            catch (Exception ex)
-            {
-                SetError("Error procesando datos recibidos: " + ex.Message);
-            }
+            catch (Exception ex) { SetError("Error procesando datos: " + ex.Message); }
         }
 
         private void HandleUnexpectedDisconnect()
         {
-            CleanupPort();
+            lock (_lock) { CleanupPort(); }
             PostToUi(() => ConnectionChanged?.Invoke(false));
             if (AutoConnect) _ = AttemptReconnectAsync();
         }
@@ -466,22 +598,26 @@ namespace RayPro.Aplicaciones.tools
                 {
                     if (_lineQueue.TryDequeue(out var line))
                     {
-                        // Procesar VAC=xxx.xx → publicar número entero ajustado
+                        // Voltaje: ESP32 envía "VAC=35.5"
                         if (line.StartsWith("VAC=", StringComparison.OrdinalIgnoreCase))
                         {
-                            var payload = line.Substring(4).Trim();
-                            payload = payload.Replace(',', '.');
-
-                            if (float.TryParse(payload, NumberStyles.Float, CultureInfo.InvariantCulture, out var v))
+                            var payload = line.Substring(4).Trim().Replace(',', '.');
+                            if (float.TryParse(payload, NumberStyles.Float,
+                                               CultureInfo.InvariantCulture, out var v))
                             {
-                                int adjusted = (int)Math.Round(v) - VoltageOffset;
-                                PostToUi(() => DataReceived?.Invoke(adjusted.ToString()));
+                                // 35.5 → 36 ✅   35.4 → 35 ✅
+                                int voltaje = (int)Math.Round(v, MidpointRounding.AwayFromZero);
+                                var ts = DateTime.Now;
+                                PostToUi(() =>
+                                {
+                                    VoltageReceived?.Invoke(voltaje, ts);
+                                    DataReceived?.Invoke($"VAC={voltaje}");
+                                });
                             }
-                            // Si no parseó, ignorar (no publicar basura)
                             continue;
                         }
 
-                        // Cualquier otra línea del STM32: publicar tal cual
+                        // Cualquier otra línea del ESP32
                         PostToUi(() => DataReceived?.Invoke(line));
                     }
                     else
@@ -491,22 +627,67 @@ namespace RayPro.Aplicaciones.tools
                 }
             }
             catch (TaskCanceledException) { }
-            catch (Exception ex)
-            {
-                SetError("Error en consumer loop: " + ex.Message);
-            }
+            catch (Exception ex) { SetError("Error en consumer loop: " + ex.Message); }
         }
+
+
         #endregion
 
         #region IDisposable
+        // ── IDisposable ──────────────────────────────────────────────────────
         public void Dispose()
         {
             if (_disposed) return;
             _disposed = true;
 
-            try { _consumerCts?.Cancel(); } catch { }
-            try { _consumerTask?.Wait(200); } catch { }
-            try { _reconnectCts?.Cancel(); } catch { }
+            // Cancelar watchdog
+            try
+            {
+                if (_watchdogCts != null && !_watchdogCts.IsCancellationRequested)
+                    _watchdogCts.Cancel();
+            }
+            catch { }
+            finally
+            {
+                try { _watchdogCts?.Dispose(); } catch { }
+                _watchdogCts = null;
+            }
+
+            // Cancelar consumer
+            try
+            {
+                if (_consumerCts != null && !_consumerCts.IsCancellationRequested)
+                    _consumerCts.Cancel();
+            }
+            catch { }
+
+            try { _consumerTask?.Wait(300); }
+            catch { }
+
+            finally
+            {
+                try { _consumerCts?.Dispose(); } catch { }
+                _consumerCts = null;
+            }
+
+            // Cancelar reconexión
+            try
+            {
+                if (_reconnectCts != null && !_reconnectCts.IsCancellationRequested)
+                    _reconnectCts.Cancel();
+            }
+            catch { }
+            finally
+            {
+                try { _reconnectCts?.Dispose(); } catch { }
+                _reconnectCts = null;
+            }
+
+            // Detener WMI watcher
+            try { _usbArrivalWatcher?.Stop(); } catch { }
+            try { _usbArrivalWatcher?.Dispose(); } catch { }
+            _usbArrivalWatcher = null;
+
             Disconnect();
             GC.SuppressFinalize(this);
         }
@@ -515,3 +696,4 @@ namespace RayPro.Aplicaciones.tools
         //FIN - END
     }
 }
+

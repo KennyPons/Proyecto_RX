@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -18,7 +19,7 @@ namespace RayPro
         private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
         private Action valorCambiaAction;
 
-        private int kv = 40, mAs = 1, indiceImgNow = 0;
+        private int kv = 40, mAs = 8, indiceImgNow = 0;
         private bool _rightPressed = false;
         private bool _leftPressed = false;
         private double getTiempo;
@@ -43,9 +44,10 @@ namespace RayPro
 
         private void InitFirstParametros()
         {
-            showPartsRx.Image = imgLstBody.Images[indiceImgNow];
+            showPartsRx.Image = lstPartHuman.Images[indiceImgNow];
             showSecuenciaRx.Image = lstSecuenciaRx.Images[0];
             lblmAs.Text = "0" + mAs;
+            mAs = 8;
             lblKVp.Text = kv.ToString();
 
             SetControlsEnabled(false);
@@ -59,13 +61,8 @@ namespace RayPro
         private void SetControlsEnabled(bool status)
         {
             Control[] controls =
-   {
-        btnPRE,
-        btnRX,
-        btnR,
-        btnFilamento,
-        panelShow
-    };
+                {
+                btnPRE,btnRX,btnR,btnFilamento,panelShow};
 
             foreach (var control in controls)
             {
@@ -73,11 +70,6 @@ namespace RayPro
             }
         }
 
-        private void parametrosSecuencia(int wight, int high, int pointY)
-        {
-            showSecuenciaRx.Size = new Size(130, 140);
-            showSecuenciaRx.Location = new Point(478, 40);
-        }
         private void visualBtnRx(bool status)
         {
             btnPRE.Visible = status;
@@ -94,7 +86,7 @@ namespace RayPro
             panelShow.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelShow.Width, panelShow.Height, 26, 26));
         }
 
-        private void mensajeDeError(String msge)
+        private void mensajeDeError(string msge, Color setColor)
         {
             System.Windows.Forms.Timer temporizador = new System.Windows.Forms.Timer();
             temporizador.Interval = 5000;
@@ -131,12 +123,13 @@ namespace RayPro
                 ? "Equipo conectado correctamente"
                 : "Equipo desconectado";
 
-            mensajeDeError(msg);
+            Color color = connected ? Color.LimeGreen : Color.OrangeRed;
+            mensajeDeError(msg, color);
         }
 
         private void OnErrorOccurred(string error)
         {
-            mensajeDeError("No se pudo establecer conexión con el equipo");
+            mensajeDeError("No se pudo establecer conexión con el equipo 400", Color.OrangeRed);
         }
 
         private void SendCommand(string command)
@@ -144,28 +137,18 @@ namespace RayPro
             if (!AppSession.Usb.IsConnected)
             {
 
-                mensajeDeError("Equipo no conectado");
+                mensajeDeError("Equipo No conectado -> Error 401!", Color.OrangeRed);
                 return;
             }
 
             AppSession.Usb.Send(command);
         }
 
+        // ✅ DESPUÉS — limpio y directo
         private void OnUsbDataReceived(string data)
         {
-            // data debería ser SOLO un número como "123" (según UsbCdcManager)
-            if (InvokeRequired)
-            {
-                BeginInvoke(new Action(() => OnUsbDataReceived(data)));
-                return;
-            }
-
-            // sanity: aceptar sólo dígitos (evitar basura)
-            if (!string.IsNullOrEmpty(data) && System.Text.RegularExpressions.Regex.IsMatch(data, @"^\d+$"))
-            {
-                lblKVp.Text = data; // actualiza label con el entero recibido
-            }
-            // si necesitas mostrar otra info, la puedes procesar aquí
+            if (!string.IsNullOrEmpty(data) && Regex.IsMatch(data, @"^\d+$"))
+                lblKVp.Text = data;
         }
 
         #endregion
@@ -225,7 +208,7 @@ namespace RayPro
             valorCambiaAction = null;
         }
         /*AQUÍ LA FUNCION DE LOS CAMBIOS CON LOS NUMEROS EN KV*/
-        private void CambiarKv(int value)
+        /*private void CambiarKv(int value)
         {
             int newKv = kv + value;
             if (newKv >= 40 && newKv <= 110)
@@ -233,7 +216,7 @@ namespace RayPro
                 kv = newKv;
                 lblKVp.Text = kv.ToString();
             }
-        }
+        }*/
         /*AQUÍ LA FUNCION DE LOS CAMBIOS CON LOS NUMEROS EN MAS*/
         private void CambiarMaS(int value)
         {
@@ -242,16 +225,12 @@ namespace RayPro
             {
                 mAs = newMaS;
 
-                lblmAs.Text = hSupport.formatoStrMaS(mAs);
+                lblmAs.Text = hSupport.getZeroStr_mAs(mAs);
             }
         }
         #endregion
 
-        /// <summary>
-        ///////////////// EVENTOS DE BOTONES DE RAYOS X ///////////////////
-        /// </summary>
-
-
+        #region EVENTOS DE BOTONES ENSENCIALES DEL SOFTWARE RX
         /// <summary>
         /// Asigna el índice de imagen a cada botón anatómico vía Tag
         /// y conecta un SOLO handler para todos.
@@ -264,10 +243,11 @@ namespace RayPro
                 (btnCraneo,  0),
                 (btnColumna, 1),
                 (btnHombro,  2),
-                (btnTorax,   3),
-                (btnAbdomen, 4),
-                (btnPelvis,  5),
-                (btnFemur,   6),
+                (btnMano,   3),
+                (btnTorax,   4),
+                (btnAbdomen, 5),
+                (btnPelvis,  6),
+                (btnFemur,   7),
             };
 
             foreach (var zona in zonas)
@@ -286,14 +266,19 @@ namespace RayPro
             var btn = (Button)sender;
             int index = (int)btn.Tag;
 
-            if (index < 0 || index >= imgLstBody.Images.Count) return;
+            if (index < 0 || index >= lstPartHuman.Images.Count) return;
 
-            indiceImgNow = index;
-            showPartsRx.Image = imgLstBody.Images[indiceImgNow];
-            hSupport.showBodyRayX(indiceImgNow);
+            indiceImgNow = hSupport.getImgInicial(index);
+            showPartsRx.Image = lstPartHuman.Images[indiceImgNow];
+
+            var valores = hSupport.showBodyRayX(index);
+
+            mAs = valores.mas;
+
+            lblmAs.Text = hSupport.getZeroStr_mAs(mAs);
+
         }
-
-
+        #endregion
 
 
         private void btnOFF_Click(object sender, EventArgs e)
@@ -320,8 +305,6 @@ namespace RayPro
 
             SetControlsEnabled(false);
 
-
-            //sMonitor.senDataSerial(lblEncender.Text);
             SendCommand("OFF");
         }
 
@@ -337,11 +320,11 @@ namespace RayPro
         {
             if (cboEstructura.Text == "TORÁX")
             {
-                hSupport.playSoundRx("NoRespirar.wav");
+                hSupport.PlaySoundRx("NoRespirar.wav");
             }
             else
             {
-                hSupport.playSoundRx("preparando.wav");
+                hSupport.PlaySoundRx("preparando.wav");
             }
 
             visualBtnRx(false);
@@ -350,7 +333,7 @@ namespace RayPro
 
             Thread.Sleep(3500);
             //cambio de imagen para mostrar la secuencia de disparo
-            hSupport.playSoundRx("ready.wav");
+            hSupport.PlaySoundRx("ready.wav");
             lblFoco.Text = "LISTO";
             showSecuenciaRx.Image = lstSecuenciaRx.Images[2];
 
@@ -368,14 +351,14 @@ namespace RayPro
             if (!NoExecute)
                 return;
 
-            hSupport.playSoundRx("disparo.wav");
+            hSupport.PlaySoundRx("disparo.wav");
 
             SendCommand("RX");
             Thread.Sleep(3000);
 
             if (cboEstructura.Text == "TORÁX")
             {
-                hSupport.playSoundRx("Respirar.wav");
+                hSupport.PlaySoundRx("Respirar.wav");
             }
 
 
@@ -571,8 +554,10 @@ namespace RayPro
         #region Cierre para desconectar USB
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            AppSession.Usb.ConnectionChanged -= OnConnectionChanged;
+            AppSession.Usb.ErrorOccurred -= OnErrorOccurred;
             AppSession.Usb.DataReceived -= OnUsbDataReceived;
-            AppSession.Usb?.Disconnect();
+            AppSession.Usb?.Dispose(); // Dispose es más completo que solo Disconnect
             base.OnFormClosing(e);
 
         }

@@ -549,42 +549,11 @@ namespace RayPro.Properties {
         }
         
         /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
         /// </summary>
-        internal static System.Drawing.Bitmap mylogo {
+        internal static System.IO.UnmanagedMemoryStream NoRespirar {
             get {
-                object obj = ResourceManager.GetObject("mylogo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap mylogo_removebg_preview {
-            get {
-                object obj = ResourceManager.GetObject("mylogo-removebg-preview", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap mynamelogo {
-            get {
-                object obj = ResourceManager.GetObject("mynamelogo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap mynamelogo_removebg_preview {
-            get {
-                object obj = ResourceManager.GetObject("mynamelogo-removebg-preview", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetStream("NoRespirar", resourceCulture);
             }
         }
         
@@ -643,6 +612,15 @@ namespace RayPro.Properties {
             get {
                 object obj = ResourceManager.GetObject("resetred", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Respirar {
+            get {
+                return ResourceManager.GetStream("Respirar", resourceCulture);
             }
         }
         

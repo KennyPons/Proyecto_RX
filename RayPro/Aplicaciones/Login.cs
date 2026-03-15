@@ -1,4 +1,5 @@
 ﻿using RayPro.Aplicaciones;
+using RayPro.Aplicaciones.tools;
 using RayPro.configuraciones;
 
 using System;
@@ -124,6 +125,14 @@ namespace RayPro.Vista
         private void InitializationLoginSystem()
         {
             string rol = cboUsuario.SelectedItem?.ToString();
+
+            if (!LicenciaManager.ValidarAlIniciar())
+            {
+                MessageBox.Show("Producto no autorizado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnAcceder.Enabled = false;
+                return;
+            }
+
             if (rol == configurar.Usuarios && txtPassword.Text == configurar.PassUser)
             {
                 Welcome frWelcome = new Welcome();
@@ -131,8 +140,8 @@ namespace RayPro.Vista
                 MainRayX frMain = new MainRayX();
                 frMain.Show();
                 Hide();
-
-            } else if (rol.Equals("Admin") && txtPassword.Text  == "configuracion7070")
+            }
+            else if (rol.Equals("Admin") && txtPassword.Text == "configuracion7070")
             {
                 SettingDev frDev = new SettingDev();
                 frDev.ShowDialog();

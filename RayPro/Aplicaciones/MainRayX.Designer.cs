@@ -80,17 +80,17 @@
             this.lblEncender = new System.Windows.Forms.Label();
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.PictureBox();
-            this.imgLstBody = new System.Windows.Forms.ImageList(this.components);
+            this.lstPartHuman = new System.Windows.Forms.ImageList(this.components);
             this.DATE_NOW = new System.Windows.Forms.Timer(this.components);
             this.lstSecuenciaRx = new System.Windows.Forms.ImageList(this.components);
             this.changeTimer = new System.Windows.Forms.Timer(this.components);
+            this.btnMano = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.showHumanRx)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.showPartsRx)).BeginInit();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgHospital)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnON)).BeginInit();
@@ -116,6 +116,8 @@
             // 
             this.splitContainer1.Panel1.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(24)))), ((int)(((byte)(75)))));
+            this.splitContainer1.Panel1.Controls.Add(this.btnMano);
+            this.splitContainer1.Panel1.Controls.Add(this.imgLogo);
             this.splitContainer1.Panel1.Controls.Add(this.showHumanRx);
             this.splitContainer1.Panel1.Controls.Add(this.btnFemur);
             this.splitContainer1.Panel1.Controls.Add(this.btnPelvis);
@@ -145,119 +147,126 @@
             // 
             // showHumanRx
             // 
-            this.showHumanRx.Location = new System.Drawing.Point(12, 455);
+            this.showHumanRx.Location = new System.Drawing.Point(12, 363);
             this.showHumanRx.Name = "showHumanRx";
-            this.showHumanRx.Size = new System.Drawing.Size(246, 341);
+            this.showHumanRx.Size = new System.Drawing.Size(246, 433);
             this.showHumanRx.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.showHumanRx.TabIndex = 11;
             this.showHumanRx.TabStop = false;
             // 
             // btnFemur
             // 
-            this.btnFemur.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.btnFemur.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
             this.btnFemur.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
-            this.btnFemur.FlatAppearance.BorderSize = 10;
+            this.btnFemur.FlatAppearance.BorderSize = 4;
             this.btnFemur.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
             this.btnFemur.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnFemur.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFemur.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFemur.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.btnFemur.Location = new System.Drawing.Point(281, 685);
+            this.btnFemur.Location = new System.Drawing.Point(281, 746);
             this.btnFemur.Name = "btnFemur";
-            this.btnFemur.Size = new System.Drawing.Size(150, 51);
+            this.btnFemur.Size = new System.Drawing.Size(150, 50);
             this.btnFemur.TabIndex = 10;
-            this.btnFemur.Text = "Fémur";
+            this.btnFemur.Text = "Pie";
             this.btnFemur.UseVisualStyleBackColor = false;
             // 
             // btnPelvis
             // 
-            this.btnPelvis.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.btnPelvis.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
             this.btnPelvis.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
-            this.btnPelvis.FlatAppearance.BorderSize = 10;
+            this.btnPelvis.FlatAppearance.BorderSize = 4;
             this.btnPelvis.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
             this.btnPelvis.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnPelvis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPelvis.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPelvis.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.btnPelvis.Location = new System.Drawing.Point(281, 612);
+            this.btnPelvis.Location = new System.Drawing.Point(281, 663);
             this.btnPelvis.Name = "btnPelvis";
-            this.btnPelvis.Size = new System.Drawing.Size(150, 51);
+            this.btnPelvis.Size = new System.Drawing.Size(150, 50);
             this.btnPelvis.TabIndex = 9;
             this.btnPelvis.Text = "Pelvis";
             this.btnPelvis.UseVisualStyleBackColor = false;
             // 
             // btnAbdomen
             // 
-            this.btnAbdomen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.btnAbdomen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
             this.btnAbdomen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
-            this.btnAbdomen.FlatAppearance.BorderSize = 10;
+            this.btnAbdomen.FlatAppearance.BorderSize = 4;
             this.btnAbdomen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
             this.btnAbdomen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnAbdomen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAbdomen.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAbdomen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.btnAbdomen.Location = new System.Drawing.Point(281, 533);
+            this.btnAbdomen.Location = new System.Drawing.Point(12, 190);
             this.btnAbdomen.Name = "btnAbdomen";
-            this.btnAbdomen.Size = new System.Drawing.Size(150, 51);
+            this.btnAbdomen.Size = new System.Drawing.Size(235, 51);
             this.btnAbdomen.TabIndex = 8;
-            this.btnAbdomen.Text = "Abdomen";
+            this.btnAbdomen.Text = "Columna Lateral";
             this.btnAbdomen.UseVisualStyleBackColor = false;
             // 
             // btnTorax
             // 
-            this.btnTorax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.btnTorax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
             this.btnTorax.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
-            this.btnTorax.FlatAppearance.BorderSize = 10;
+            this.btnTorax.FlatAppearance.BorderSize = 4;
             this.btnTorax.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
             this.btnTorax.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnTorax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTorax.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTorax.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.btnTorax.Location = new System.Drawing.Point(281, 455);
+            this.btnTorax.Location = new System.Drawing.Point(281, 589);
             this.btnTorax.Name = "btnTorax";
-            this.btnTorax.Size = new System.Drawing.Size(150, 51);
+            this.btnTorax.Size = new System.Drawing.Size(150, 50);
             this.btnTorax.TabIndex = 7;
             this.btnTorax.Text = "Toráx";
             this.btnTorax.UseVisualStyleBackColor = false;
             // 
             // btnHombro
             // 
-            this.btnHombro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.btnHombro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
             this.btnHombro.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
-            this.btnHombro.FlatAppearance.BorderSize = 10;
+            this.btnHombro.FlatAppearance.BorderSize = 4;
             this.btnHombro.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
             this.btnHombro.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnHombro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHombro.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHombro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.btnHombro.Location = new System.Drawing.Point(281, 373);
+            this.btnHombro.Location = new System.Drawing.Point(281, 437);
             this.btnHombro.Name = "btnHombro";
-            this.btnHombro.Size = new System.Drawing.Size(150, 51);
+            this.btnHombro.Size = new System.Drawing.Size(150, 50);
             this.btnHombro.TabIndex = 6;
             this.btnHombro.Text = "Hombro";
             this.btnHombro.UseVisualStyleBackColor = false;
             // 
             // btnColumna
             // 
-            this.btnColumna.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.btnColumna.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
             this.btnColumna.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
-            this.btnColumna.FlatAppearance.BorderSize = 10;
+            this.btnColumna.FlatAppearance.BorderSize = 4;
             this.btnColumna.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
             this.btnColumna.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnColumna.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnColumna.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnColumna.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.btnColumna.Location = new System.Drawing.Point(281, 240);
+            this.btnColumna.Location = new System.Drawing.Point(12, 269);
             this.btnColumna.Name = "btnColumna";
-            this.btnColumna.Size = new System.Drawing.Size(150, 101);
+            this.btnColumna.Size = new System.Drawing.Size(235, 51);
             this.btnColumna.TabIndex = 5;
-            this.btnColumna.Text = "Columna";
+            this.btnColumna.Text = "Columna Cervical";
             this.btnColumna.UseVisualStyleBackColor = false;
             // 
             // btnCraneo
             // 
-            this.btnCraneo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.btnCraneo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
             this.btnCraneo.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
-            this.btnCraneo.FlatAppearance.BorderSize = 10;
+            this.btnCraneo.FlatAppearance.BorderSize = 4;
             this.btnCraneo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
             this.btnCraneo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnCraneo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCraneo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCraneo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.btnCraneo.Location = new System.Drawing.Point(281, 157);
+            this.btnCraneo.Location = new System.Drawing.Point(281, 363);
             this.btnCraneo.Name = "btnCraneo";
             this.btnCraneo.Size = new System.Drawing.Size(150, 51);
             this.btnCraneo.TabIndex = 4;
@@ -266,9 +275,9 @@
             // 
             // showPartsRx
             // 
-            this.showPartsRx.Location = new System.Drawing.Point(25, 208);
+            this.showPartsRx.Location = new System.Drawing.Point(253, 137);
             this.showPartsRx.Name = "showPartsRx";
-            this.showPartsRx.Size = new System.Drawing.Size(208, 209);
+            this.showPartsRx.Size = new System.Drawing.Size(197, 209);
             this.showPartsRx.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.showPartsRx.TabIndex = 3;
             this.showPartsRx.TabStop = false;
@@ -279,7 +288,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(24)))), ((int)(((byte)(75)))));
-            this.panel1.Controls.Add(this.imgLogo);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(459, 4);
@@ -288,7 +296,7 @@
             // imgLogo
             // 
             this.imgLogo.Image = global::RayPro.Properties.Resources.LOGO_EMPRESA_MEDIC_;
-            this.imgLogo.Location = new System.Drawing.Point(3, 2);
+            this.imgLogo.Location = new System.Drawing.Point(0, 2);
             this.imgLogo.Name = "imgLogo";
             this.imgLogo.Size = new System.Drawing.Size(206, 82);
             this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -807,18 +815,25 @@
             this.btnClose.TabStop = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // imgLstBody
+            // lstPartHuman
             // 
-            this.imgLstBody.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgLstBody.ImageStream")));
-            this.imgLstBody.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgLstBody.Images.SetKeyName(0, "bodyrx.png");
-            this.imgLstBody.Images.SetKeyName(1, "craneo_ap.png");
-            this.imgLstBody.Images.SetKeyName(2, "craneo_pa.png");
-            this.imgLstBody.Images.SetKeyName(3, "columna_cervical.png");
-            this.imgLstBody.Images.SetKeyName(4, "Torax_ap.png");
-            this.imgLstBody.Images.SetKeyName(5, "torax_lateral.png");
-            this.imgLstBody.Images.SetKeyName(6, "columna.png");
-            this.imgLstBody.Images.SetKeyName(7, "columna_lateral.png");
+            this.lstPartHuman.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("lstPartHuman.ImageStream")));
+            this.lstPartHuman.TransparentColor = System.Drawing.Color.Transparent;
+            this.lstPartHuman.Images.SetKeyName(0, "craneo.png");
+            this.lstPartHuman.Images.SetKeyName(1, "craneo_pa.png");
+            this.lstPartHuman.Images.SetKeyName(2, "columna_cervical.png");
+            this.lstPartHuman.Images.SetKeyName(3, "CCervicalLateral.png");
+            this.lstPartHuman.Images.SetKeyName(4, "Hombro.png");
+            this.lstPartHuman.Images.SetKeyName(5, "antebrazo.png");
+            this.lstPartHuman.Images.SetKeyName(6, "muñecz.png");
+            this.lstPartHuman.Images.SetKeyName(7, "mano.png");
+            this.lstPartHuman.Images.SetKeyName(8, "Torax_ap.png");
+            this.lstPartHuman.Images.SetKeyName(9, "torax_lateral.png");
+            this.lstPartHuman.Images.SetKeyName(10, "columna.png");
+            this.lstPartHuman.Images.SetKeyName(11, "columna_lateral.png");
+            this.lstPartHuman.Images.SetKeyName(12, "pelvis.png");
+            this.lstPartHuman.Images.SetKeyName(13, "rodilla.png");
+            this.lstPartHuman.Images.SetKeyName(14, "pie.png");
             // 
             // DATE_NOW
             // 
@@ -837,6 +852,23 @@
             // 
             this.changeTimer.Interval = 147;
             this.changeTimer.Tick += new System.EventHandler(this.changeTimer_Tick);
+            // 
+            // btnMano
+            // 
+            this.btnMano.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(178)))), ((int)(((byte)(255)))));
+            this.btnMano.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
+            this.btnMano.FlatAppearance.BorderSize = 4;
+            this.btnMano.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnMano.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnMano.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMano.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMano.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.btnMano.Location = new System.Drawing.Point(281, 511);
+            this.btnMano.Name = "btnMano";
+            this.btnMano.Size = new System.Drawing.Size(150, 50);
+            this.btnMano.TabIndex = 12;
+            this.btnMano.Text = "Mano";
+            this.btnMano.UseVisualStyleBackColor = false;
             // 
             // MainRayX
             // 
@@ -859,7 +891,6 @@
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.showHumanRx)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.showPartsRx)).EndInit();
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgHospital)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnON)).EndInit();
@@ -909,7 +940,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label textFilamento;
         private System.Windows.Forms.PictureBox showPartsRx;
-        private System.Windows.Forms.ImageList imgLstBody;
+        private System.Windows.Forms.ImageList lstPartHuman;
         private System.Windows.Forms.PictureBox btnOFF;
         private System.Windows.Forms.PictureBox btnON;
         private System.Windows.Forms.Label lblEncender;
@@ -940,6 +971,7 @@
         private System.Windows.Forms.PictureBox imgHospital;
         private System.Windows.Forms.Label lblHospital;
         private System.Windows.Forms.PictureBox showHumanRx;
+        private System.Windows.Forms.Button btnMano;
     }
 }
 

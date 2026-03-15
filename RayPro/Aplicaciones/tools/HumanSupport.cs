@@ -83,32 +83,33 @@ namespace RayPro.Aplicaciones.tools
         /// Gestor de Ejecutar Musica
         /// </summary>
         /// 
-
-        public void playSoundRx(string sound)
+        public void PlaySoundRx(string soundName)
         {
-            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string soundFilePath = Path.Combine(appDirectory, "Resources", sound);
-
             try
             {
-                Console.WriteLine("Intentando cargar archivo de sonido desde: " + soundFilePath);
+                object resource = Properties.Resources.ResourceManager.GetObject(soundName);
 
-                if (File.Exists(soundFilePath))
+                if (resource == null)
                 {
-                    using (var sonido = new SoundPlayer(soundFilePath))
-                    {
-                        sonido.Play();
-                    }
+                    MessageBox.Show("El recurso '" + soundName + "' no existe.");
+                    return;
+                }
+
+                Stream stream = resource as Stream;
+
+                if (stream != null)
+                {
+                    SoundPlayer player = new SoundPlayer(stream);
+                    player.Play();
                 }
                 else
                 {
-                    MessageBox.Show("El archivo de sonido no se encontró en la ubicación especificada.");
+                    MessageBox.Show("El recurso '" + soundName + "' no es un WAV válido.");
                 }
             }
             catch (Exception ex)
             {
-                QuestionBox.Show("Ocurrió un error al intentar reproducir el sonido: " + ex.Message, "Error de Sonido", MessageBoxButtons.YesNo);
-
+                MessageBox.Show("Error al reproducir el sonido: " + ex.Message);
             }
         }
 
@@ -127,19 +128,19 @@ namespace RayPro.Aplicaciones.tools
         }
 
 
-        public void maSmallOrLarge(string foco)
+        public void ChangeSorL_mAs(string foco)
         {
             if (foco.Equals("Small"))
             {
-                MA = 50;//MA
+                MA = 45;//MA
             }
             else
             {
-                MA = 75;//MA
+                MA = 71;//MA
             }
         }
 
-        public string formatoStrMaS(int MaS)
+        public string getZeroStr_mAs(int MaS)
         {
             return (MaS < 10) ? "0" + MaS.ToString() : MaS.ToString();
         }
@@ -148,61 +149,71 @@ namespace RayPro.Aplicaciones.tools
         /// Mostrar 
         /// </summary>
 
-        private void showKVandMAS(int n_mas, int n_kv)
-        {
-            lblKVp.Text = "" + n_kv;
 
-            lblMaS.Text = formatoStrMaS(n_mas);
+        public int getImgInicial(int idx)
+        {
+            switch (idx)
+            {
+                case 0: return 0;//CRANEO
+                case 1: return 3;//COLUMNA CERVICAL
+                case 2: return 4;//HOMBRO
+                case 3: return 7;//MANO
+                case 4: return 8;//TORAX
+                case 5: return 11;//ABDOMEN
+                case 6: return 12;//PELVIS
+                case 7: return 14;//PIE
+                default: return -1;
+            }
+
         }
 
-        public void showBodyRayX(int countNow)
+        public (int mas, int kv) showBodyRayX(int countNow)
         {
             switch (countNow)
             {
-                case 0: mostrarDataRayX("Craneo");  showKVandMAS(20, 70); break;
-                case 1: mostrarDataRayX("Cuello");  showKVandMAS(18, 68); break;
-                case 2: mostrarDataRayX("Brazos");  showKVandMAS(20, 65); break;
-                case 3: mostrarDataRayX("Escapula");showKVandMAS(15, 72); break;
-                case 4: mostrarDataRayX("Abdomen"); showKVandMAS(35, 75); break;
-                case 5: mostrarDataRayX("Pelvis");  showKVandMAS(30, 75); break;
-                case 6: mostrarDataRayX("Femur");   showKVandMAS(20, 72); break;
-
+                case 0: mostrarDataRayX("Craneo"); return (20, 70);
+                case 1: mostrarDataRayX("Cuello"); return (30, 65);
+                case 2: mostrarDataRayX("Brazos"); return (15, 67);
+                case 3: mostrarDataRayX("Brazos"); return (9, 47);
+                case 4: mostrarDataRayX("Escapula"); return (10, 70);
+                case 5: mostrarDataRayX("Abdomen"); return (20, 80);
+                case 6: mostrarDataRayX("Pelvis"); return (15, 70);
+                case 7: mostrarDataRayX("Femur"); return (10, 42);
+                default: return (10, 50);
             }
         }
-
         /// <summary>
         /// SIRVE PARA CAMBIAR LA PROYECCION SEGUN LA ESTRUCTURA SELECCIONADA
         /// </summary>
-       
-        public void changeShowCboProy(string selectEstructura)
+
+        public (int mas, int kv) changeShowCboProy(string selectEstructura)
         {
-            switch(selectEstructura)
+            switch (selectEstructura)
             {
-                case "ESCAPÚLA":  mostrarSelectProyeccion(10); showKVandMAS(15, 70); break;
-                case "CLAVÍCULA": mostrarSelectProyeccion(20); showKVandMAS(15, 70); break;
-                case "TORÁX":     mostrarSelectProyeccion(30); showKVandMAS(4, 110); break;
-                case "COSTILLAS": mostrarSelectProyeccion(40); showKVandMAS(32, 70); break;
-                case "ESTERNÓN":  mostrarSelectProyeccion(50); showKVandMAS(20, 60); break;
-                case "ABDOMEN":   mostrarSelectProyeccion(60); showKVandMAS(35, 75); break;
-                case "COLUMNA LUMBAR": mostrarSelectProyeccion(70); showKVandMAS(45, 80); break;
-                case "PELVIS":    mostrarSelectProyeccion(80);  showKVandMAS(30, 75); break;
-                case "SACRO":     mostrarSelectProyeccion(81);  showKVandMAS(25, 75); break;
-                case "CADERA":    mostrarSelectProyeccion(90);  showKVandMAS(20, 70); break;
-                case "HOMBRO":    mostrarSelectProyeccion(100); showKVandMAS(20, 65); break;
-                //TODO LA PARTE DE BRAZO
-                case "CODO":      mostrarSelectProyeccion(101); showKVandMAS(10, 56); break;
-                case "HÚMERO":    mostrarSelectProyeccion(102); showKVandMAS(18, 68); break;
-                case "ANTEBRAZO": mostrarSelectProyeccion(103); showKVandMAS(10, 75); break;
-                case "MUÑECA":    mostrarSelectProyeccion(104); showKVandMAS(3, 54); break;
-                case "MANO":      mostrarSelectProyeccion(105); showKVandMAS(5, 50); break;
-                case "FALANGES MANO": mostrarSelectProyeccion(106); showKVandMAS(5, 48); break;
-                //TODO LA PARTE DE BRAZO
-                case "FEMUR":     mostrarSelectProyeccion(110); showKVandMAS(20, 72); break;
-                case "RODILLA":   mostrarSelectProyeccion(111); showKVandMAS(10, 65); break;
-                case "TIBIA Y PERONÉ": mostrarSelectProyeccion(112); showKVandMAS(8, 60); break;
-                case "TOBILLO":   mostrarSelectProyeccion(113); showKVandMAS(12, 65); break;
-                case "PIE":       mostrarSelectProyeccion(114); showKVandMAS(8, 60); break;
-                case "FALANGES DE PIE": mostrarSelectProyeccion(115); showKVandMAS(6, 55); break;
+                case "ESCAPÚLA": mostrarSelectProyeccion(10); return (15, 70);
+                case "CLAVÍCULA": mostrarSelectProyeccion(20); return (20, 65);
+                case "TORÁX": mostrarSelectProyeccion(30); return (10, 70);
+                case "COSTILLAS": mostrarSelectProyeccion(40); return (40, 80);
+                case "ESTERNÓN": mostrarSelectProyeccion(50); return (20, 60);
+                case "ABDOMEN": mostrarSelectProyeccion(60); return (20, 75);
+                case "COLUMNA LUMBAR": mostrarSelectProyeccion(70); return (45, 80);
+                case "PELVIS": mostrarSelectProyeccion(80); return (15, 75);
+                case "SACRO": mostrarSelectProyeccion(81); return (25, 75);
+                case "CADERA": mostrarSelectProyeccion(90); return (20, 70);
+                case "HOMBRO": mostrarSelectProyeccion(100); return (20, 65);
+                case "CODO": mostrarSelectProyeccion(101); return (10, 56);
+                case "HÚMERO": mostrarSelectProyeccion(102); return (18, 68);
+                case "ANTEBRAZO": mostrarSelectProyeccion(103); return (10, 75);
+                case "MUÑECA": mostrarSelectProyeccion(104); return (7, 45);
+                case "MANO": mostrarSelectProyeccion(105); return (9, 47);
+                case "FALANGES MANO": return (5, 48);
+                case "FEMUR": mostrarSelectProyeccion(110); return (20, 72);
+                case "RODILLA": mostrarSelectProyeccion(111); return (10, 65);
+                case "TIBIA Y PERONÉ": mostrarSelectProyeccion(112); return (8, 60);
+                case "TOBILLO": mostrarSelectProyeccion(113); return (12, 65);
+                case "PIE": mostrarSelectProyeccion(114); return (8, 60);
+                case "FALANGES DE PIE": return (6, 55);
+                default: return (10, 50);
             }
         }
 

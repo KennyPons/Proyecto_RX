@@ -8,6 +8,6 @@ namespace RayPro.Aplicaciones.tools
 {
     public static class AppSession
     {
-        public static UsbCdcManager Usb { get; set; }
+        public static UsbCdcManager Usb { get; } = new UsbCdcManager();
     }
 }

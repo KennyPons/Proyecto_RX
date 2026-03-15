@@ -3,11 +3,7 @@ using RayPro.configuraciones;
 using RayPro.Vista;
 using System;
 using System.Drawing;
-using System.IO;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 
 namespace RayPro.Aplicaciones
@@ -34,7 +30,7 @@ namespace RayPro.Aplicaciones
             Rx_txt.AppendText("En Espera...");
         }
 
-        private void mensajeDeError(String msge)
+        private void mensajeDeError(string msge)
         {
             Timer temporizador = new Timer();
             temporizador.Interval = 5000;
@@ -43,10 +39,14 @@ namespace RayPro.Aplicaciones
             lblErrorMsg.ForeColor = Color.OrangeRed;
             lblErrorMsg.Visible = true;
 
+            lblError2.Text = "   " + msge;
+            lblError2.ForeColor = Color.DarkRed;
+            lblError2.Visible = true;
+
             temporizador.Tick += (sender, e) =>
             {
                 lblErrorMsg.Visible = false;
-
+                lblError2.Visible = false;
                 temporizador.Stop();
             };
 
@@ -58,8 +58,12 @@ namespace RayPro.Aplicaciones
         {
             txtUsuario.Clear();
             txtPassAnt.Clear();
-            //txtPassNew.Clear();
             txtUsuario.Focus();
+
+            txtCodeSecurity.Clear();
+            txtLicenseCode.Clear();
+            txtPassHas.Clear();
+            txtPassHas.Focus();
 
         }
 
@@ -223,9 +227,11 @@ namespace RayPro.Aplicaciones
                 AppSession.Usb.VoltageOffset = value;
             }
 
-            // Guardar en Settings (opcional pero recomendado)
+            Settings.Default.NameHospital = txtNameHospital.Text;
+            Settings.Default.NameUsers = txtUsuario.Text;
             Settings.Default.VoltageOffset = value;
             Settings.Default.Save();
+            QuestionBox.Show("Guardado Correctamente.", "Configuración", MessageBoxButtons.YesNo);
         }
 
 
@@ -249,6 +255,69 @@ namespace RayPro.Aplicaciones
         private void btnSaveLicencse_Click(object sender, EventArgs e)
         {
 
+            DateTime fechaFin = dateFin.Value;
+
+            if (rdoMensual.Checked)
+            {
+                if (fechaFin.Date <= DateTime.Now.Date)
+                {
+                    
+                    MessageBox.Show("La fecha debe ser mayor a la fecha actual.",
+                                    "Fecha inválida",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
+                }
+                if (LicenciaManager.CampoVacio(txtCodeSecurity, "El campo Security Code es obligatorio."))
+                    return;
+
+                bool ok = LicenciaManager.RenovarMensual(dateInicio.Value,
+                    dateFin.Value,
+                    txtCodeSecurity.Text);
+
+                if (!ok)
+                {
+                    MessageBox.Show("CODE SEGURITY ERROR",
+                                    "ERROR EN CONTRASEÑA... INVALIDO!",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    mensajeDeError("Datos incorrectos o Security inválido.");
+                    clearText();
+                    return;
+                }
+
+                clearText();
+                QuestionBox.Show("Renovación exitosa.", "Configuración", MessageBoxButtons.YesNo);
+            }
+
+            else if (rdoPermanente.Checked)
+            {
+                if (LicenciaManager.CampoVacio(txtLicenseCode, "El campo licencia code es obligatorio"))
+                    return;
+
+                if (LicenciaManager.CampoVacio(txtPassHas, "No olvides colocar la contraseña"))
+                    return;
+
+                bool ok = LicenciaManager.ValidarLicenciaPermanente(
+                    txtLicenseCode.Text,
+                    txtPassHas.Text, "Permanente");
+
+                if (!ok)
+                {
+                    clearText();
+                    mensajeDeError("Licencia o contraseña incorrecta.");
+                    return;
+                }
+
+                clearText() ;
+                QuestionBox.Show("Licencia permanente validada.", "Configuración", MessageBoxButtons.YesNo);
+            }
+
+        }
+
+        private void SettingDev_Load(object sender, EventArgs e)
+        {
+            rdoMensual.Checked = true;
         }
 
 

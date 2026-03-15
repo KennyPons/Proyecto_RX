@@ -13,11 +13,11 @@ namespace RayPro.Aplicaciones.tools
     {
         { "Craneo", new string[] { "CRÁNEO" } },
         { "Cuello", new string[] { "COLUMNA CERVICAL" } },
-        { "Brazos",     new string[] { "HOMBRO", "CODO", "HÚMERO", "ANTEBRAZO", "MUÑECA", "FALANGES MANO" } },
-        { "Escapula",   new string[] { "ESCÁPULA", "CLAVÍCULA", "TORÁX", "COSTILLAS", "ESTERNÓN" } },
+        { "Brazos",     new string[] { "HOMBRO", "MANO", "HÚMERO", "ANTEBRAZO", "MUÑECA", "HUMERO" } },
+        { "Escapula",   new string[] { "TORÁX", "CLAVÍCULA", "ESCÁPULA", "COSTILLAS", "ESTERNÓN" } },
         { "Abdomen",    new string[] { "ABDOMEN", "COLUMNA LUMBAR" } },
         { "Pelvis",     new string[] { "PELVIS", "SACRO", "CADERA" } },
-        { "Femur",      new string[] { "FEMUR", "RODILLA", "TIBIA Y PERONÉ", "TOBILLO", "PIE", "FANLAGES PIE" } }
+        { "Femur",      new string[] { "PIE", "RODILLA", "TIBIA Y PERONÉ", "TOBILLO", "FEMUR", "FANLAGES PIE" } }
 
     };
 
@@ -26,10 +26,10 @@ namespace RayPro.Aplicaciones.tools
         { "Craneo"  , new string[] { "CRÁNEO PA", "LATERAL DE CRÁNEO", "SENOS PARANASALES", "PA AXIAL DEL CRÁNEO", "AP AXIAL DEL CRÁNEO" } },
         { "Cuello"  , new string[] { "AP DE CERVICALES C1 Y C2", "AP DE CERVICALES C3 - C7", "LATERAL DE CERVICALES", "LATERAL FLEX DE CERVICALES", "LATERAL EXT DE CERVICALES" } },
         { "Brazos"      , new string[] { "AP DE HOMBRO", "OBLICUA AP DE HOMBRO", "AXIAL DE HOMBRO (SRYKER)" }},
-        { "Escapula"    , new string[] { "LATERAL DE ESCÁPULA", "AP DE ESCÁPULA" } },
+        { "Escapula"    , new string[] { "PA DE TORÁX", "LATERAL DE TORÁX" } },
         { "Abdomen"     , new string[] { "AP DE ABDOMEN" } },
         { "Pelvis"      , new string[] { "AP DE PELVIS" } },
-        { "Femur"       , new string[] { "AP DE FEMUR", "LATERAL DE FEMUR" }}
+        { "Femur"       , new string[] { "AP DE PIE","LATERAL DE PIE","AXIAL CALCÁNEO" }}
 
     };
 

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using RayPro.Aplicaciones.tools;
+using System;
+
 using System.IO;
-using System.Linq;
+
 using System.Media;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 
 namespace RayPro.Vista
@@ -40,6 +36,12 @@ namespace RayPro.Vista
                 timeFin.Stop();
                 this.Close();
             }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            AppSession.Usb.CaptureSyncContext(); // ← UNA SOLA VEZ aquí
         }
 
         private void Welcome_Load(object sender, EventArgs e)
