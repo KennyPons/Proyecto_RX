@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainRayX));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnMano = new System.Windows.Forms.Button();
+            this.imgLogo = new System.Windows.Forms.PictureBox();
+            this.showHumanRx = new System.Windows.Forms.PictureBox();
             this.btnFemur = new System.Windows.Forms.Button();
             this.btnPelvis = new System.Windows.Forms.Button();
             this.btnAbdomen = new System.Windows.Forms.Button();
@@ -39,10 +41,15 @@
             this.btnHombro = new System.Windows.Forms.Button();
             this.btnColumna = new System.Windows.Forms.Button();
             this.btnCraneo = new System.Windows.Forms.Button();
+            this.showPartsRx = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblHospital = new System.Windows.Forms.Label();
+            this.imgHospital = new System.Windows.Forms.PictureBox();
             this.lblHora = new System.Windows.Forms.Label();
             this.lblFecha = new System.Windows.Forms.Label();
+            this.btnON = new System.Windows.Forms.PictureBox();
+            this.btnOFF = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelShow = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -50,50 +57,38 @@
             this.lblKVp = new System.Windows.Forms.Label();
             this.pnlMaS = new System.Windows.Forms.Panel();
             this.lblmAs = new System.Windows.Forms.Label();
+            this.btnFilamento = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnR = new System.Windows.Forms.Button();
             this.cboProyeccion = new System.Windows.Forms.ComboBox();
+            this.btnRX = new System.Windows.Forms.Button();
             this.textFilamento = new System.Windows.Forms.Label();
+            this.btnPRE = new System.Windows.Forms.Button();
+            this.showSecuenciaRx = new System.Windows.Forms.PictureBox();
             this.cboEstructura = new System.Windows.Forms.ComboBox();
             this.panelFoco = new System.Windows.Forms.Panel();
             this.lblFoco = new System.Windows.Forms.Label();
+            this.btnUpMaS = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnDownKv = new System.Windows.Forms.Button();
+            this.btnDownMaS = new System.Windows.Forms.Button();
+            this.btnUpKv = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblErrorMsg = new System.Windows.Forms.Label();
             this.lblEncender = new System.Windows.Forms.Label();
+            this.btnMinimizar = new System.Windows.Forms.PictureBox();
+            this.btnClose = new System.Windows.Forms.PictureBox();
             this.lstPartHuman = new System.Windows.Forms.ImageList(this.components);
             this.DATE_NOW = new System.Windows.Forms.Timer(this.components);
             this.lstSecuenciaRx = new System.Windows.Forms.ImageList(this.components);
             this.changeTimer = new System.Windows.Forms.Timer(this.components);
-            this.imgLogo = new System.Windows.Forms.PictureBox();
-            this.showHumanRx = new System.Windows.Forms.PictureBox();
-            this.showPartsRx = new System.Windows.Forms.PictureBox();
-            this.imgHospital = new System.Windows.Forms.PictureBox();
-            this.btnON = new System.Windows.Forms.PictureBox();
-            this.btnOFF = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnFilamento = new System.Windows.Forms.Button();
-            this.btnR = new System.Windows.Forms.Button();
-            this.btnRX = new System.Windows.Forms.Button();
-            this.btnPRE = new System.Windows.Forms.Button();
-            this.showSecuenciaRx = new System.Windows.Forms.PictureBox();
-            this.btnUpMaS = new System.Windows.Forms.Button();
-            this.btnDownKv = new System.Windows.Forms.Button();
-            this.btnDownMaS = new System.Windows.Forms.Button();
-            this.btnUpKv = new System.Windows.Forms.Button();
-            this.lblErrorMsg = new System.Windows.Forms.Label();
-            this.btnMinimizar = new System.Windows.Forms.PictureBox();
-            this.btnClose = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.panelShow.SuspendLayout();
-            this.pnlKvp.SuspendLayout();
-            this.pnlMaS.SuspendLayout();
-            this.panelFoco.SuspendLayout();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.showHumanRx)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.showPartsRx)).BeginInit();
@@ -101,7 +96,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnON)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOFF)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelShow.SuspendLayout();
+            this.pnlKvp.SuspendLayout();
+            this.pnlMaS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.showSecuenciaRx)).BeginInit();
+            this.panelFoco.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.SuspendLayout();
@@ -141,8 +141,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
             this.splitContainer1.Panel2.Controls.Add(this.panelShow);
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1500, 820);
-            this.splitContainer1.SplitterDistance = 459;
+            this.splitContainer1.Size = new System.Drawing.Size(1386, 788);
+            this.splitContainer1.SplitterDistance = 424;
             this.splitContainer1.TabIndex = 0;
             // 
             // btnMano
@@ -161,6 +161,26 @@
             this.btnMano.TabIndex = 12;
             this.btnMano.Text = "Mano";
             this.btnMano.UseVisualStyleBackColor = false;
+            // 
+            // imgLogo
+            // 
+            this.imgLogo.Image = global::RayPro.Properties.Resources.LOGO_EMPRESA_MEDIC_;
+            this.imgLogo.Location = new System.Drawing.Point(0, 2);
+            this.imgLogo.Name = "imgLogo";
+            this.imgLogo.Size = new System.Drawing.Size(206, 82);
+            this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imgLogo.TabIndex = 1;
+            this.imgLogo.TabStop = false;
+            // 
+            // showHumanRx
+            // 
+            this.showHumanRx.Image = global::RayPro.Properties.Resources.BODYRAX;
+            this.showHumanRx.Location = new System.Drawing.Point(12, 363);
+            this.showHumanRx.Name = "showHumanRx";
+            this.showHumanRx.Size = new System.Drawing.Size(263, 433);
+            this.showHumanRx.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.showHumanRx.TabIndex = 11;
+            this.showHumanRx.TabStop = false;
             // 
             // btnFemur
             // 
@@ -281,6 +301,15 @@
             this.btnCraneo.Text = "Cráneo";
             this.btnCraneo.UseVisualStyleBackColor = false;
             // 
+            // showPartsRx
+            // 
+            this.showPartsRx.Location = new System.Drawing.Point(253, 137);
+            this.showPartsRx.Name = "showPartsRx";
+            this.showPartsRx.Size = new System.Drawing.Size(197, 209);
+            this.showPartsRx.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.showPartsRx.TabIndex = 3;
+            this.showPartsRx.TabStop = false;
+            // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -289,7 +318,7 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(24)))), ((int)(((byte)(75)))));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(459, 4);
+            this.panel1.Size = new System.Drawing.Size(424, 0);
             this.panel1.TabIndex = 0;
             // 
             // lblHospital
@@ -298,11 +327,22 @@
             this.lblHospital.AutoSize = true;
             this.lblHospital.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHospital.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
-            this.lblHospital.Location = new System.Drawing.Point(309, 65);
+            this.lblHospital.Location = new System.Drawing.Point(309, 33);
             this.lblHospital.Name = "lblHospital";
             this.lblHospital.Size = new System.Drawing.Size(176, 40);
             this.lblHospital.TabIndex = 24;
             this.lblHospital.Text = "nmHospital";
+            // 
+            // imgHospital
+            // 
+            this.imgHospital.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.imgHospital.Image = global::RayPro.Properties.Resources.hospitalico;
+            this.imgHospital.Location = new System.Drawing.Point(156, 49);
+            this.imgHospital.Name = "imgHospital";
+            this.imgHospital.Size = new System.Drawing.Size(100, 56);
+            this.imgHospital.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imgHospital.TabIndex = 16;
+            this.imgHospital.TabStop = false;
             // 
             // lblHora
             // 
@@ -325,6 +365,40 @@
             this.lblFecha.Size = new System.Drawing.Size(86, 23);
             this.lblFecha.TabIndex = 14;
             this.lblFecha.Text = "lblfecha";
+            // 
+            // btnON
+            // 
+            this.btnON.Image = global::RayPro.Properties.Resources.ON;
+            this.btnON.Location = new System.Drawing.Point(53, 49);
+            this.btnON.Name = "btnON";
+            this.btnON.Size = new System.Drawing.Size(124, 56);
+            this.btnON.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnON.TabIndex = 13;
+            this.btnON.TabStop = false;
+            this.btnON.Visible = false;
+            this.btnON.Click += new System.EventHandler(this.btnON_Click);
+            // 
+            // btnOFF
+            // 
+            this.btnOFF.Image = global::RayPro.Properties.Resources.OFF;
+            this.btnOFF.Location = new System.Drawing.Point(53, 49);
+            this.btnOFF.Name = "btnOFF";
+            this.btnOFF.Size = new System.Drawing.Size(114, 56);
+            this.btnOFF.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnOFF.TabIndex = 12;
+            this.btnOFF.TabStop = false;
+            this.btnOFF.Click += new System.EventHandler(this.btnOFF_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = global::RayPro.Properties.Resources.IconMedic;
+            this.pictureBox1.Location = new System.Drawing.Point(846, 43);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 56);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
             // 
             // panelShow
             // 
@@ -426,6 +500,23 @@
             this.lblmAs.Text = "20";
             this.lblmAs.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnFilamento
+            // 
+            this.btnFilamento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnFilamento.FlatAppearance.BorderSize = 0;
+            this.btnFilamento.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.btnFilamento.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.btnFilamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFilamento.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFilamento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.btnFilamento.Image = global::RayPro.Properties.Resources.btnYelown3;
+            this.btnFilamento.Location = new System.Drawing.Point(438, 297);
+            this.btnFilamento.Name = "btnFilamento";
+            this.btnFilamento.Size = new System.Drawing.Size(140, 120);
+            this.btnFilamento.TabIndex = 16;
+            this.btnFilamento.UseVisualStyleBackColor = true;
+            this.btnFilamento.Click += new System.EventHandler(this.btnFilamento_Click);
+            // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -464,6 +555,23 @@
             this.label3.TabIndex = 9;
             this.label3.Text = "R";
             // 
+            // btnR
+            // 
+            this.btnR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnR.FlatAppearance.BorderSize = 0;
+            this.btnR.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.btnR.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.btnR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnR.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.btnR.Image = global::RayPro.Properties.Resources.btnReseteo__1;
+            this.btnR.Location = new System.Drawing.Point(784, 505);
+            this.btnR.Name = "btnR";
+            this.btnR.Size = new System.Drawing.Size(146, 120);
+            this.btnR.TabIndex = 11;
+            this.btnR.UseVisualStyleBackColor = true;
+            this.btnR.Click += new System.EventHandler(this.btnR_Click);
+            // 
             // cboProyeccion
             // 
             this.cboProyeccion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -474,6 +582,23 @@
             this.cboProyeccion.Name = "cboProyeccion";
             this.cboProyeccion.Size = new System.Drawing.Size(314, 33);
             this.cboProyeccion.TabIndex = 5;
+            // 
+            // btnRX
+            // 
+            this.btnRX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRX.FlatAppearance.BorderSize = 0;
+            this.btnRX.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gold;
+            this.btnRX.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.btnRX.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRX.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRX.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.btnRX.Image = global::RayPro.Properties.Resources.btnRX__1;
+            this.btnRX.Location = new System.Drawing.Point(438, 505);
+            this.btnRX.Name = "btnRX";
+            this.btnRX.Size = new System.Drawing.Size(146, 120);
+            this.btnRX.TabIndex = 10;
+            this.btnRX.UseVisualStyleBackColor = true;
+            this.btnRX.Click += new System.EventHandler(this.btnRX_Click);
             // 
             // textFilamento
             // 
@@ -486,6 +611,31 @@
             this.textFilamento.Size = new System.Drawing.Size(154, 40);
             this.textFilamento.TabIndex = 14;
             this.textFilamento.Text = "Filamento";
+            // 
+            // btnPRE
+            // 
+            this.btnPRE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPRE.FlatAppearance.BorderSize = 0;
+            this.btnPRE.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnPRE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPRE.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPRE.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.btnPRE.Image = global::RayPro.Properties.Resources.btnPre__1;
+            this.btnPRE.Location = new System.Drawing.Point(97, 505);
+            this.btnPRE.Name = "btnPRE";
+            this.btnPRE.Size = new System.Drawing.Size(146, 120);
+            this.btnPRE.TabIndex = 3;
+            this.btnPRE.UseVisualStyleBackColor = true;
+            this.btnPRE.Click += new System.EventHandler(this.btnPRE_Click);
+            // 
+            // showSecuenciaRx
+            // 
+            this.showSecuenciaRx.Location = new System.Drawing.Point(438, 40);
+            this.showSecuenciaRx.Name = "showSecuenciaRx";
+            this.showSecuenciaRx.Size = new System.Drawing.Size(130, 140);
+            this.showSecuenciaRx.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.showSecuenciaRx.TabIndex = 20;
+            this.showSecuenciaRx.TabStop = false;
             // 
             // cboEstructura
             // 
@@ -519,6 +669,24 @@
             this.lblFoco.TabIndex = 18;
             this.lblFoco.Text = "SMALL";
             // 
+            // btnUpMaS
+            // 
+            this.btnUpMaS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpMaS.FlatAppearance.BorderSize = 0;
+            this.btnUpMaS.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnUpMaS.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
+            this.btnUpMaS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpMaS.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpMaS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.btnUpMaS.Image = global::RayPro.Properties.Resources.uparrowgray;
+            this.btnUpMaS.Location = new System.Drawing.Point(37, 297);
+            this.btnUpMaS.Name = "btnUpMaS";
+            this.btnUpMaS.Size = new System.Drawing.Size(127, 125);
+            this.btnUpMaS.TabIndex = 3;
+            this.btnUpMaS.Text = "+";
+            this.btnUpMaS.UseVisualStyleBackColor = true;
+            // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -542,236 +710,6 @@
             this.label4.Size = new System.Drawing.Size(93, 42);
             this.label4.TabIndex = 12;
             this.label4.Text = "mAs";
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(24)))), ((int)(((byte)(75)))));
-            this.panel2.Controls.Add(this.lblErrorMsg);
-            this.panel2.Controls.Add(this.lblEncender);
-            this.panel2.Controls.Add(this.btnMinimizar);
-            this.panel2.Controls.Add(this.btnClose);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1037, 40);
-            this.panel2.TabIndex = 0;
-            // 
-            // lblEncender
-            // 
-            this.lblEncender.AutoSize = true;
-            this.lblEncender.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEncender.ForeColor = System.Drawing.Color.Brown;
-            this.lblEncender.Location = new System.Drawing.Point(82, 13);
-            this.lblEncender.Name = "lblEncender";
-            this.lblEncender.Size = new System.Drawing.Size(68, 33);
-            this.lblEncender.TabIndex = 14;
-            this.lblEncender.Text = "OFF";
-            // 
-            // lstPartHuman
-            // 
-            this.lstPartHuman.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("lstPartHuman.ImageStream")));
-            this.lstPartHuman.TransparentColor = System.Drawing.Color.Transparent;
-            this.lstPartHuman.Images.SetKeyName(0, "craneo.png");
-            this.lstPartHuman.Images.SetKeyName(1, "craneo_pa.png");
-            this.lstPartHuman.Images.SetKeyName(2, "columna_cervical.png");
-            this.lstPartHuman.Images.SetKeyName(3, "CCervicalLateral.png");
-            this.lstPartHuman.Images.SetKeyName(4, "Hombro.png");
-            this.lstPartHuman.Images.SetKeyName(5, "antebrazo.png");
-            this.lstPartHuman.Images.SetKeyName(6, "muñecz.png");
-            this.lstPartHuman.Images.SetKeyName(7, "mano.png");
-            this.lstPartHuman.Images.SetKeyName(8, "Torax_ap.png");
-            this.lstPartHuman.Images.SetKeyName(9, "torax_lateral.png");
-            this.lstPartHuman.Images.SetKeyName(10, "columna.png");
-            this.lstPartHuman.Images.SetKeyName(11, "columna_lateral.png");
-            this.lstPartHuman.Images.SetKeyName(12, "pelvis.png");
-            this.lstPartHuman.Images.SetKeyName(13, "rodilla.png");
-            this.lstPartHuman.Images.SetKeyName(14, "pie.png");
-            // 
-            // DATE_NOW
-            // 
-            this.DATE_NOW.Enabled = true;
-            this.DATE_NOW.Tick += new System.EventHandler(this.DATE_NOW_Tick);
-            // 
-            // lstSecuenciaRx
-            // 
-            this.lstSecuenciaRx.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("lstSecuenciaRx.ImageStream")));
-            this.lstSecuenciaRx.TransparentColor = System.Drawing.Color.Transparent;
-            this.lstSecuenciaRx.Images.SetKeyName(0, "focoOFF.png");
-            this.lstSecuenciaRx.Images.SetKeyName(1, "focoON.png");
-            this.lstSecuenciaRx.Images.SetKeyName(2, "ready1.png");
-            // 
-            // changeTimer
-            // 
-            this.changeTimer.Interval = 147;
-            this.changeTimer.Tick += new System.EventHandler(this.changeTimer_Tick);
-            // 
-            // imgLogo
-            // 
-            this.imgLogo.Image = global::RayPro.Properties.Resources.LOGO_EMPRESA_MEDIC_;
-            this.imgLogo.Location = new System.Drawing.Point(0, 2);
-            this.imgLogo.Name = "imgLogo";
-            this.imgLogo.Size = new System.Drawing.Size(206, 82);
-            this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.imgLogo.TabIndex = 1;
-            this.imgLogo.TabStop = false;
-            // 
-            // showHumanRx
-            // 
-            this.showHumanRx.Image = global::RayPro.Properties.Resources.BODYRAX;
-            this.showHumanRx.Location = new System.Drawing.Point(12, 363);
-            this.showHumanRx.Name = "showHumanRx";
-            this.showHumanRx.Size = new System.Drawing.Size(263, 433);
-            this.showHumanRx.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.showHumanRx.TabIndex = 11;
-            this.showHumanRx.TabStop = false;
-            // 
-            // showPartsRx
-            // 
-            this.showPartsRx.Location = new System.Drawing.Point(253, 137);
-            this.showPartsRx.Name = "showPartsRx";
-            this.showPartsRx.Size = new System.Drawing.Size(197, 209);
-            this.showPartsRx.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.showPartsRx.TabIndex = 3;
-            this.showPartsRx.TabStop = false;
-            // 
-            // imgHospital
-            // 
-            this.imgHospital.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.imgHospital.Image = global::RayPro.Properties.Resources.hospitalico;
-            this.imgHospital.Location = new System.Drawing.Point(235, 49);
-            this.imgHospital.Name = "imgHospital";
-            this.imgHospital.Size = new System.Drawing.Size(100, 56);
-            this.imgHospital.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.imgHospital.TabIndex = 16;
-            this.imgHospital.TabStop = false;
-            // 
-            // btnON
-            // 
-            this.btnON.Image = global::RayPro.Properties.Resources.ON;
-            this.btnON.Location = new System.Drawing.Point(53, 49);
-            this.btnON.Name = "btnON";
-            this.btnON.Size = new System.Drawing.Size(124, 56);
-            this.btnON.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnON.TabIndex = 13;
-            this.btnON.TabStop = false;
-            this.btnON.Visible = false;
-            this.btnON.Click += new System.EventHandler(this.btnON_Click);
-            // 
-            // btnOFF
-            // 
-            this.btnOFF.Image = global::RayPro.Properties.Resources.OFF;
-            this.btnOFF.Location = new System.Drawing.Point(53, 49);
-            this.btnOFF.Name = "btnOFF";
-            this.btnOFF.Size = new System.Drawing.Size(114, 56);
-            this.btnOFF.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnOFF.TabIndex = 12;
-            this.btnOFF.TabStop = false;
-            this.btnOFF.Click += new System.EventHandler(this.btnOFF_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = global::RayPro.Properties.Resources.IconMedic;
-            this.pictureBox1.Location = new System.Drawing.Point(925, 43);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 56);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
-            // 
-            // btnFilamento
-            // 
-            this.btnFilamento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnFilamento.FlatAppearance.BorderSize = 0;
-            this.btnFilamento.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
-            this.btnFilamento.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.btnFilamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFilamento.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFilamento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
-            this.btnFilamento.Image = global::RayPro.Properties.Resources.btnYelown3;
-            this.btnFilamento.Location = new System.Drawing.Point(438, 297);
-            this.btnFilamento.Name = "btnFilamento";
-            this.btnFilamento.Size = new System.Drawing.Size(140, 120);
-            this.btnFilamento.TabIndex = 16;
-            this.btnFilamento.UseVisualStyleBackColor = true;
-            this.btnFilamento.Click += new System.EventHandler(this.btnFilamento_Click);
-            // 
-            // btnR
-            // 
-            this.btnR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnR.FlatAppearance.BorderSize = 0;
-            this.btnR.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
-            this.btnR.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.btnR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnR.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
-            this.btnR.Image = global::RayPro.Properties.Resources.btnReseteo__1;
-            this.btnR.Location = new System.Drawing.Point(784, 505);
-            this.btnR.Name = "btnR";
-            this.btnR.Size = new System.Drawing.Size(146, 120);
-            this.btnR.TabIndex = 11;
-            this.btnR.UseVisualStyleBackColor = true;
-            this.btnR.Click += new System.EventHandler(this.btnR_Click);
-            // 
-            // btnRX
-            // 
-            this.btnRX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRX.FlatAppearance.BorderSize = 0;
-            this.btnRX.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gold;
-            this.btnRX.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.btnRX.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRX.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRX.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
-            this.btnRX.Image = global::RayPro.Properties.Resources.btnRX__1;
-            this.btnRX.Location = new System.Drawing.Point(438, 505);
-            this.btnRX.Name = "btnRX";
-            this.btnRX.Size = new System.Drawing.Size(146, 120);
-            this.btnRX.TabIndex = 10;
-            this.btnRX.UseVisualStyleBackColor = true;
-            this.btnRX.Click += new System.EventHandler(this.btnRX_Click);
-            // 
-            // btnPRE
-            // 
-            this.btnPRE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnPRE.FlatAppearance.BorderSize = 0;
-            this.btnPRE.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnPRE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPRE.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPRE.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
-            this.btnPRE.Image = global::RayPro.Properties.Resources.btnPre__1;
-            this.btnPRE.Location = new System.Drawing.Point(97, 505);
-            this.btnPRE.Name = "btnPRE";
-            this.btnPRE.Size = new System.Drawing.Size(146, 120);
-            this.btnPRE.TabIndex = 3;
-            this.btnPRE.UseVisualStyleBackColor = true;
-            this.btnPRE.Click += new System.EventHandler(this.btnPRE_Click);
-            // 
-            // showSecuenciaRx
-            // 
-            this.showSecuenciaRx.Location = new System.Drawing.Point(438, 40);
-            this.showSecuenciaRx.Name = "showSecuenciaRx";
-            this.showSecuenciaRx.Size = new System.Drawing.Size(130, 140);
-            this.showSecuenciaRx.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.showSecuenciaRx.TabIndex = 20;
-            this.showSecuenciaRx.TabStop = false;
-            // 
-            // btnUpMaS
-            // 
-            this.btnUpMaS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpMaS.FlatAppearance.BorderSize = 0;
-            this.btnUpMaS.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnUpMaS.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
-            this.btnUpMaS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpMaS.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpMaS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
-            this.btnUpMaS.Image = global::RayPro.Properties.Resources.uparrowgray;
-            this.btnUpMaS.Location = new System.Drawing.Point(37, 297);
-            this.btnUpMaS.Name = "btnUpMaS";
-            this.btnUpMaS.Size = new System.Drawing.Size(127, 125);
-            this.btnUpMaS.TabIndex = 3;
-            this.btnUpMaS.Text = "+";
-            this.btnUpMaS.UseVisualStyleBackColor = true;
             // 
             // btnDownKv
             // 
@@ -830,6 +768,19 @@
             this.btnUpKv.MouseLeave += new System.EventHandler(this.btnUpKv_MouseLeave);
             this.btnUpKv.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnUpKv_MouseUp);
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(24)))), ((int)(((byte)(75)))));
+            this.panel2.Controls.Add(this.lblErrorMsg);
+            this.panel2.Controls.Add(this.lblEncender);
+            this.panel2.Controls.Add(this.btnMinimizar);
+            this.panel2.Controls.Add(this.btnClose);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(958, 40);
+            this.panel2.TabIndex = 0;
+            // 
             // lblErrorMsg
             // 
             this.lblErrorMsg.AutoSize = true;
@@ -845,12 +796,23 @@
             this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.lblErrorMsg.Visible = false;
             // 
+            // lblEncender
+            // 
+            this.lblEncender.AutoSize = true;
+            this.lblEncender.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEncender.ForeColor = System.Drawing.Color.Brown;
+            this.lblEncender.Location = new System.Drawing.Point(82, 13);
+            this.lblEncender.Name = "lblEncender";
+            this.lblEncender.Size = new System.Drawing.Size(68, 33);
+            this.lblEncender.TabIndex = 14;
+            this.lblEncender.Text = "OFF";
+            // 
             // btnMinimizar
             // 
             this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMinimizar.Image = global::RayPro.Properties.Resources.imgRandom1;
-            this.btnMinimizar.Location = new System.Drawing.Point(978, 2);
+            this.btnMinimizar.Location = new System.Drawing.Point(899, 2);
             this.btnMinimizar.Name = "btnMinimizar";
             this.btnMinimizar.Size = new System.Drawing.Size(25, 25);
             this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -863,7 +825,7 @@
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.Image = global::RayPro.Properties.Resources.btnCerrar;
-            this.btnClose.Location = new System.Drawing.Point(1009, 3);
+            this.btnClose.Location = new System.Drawing.Point(930, 3);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(25, 25);
             this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -871,12 +833,50 @@
             this.btnClose.TabStop = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // lstPartHuman
+            // 
+            this.lstPartHuman.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("lstPartHuman.ImageStream")));
+            this.lstPartHuman.TransparentColor = System.Drawing.Color.Transparent;
+            this.lstPartHuman.Images.SetKeyName(0, "craneo.png");
+            this.lstPartHuman.Images.SetKeyName(1, "craneo_pa.png");
+            this.lstPartHuman.Images.SetKeyName(2, "columna_cervical.png");
+            this.lstPartHuman.Images.SetKeyName(3, "CCervicalLateral.png");
+            this.lstPartHuman.Images.SetKeyName(4, "Hombro.png");
+            this.lstPartHuman.Images.SetKeyName(5, "antebrazo.png");
+            this.lstPartHuman.Images.SetKeyName(6, "muñecz.png");
+            this.lstPartHuman.Images.SetKeyName(7, "mano.png");
+            this.lstPartHuman.Images.SetKeyName(8, "Torax_ap.png");
+            this.lstPartHuman.Images.SetKeyName(9, "torax_lateral.png");
+            this.lstPartHuman.Images.SetKeyName(10, "columna.png");
+            this.lstPartHuman.Images.SetKeyName(11, "columna_lateral.png");
+            this.lstPartHuman.Images.SetKeyName(12, "pelvis.png");
+            this.lstPartHuman.Images.SetKeyName(13, "rodilla.png");
+            this.lstPartHuman.Images.SetKeyName(14, "pie.png");
+            // 
+            // DATE_NOW
+            // 
+            this.DATE_NOW.Enabled = true;
+            this.DATE_NOW.Tick += new System.EventHandler(this.DATE_NOW_Tick);
+            // 
+            // lstSecuenciaRx
+            // 
+            this.lstSecuenciaRx.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("lstSecuenciaRx.ImageStream")));
+            this.lstSecuenciaRx.TransparentColor = System.Drawing.Color.Transparent;
+            this.lstSecuenciaRx.Images.SetKeyName(0, "focoOFF.png");
+            this.lstSecuenciaRx.Images.SetKeyName(1, "focoON.png");
+            this.lstSecuenciaRx.Images.SetKeyName(2, "ready1.png");
+            // 
+            // changeTimer
+            // 
+            this.changeTimer.Interval = 147;
+            this.changeTimer.Tick += new System.EventHandler(this.changeTimer_Tick);
+            // 
             // MainRayX
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(1500, 820);
+            this.ClientSize = new System.Drawing.Size(1386, 788);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -890,16 +890,6 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.panelShow.ResumeLayout(false);
-            this.panelShow.PerformLayout();
-            this.pnlKvp.ResumeLayout(false);
-            this.pnlKvp.PerformLayout();
-            this.pnlMaS.ResumeLayout(false);
-            this.pnlMaS.PerformLayout();
-            this.panelFoco.ResumeLayout(false);
-            this.panelFoco.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.showHumanRx)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.showPartsRx)).EndInit();
@@ -907,7 +897,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnON)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOFF)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelShow.ResumeLayout(false);
+            this.panelShow.PerformLayout();
+            this.pnlKvp.ResumeLayout(false);
+            this.pnlKvp.PerformLayout();
+            this.pnlMaS.ResumeLayout(false);
+            this.pnlMaS.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.showSecuenciaRx)).EndInit();
+            this.panelFoco.ResumeLayout(false);
+            this.panelFoco.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
             this.ResumeLayout(false);
@@ -934,8 +934,8 @@
         private System.Windows.Forms.Button btnUpMaS;
         private System.Windows.Forms.Button btnDownKv;
         private System.Windows.Forms.Button btnUpKv;
-        private System.Windows.Forms.Timer increaseTimer;
-        private System.Windows.Forms.Timer decreaseTimer;
+        //private System.Windows.Forms.Timer increaseTimer;
+        //private System.Windows.Forms.Timer decreaseTimer;
         private System.Windows.Forms.Button btnDownMaS;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;

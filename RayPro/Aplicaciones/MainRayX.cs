@@ -37,6 +37,7 @@ namespace RayPro
             InitFirstParametros();
             ControlCambioFlechas();
             this.DoubleBuffered = true;
+            imgLogo.Visible = false;    
 
         }
 
@@ -386,6 +387,7 @@ namespace RayPro
         {
             if (lblFoco.Text == "SMALL")
             {
+                SendCommand("FILA");
                 Thread.Sleep(2000);
                 lblFoco.Text = "LARGE";
                 estadoFoco = true;
@@ -394,6 +396,7 @@ namespace RayPro
             }
             else
             {
+                SendCommand("FILA");
                 Thread.Sleep(2000);
                 lblFoco.Text = "SMALL";
                 estadoFoco = false;
