@@ -46,23 +46,26 @@ namespace RayPro.Aplicaciones.tools
         }
 
         public static bool ValidarLicenciaPermanente(
-            string licenciaIngresada,
-            string passwordIngresado,
-            string strPermanente)
+    string licenciaIngresada,
+    string passwordIngresado,
+    string strPermanente)
         {
             LicenciaDatos datos = LeerLicencia();
 
-            if (datos.Tipo != "Permanente")
+            if (datos == null) return false;
+
+
+            // ✅ Trim + OrdinalIgnoreCase → elimina espacios y diferencias de mayúsculas
+            if (!string.Equals(
+                    licenciaIngresada.Trim(),
+                    datos.LicenseCode.Trim(),
+                    StringComparison.OrdinalIgnoreCase))
                 return false;
 
-            if (licenciaIngresada != datos.LicenseCode)
-                return false;
-
-            if (Hash(passwordIngresado) != datos.PasswordHash)
+            if (Hash(passwordIngresado.Trim()) != datos.PasswordHash)
                 return false;
 
             datos.Tipo = strPermanente;
-
             Guardar(datos);
 
             return true;
@@ -75,11 +78,6 @@ namespace RayPro.Aplicaciones.tools
         {
             LicenciaDatos datos = LeerLicencia();
 
-            if (datos.Tipo != "Mensual")
-            {
-                return false;
-            }
-               
 
             if (securityIngresado != datos.SecurityCode)
             { 

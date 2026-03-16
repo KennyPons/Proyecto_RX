@@ -93,6 +93,16 @@ namespace RayPro.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BODYRAX {
+            get {
+                object obj = ResourceManager.GetObject("BODYRAX", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap btnCerrar {
             get {
                 object obj = ResourceManager.GetObject("btnCerrar", resourceCulture);

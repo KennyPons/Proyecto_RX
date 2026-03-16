@@ -296,6 +296,7 @@
     <None Include="Resources\config1.png" />
     <None Include="Resources\ACTUALIZAR.png" />
     <None Include="Resources\config2.png" />
+    <None Include="Resources\BODYRAX.png" />
     <Content Include="Resources\disparo.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

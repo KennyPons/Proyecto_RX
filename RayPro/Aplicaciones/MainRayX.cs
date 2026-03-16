@@ -112,9 +112,7 @@ namespace RayPro
         {
             AppSession.Usb.ConnectionChanged += OnConnectionChanged;
             AppSession.Usb.ErrorOccurred += OnErrorOccurred;
-
-            // NUEVO: subscribir DataReceived para actualizar lblKVp con valores numéricos
-            AppSession.Usb.DataReceived += OnUsbDataReceived;
+            AppSession.Usb.VoltageReceived += OnVoltageReceived; // ← evento específico del 
         }
 
         private void OnConnectionChanged(bool connected)
@@ -145,10 +143,11 @@ namespace RayPro
         }
 
         // ✅ DESPUÉS — limpio y directo
-        private void OnUsbDataReceived(string data)
+        private void OnVoltageReceived(int voltaje, DateTime timestamp)
         {
-            if (!string.IsNullOrEmpty(data) && Regex.IsMatch(data, @"^\d+$"))
-                lblKVp.Text = data;
+            // Ya llega como entero redondeado directo desde UsbCdcManager
+            // 35.5 → 36 ✅   35.4 → 35 ✅
+            lblKVp.Text = voltaje.ToString();
         }
 
         #endregion
@@ -320,11 +319,11 @@ namespace RayPro
         {
             if (cboEstructura.Text == "TORÁX")
             {
-                hSupport.PlaySoundRx("NoRespirar.wav");
+                hSupport.PlaySoundRx("NoRespirar");
             }
             else
             {
-                hSupport.PlaySoundRx("preparando.wav");
+                hSupport.PlaySoundRx("preparando");
             }
 
             visualBtnRx(false);
@@ -333,7 +332,7 @@ namespace RayPro
 
             Thread.Sleep(3500);
             //cambio de imagen para mostrar la secuencia de disparo
-            hSupport.PlaySoundRx("ready.wav");
+            hSupport.PlaySoundRx("ready");
             lblFoco.Text = "LISTO";
             showSecuenciaRx.Image = lstSecuenciaRx.Images[2];
 
@@ -351,14 +350,14 @@ namespace RayPro
             if (!NoExecute)
                 return;
 
-            hSupport.PlaySoundRx("disparo.wav");
+            hSupport.PlaySoundRx("disparo");
 
             SendCommand("RX");
             Thread.Sleep(3000);
 
             if (cboEstructura.Text == "TORÁX")
             {
-                hSupport.PlaySoundRx("Respirar.wav");
+                hSupport.PlaySoundRx("Respirar");
             }
 
 
@@ -556,7 +555,8 @@ namespace RayPro
         {
             AppSession.Usb.ConnectionChanged -= OnConnectionChanged;
             AppSession.Usb.ErrorOccurred -= OnErrorOccurred;
-            AppSession.Usb.DataReceived -= OnUsbDataReceived;
+
+            AppSession.Usb.VoltageReceived -= OnVoltageReceived; // ← correcto
             AppSession.Usb?.Dispose(); // Dispose es más completo que solo Disconnect
             base.OnFormClosing(e);
 
