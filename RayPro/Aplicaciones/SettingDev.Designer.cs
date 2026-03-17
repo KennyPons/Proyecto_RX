@@ -37,12 +37,10 @@
             this.cboOffset = new System.Windows.Forms.ComboBox();
             this.txtNameHospital = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.cboRol = new System.Windows.Forms.ComboBox();
             this.lblErrorMsg = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.btnReset = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtPassAnt = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
@@ -140,12 +138,10 @@
             this.tabPage1.Controls.Add(this.cboOffset);
             this.tabPage1.Controls.Add(this.txtNameHospital);
             this.tabPage1.Controls.Add(this.label17);
-            this.tabPage1.Controls.Add(this.cboRol);
             this.tabPage1.Controls.Add(this.lblErrorMsg);
             this.tabPage1.Controls.Add(this.pictureBox5);
             this.tabPage1.Controls.Add(this.btnReset);
             this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.txtPassAnt);
             this.tabPage1.Controls.Add(this.txtUsuario);
@@ -194,7 +190,7 @@
             // 
             this.txtNameHospital.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.txtNameHospital.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNameHospital.Location = new System.Drawing.Point(102, 319);
+            this.txtNameHospital.Location = new System.Drawing.Point(113, 211);
             this.txtNameHospital.Name = "txtNameHospital";
             this.txtNameHospital.Size = new System.Drawing.Size(314, 28);
             this.txtNameHospital.TabIndex = 16;
@@ -202,20 +198,11 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(191, 296);
+            this.label17.Location = new System.Drawing.Point(202, 188);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(129, 20);
             this.label17.TabIndex = 15;
             this.label17.Text = "Nombre Hospital:";
-            // 
-            // cboRol
-            // 
-            this.cboRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboRol.FormattingEnabled = true;
-            this.cboRol.Location = new System.Drawing.Point(102, 265);
-            this.cboRol.Name = "cboRol";
-            this.cboRol.Size = new System.Drawing.Size(150, 28);
-            this.cboRol.TabIndex = 14;
             // 
             // lblErrorMsg
             // 
@@ -259,20 +246,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(174, 188);
+            this.label4.Location = new System.Drawing.Point(114, 310);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(190, 20);
             this.label4.TabIndex = 9;
             this.label4.Text = "Ingrese nueva contraseña:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(174, 242);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 20);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Rol";
             // 
             // label2
             // 
@@ -285,7 +263,7 @@
             // 
             // txtPassAnt
             // 
-            this.txtPassAnt.Location = new System.Drawing.Point(113, 211);
+            this.txtPassAnt.Location = new System.Drawing.Point(113, 333);
             this.txtPassAnt.Name = "txtPassAnt";
             this.txtPassAnt.Size = new System.Drawing.Size(294, 28);
             this.txtPassAnt.TabIndex = 5;
@@ -897,12 +875,10 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TextBox txtNameHospital;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.ComboBox cboRol;
         private System.Windows.Forms.Label lblErrorMsg;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.PictureBox btnReset;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtPassAnt;
         private System.Windows.Forms.TextBox txtUsuario;

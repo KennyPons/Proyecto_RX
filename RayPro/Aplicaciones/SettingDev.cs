@@ -27,6 +27,8 @@ namespace RayPro.Aplicaciones
         {
             WireEvents();
             LoadCombos();
+            cboOffset.DrawMode = DrawMode.OwnerDrawFixed;
+            cboOffset.DrawItem += cboOffset_DrawItem;
             Rx_txt.AppendText("En Espera...");
         }
 
@@ -57,7 +59,7 @@ namespace RayPro.Aplicaciones
         private void clearText()
         {
             txtUsuario.Clear();
-            txtPassAnt.Clear();
+            txtNameHospital.Clear();
             txtUsuario.Focus();
 
             txtCodeSecurity.Clear();
@@ -169,7 +171,7 @@ namespace RayPro.Aplicaciones
         private void initAccountSettings()
         {
             cboOffset.Items.Clear();
-            for (int i = 0; i <= 6; i++)
+            for (int i = -7; i <= 6; i++)
                 cboOffset.Items.Add(i);
             cboOffset.SelectedItem = AppSession.Usb?.VoltageOffset ?? 2;
         }
@@ -218,7 +220,7 @@ namespace RayPro.Aplicaciones
             // Leer y validar
             int value;
             if (!int.TryParse(cboOffset.SelectedItem.ToString(), out value)) return;
-            if (value < 0) value = 0;
+            if (value < -7) value = -7;
             if (value > 6) value = 6;
 
             // Aplicar a la instancia del manager (si existe)
@@ -231,6 +233,7 @@ namespace RayPro.Aplicaciones
             Settings.Default.NameUsers = txtUsuario.Text;
             Settings.Default.VoltageOffset = value;
             Settings.Default.Save();
+            clearText();
             QuestionBox.Show("Guardado Correctamente.", "Configuración", MessageBoxButtons.YesNo);
         }
 
@@ -323,6 +326,47 @@ namespace RayPro.Aplicaciones
 
 
         #endregion
+
+        #region CENTRAR COMBO Y COLOREAR SEGÚN VALOR (NEGATIVO, POSITIVO, CERO)
+        private void cboOffset_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            int valor = Convert.ToInt32(cboOffset.Items[e.Index]);
+
+            e.DrawBackground();
+
+            // 🎨 Definir color según valor
+            Color color;
+
+            if (valor < 0)
+                color = Color.Red;       // Negativos
+            else if (valor > 0)
+                color = Color.Green;     // Positivos
+            else
+                color = Color.Black;     // Cero
+
+            // ✍️ Formato centrado
+            using (StringFormat sf = new StringFormat())
+            {
+                sf.Alignment = StringAlignment.Center;
+                sf.LineAlignment = StringAlignment.Center;
+
+                using (Brush brush = new SolidBrush(color))
+                {
+                    e.Graphics.DrawString(
+                        valor.ToString("+0;-0;0"), // muestra +1, -1, 0
+                        e.Font,
+                        brush,
+                        e.Bounds,
+                        sf
+                    );
+                }
+            }
+
+            e.DrawFocusRectangle();
+        }
+        #endregion  
         //////////////////////////////////////////////////////////////////////////////
     }
 }

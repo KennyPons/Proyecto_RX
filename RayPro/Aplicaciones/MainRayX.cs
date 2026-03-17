@@ -1,5 +1,5 @@
 ﻿using RayPro.Aplicaciones.tools;
-
+using RayPro.configuraciones;
 using RayPro.Vista;
 using System;
 using System.Collections.Generic;
@@ -47,6 +47,7 @@ namespace RayPro
         {
             showPartsRx.Image = lstPartHuman.Images[indiceImgNow];
             showSecuenciaRx.Image = lstSecuenciaRx.Images[0];
+            lblHospital.Text = Settings.Default.NameHospital;
             lblmAs.Text = "0" + mAs;
             mAs = 8;
             lblKVp.Text = kv.ToString();
@@ -70,6 +71,16 @@ namespace RayPro
                 control.Enabled = status;
             }
         }
+
+        private void SetFlechasEnabled(bool status)
+        {
+            btnUpKv.Enabled = status;
+            btnDownKv.Enabled = status;
+            btnUpMaS.Enabled = status;
+            btnDownMaS.Enabled = status;
+            btnFilamento.Enabled = status;
+        }
+
 
         private void visualBtnRx(bool status)
         {
@@ -148,7 +159,9 @@ namespace RayPro
         {
             // Ya llega como entero redondeado directo desde UsbCdcManager
             // 35.5 → 36 ✅   35.4 → 35 ✅
-            lblKVp.Text = voltaje.ToString();
+            int voltajeConfigurado = Settings.Default.VoltageOffset;
+            int aumentarVoltaje = voltaje + voltajeConfigurado;
+            lblKVp.Text = aumentarVoltaje.ToString();
         }
 
         #endregion
@@ -174,12 +187,7 @@ namespace RayPro
         /*CONTROL DE TIEMPO O SECUENCIAL DE KV Y MAS*/
         private void ControlCambioFlechas()
         {
-            /*btnUpKv.MouseDown += (s, e) => startValorChange(() => CambiarKv(1));
-            btnUpKv.MouseUp += (s, e) => stopValorChange();
-            btnDownKv.MouseDown += (s, e) => startValorChange(() => CambiarKv(-1));
-            btnDownKv.MouseUp += (s, e) => stopValorChange();*/
 
-            //Eventos para Kv en Rx Lineal
             btnUpKv.MouseDown += btnUpKv_MouseDown;
             btnUpKv.MouseUp += btnUpKv_MouseUp;
             btnUpKv.MouseLeave += btnUpKv_MouseLeave;
@@ -336,7 +344,7 @@ namespace RayPro
             hSupport.PlaySoundRx("ready");
             lblFoco.Text = "LISTO";
             showSecuenciaRx.Image = lstSecuenciaRx.Images[2];
-
+            SetFlechasEnabled(false);
 
             getTiempo = hSupport.sendTimeInput(mAs);
 
@@ -361,7 +369,7 @@ namespace RayPro
                 hSupport.PlaySoundRx("Respirar");
             }
 
-
+            SetFlechasEnabled(true);
             visualBtnRx(true);
             lblFoco.Text = (!estadoFoco) ? "SMALL" : "LARGE";//Si esta activo el Foco Large, Es True pero se convierte a Falso y muestra LARGE Actual
             showSecuenciaRx.Image = (!estadoFoco) ? lstSecuenciaRx.Images[0] : lstSecuenciaRx.Images[1];
@@ -380,6 +388,7 @@ namespace RayPro
             showSecuenciaRx.Image = (!estadoFoco) ? lstSecuenciaRx.Images[0] : lstSecuenciaRx.Images[1];
             hSupport.showBodyRayX(0);
             SendCommand("RESET");
+            SetFlechasEnabled(true);
         }
 
 
