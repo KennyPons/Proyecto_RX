@@ -79,6 +79,8 @@ namespace RayPro
             btnUpMaS.Enabled = status;
             btnDownMaS.Enabled = status;
             btnFilamento.Enabled = status;
+            btnON.Visible = status;
+            btnOFF.Visible = status;
         }
 
 
