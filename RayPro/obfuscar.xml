@@ -20,8 +20,16 @@
     <SkipNamespace name="RayPro.configuraciones" />
 
     <!-- FIX #2: No ofuscar formularios WinForms (Designer los referencia por nombre) -->
+    <!-- Formularios en RayPro.Vista -->
     <SkipNamespace name="RayPro.Vista" />
-    <SkipNamespace name="RayPro.Aplicaciones" />
+    <!-- Formulario principal (namespace raíz RayPro) -->
+    <SkipType name="RayPro.MainRayX" />
+    <!-- Formularios en RayPro.Aplicaciones (solo los Forms, NO el subnamespace tools) -->
+    <SkipType name="RayPro.Aplicaciones.SettingDev" />
+    <SkipType name="RayPro.Aplicaciones.FrKeyBoard" />
+    <!-- Control personalizado en namespace legacy -->
+    <SkipType name="MamografiaGP.Mamorx.Front.LargeRadioButton" />
+    <!-- RayPro.Aplicaciones.tools.* se ofusca completamente (LicenciaManager, LicenciaDatos, AppSession, UsbCdcManager, DatosRadiologia, HumanSupport) -->
 
     <!-- FIX #3: No ofuscar miembros públicos (necesario para System.Text.Json y serialización) -->
     <SkipMethod  name="*" attrib="public" />
