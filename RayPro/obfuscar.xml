@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Obfuscator>
 
+	<Var name="InPath"  value="D:\KENNY DEVS\APPS C#\SOFT_RXLINEAL\RayPro\ObfInput" />
+	<Var name="OutPath" value="D:\KENNY DEVS\APPS C#\SOFT_RXLINEAL\RayPro\ObfOutput" />
+
 	<Var name="RenameProperties" value="true" />
 	<Var name="RenameEvents"     value="true" />
 	<Var name="RenameFields"     value="true" />
@@ -8,16 +11,13 @@
 	<Var name="HideStrings"      value="true" />
 	<Var name="UseUnicodeNames"  value="true" />
 
-	<Module file="bin\Release\RayPro.exe">
-
-		<SkipType name="RayPro.Program" />
+	<Module file="RayPro.exe">
+		<SkipType      name="RayPro.Program" />
 		<SkipNamespace name="RayPro.configuraciones" />
 		<SkipNamespace name="RayPro.Vista" />
 		<SkipNamespace name="RayPro.Aplicaciones" />
-		<SkipMethod   name="*" attrib="public" />
-		<SkipProperty name="*" attrib="public" />
-		<SkipType name="*" attrib="serializable" />
-
+		<SkipMethod    name="*" attrib="public" />
+		<SkipProperty  name="*" attrib="public" />
 	</Module>
 
 </Obfuscator>

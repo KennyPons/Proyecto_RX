@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RayPro", "RayPro\RayPro.csproj", "{3BB6F8A5-43DB-4E99-A5DE-2F00255887E7}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Instalador_RxLineal", "Instalador_RxLineal\Instalador_RxLineal.vdproj", "{6CCB7FC3-94CE-0876-5F01-FC65DE4F4A62}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Install_RXCSM", "Install_RXCSM\Install_RXCSM.vdproj", "{80FF98F1-5A23-A786-D159-A081E7AC13F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{3BB6F8A5-43DB-4E99-A5DE-2F00255887E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BB6F8A5-43DB-4E99-A5DE-2F00255887E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BB6F8A5-43DB-4E99-A5DE-2F00255887E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6CCB7FC3-94CE-0876-5F01-FC65DE4F4A62}.Debug|Any CPU.ActiveCfg = Debug
-		{6CCB7FC3-94CE-0876-5F01-FC65DE4F4A62}.Release|Any CPU.ActiveCfg = Release
+		{80FF98F1-5A23-A786-D159-A081E7AC13F2}.Debug|Any CPU.ActiveCfg = Debug
+		{80FF98F1-5A23-A786-D159-A081E7AC13F2}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
