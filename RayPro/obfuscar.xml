@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Obfuscator>
 
-	<Var name="InPath"  value="bin\Release" />
-	<Var name="OutPath" value="bin\Release" />
-
 	<Var name="RenameProperties" value="true" />
 	<Var name="RenameEvents"     value="true" />
 	<Var name="RenameFields"     value="true" />
@@ -11,23 +8,14 @@
 	<Var name="HideStrings"      value="true" />
 	<Var name="UseUnicodeNames"  value="true" />
 
-	<Module file="$(InPath)\RayPro.exe">
+	<Module file="bin\Release\RayPro.exe">
 
-		<!-- Entry point: no tocar -->
 		<SkipType name="RayPro.Program" />
-
-		<!-- Settings de App.config: no tocar -->
 		<SkipNamespace name="RayPro.configuraciones" />
-
-		<!-- Formularios WinForms: no tocar (se rompen si se ofuscan) -->
 		<SkipNamespace name="RayPro.Vista" />
 		<SkipNamespace name="RayPro.Aplicaciones" />
-
-		<!-- Propiedades públicas: no renombrar (JSON y XML se rompen) -->
 		<SkipMethod   name="*" attrib="public" />
 		<SkipProperty name="*" attrib="public" />
-
-		<!-- Clases serializables: no tocar -->
 		<SkipType name="*" attrib="serializable" />
 
 	</Module>
