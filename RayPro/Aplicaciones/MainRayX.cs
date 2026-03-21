@@ -36,8 +36,7 @@ namespace RayPro
             InitializeComponent();
             InitFirstParametros();
             ControlCambioFlechas();
-            this.DoubleBuffered = true;
-            imgLogo.Visible = false;    
+            DoubleBuffered = true;
 
         }
 

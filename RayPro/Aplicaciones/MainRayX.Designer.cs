@@ -141,8 +141,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
             this.splitContainer1.Panel2.Controls.Add(this.panelShow);
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1386, 788);
-            this.splitContainer1.SplitterDistance = 424;
+            this.splitContainer1.Size = new System.Drawing.Size(1500, 825);
+            this.splitContainer1.SplitterDistance = 458;
             this.splitContainer1.TabIndex = 0;
             // 
             // btnMano
@@ -167,7 +167,7 @@
             this.imgLogo.Image = global::RayPro.Properties.Resources.LOGO_EMPRESA_MEDIC_;
             this.imgLogo.Location = new System.Drawing.Point(0, 2);
             this.imgLogo.Name = "imgLogo";
-            this.imgLogo.Size = new System.Drawing.Size(206, 82);
+            this.imgLogo.Size = new System.Drawing.Size(247, 82);
             this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imgLogo.TabIndex = 1;
             this.imgLogo.TabStop = false;
@@ -318,7 +318,7 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(24)))), ((int)(((byte)(75)))));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(424, 0);
+            this.panel1.Size = new System.Drawing.Size(458, 37);
             this.panel1.TabIndex = 0;
             // 
             // lblHospital
@@ -327,7 +327,7 @@
             this.lblHospital.AutoSize = true;
             this.lblHospital.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHospital.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(215)))), ((int)(((byte)(220)))));
-            this.lblHospital.Location = new System.Drawing.Point(309, 33);
+            this.lblHospital.Location = new System.Drawing.Point(309, 70);
             this.lblHospital.Name = "lblHospital";
             this.lblHospital.Size = new System.Drawing.Size(176, 40);
             this.lblHospital.TabIndex = 24;
@@ -337,7 +337,7 @@
             // 
             this.imgHospital.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.imgHospital.Image = global::RayPro.Properties.Resources.hospitalico;
-            this.imgHospital.Location = new System.Drawing.Point(156, 49);
+            this.imgHospital.Location = new System.Drawing.Point(236, 49);
             this.imgHospital.Name = "imgHospital";
             this.imgHospital.Size = new System.Drawing.Size(100, 56);
             this.imgHospital.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -393,7 +393,7 @@
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = global::RayPro.Properties.Resources.IconMedic;
-            this.pictureBox1.Location = new System.Drawing.Point(846, 43);
+            this.pictureBox1.Location = new System.Drawing.Point(926, 43);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(100, 56);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -778,7 +778,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(958, 40);
+            this.panel2.Size = new System.Drawing.Size(1038, 40);
             this.panel2.TabIndex = 0;
             // 
             // lblErrorMsg
@@ -788,7 +788,7 @@
             this.lblErrorMsg.ForeColor = System.Drawing.Color.Brown;
             this.lblErrorMsg.Image = global::RayPro.Properties.Resources.lblErrorMsg;
             this.lblErrorMsg.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.lblErrorMsg.Location = new System.Drawing.Point(182, 9);
+            this.lblErrorMsg.Location = new System.Drawing.Point(182, 11);
             this.lblErrorMsg.Name = "lblErrorMsg";
             this.lblErrorMsg.Size = new System.Drawing.Size(103, 26);
             this.lblErrorMsg.TabIndex = 13;
@@ -812,7 +812,7 @@
             this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMinimizar.Image = global::RayPro.Properties.Resources.imgRandom1;
-            this.btnMinimizar.Location = new System.Drawing.Point(899, 2);
+            this.btnMinimizar.Location = new System.Drawing.Point(979, 2);
             this.btnMinimizar.Name = "btnMinimizar";
             this.btnMinimizar.Size = new System.Drawing.Size(25, 25);
             this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -825,7 +825,7 @@
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.Image = global::RayPro.Properties.Resources.btnCerrar;
-            this.btnClose.Location = new System.Drawing.Point(930, 3);
+            this.btnClose.Location = new System.Drawing.Point(1010, 3);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(25, 25);
             this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -876,7 +876,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(1386, 788);
+            this.ClientSize = new System.Drawing.Size(1500, 825);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
