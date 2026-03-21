@@ -376,4 +376,15 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets'))" />
   </Target>
+
+  <!-- Obfuscation: runs after Release build, before installer packaging -->
+  <!-- To update: change ObfuscarVersion to match the installed NuGet package version (Install-Package Obfuscar) -->
+  <Target Name="ObfuscateRelease" AfterTargets="Build" Condition="'$(Configuration)'=='Release'">
+    <PropertyGroup>
+      <ObfuscarVersion>2.2.38</ObfuscarVersion>
+    </PropertyGroup>
+    <Exec Command="&quot;$(SolutionDir)packages\Obfuscar.$(ObfuscarVersion)\tools\Obfuscar.Console.exe&quot; &quot;$(ProjectDir)obfuscar.xml&quot;"
+          ContinueOnError="false"
+          WorkingDirectory="$(ProjectDir)" />
+  </Target>
 </Project>

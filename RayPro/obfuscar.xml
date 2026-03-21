@@ -1,0 +1,35 @@
+<?xml version='1.0'?>
+<Obfuscator>
+
+  <Var name="InPath"  value="bin\Release" />
+  <Var name="OutPath" value="bin\Release" />
+
+  <Var name="RenameProperties" value="true" />
+  <Var name="RenameEvents"     value="true" />
+  <Var name="RenameFields"     value="true" />
+  <Var name="KeepPublicApi"    value="false" />
+  <Var name="HideStrings"      value="true" />
+  <Var name="UseUnicodeNames"  value="true" />
+
+  <Module file="$(InPath)\RayPro.exe">
+
+    <!-- FIX #1: No ofuscar el entry point -->
+    <SkipType name="RayPro.Program" />
+
+    <!-- FIX #2: No ofuscar Settings (referenciado por nombre en App.config) -->
+    <SkipNamespace name="RayPro.configuraciones" />
+
+    <!-- FIX #2: No ofuscar formularios WinForms (Designer los referencia por nombre) -->
+    <SkipNamespace name="RayPro.Vista" />
+    <SkipNamespace name="RayPro.Aplicaciones" />
+
+    <!-- FIX #3: No ofuscar miembros públicos (necesario para System.Text.Json y serialización) -->
+    <SkipMethod  name="*" attrib="public" />
+    <SkipProperty name="*" attrib="public" />
+
+    <!-- FIX #3: No ofuscar tipos con atributos de serialización -->
+    <SkipType name="*" attrib="serializable" />
+
+  </Module>
+
+</Obfuscator>
