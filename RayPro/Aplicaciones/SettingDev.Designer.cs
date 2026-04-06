@@ -598,6 +598,7 @@
             this.txtLicenseCode.Name = "txtLicenseCode";
             this.txtLicenseCode.Size = new System.Drawing.Size(309, 28);
             this.txtLicenseCode.TabIndex = 16;
+            this.txtLicenseCode.UseSystemPasswordChar = true;
             // 
             // label12
             // 
@@ -615,6 +616,7 @@
             this.txtCodeSecurity.Name = "txtCodeSecurity";
             this.txtCodeSecurity.Size = new System.Drawing.Size(295, 28);
             this.txtCodeSecurity.TabIndex = 14;
+            this.txtCodeSecurity.UseSystemPasswordChar = true;
             // 
             // label11
             // 
