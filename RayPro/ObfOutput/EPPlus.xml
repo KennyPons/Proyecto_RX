@@ -128,6 +128,11 @@
             Order of the columns value, default value is 0
             </summary>
         </member>
+        <member name="P:OfficeOpenXml.Attributes.EpplusTableColumnAttributeBase.OrderIsSet">
+            <summary>
+            Returns true if the Order property has been explicitly set.
+            </summary>
+        </member>
         <member name="P:OfficeOpenXml.Attributes.EpplusTableColumnAttributeBase.Header">
             <summary>
             Name shown in the header row, overriding the property name
@@ -29167,6 +29172,9 @@
             If the function is allowed in a pivot table calculated field
             </summary>
         </member>
+        <member name="M:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.GroupBy.CollectAggregatedValues(OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.GroupingFunctions.GroupLevel)">
+            <summary>Recursively collects all AggregatedValues from leaf GroupRows.</summary>
+        </member>
         <member name="P:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.HLookup.IsAllowedInCalculatedPivotTableField">
             <summary>
             If the function is allowed in a pivot table calculated field
@@ -30598,6 +30606,11 @@
         <member name="P:OfficeOpenXml.FormulaParsing.Excel.Functions.ExcelFunction.IsAllowedInCalculatedPivotTableField">
             <summary>
             If the function is allowed in a pivot table calculated field. Default is true, if not overridden.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.FormulaParsing.Excel.Functions.ExcelFunction.IsAllowedAsLambdaWithMultipleArguments">
+            <summary>
+            The function is allowed...
             </summary>
         </member>
         <member name="P:OfficeOpenXml.FormulaParsing.Excel.Functions.ExcelFunction.ParametersInfo">
@@ -44391,6 +44404,11 @@
         <member name="F:OfficeOpenXml.Export.HtmlExport.ePictureInclude.Include">
             <summary>
             Include the images in the html export.
+            </summary>
+        </member>
+        <member name="F:OfficeOpenXml.Export.HtmlExport.ePictureInclude.IncludeInHtmlOnly">
+            <summary>
+            Include the images only in the HTML.
             </summary>
         </member>
         <member name="T:OfficeOpenXml.Export.HtmlExport.ePicturePosition">

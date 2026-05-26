@@ -590,6 +590,8 @@ namespace RayPro.Aplicaciones.tools
         #endregion
 
         #region Consumer Loop — procesa líneas encoladas y publica eventos
+        // En UsbCdcManager.cs — Reemplaza SOLO ConsumerLoopAsync (líneas 593-631)
+
         private async Task ConsumerLoopAsync(CancellationToken ct)
         {
             try
@@ -614,6 +616,11 @@ namespace RayPro.Aplicaciones.tools
                                     DataReceived?.Invoke($"VAC={voltaje}");
                                 });
                             }
+                            else
+                            {
+                                // 🔥 ERROR: No se pudo parsear
+                                SetError($"⚠️ Voltaje inválido: {line}");
+                            }
                             continue;
                         }
 
@@ -622,7 +629,7 @@ namespace RayPro.Aplicaciones.tools
                     }
                     else
                     {
-                        await Task.Delay(5, ct).ConfigureAwait(false);
+                        await Task.Delay(6, ct).ConfigureAwait(false);
                     }
                 }
             }
