@@ -418,6 +418,7 @@ namespace RayPro
         #region Intentar conectar con el USB
         private void MainRayX_Load(object sender, EventArgs e)
         {
+            LoggerManager.CleanOldLogs(30); // Elimina logs más antiguos de 30 días
             AppSession.Usb.TryAutoConnect();
             originalSize = this.ClientSize;
             SaveControlBounds(this);

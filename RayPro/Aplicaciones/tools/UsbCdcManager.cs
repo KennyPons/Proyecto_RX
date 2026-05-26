@@ -585,6 +585,7 @@ namespace RayPro.Aplicaciones.tools
         private void SetError(string message)
         {
             LastError = message;
+            LoggerManager.LogError(message);
             PostToUi(() => ErrorOccurred?.Invoke(message));
         }
         #endregion
@@ -619,7 +620,7 @@ namespace RayPro.Aplicaciones.tools
                             else
                             {
                                 // 🔥 ERROR: No se pudo parsear
-                                SetError($"⚠️ Voltaje inválido: {line}");
+                                SetError($"⚠️ Voltaje inválido: {line}"); 
                             }
                             continue;
                         }
@@ -634,7 +635,9 @@ namespace RayPro.Aplicaciones.tools
                 }
             }
             catch (TaskCanceledException) { }
-            catch (Exception ex) { SetError("Error en consumer loop: " + ex.Message); }
+            catch (Exception ex) {
+                LoggerManager.LogVoltage($"PARSE_ERROR: {ex.Message}");
+                SetError("Error en consumer loop: " + ex.Message); }
         }
 
 

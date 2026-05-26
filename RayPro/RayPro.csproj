@@ -184,6 +184,7 @@
     <Compile Include="Aplicaciones\tools\AppSession.cs" />
     <Compile Include="Aplicaciones\tools\LicenciaDatos.cs" />
     <Compile Include="Aplicaciones\tools\LicenciaManager.cs" />
+    <Compile Include="Aplicaciones\tools\LoggerManager.cs" />
     <Compile Include="Aplicaciones\tools\UsbCdcManager.cs" />
     <Compile Include="Vista\FrKeyBoard.cs">
       <SubType>Form</SubType>

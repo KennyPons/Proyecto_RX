@@ -311,7 +311,23 @@ Renamed Types:
 	System.String [RayPro]System.String RayPro.Aplicaciones.tools.LicenciaManager::secretKey ->  
 }
 
-[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager -> [RayPro] . 
+[RayPro]RayPro.Aplicaciones.tools.LoggerManager -> [RayPro] . 
+{
+	[RayPro]RayPro.Aplicaciones.tools.LoggerManager::WriteLog[2]( [mscorlib]System.String, [mscorlib]System.String ) ->  
+
+	[RayPro]RayPro.Aplicaciones.tools.LoggerManager::.cctor[0]( ) skipped:  special name
+	[RayPro]RayPro.Aplicaciones.tools.LoggerManager::LogVoltage[1]( [mscorlib]System.String ) skipped:  method rule in configuration
+	[RayPro]RayPro.Aplicaciones.tools.LoggerManager::LogError[2]( [mscorlib]System.String, [mscorlib]System.Exception ) skipped:  method rule in configuration
+	[RayPro]RayPro.Aplicaciones.tools.LoggerManager::LogConnection[1]( [mscorlib]System.String ) skipped:  method rule in configuration
+	[RayPro]RayPro.Aplicaciones.tools.LoggerManager::LogInfo[1]( [mscorlib]System.String ) skipped:  method rule in configuration
+	[RayPro]RayPro.Aplicaciones.tools.LoggerManager::GetLogDirectory[0]( ) skipped:  method rule in configuration
+	[RayPro]RayPro.Aplicaciones.tools.LoggerManager::CleanOldLogs[1]( [mscorlib]System.Int32 ) skipped:  method rule in configuration
+
+	System.Object [RayPro]System.Object RayPro.Aplicaciones.tools.LoggerManager::_lockFile ->  
+	System.String [RayPro]System.String RayPro.Aplicaciones.tools.LoggerManager::_logDirectory ->  
+}
+
+[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager -> [RayPro] . 
 {
 	[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager::add_DataReceived[1]( [mscorlib]System.Action`1<[mscorlib]System.String> ) ->  
 	[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager::remove_DataReceived[1]( [mscorlib]System.Action`1<[mscorlib]System.String> ) ->  
@@ -419,7 +435,7 @@ Renamed Types:
 	System.Action`2<System.Int32,System.DateTime> [RayPro]System.Action`2<System.Int32,System.DateTime> RayPro.Aplicaciones.tools.UsbCdcManager::VoltageReceived -> dropped
 }
 
-[RayPro]RayPro.Aplicaciones.tools.DatosRadiologia -> [RayPro] . 
+[RayPro]RayPro.Aplicaciones.tools.DatosRadiologia -> [RayPro] . 
 {
 	[RayPro]RayPro.Aplicaciones.tools.DatosRadiologia::get_Estructuras[0]( ) ->  
 	[RayPro]RayPro.Aplicaciones.tools.DatosRadiologia::get_Proyecciones[0]( ) ->  
@@ -436,7 +452,7 @@ Renamed Types:
 	System.Collections.Generic.Dictionary`2<System.Int32,System.String[]> [RayPro]System.Collections.Generic.Dictionary`2<System.Int32,System.String[]> RayPro.Aplicaciones.tools.DatosRadiologia::SelectProyeccion -> dropped
 }
 
-[RayPro]RayPro.Aplicaciones.tools.HumanSupport -> [RayPro] . 
+[RayPro]RayPro.Aplicaciones.tools.HumanSupport -> [RayPro] . 
 {
 	[RayPro]RayPro.Aplicaciones.tools.HumanSupport::LimpiarYConfigurarCombo[3]( [System.Windows.Forms]System.Windows.Forms.ComboBox, [mscorlib]System.String[], [mscorlib]System.String ) ->  
 	[RayPro]RayPro.Aplicaciones.tools.HumanSupport::mostrarDataRayX[1]( [mscorlib]System.String ) ->  
@@ -461,7 +477,7 @@ Renamed Types:
 	System.Int32 [RayPro]System.Int32 RayPro.Aplicaciones.tools.HumanSupport::MA ->  
 }
 
-[RayPro]MamografiaGP.Mamorx.Front.LargeRadioButton -> [RayPro] . 
+[RayPro]MamografiaGP.Mamorx.Front.LargeRadioButton -> [RayPro] . 
 {
 	[RayPro]MamografiaGP.Mamorx.Front.LargeRadioButton::get_CircleSize[0]( ) ->  
 	[RayPro]MamografiaGP.Mamorx.Front.LargeRadioButton::set_CircleSize[1]( [mscorlib]System.Int32 ) ->  
@@ -497,7 +513,7 @@ Renamed Types:
 	System.EventHandler [RayPro]System.EventHandler MamografiaGP.Mamorx.Front.LargeRadioButton::CheckedChanged -> dropped
 }
 
-[RayPro]<PrivateImplementationDetails> -> [RayPro] . 
+[RayPro]<PrivateImplementationDetails> -> [RayPro] . 
 {
 	<PrivateImplementationDetails>/__StaticArrayInitTypeSize=24 [RayPro]<PrivateImplementationDetails>/__StaticArrayInitTypeSize=24 <PrivateImplementationDetails>::C09E176A703FC5E4636E98F43FC5AF6DB8EB2C0EDC53CB8BA40D1068C4F12002 ->  
 }
@@ -512,7 +528,7 @@ Renamed Types:
 	System.Windows.Forms.Timer [RayPro]System.Windows.Forms.Timer RayPro.MainRayX/<>c__DisplayClass20_0::temporizador ->  
 }
 
-[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass62_0 -> [RayPro] . / 
+[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass62_0 -> [RayPro] . / 
 {
 	[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass62_0::<PostToUi>b__0[1]( [mscorlib]System.Object ) ->  
 
@@ -522,7 +538,7 @@ Renamed Types:
 	System.Action [RayPro]System.Action RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass62_0::action ->  
 }
 
-[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass83_0 -> [RayPro] . / 
+[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass83_0 -> [RayPro] . / 
 {
 	[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass83_0::<SetError>b__0[0]( ) ->  
 
@@ -532,7 +548,7 @@ Renamed Types:
 	System.String [RayPro]System.String RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass83_0::message ->  
 }
 
-[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass84_0 -> [RayPro] . / 
+[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass84_0 -> [RayPro] . / 
 {
 	[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass84_0::<ConsumerLoopAsync>b__0[0]( ) ->  
 
@@ -542,7 +558,7 @@ Renamed Types:
 	RayPro.Aplicaciones.tools.UsbCdcManager [RayPro]RayPro.Aplicaciones.tools.UsbCdcManager RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass84_0::<>4__this ->  
 }
 
-[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass84_1 -> [RayPro] . / 
+[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass84_1 -> [RayPro] . / 
 {
 	[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass84_1::<ConsumerLoopAsync>b__1[0]( ) ->  
 
@@ -553,7 +569,7 @@ Renamed Types:
 	RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass84_0 [RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass84_0 RayPro.Aplicaciones.tools.UsbCdcManager/<>c__DisplayClass84_1::CS$<>8__locals1 ->  
 }
 
-[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<AttemptReconnectAsync>d__73 -> [RayPro] . / 
+[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<AttemptReconnectAsync>d__73 -> [RayPro] . / 
 {
 
 	[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<AttemptReconnectAsync>d__73::MoveNext[0]( ) skipped:  external base class or interface
@@ -567,7 +583,7 @@ Renamed Types:
 	System.Runtime.CompilerServices.ConfiguredTaskAwaitable/ConfiguredTaskAwaiter [RayPro]System.Runtime.CompilerServices.ConfiguredTaskAwaitable/ConfiguredTaskAwaiter RayPro.Aplicaciones.tools.UsbCdcManager/<AttemptReconnectAsync>d__73::<>u__1 ->  
 }
 
-[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<ConsumerLoopAsync>d__84 -> [RayPro] . / 
+[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<ConsumerLoopAsync>d__84 -> [RayPro] . / 
 {
 
 	[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<ConsumerLoopAsync>d__84::MoveNext[0]( ) skipped:  external base class or interface
@@ -580,7 +596,7 @@ Renamed Types:
 	System.Runtime.CompilerServices.ConfiguredTaskAwaitable/ConfiguredTaskAwaiter [RayPro]System.Runtime.CompilerServices.ConfiguredTaskAwaitable/ConfiguredTaskAwaiter RayPro.Aplicaciones.tools.UsbCdcManager/<ConsumerLoopAsync>d__84::<>u__1 ->  
 }
 
-[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<WatchdogLoopAsync>d__75 -> [RayPro] . / 
+[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<WatchdogLoopAsync>d__75 -> [RayPro] . / 
 {
 
 	[RayPro]RayPro.Aplicaciones.tools.UsbCdcManager/<WatchdogLoopAsync>d__75::MoveNext[0]( ) skipped:  external base class or interface
@@ -593,7 +609,7 @@ Renamed Types:
 	System.Runtime.CompilerServices.ConfiguredTaskAwaitable/ConfiguredTaskAwaiter [RayPro]System.Runtime.CompilerServices.ConfiguredTaskAwaitable/ConfiguredTaskAwaiter RayPro.Aplicaciones.tools.UsbCdcManager/<WatchdogLoopAsync>d__75::<>u__1 ->  
 }
 
-[RayPro]<PrivateImplementationDetails>/__StaticArrayInitTypeSize=24 -> [RayPro] . / 
+[RayPro]<PrivateImplementationDetails>/__StaticArrayInitTypeSize=24 -> [RayPro] . / 
 {
 }
 
