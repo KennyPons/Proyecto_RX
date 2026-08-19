@@ -16,12 +16,13 @@ using System.Threading.Tasks;
 namespace RayPro.Aplicaciones.tools
 {
     /// <summary>
-    /// Servicio USB CDC para STM32F103C8T6.
+    /// Servicio USB CDC para STM32F103C8T6 / ESP32.
     /// - Entrega eventos en el hilo UI si existe SynchronizationContext.
     /// - Ensambla líneas desde ReadExisting() para evitar pérdidas por fragmentos.
     /// - Filtrado por prefijo o regex.
     /// - Persistencia en __Settings.settings__ (ComPort, BaudRate, AutoConnect).
     /// - Reintento de reconexión simple si AutoConnect = true.
+    /// - Detección de "puerto zombie" (IsOpen=true pero sin datos reales).
     /// </summary>
     public sealed class UsbCdcManager : IDisposable
     {
@@ -34,6 +35,10 @@ namespace RayPro.Aplicaciones.tools
         // Watchdog
         private CancellationTokenSource _watchdogCts;
         private static readonly TimeSpan WatchdogInterval = TimeSpan.FromSeconds(5);
+
+        // ⚠️ NUEVO: detección de puerto "zombie" (abierto pero sin datos reales)
+        private DateTime _lastDataReceivedUtc = DateTime.UtcNow;
+        private static readonly TimeSpan StaleDataTimeout = TimeSpan.FromSeconds(15);
 
         // WMI — detecta inserción de USB en tiempo real
         private ManagementEventWatcher _usbArrivalWatcher;
@@ -52,18 +57,13 @@ namespace RayPro.Aplicaciones.tools
         public event Action<bool> ConnectionChanged;
         public event Action<string> ErrorOccurred;
 
-       
-
         private const int MAX_RX_BUFFER = 64 * 1024; // 64 KB para el StringBuilder
-
-       
 
         /// <summary>
         /// Voltaje en tiempo real. El ESP32 envía decimales (ej: 35.5).
         /// Se publica como entero redondeado (35.5 → 36, 35.4 → 35).
         /// </summary>
         public event Action<int, DateTime> VoltageReceived;
-
 
         public int VoltageOffset { get; set; } = 2;
 
@@ -86,7 +86,6 @@ namespace RayPro.Aplicaciones.tools
         public Regex MessageRegex { get; set; }
 
         // Reintento
-        
         public TimeSpan ReconnectBaseDelay { get; set; } = TimeSpan.FromSeconds(1);
 
         public UsbCdcManager()
@@ -268,6 +267,7 @@ namespace RayPro.Aplicaciones.tools
 
             if (success)
             {
+                _lastDataReceivedUtc = DateTime.UtcNow; // ⚠️ FIX: reset del timestamp al conectar
                 _reconnectCts?.Cancel();
                 Interlocked.Exchange(ref _reconnecting, 0);
                 PostToUi(() => ConnectionChanged?.Invoke(true));
@@ -285,11 +285,23 @@ namespace RayPro.Aplicaciones.tools
             _reconnectCts?.Cancel();
             Interlocked.Exchange(ref _reconnecting, 0);
 
-            lock (_lock)
+            // ⚠️ FIX: Close() puede colgarse si el hilo interno del SerialPort
+            // está en estado inconsistente (puerto zombie). Se ejecuta con
+            // timeout controlado para no bloquear indefinidamente al llamador.
+            var closeTask = Task.Run(() =>
             {
-                try { if (_port != null && _port.IsOpen) _port.Close(); }
-                catch { }
-                finally { CleanupPort(); }
+                lock (_lock)
+                {
+                    try { if (_port != null && _port.IsOpen) _port.Close(); }
+                    catch { }
+                    finally { CleanupPort(); }
+                }
+            });
+
+            if (!closeTask.Wait(2000))
+            {
+                SetError("Timeout cerrando el puerto serial. Forzando limpieza de referencias.");
+                lock (_lock) { _port = null; }
             }
 
             PostToUi(() => ConnectionChanged?.Invoke(false));
@@ -297,7 +309,7 @@ namespace RayPro.Aplicaciones.tools
 
         private void CleanupPort()
         {
-            // Siempre llamar dentro de lock(_portLock)
+            // Siempre llamar dentro de lock(_lock)
             try
             {
                 if (_port != null)
@@ -346,6 +358,20 @@ namespace RayPro.Aplicaciones.tools
 
                     if (ct.IsCancellationRequested || string.IsNullOrWhiteSpace(PortName)) continue;
 
+                    // ⚠️ FIX: si el puerto guardado ya no existe pero hay
+                    // exactamente UN puerto COM nuevo disponible, asumimos
+                    // que Windows reasignó el ESP32 a otro nombre de puerto.
+                    var availablePorts = SerialPort.GetPortNames();
+                    bool savedPortExists = availablePorts
+                        .Any(p => string.Equals(p, PortName, StringComparison.OrdinalIgnoreCase));
+
+                    if (!savedPortExists && availablePorts.Length == 1)
+                    {
+                        SetError($"Puerto {PortName} no encontrado. Probando puerto detectado: {availablePorts[0]}");
+                        PortName = availablePorts[0];
+                        SaveSettings();
+                    }
+
                     bool connected = false;
                     lock (_lock)
                     {
@@ -384,6 +410,7 @@ namespace RayPro.Aplicaciones.tools
 
                     if (connected)
                     {
+                        _lastDataReceivedUtc = DateTime.UtcNow; // ⚠️ FIX: reset al reconectar
                         Interlocked.Exchange(ref _reconnecting, 0);
                         PostToUi(() => ConnectionChanged?.Invoke(true));
                         return;
@@ -432,6 +459,22 @@ namespace RayPro.Aplicaciones.tools
                         lock (_lock) { CleanupPort(); }
                         PostToUi(() => ConnectionChanged?.Invoke(false));
                         if (AutoConnect) _ = AttemptReconnectAsync();
+                        continue;
+                    }
+
+                    // ⚠️ FIX PRINCIPAL: puerto abierto + existe en Windows,
+                    // PERO sin datos reales hace demasiado tiempo → "puerto zombie".
+                    // IsOpen y GetPortNames() NO detectan que el hilo interno
+                    // de lectura del SerialPort está congelado. Esto es exactamente
+                    // el caso "COM3 se mantiene, el software lo reconoce, pero se paraliza".
+                    var idle = DateTime.UtcNow - _lastDataReceivedUtc;
+                    if (idle > StaleDataTimeout &&
+                        Interlocked.CompareExchange(ref _reconnecting, 0, 0) == 0)
+                    {
+                        SetError($"Puerto {PortName} sin datos por {idle.TotalSeconds:F0}s. " +
+                                  "Posible cuelgue interno (puerto zombie). Forzando reconexión.");
+
+                        await ForceHardResetAsync().ConfigureAwait(false);
                     }
                 }
             }
@@ -439,6 +482,46 @@ namespace RayPro.Aplicaciones.tools
             catch (Exception ex) { SetError("Error en watchdog: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Cierre forzado + limpieza, incluso si el objeto SerialPort reporta
+        /// IsOpen=true. Se ejecuta fuera del hilo de eventos del propio puerto
+        /// (evita el deadlock de Dispose() llamado desde su propio callback)
+        /// y con timeout para no bloquear el watchdog indefinidamente.
+        /// </summary>
+        private async Task ForceHardResetAsync()
+        {
+            var resetTask = Task.Run(() =>
+            {
+                lock (_lock)
+                {
+                    try
+                    {
+                        if (_port != null)
+                        {
+                            try { _port.DiscardInBuffer(); } catch { }
+                            try { _port.DiscardOutBuffer(); } catch { }
+                            try { _port.Close(); } catch { }
+                        }
+                    }
+                    finally
+                    {
+                        CleanupPort();
+                    }
+                }
+            });
+
+            var completed = await Task.WhenAny(resetTask, Task.Delay(2000)).ConfigureAwait(false);
+            if (completed != resetTask)
+            {
+                SetError("Timeout forzando reset del puerto. Limpiando referencias de todos modos.");
+                lock (_lock) { _port = null; }
+            }
+
+            _lastDataReceivedUtc = DateTime.UtcNow; // evita loop inmediato de reintentos
+            PostToUi(() => ConnectionChanged?.Invoke(false));
+
+            if (AutoConnect) _ = AttemptReconnectAsync();
+        }
 
         #endregion
 
@@ -485,7 +568,20 @@ namespace RayPro.Aplicaciones.tools
                     else _port.Write(text);
                     return true;
                 }
-                catch (Exception ex) { SetError("Error enviando datos: " + ex.Message); return false; }
+                catch (TimeoutException ex)
+                {
+                    // ⚠️ FIX: "La escritura superó el tiempo de espera" = señal fuerte
+                    // de puerto zombie. No basta con loguear, hay que forzar
+                    // limpieza y reconexión automática.
+                    SetError("Timeout escribiendo al ESP32 (puerto posiblemente colgado): " + ex.Message);
+                    Task.Run(() => HandleUnexpectedDisconnect());
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    SetError("Error enviando datos (EX-SEND): " + ex.Message);
+                    return false;
+                }
             }
         }
 
@@ -496,6 +592,12 @@ namespace RayPro.Aplicaciones.tools
             {
                 if (!IsConnected) { SetError("Sin conexión con el ESP32."); return false; }
                 try { _port.Write(buffer, 0, buffer.Length); return true; }
+                catch (TimeoutException ex)
+                {
+                    SetError("Timeout escribiendo bytes al ESP32 (puerto posiblemente colgado): " + ex.Message);
+                    Task.Run(() => HandleUnexpectedDisconnect());
+                    return false;
+                }
                 catch (Exception ex) { SetError("Error enviando bytes: " + ex.Message); return false; }
             }
         }
@@ -529,6 +631,10 @@ namespace RayPro.Aplicaciones.tools
                 catch (InvalidOperationException) { return; }
 
                 if (string.IsNullOrEmpty(incoming)) return;
+
+                // ⚠️ FIX: marcar actividad real cada vez que llegan bytes del ESP32.
+                // Esta es la base de la detección de "puerto zombie" en el watchdog.
+                _lastDataReceivedUtc = DateTime.UtcNow;
 
                 lock (_rxBuffer)
                 {
@@ -575,9 +681,15 @@ namespace RayPro.Aplicaciones.tools
 
         private void HandleUnexpectedDisconnect()
         {
-            lock (_lock) { CleanupPort(); }
-            PostToUi(() => ConnectionChanged?.Invoke(false));
-            if (AutoConnect) _ = AttemptReconnectAsync();
+            // ⚠️ FIX: nunca hacer Dispose/Close síncrono dentro del hilo
+            // del propio evento SerialPort (DataReceived/ErrorReceived).
+            // Se delega a un hilo separado para evitar cuelgues silenciosos.
+            Task.Run(() =>
+            {
+                lock (_lock) { CleanupPort(); }
+                PostToUi(() => ConnectionChanged?.Invoke(false));
+                if (AutoConnect) _ = AttemptReconnectAsync();
+            });
         }
         #endregion
 
@@ -591,8 +703,6 @@ namespace RayPro.Aplicaciones.tools
         #endregion
 
         #region Consumer Loop — procesa líneas encoladas y publica eventos
-        // En UsbCdcManager.cs — Reemplaza SOLO ConsumerLoopAsync (líneas 593-631)
-
         private async Task ConsumerLoopAsync(CancellationToken ct)
         {
             try
@@ -620,13 +730,16 @@ namespace RayPro.Aplicaciones.tools
                             else
                             {
                                 // 🔥 ERROR: No se pudo parsear
-                                SetError($"⚠️ Voltaje inválido: {line}"); 
+                                SetError($"⚠️ Voltaje inválido: {line}");
                             }
                             continue;
                         }
 
-                        // Cualquier otra línea del ESP32
-                        PostToUi(() => DataReceived?.Invoke(line));
+                        // Cualquier otra línea del ESP32 (incluye "PING" del heartbeat, se ignora silenciosamente)
+                        if (!string.Equals(line, "PING", StringComparison.OrdinalIgnoreCase))
+                        {
+                            PostToUi(() => DataReceived?.Invoke(line));
+                        }
                     }
                     else
                     {
@@ -635,12 +748,12 @@ namespace RayPro.Aplicaciones.tools
                 }
             }
             catch (TaskCanceledException) { }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 LoggerManager.LogVoltage($"PARSE_ERROR: {ex.Message}");
-                SetError("Error en consumer loop: " + ex.Message); }
+                SetError("Error en consumer loop: " + ex.Message);
+            }
         }
-
-
         #endregion
 
         #region IDisposable
@@ -706,4 +819,3 @@ namespace RayPro.Aplicaciones.tools
         //FIN - END
     }
 }
-
