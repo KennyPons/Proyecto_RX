@@ -173,7 +173,7 @@ namespace RayPro.Aplicaciones
             cboOffset.Items.Clear();
             for (int i = -25; i <= 25; i++)
                 cboOffset.Items.Add(i);
-            cboOffset.SelectedItem = AppSession.Usb?.VoltageOffset ?? 2;
+            //cboOffset.SelectedItem = AppSession.Usb?.VoltageOffset ?? 2;
         }
 
         //========================================================================================
@@ -226,7 +226,7 @@ namespace RayPro.Aplicaciones
             // Aplicar a la instancia del manager (si existe)
             if (AppSession.Usb != null)
             {
-                AppSession.Usb.VoltageOffset = value;
+                //AppSession.Usb.VoltageOffset = value;
             }
 
             Settings.Default.NameHospital = txtNameHospital.Text;

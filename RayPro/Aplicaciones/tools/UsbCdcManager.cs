@@ -26,6 +26,7 @@ namespace RayPro.Aplicaciones.tools
     /// </summary>
     public sealed class UsbCdcManager : IDisposable
     {
+
         private SerialPort _port;
         private readonly object _lock = new object();
         private readonly StringBuilder _rxBuffer = new StringBuilder();
@@ -36,9 +37,15 @@ namespace RayPro.Aplicaciones.tools
         private CancellationTokenSource _watchdogCts;
         private static readonly TimeSpan WatchdogInterval = TimeSpan.FromSeconds(5);
 
-        // ⚠️ NUEVO: detección de puerto "zombie" (abierto pero sin datos reales)
+        // ⚠️ Detección de puerto "zombie" (abierto pero sin datos reales) — ÚNICA declaración
         private DateTime _lastDataReceivedUtc = DateTime.UtcNow;
         private static readonly TimeSpan StaleDataTimeout = TimeSpan.FromSeconds(15);
+
+        // ⚠️ NUEVO: público para que MainRayX pueda consultar "hace cuánto no llega nada"
+        public TimeSpan TimeSinceLastData => DateTime.UtcNow - _lastDataReceivedUtc;
+
+        // ⚠️ NUEVO: true si el puerto está abierto pero no llega NADA desde hace demasiado tiempo
+        public bool IsFrozen(TimeSpan threshold) => IsConnected && TimeSinceLastData > threshold;
 
         // WMI — detecta inserción de USB en tiempo real
         private ManagementEventWatcher _usbArrivalWatcher;
@@ -64,8 +71,6 @@ namespace RayPro.Aplicaciones.tools
         /// Se publica como entero redondeado (35.5 → 36, 35.4 → 35).
         /// </summary>
         public event Action<int, DateTime> VoltageReceived;
-
-        public int VoltageOffset { get; set; } = 2;
 
         // Estado y configuración
         public bool IsConnected

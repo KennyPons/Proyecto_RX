@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -23,7 +24,6 @@ namespace RayPro
         private bool _rightPressed = false;
         private bool _leftPressed = false;
         private double getTiempo;
-        /*Se cambia a Large, estado para ser = True, si cambia a Small va ser estado = False*/
         private bool estadoFoco, NoExecute = false;
 
         private HumanSupport hSupport;
@@ -31,16 +31,21 @@ namespace RayPro
         private Dictionary<Control, Rectangle> originalControls = new Dictionary<Control, Rectangle>();
         private Dictionary<Control, Font> originalFonts = new Dictionary<Control, Font>();
 
+        /* ⚠️ NUEVO: monitoreo de salud del ESP32 */
+        private System.Windows.Forms.Timer _healthTimer;
+        private static readonly TimeSpan FrozenThreshold = TimeSpan.FromSeconds(10); // sin PING/VAC en 10s = congelado
+        private static readonly TimeSpan VoltageTimeout = TimeSpan.FromSeconds(3);   // sin VAC tras activar relé = error 101
+        private DateTime? _relayActivatedAt = null;   // momento en que se activó DER/IZQ
+        private bool _voltageReceivedSinceRelay = false;
+        private bool _reconnectingByHealth = false;   // evita reconexiones forzadas superpuestas
+
         public MainRayX()
         {
             InitializeComponent();
             InitFirstParametros();
             ControlCambioFlechas();
             DoubleBuffered = true;
-
         }
-
-
 
         private void InitFirstParametros()
         {
@@ -57,7 +62,6 @@ namespace RayPro
 
             hSupport = new HumanSupport(cboProyeccion, cboEstructura, lblKVp, lblmAs);
         }
-
 
         private void SetControlsEnabled(bool status)
         {
@@ -82,13 +86,11 @@ namespace RayPro
             btnOFF.Visible = status;
         }
 
-
         private void visualBtnRx(bool status)
         {
             btnPRE.Visible = status;
             btnFilamento.Visible = status;
             NoExecute = !status;
-
         }
 
         private void setPanelBorders()
@@ -105,16 +107,14 @@ namespace RayPro
             temporizador.Interval = 5000;
 
             lblErrorMsg.Text = "   " + msge;
-            lblErrorMsg.ForeColor = Color.OrangeRed;
+            lblErrorMsg.ForeColor = setColor; // ⚠️ FIX: antes ignoraba setColor y siempre usaba OrangeRed
             lblErrorMsg.Visible = true;
 
             temporizador.Tick += (sender, e) =>
             {
                 lblErrorMsg.Visible = false;
-
                 temporizador.Stop();
             };
-
 
             temporizador.Start();
         }
@@ -125,14 +125,14 @@ namespace RayPro
         {
             AppSession.Usb.ConnectionChanged += OnConnectionChanged;
             AppSession.Usb.ErrorOccurred += OnErrorOccurred;
-            AppSession.Usb.VoltageReceived += OnVoltageReceived; // ← evento específico del 
+            AppSession.Usb.VoltageReceived += OnVoltageReceived;
         }
 
         private void OnConnectionChanged(bool connected)
         {
             string msg = connected
-                ? "Equipo conectado correctamente"
-                : "Equipo desconectado";
+                ? "CONEXIÓN CORRECTA"
+                : "ERROR DE CONEXIÓN - FAILED TARGET";
 
             Color color = connected ? Color.LimeGreen : Color.OrangeRed;
             mensajeDeError(msg, color);
@@ -140,29 +140,103 @@ namespace RayPro
 
         private void OnErrorOccurred(string error)
         {
-            mensajeDeError("No se pudo establecer conexión con el equipo 400", Color.OrangeRed);
+            /* ⚠️ NUEVO: distinguir el tipo de error real, en vez de un mensaje genérico fijo */
+            if (!string.IsNullOrEmpty(error) &&
+                error.IndexOf("Voltaje inválido", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                mensajeDeError("ERROR 101 INPUT VOLTAJE", Color.Gold);
+                return;
+            }
+
+            mensajeDeError("ERROR DE CONEXIÓN - FAILED TARGET", Color.OrangeRed);
         }
 
         private void SendCommand(string command)
         {
             if (!AppSession.Usb.IsConnected)
             {
-
                 mensajeDeError("Equipo No conectado -> Error 401!", Color.OrangeRed);
                 return;
+            }
+
+            /* ⚠️ NUEVO: registrar cuándo se activa un relé de medición de voltaje,
+               para poder detectar si nunca llega el VAC correspondiente */
+            if (command == "DER_ON" || command == "IZQ_ON")
+            {
+                _relayActivatedAt = DateTime.UtcNow;
+                _voltageReceivedSinceRelay = false;
+            }
+            else if (command == "DER_OFF" || command == "IZQ_OFF")
+            {
+                _relayActivatedAt = null;
             }
 
             AppSession.Usb.Send(command);
         }
 
-        // ✅ DESPUÉS — limpio y directo
         private void OnVoltageReceived(int voltaje, DateTime timestamp)
         {
-            // Ya llega como entero redondeado directo desde UsbCdcManager
-            // 35.5 → 36 ✅   35.4 → 35 ✅
+            _voltageReceivedSinceRelay = true; // ⚠️ NUEVO: confirma que sí está llegando voltaje
+
             int voltajeConfigurado = Settings.Default.VoltageOffset;
             int aumentarVoltaje = voltaje + voltajeConfigurado;
             lblKVp.Text = aumentarVoltaje.ToString();
+        }
+
+        #endregion
+
+        #region ⚠️ NUEVO: Monitoreo de salud del ESP32 (congelamiento / sin voltaje / sin conexión)
+
+        private void StartHealthMonitor()
+        {
+            _healthTimer = new System.Windows.Forms.Timer { Interval = 1000 }; // revisa cada 1s
+            _healthTimer.Tick += HealthTimer_Tick;
+            _healthTimer.Start();
+        }
+
+        private async void HealthTimer_Tick(object sender, EventArgs e)
+        {
+            // 1) ¿El ESP32 dejó de responder por completo? (ni PING ni VAC en el umbral)
+            if (AppSession.Usb.IsFrozen(FrozenThreshold) && !_reconnectingByHealth)
+            {
+                _reconnectingByHealth = true;
+                mensajeDeError("ERROR COLD MICROCONTROLADOR", Color.OrangeRed);
+
+                await ForzarReconexionAsync();
+
+                _reconnectingByHealth = false;
+                return;
+            }
+
+            // 2) ¿Se activó un relé de voltaje y no llegó ningún VAC dentro del timeout?
+            if (_relayActivatedAt.HasValue &&
+                !_voltageReceivedSinceRelay &&
+                (DateTime.UtcNow - _relayActivatedAt.Value) > VoltageTimeout)
+            {
+                mensajeDeError("ERROR 101 INPUT VOLTAJE", Color.Gold);
+                _relayActivatedAt = null; // evita repetir el mensaje en bucle
+            }
+        }
+
+        /// <summary>
+        /// ⚠️ NUEVO: Reconexión forzada por software — equivale a "sacar y meter el USB"
+        /// pero sin que el usuario tenga que tocar el cable físicamente.
+        /// </summary>
+        private async Task ForzarReconexionAsync()
+        {
+            await Task.Run(() =>
+            {
+                AppSession.Usb.Disconnect();
+            });
+
+            await Task.Delay(800);
+
+            bool ok = await Task.Run(() => AppSession.Usb.Connect());
+
+            if (!ok)
+            {
+                mensajeDeError("ERROR DE CONEXIÓN - FAILED TARGET", Color.OrangeRed);
+            }
         }
 
         #endregion
@@ -184,11 +258,9 @@ namespace RayPro
             WindowState = FormWindowState.Minimized;
         }
 
-        #region Eventos para cambiar los datos de KV y MaS (En este caso se usara solo el mAs para mostrar el cambio)
-        /*CONTROL DE TIEMPO O SECUENCIAL DE KV Y MAS*/
+        #region Eventos para cambiar los datos de KV y MaS
         private void ControlCambioFlechas()
         {
-
             btnUpKv.MouseDown += btnUpKv_MouseDown;
             btnUpKv.MouseUp += btnUpKv_MouseUp;
             btnUpKv.MouseLeave += btnUpKv_MouseLeave;
@@ -203,12 +275,11 @@ namespace RayPro
             btnDownMaS.MouseUp += (s, e) => stopValorChange();
         }
 
-
         private void startValorChange(Action action)
         {
             valorCambiaAction = action;
             changeTimer.Start();
-            action();// Ejecuta una vez al presionar
+            action();
         }
 
         private void stopValorChange()
@@ -216,37 +287,21 @@ namespace RayPro
             changeTimer.Stop();
             valorCambiaAction = null;
         }
-        /*AQUÍ LA FUNCION DE LOS CAMBIOS CON LOS NUMEROS EN KV*/
-        /*private void CambiarKv(int value)
-        {
-            int newKv = kv + value;
-            if (newKv >= 40 && newKv <= 110)
-            {
-                kv = newKv;
-                lblKVp.Text = kv.ToString();
-            }
-        }*/
-        /*AQUÍ LA FUNCION DE LOS CAMBIOS CON LOS NUMEROS EN MAS*/
+
         private void CambiarMaS(int value)
         {
             int newMaS = mAs + value;
             if (newMaS >= 1 && newMaS <= 300)
             {
                 mAs = newMaS;
-
                 lblmAs.Text = hSupport.getZeroStr_mAs(mAs);
             }
         }
         #endregion
 
         #region EVENTOS DE BOTONES ENSENCIALES DEL SOFTWARE RX
-        /// <summary>
-        /// Asigna el índice de imagen a cada botón anatómico vía Tag
-        /// y conecta un SOLO handler para todos.
-        /// </summary>
         private void WireBodyButtons()
         {
-            // Tag = índice en imgLstBody  (orden: Craneo=0, Columna=1, Hombro=2, Torax=3, Abdomen=4, Pelvis=5, Femur=6)
             var zonas = new (Button btn, int index)[]
             {
                 (btnCraneo,  0),
@@ -266,10 +321,6 @@ namespace RayPro
             }
         }
 
-        /// <summary>
-        /// Handler único para todos los botones de zona anatómica.
-        /// Lee el índice desde Tag, actualiza imagen y estructura.
-        /// </summary>
         private void BtnZona_Click(object sender, EventArgs e)
         {
             var btn = (Button)sender;
@@ -285,28 +336,38 @@ namespace RayPro
             mAs = valores.mas;
 
             lblmAs.Text = hSupport.getZeroStr_mAs(mAs);
-
         }
         #endregion
 
 
-        private void btnOFF_Click(object sender, EventArgs e)
+        private async void btnOFF_Click(object sender, EventArgs e)
         {
-
             btnOFF.Visible = false;
             btnON.Visible = true;
             lblEncender.Text = "ON";
             lblEncender.ForeColor = Color.LimeGreen;
 
-
             SetControlsEnabled(true);
 
             SendCommand("ON");
-
         }
 
-        private void btnON_Click(object sender, EventArgs e)
+        private async void btnON_Click(object sender, EventArgs e)
         {
+            /* ⚠️ NUEVO: si la conexión está mala al querer encender,
+               forzar reconexión automática por software ANTES de mandar OFF */
+            if (!AppSession.Usb.IsConnected || AppSession.Usb.IsFrozen(FrozenThreshold))
+            {
+                mensajeDeError("ERROR DE CONEXIÓN - FAILED TARGET", Color.OrangeRed);
+                await ForzarReconexionAsync();
+
+                if (!AppSession.Usb.IsConnected)
+                {
+                    // Sigue sin conectar tras el intento automático: no continuar con el apagado/encendido
+                    return;
+                }
+            }
+
             btnOFF.Visible = true;
             btnON.Visible = false;
             lblEncender.Text = "OFF";
@@ -322,8 +383,6 @@ namespace RayPro
             lblHora.Text = DateTime.Now.ToString("HH:mm:ss");
             lblFecha.Text = DateTime.Now.ToString("dd MMM yyy");
         }
-
-
 
         private void btnPRE_Click(object sender, EventArgs e)
         {
@@ -341,7 +400,6 @@ namespace RayPro
             SendCommand("PRE");
 
             Thread.Sleep(3500);
-            //cambio de imagen para mostrar la secuencia de disparo
             hSupport.PlaySoundRx("ready");
             lblFoco.Text = "LISTO";
             showSecuenciaRx.Image = lstSecuenciaRx.Images[2];
@@ -352,7 +410,6 @@ namespace RayPro
             string sendFactors = getTiempo + "T";
 
             SendCommand(sendFactors);
-
         }
 
         private void btnRX_Click(object sender, EventArgs e)
@@ -372,12 +429,11 @@ namespace RayPro
 
             SetFlechasEnabled(true);
             visualBtnRx(true);
-            lblFoco.Text = (!estadoFoco) ? "SMALL" : "LARGE";//Si esta activo el Foco Large, Es True pero se convierte a Falso y muestra LARGE Actual
+            lblFoco.Text = (!estadoFoco) ? "SMALL" : "LARGE";
             showSecuenciaRx.Image = (!estadoFoco) ? lstSecuenciaRx.Images[0] : lstSecuenciaRx.Images[1];
-
         }
 
-        private void btnR_Click(object sender, EventArgs e)/*(RESETEAR)*/
+        private void btnR_Click(object sender, EventArgs e)
         {
             if (!NoExecute)
                 return;
@@ -385,7 +441,7 @@ namespace RayPro
             Thread.Sleep(500);
 
             visualBtnRx(true);
-            lblFoco.Text = (!estadoFoco) ? "SMALL" : "LARGE";//Si esta activo el Foco Large, Es True pero se convierte a Falso y muestra LARGE Actual
+            lblFoco.Text = (!estadoFoco) ? "SMALL" : "LARGE";
             showSecuenciaRx.Image = (!estadoFoco) ? lstSecuenciaRx.Images[0] : lstSecuenciaRx.Images[1];
             hSupport.showBodyRayX(0);
             SendCommand("RESET");
@@ -418,8 +474,11 @@ namespace RayPro
         #region Intentar conectar con el USB
         private void MainRayX_Load(object sender, EventArgs e)
         {
-            LoggerManager.CleanOldLogs(30); // Elimina logs más antiguos de 30 días
+            LoggerManager.CleanOldLogs(30);
             AppSession.Usb.TryAutoConnect();
+
+            StartHealthMonitor(); // ⚠️ NUEVO: inicia el monitoreo continuo de salud
+
             originalSize = this.ClientSize;
             SaveControlBounds(this);
 
@@ -474,7 +533,6 @@ namespace RayPro
         }
         private void btnUpKv_MouseLeave(object sender, EventArgs e)
         {
-            // si arrastras fuera mientras presionas, aseguramos el OFF
             if (_rightPressed)
             {
                 _rightPressed = false;
@@ -491,8 +549,6 @@ namespace RayPro
             }
         }
         #endregion Final de eventos para los botones de KV
-
-
 
 
         #region FRONT PARA ADAPTARSE A PANTALLAS, ESCALABLE
@@ -519,7 +575,6 @@ namespace RayPro
         {
             base.OnResize(e);
 
-            // 🔥 evitar escalado cuando está minimizado
             if (WindowState == FormWindowState.Minimized)
                 return;
 
@@ -546,7 +601,6 @@ namespace RayPro
                 c.Location = new Point((int)(r.X * xRatio), (int)(r.Y * yRatio));
                 c.Size = new Size((int)(r.Width * xRatio), (int)(r.Height * yRatio));
 
-                // 🔥 ESCALAR FUENTE DESDE EL VALOR ORIGINAL
                 if (originalFonts.ContainsKey(c))
                 {
                     float newFontSize = originalFonts[c].Size * yRatio;
@@ -567,19 +621,19 @@ namespace RayPro
         #region Cierre para desconectar USB
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            _healthTimer?.Stop();          // ⚠️ NUEVO: detener el monitor al cerrar
+            _healthTimer?.Dispose();
+
             AppSession.Usb.ConnectionChanged -= OnConnectionChanged;
             AppSession.Usb.ErrorOccurred -= OnErrorOccurred;
-
-            AppSession.Usb.VoltageReceived -= OnVoltageReceived; // ← correcto
-            AppSession.Usb?.Dispose(); // Dispose es más completo que solo Disconnect
+            AppSession.Usb.VoltageReceived -= OnVoltageReceived;
+            AppSession.Usb?.Dispose();
             base.OnFormClosing(e);
-
         }
         #endregion
 
         private void MainRayX_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //sMonitor.CerrarSerialPort();
         }
 
         //////FIN DE SOFTWARE/////
