@@ -154,14 +154,16 @@ namespace RayPro.Aplicaciones
                 return;
             }
 
+            /* ⚠️ FIX: preservar el AutoConnect ya guardado, en vez de forzarlo a false.
+               Este botón es solo para PROBAR conexión, no debe alterar la preferencia
+               de autoconexión que el usuario ya guardó (o no) con "Guardar". */
             _usb.Configure(
                 cboCom.SelectedItem.ToString(),
                 Convert.ToInt32(cboBaudios.SelectedItem),
-                autoConnect: false
+                autoConnect: Settings.Default.AutoConnect   // ← usa el valor actual guardado, no un fijo
             );
 
             _usb.Connect();
-
         }
 
 
