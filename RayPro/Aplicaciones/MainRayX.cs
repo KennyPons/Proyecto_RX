@@ -53,7 +53,6 @@ namespace RayPro
             showSecuenciaRx.Image = lstSecuenciaRx.Images[0];
             lblHospital.Text = Settings.Default.NameHospital;
             lblmAs.Text = "0" + mAs;
-            mAs = 8;
             lblKVp.Text = kv.ToString();
 
             SetControlsEnabled(false);
@@ -155,7 +154,7 @@ namespace RayPro
         {
             if (!AppSession.Usb.IsConnected)
             {
-                mensajeDeError("Equipo No conectado -> Error 401!", Color.OrangeRed);
+                mensajeDeError("Equipo No Conectado - Error 401!", Color.OrangeRed);
                 return;
             }
 
