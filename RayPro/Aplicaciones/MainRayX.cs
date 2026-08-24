@@ -398,9 +398,9 @@ namespace RayPro
 
             SendCommand("PRE");
 
-            Thread.Sleep(3500);
+            Thread.Sleep(500);
             hSupport.PlaySoundRx("ready");
-            lblFoco.Text = "LISTO";
+            lblFoco.Text = "LISTO!";
             showSecuenciaRx.Image = lstSecuenciaRx.Images[2];
             SetFlechasEnabled(false);
 
@@ -409,6 +409,7 @@ namespace RayPro
             string sendFactors = getTiempo + "T";
 
             SendCommand(sendFactors);
+            Thread.Sleep(2900);
         }
 
         private void btnRX_Click(object sender, EventArgs e)
@@ -419,7 +420,7 @@ namespace RayPro
             hSupport.PlaySoundRx("disparo");
 
             SendCommand("RX");
-            Thread.Sleep(3000);
+            Thread.Sleep(400);
 
             if (cboEstructura.Text == "TORÁX")
             {
