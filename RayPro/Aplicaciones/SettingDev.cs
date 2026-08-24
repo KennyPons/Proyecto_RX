@@ -30,6 +30,24 @@ namespace RayPro.Aplicaciones
             cboOffset.DrawMode = DrawMode.OwnerDrawFixed;
             cboOffset.DrawItem += cboOffset_DrawItem;
             Rx_txt.AppendText("En Espera...");
+
+            AplicarEstadoBloqueoConfig();
+        }
+
+        /// <summary>
+        /// ⚠️ NUEVO: determina si hay una configuración COM válida ya guardada
+        /// y bloquea/desbloquea los combos en consecuencia.
+        /// </summary>
+        private void AplicarEstadoBloqueoConfig()
+        {
+            bool hayConfigValida = !string.IsNullOrWhiteSpace(Settings.Default.ComPortName)
+                                    && Settings.Default.ComPortName != "0"
+                                    && Settings.Default.Baudios > 0;
+
+            cboCom.Enabled = !hayConfigValida;
+            cboBaudios.Enabled = !hayConfigValida;
+            btnSaveUsb.Enabled = !hayConfigValida;
+            btnReseteo.Visible = hayConfigValida; // solo aparece si ya hay algo guardado
         }
 
         private void mensajeDeError(string msge)
@@ -198,10 +216,26 @@ namespace RayPro.Aplicaciones
         }
 
         #endregion
+        /// <summary>
+        /// ⚠️ NUEVO: permite al usuario desbloquear la configuración para
+        /// probar/guardar un puerto o baudrate distinto. Desconecta primero.
+        /// </summary>
         private void btnReseteo_Click(object sender, EventArgs e)
         {
+
+            if (_usb.IsConnected)
+            {
+                _usb.Disconnect();
+            }
+
+            cboCom.Enabled = true;
+            cboBaudios.Enabled = true;
+            btnSaveUsb.Enabled = true;
+            btnReseteo.Visible = false;
             LoadCombos();
-            lblMensaje.Text = "Lista de puertos actualizada";
+            lblMensaje.Text = "Configuración desbloqueada. Seleccione nuevo puerto/baudrate y presione Guardar.";
+            lblMensaje.Visible = true;
+
         }
 
         
@@ -248,11 +282,21 @@ namespace RayPro.Aplicaciones
                 return;
             }
 
+            if (_usb.IsConnected)
+            {
+                _usb.Disconnect();
+            }
+
             _usb.Configure(
                 cboCom.SelectedItem.ToString(),
                 Convert.ToInt32(cboBaudios.SelectedItem),
                 autoConnect: true
             );
+
+            _usb.Connect(); // conecta de inmediato con la nueva config guardada
+
+            AplicarEstadoBloqueoConfig(); // ⚠️ vuelve a bloquear tras guardar exitosamente
+
 
             QuestionBox.Show("Configuración guardada correctamente.", "Configuración", MessageBoxButtons.YesNo);
         }

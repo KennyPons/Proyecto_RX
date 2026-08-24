@@ -302,12 +302,13 @@
             // 
             // btnReseteo
             // 
-            this.btnReseteo.Location = new System.Drawing.Point(407, 143);
+            this.btnReseteo.BackColor = System.Drawing.Color.Cyan;
+            this.btnReseteo.Location = new System.Drawing.Point(306, 163);
             this.btnReseteo.Name = "btnReseteo";
-            this.btnReseteo.Size = new System.Drawing.Size(75, 35);
+            this.btnReseteo.Size = new System.Drawing.Size(103, 29);
             this.btnReseteo.TabIndex = 34;
-            this.btnReseteo.Text = "reset";
-            this.btnReseteo.UseVisualStyleBackColor = true;
+            this.btnReseteo.Text = "Reset";
+            this.btnReseteo.UseVisualStyleBackColor = false;
             this.btnReseteo.Click += new System.EventHandler(this.btnReseteo_Click);
             // 
             // btnSaveUsb
@@ -444,7 +445,7 @@
             this.btnConnect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkBlue;
             this.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConnect.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnConnect.Location = new System.Drawing.Point(214, 164);
+            this.btnConnect.Location = new System.Drawing.Point(152, 164);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(103, 29);
             this.btnConnect.TabIndex = 4;
