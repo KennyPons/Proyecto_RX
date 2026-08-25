@@ -4437,6 +4437,25 @@
             <param name="ws"></param>
             <param name="xr"></param>
         </member>
+        <member name="T:OfficeOpenXml.Configuration.EPPlusSaveOption">
+            <summary>
+            Options used when saving an <see cref="T:OfficeOpenXml.ExcelPackage"/>.
+            Supplied via an action to the Save and SaveAs methods.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Configuration.EPPlusSaveOption.Password">
+            <summary>
+            The password to encrypt the workbook with. 
+            This overrides the Encryption.Password on the package. 
+            If null, the password set on the package is used.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Configuration.EPPlusSaveOption.SaveAsTemplate">
+            <summary>
+            If true, the package is saved as an Excel template (.xltx, or .xltm if the workbook 
+            contains a VBA project) instead of a standard workbook. Default is false.
+            </summary>
+        </member>
         <member name="T:OfficeOpenXml.Configuration.ExcelPackageConfiguration">
             <summary>
             Parameters for configuring the <see cref="T:OfficeOpenXml.ExcelPackage"/> class before usage
@@ -4761,6 +4780,89 @@
             The maximum row of all ranges in the tree. -1 if not ranges exist.
             </summary>
         </member>
+        <member name="T:OfficeOpenXml.Core.Worksheet.ExcelPivotTableCopyEventArgs">
+            <summary>
+            Provides context for a pivot table that is being copied to a new worksheet, and allows
+            a custom name to be assigned to the copied pivot table.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Core.Worksheet.ExcelPivotTableCopyEventArgs.SourceTableName">
+            <summary>
+            The name of the pivot table on the source worksheet.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Core.Worksheet.ExcelPivotTableCopyEventArgs.DefaultName">
+            <summary>
+            The name that was assigned to the copied pivot table by default, before this handler
+            runs. When the worksheet is copied within the same workbook, this is a generated name
+            (PivotTable1, PivotTable2, ...). When copied to another workbook, the original name is
+            kept when it is still available, in which case this equals <see cref="P:OfficeOpenXml.Core.Worksheet.ExcelPivotTableCopyEventArgs.SourceTableName"/>;
+            if a pivot table with that name already exists in the target workbook, a generated name
+            is used instead.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Core.Worksheet.ExcelPivotTableCopyEventArgs.NewName">
+            <summary>
+            The name to assign to the copied pivot table. Leave as null to keep <see cref="P:OfficeOpenXml.Core.Worksheet.ExcelPivotTableCopyEventArgs.DefaultName"/>.
+            Setting this to an existing pivot table name will cause the same validation exception
+            as a normal pivot table name assignment.
+            </summary>
+        </member>
+        <member name="T:OfficeOpenXml.Core.Worksheet.ExcelTableCopyEventArgs">
+            <summary>
+            Provides context for a table that is being copied to a new worksheet, and allows
+            a custom name to be assigned to the copied table.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Core.Worksheet.ExcelTableCopyEventArgs.SourceTableName">
+            <summary>
+            The name of the table on the source worksheet.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Core.Worksheet.ExcelTableCopyEventArgs.DefaultName">
+            <summary>
+            The name that was assigned to the copied table by default, before this handler
+            runs. When the worksheet is copied within the same workbook, this is a generated
+            name (Table1, Table2, ...). When copied to another workbook, the original name is
+            kept when it is still available, in which case this equals <see cref="P:OfficeOpenXml.Core.Worksheet.ExcelTableCopyEventArgs.SourceTableName"/>;
+            if a table with that name already exists in the target workbook, a generated name
+            is used instead.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Core.Worksheet.ExcelTableCopyEventArgs.NewName">
+            <summary>
+            The name to assign to the copied table. Leave as null to keep <see cref="P:OfficeOpenXml.Core.Worksheet.ExcelTableCopyEventArgs.DefaultName"/>.
+            Setting this to an existing table name will cause the same validation exception
+            as a normal table name assignment.
+            </summary>
+        </member>
+        <member name="T:OfficeOpenXml.Core.Worksheet.ExcelWorksheetCopyOptions">
+            <summary>
+            Used to specify options when copying a worksheet.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Core.Worksheet.ExcelWorksheetCopyOptions.TableCopyHandler">
+            <summary>
+            A handler that is invoked for each table that is copied to the new worksheet.
+            Use this to assign a custom name to the copied table. When a worksheet is copied
+            within the same workbook, copied tables are otherwise given a generated name
+            (Table1, Table2, ...). Set <see cref="P:OfficeOpenXml.Core.Worksheet.ExcelTableCopyEventArgs.NewName"/> on the
+            argument to rename the copied table. The rename is applied through the same path
+            as a normal <see cref="P:OfficeOpenXml.Table.ExcelTable.Name"/> assignment, so
+            formula references are updated and name uniqueness is validated.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Core.Worksheet.ExcelWorksheetCopyOptions.PivotTableCopyHandler">
+            <summary>
+            A handler that is invoked for each pivot table that is copied to the new worksheet.
+            Use this to assign a custom name to the copied pivot table. When a worksheet is copied
+            within the same workbook, copied pivot tables are otherwise given a generated name
+            (PivotTable1, PivotTable2, ...). Set <see cref="P:OfficeOpenXml.Core.Worksheet.ExcelPivotTableCopyEventArgs.NewName"/>
+            on the argument to rename the copied pivot table. The rename is applied through the same
+            path as a normal <see cref="P:OfficeOpenXml.Table.PivotTable.ExcelPivotTable.Name"/>
+            assignment, so name uniqueness is validated.
+            </summary>
+        </member>
         <member name="T:OfficeOpenXml.Core.Worksheet.Fill.FillDateParams">
             <summary>
             Parameters for the <see cref="M:OfficeOpenXml.ExcelRangeBase.FillDateTime(System.Action{OfficeOpenXml.Core.Worksheet.Fill.FillDateParams})" /> method 
@@ -4882,6 +4984,18 @@
             as the spreadsheet applications GUI as possible.
             </summary>
         </member>
+        <member name="M:OfficeOpenXml.Core.Worksheet.Fonts.GenericFontMetrics.GenericFontMetricsTextMeasurerBase.IsSegmentBoundary(System.Char,OfficeOpenXml.Interfaces.Drawing.Text.eWrappedTextAutofitMode)">
+            <summary>
+            Returns true if the character ends the current measurement segment for the given mode.
+            </summary>
+        </member>
+        <member name="M:OfficeOpenXml.Core.Worksheet.Fonts.GenericFontMetrics.GenericFontMetricsTextMeasurerBase.IsVisibleBoundary(System.Char)">
+            <summary>
+            Returns true if the boundary character is visible and therefore contributes
+            its own width to the segment it terminates (hyphens). Whitespace and line
+            breaks are invisible and contribute no width.
+            </summary>
+        </member>
         <member name="P:OfficeOpenXml.Core.Worksheet.Fonts.GenericFontMetrics.UniCodeRange.JapaneseKanji">
             <summary>
             Unicode ranges to cover Japanese/Kanji characters
@@ -4901,6 +5015,12 @@
             <summary>
             If the text measurer should measure wrap text cells. 
             Only CR, LF or CRLF should be considered.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Core.Worksheet.Core.Worksheet.Fonts.GenericMeasurements.GenericFontMetricsTextMeasurer.WrappedTextAutofitMode">
+            
+            <summary>
+            
             </summary>
         </member>
         <member name="M:OfficeOpenXml.Core.Worksheet.Core.Worksheet.Fonts.GenericMeasurements.GenericFontMetricsTextMeasurer.MeasureText(System.String,OfficeOpenXml.Interfaces.Drawing.Text.MeasurementFont)">
@@ -26894,6 +27014,11 @@
             The source of the slicer.
             </summary>
         </member>
+        <member name="P:OfficeOpenXml.Drawing.Slicer.ExcelSlicerCache.HideItemsWithNoData">
+            <summary>
+            If true, items that have no data are not displayed
+            </summary>
+        </member>
         <member name="T:OfficeOpenXml.Drawing.Slicer.ExcelSlicerPivotTableCollection">
             <summary>
             A collection of pivot tables attached to a slicer 
@@ -26974,11 +27099,6 @@
         <member name="P:OfficeOpenXml.Drawing.Slicer.ExcelTableSlicerCache.CustomListSort">
             <summary>
             If custom lists are used when sorting the items
-            </summary>
-        </member>
-        <member name="P:OfficeOpenXml.Drawing.Slicer.ExcelTableSlicerCache.HideItemsWithNoData">
-            <summary>
-            If true, items that have no data are not displayed
             </summary>
         </member>
         <member name="T:OfficeOpenXml.Drawing.Slicer.Style.ExcelSlicerNamedStyle">
@@ -29200,6 +29320,34 @@
             If the function is allowed in a pivot table calculated field
             </summary>
         </member>
+        <member name="M:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.LookupUtils.LookupBinarySearch.SearchAscFullRange(System.Object,OfficeOpenXml.FormulaParsing.IRangeInfo,System.Collections.Generic.IComparer{System.Object},OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.LookupUtils.LookupRangeDirection)">
+            <summary>
+            Binary search over the lookup range for approximate match lookups
+            (e.g. VLOOKUP/HLOOKUP with range_lookup = TRUE).
+            Leading empty cells are skipped, but inner and trailing empty cells are
+            kept in their original positions. This mirrors Excel: leading blank rows
+            (common when a whole-column reference such as B:C is used and the data
+            starts further down) must not drag the search away from the data, while
+            blank cells inside the data block affect how the binary search partitions
+            the range and must be preserved to match Excel's result on such data.
+            Note that the previous approach of removing all empty cells (via
+            <see cref="M:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.LookupUtils.LookupRangeReader.GetLookupRange(OfficeOpenXml.FormulaParsing.IRangeInfo,System.Nullable{OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.LookupUtils.LookupRangeDirection}@)"/>) shifted the midpoints and
+            could produce a different result than Excel.
+            Returns the 0-based offset (row offset for vertical, column offset for
+            horizontal) into the original range, or a bitwise complement of the
+            insertion point when no exact match is found (to be resolved by
+            <see cref="M:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.LookupUtils.LookupBinarySearch.GetMatchIndex(System.Int32,OfficeOpenXml.FormulaParsing.IRangeInfo,OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.LookupUtils.LookupMatchMode,System.Boolean)"/>).
+            </summary>
+        </member>
+        <member name="M:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.LookupUtils.LookupBinarySearch.TryGetValueEdges(OfficeOpenXml.FormulaParsing.IRangeInfo,OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.LookupUtils.LookupRangeDirection,System.Int32@,System.Int32@)">
+            <summary>
+            Gets the offsets (relative to the top-left of the range) of the first and
+            last non-empty cell along the search direction. Uses
+            <see cref="M:OfficeOpenXml.FormulaParsing.IRangeInfo.GetRangeInfoByValue"/>, which locates the value edges
+            through the cell store rather than scanning each cell, so this is safe for
+            whole-column/row references. Returns false if the range contains no values.
+            </summary>
+        </member>
         <member name="P:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.Match.IsAllowedInCalculatedPivotTableField">
             <summary>
             If the function is allowed in a pivot table calculated field
@@ -29208,6 +29356,43 @@
         <member name="P:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.Offset.IsAllowedInCalculatedPivotTableField">
             <summary>
             If the function is allowed in a pivot table calculated field
+            </summary>
+        </member>
+        <member name="M:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.PivotBy.PivotBy.IsFilterFalsy(System.Object)">
+            <summary>
+            Returns true if a filter-array cell should EXCLUDE its row.
+            A cell excludes its row when it is FALSE or numerically zero,
+            regardless of whether the zero arrived as int, double, long, etc.
+            Non-numeric, non-bool, and null values keep the row.
+            </summary>
+        </member>
+        <member name="M:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.PivotBy.PivotBy.GetParentRowGroupAllValues(System.Object[],System.Collections.Generic.List{OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.GroupingFunctions.LeafWithPath})">
+            <summary>
+            Returns the row parent group's values across ALL columns.
+            Used by PERCENTOF when RelativeTo=ParentRowTotal in the row-total cell:
+            the denominator is the parent group's whole-row total summed over every column.
+            Returns null when the row has no real parent (single row level), letting the caller
+            fall back to a sensible default.
+            </summary>
+        </member>
+        <member name="M:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.PivotBy.PivotBy.ResolveSubtotalParentColGroupValues(OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.ColEntry,System.Collections.Generic.List{OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.GroupingFunctions.LeafWithPath},System.Collections.Generic.List{System.String},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.Object[]}}})">
+             <summary>
+             Resolves the PERCENTOF denominator for a row-subtotal cell when RelativeTo=ParentColTotal.
+             The denominator must be the row group's values restricted to the column's parent group -
+             NOT all values for the row group across every column.
+            
+             For a column subtotal entry (which IS a parent group already), we use any of its
+             GroupLeaves to derive the parent prefix. For a regular leaf entry we use its own path.
+             When there is only one column level, no real parent exists and we fall back to
+             summing every column for the row group.
+             </summary>
+        </member>
+        <member name="M:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.PivotBy.PivotBy.ResolveRowTotalCellRelativeToVals(OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.GroupingFunctions.PivotByArgs,System.Collections.Generic.List{System.Object[]},System.Object[],System.Collections.Generic.List{OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.GroupingFunctions.LeafWithPath})">
+            <summary>
+            Returns the denominator values list for PERCENTOF in the row-total cell of a data row.
+            - RowTotals / ParentColTotal: the row's own values (cell / row total = 1)
+            - ParentRowTotal: the row parent group's values across all columns
+            - ColumnTotals / GrandTotals (default): the whole dataset
             </summary>
         </member>
         <member name="P:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.Row.ParametersInfo">
@@ -29283,6 +29468,34 @@
         <member name="P:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.Vstack.IsAllowedInCalculatedPivotTableField">
             <summary>
             If the function is allowed in a pivot table calculated field
+            </summary>
+        </member>
+        <member name="T:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.WrapFunctionBase">
+            <summary>
+            Base class for the WRAPROWS and WRAPCOLS functions. Provides shared
+            argument parsing, vector flattening and validation.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.WrapFunctionBase.IsAllowedInCalculatedPivotTableField">
+            <summary>
+            If the function is allowed in a pivot table calculated field.
+            </summary>
+        </member>
+        <member name="M:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.WrapFunctionBase.ParseArguments(System.Collections.Generic.IList{OfficeOpenXml.FormulaParsing.Excel.Functions.FunctionArgument},System.Int32@,System.Object@,System.Collections.Generic.List{System.Object}@,OfficeOpenXml.FormulaParsing.FormulaExpressions.CompileResult@)">
+            <summary>
+            Parses and validates the common WRAPROWS/WRAPCOLS arguments and flattens
+            the source vector. Returns null on success; otherwise a CompileResult
+            holding the error to return.
+            </summary>
+            <param name="arguments">The function arguments.</param>
+            <param name="wrapCount">Out: the validated wrap count.</param>
+            <param name="padValue">Out: the pad value (defaults to #N/A).</param>
+            <param name="items">Out: the flattened source items.</param>
+            <param name="errResult">Out: if an error occurs during parsing</param>
+        </member>
+        <member name="M:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.WrapFunctionBase.FlattenVector(OfficeOpenXml.FormulaParsing.IRangeInfo,System.Int32,System.Int32)">
+            <summary>
+            Flattens a 1D range (single row or single column) into a list of values.
             </summary>
         </member>
         <member name="P:OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.Xlookup.IsAllowedInCalculatedPivotTableField">
@@ -30191,6 +30404,11 @@
             <param name="index">The index of the argument that should be adjusted.</param>
             <param name="ctx">The parsing context</param>
             <param name="addresses">A queue of addresses that will be calculated before calling the Execute function.</param>
+        </member>
+        <member name="P:OfficeOpenXml.FormulaParsing.Excel.Functions.ExcelFunction.Name">
+            <summary>
+            The name of the function. By default the name of the class is used.
+            </summary>
         </member>
         <member name="P:OfficeOpenXml.FormulaParsing.Excel.Functions.ExcelFunction.IsErrorHandlingFunction">
             <summary>
@@ -31144,6 +31362,11 @@
             The parameter is a variable which value is calculated by the next parameter.
             </summary>
         </member>
+        <member name="F:OfficeOpenXml.FormulaParsing.Excel.Functions.FunctionParameterInformation.AdjustCriteriaParameterAddress">
+            <summary>
+            A hierarcal criteria
+            </summary>
+        </member>
         <member name="T:OfficeOpenXml.FormulaParsing.Excel.Functions.FunctionRepository">
             <summary>
             This class provides methods for accessing/modifying VBA Functions.
@@ -31753,6 +31976,50 @@
             Round decimal number to int using Math.Floor
             </summary>
         </member>
+        <member name="T:OfficeOpenXml.FormulaParsing.Excel.Functions.Text.RegexReplacementExpander">
+             <summary>
+             Expands the replacement string of REGEXREPLACE using Excel's replacement grammar, which
+             differs from the grammar used by .NET's <see cref="M:System.Text.RegularExpressions.Regex.Replace(System.String,System.String)"/>.
+            
+             The grammar was verified against Excel desktop:
+               Group references (greedy, consume all following digits):
+                 \N  -> group N        (N must be 1..groupCount, \0 is invalid)
+                 $N  -> group N        (N must be 0..groupCount, $0 is the whole match)
+               Literals:
+                 $$              -> literal $
+                 \\              -> literal \
+                 \ + non-letter  -> the literal character (e.g. \, \- \. \$ \) \&lt;space&gt;)
+               Character escapes (-> the corresponding character):
+                 \n \t \r \f \a \v \e \b, \cX (control), \xNN (hex)
+                 \u is NOT supported and is silently dropped (Excel quirk: \u0041 -> "0041")
+               Invalid (-> #VALUE!):
+                 \w \W \s \S \d \D and any other letter escape (cannot become a single character)
+                 $ followed by anything other than a digit or $ (including a trailing $)
+               Edge:
+                 a trailing lone \ is silently dropped
+             </summary>
+        </member>
+        <member name="M:OfficeOpenXml.FormulaParsing.Excel.Functions.Text.RegexReplacementExpander.IsValidTemplate(System.String,System.Int32)">
+            <summary>
+            Validates a replacement template against Excel's grammar without needing a match.
+            Returns false when the template should produce a #VALUE! error.
+            </summary>
+            <param name="template">The replacement string.</param>
+            <param name="maxGroup">The highest capturing group number in the pattern (0 if none).</param>
+        </member>
+        <member name="M:OfficeOpenXml.FormulaParsing.Excel.Functions.Text.RegexReplacementExpander.Expand(System.Text.RegularExpressions.Match,System.String,System.Int32)">
+            <summary>
+            Expands a replacement template for a specific match. The template is assumed to have
+            already passed <see cref="M:OfficeOpenXml.FormulaParsing.Excel.Functions.Text.RegexReplacementExpander.IsValidTemplate(System.String,System.Int32)"/>.
+            </summary>
+        </member>
+        <member name="M:OfficeOpenXml.FormulaParsing.Excel.Functions.Text.RegexReplacementExpander.ScanAndExpand(System.String,System.Int32,System.Text.RegularExpressions.Match,System.Text.StringBuilder)">
+            <summary>
+            Single left-to-right scan that both validates and (when <paramref name="match"/> and
+            <paramref name="output"/> are supplied) expands the template. Returns false on the
+            first construct that Excel rejects with #VALUE!.
+            </summary>
+        </member>
         <member name="T:OfficeOpenXml.FormulaParsing.Excel.Functions.Text.Text">
             <summary>
             The Text
@@ -32067,6 +32334,22 @@
             AllOperators of the OperatorsDict
             </summary>
         </member>
+        <member name="T:OfficeOpenXml.FormulaParsing.DependencyChain.DynamicArrayMaxIterationsException">
+            <summary>
+            The maximum number of iterations has been reached when recalculating a dynamic array formula. 
+            </summary>
+        </member>
+        <member name="M:OfficeOpenXml.FormulaParsing.DependencyChain.DynamicArrayMaxIterationsException.#ctor">
+            <summary>
+            Constructs a new instance of the DynamicArrayMaxIterationsException class.
+            </summary>
+        </member>
+        <member name="M:OfficeOpenXml.FormulaParsing.DependencyChain.DynamicArrayMaxIterationsException.#ctor(System.String)">
+            <summary>
+            Constructs a new instance of the DynamicArrayMaxIterationsException class with a specified error message.
+            </summary>
+            <param name="message">The error message</param>
+        </member>
         <member name="P:OfficeOpenXml.FormulaParsing.FormulaCell.wsIndex">
             <summary>
             NOTE: This is the position in the ExcelWorksheets._worksheets collection. Cannot be used direcly with Worksheets[] indexer.
@@ -32197,6 +32480,13 @@
             <summary>
             If true, EPPlus will download the images in the IMAGE function even if they exists in the package. The same URL will only be downloaded once.
             If false(default), EPPlus will only download images that doesn't exist in the package.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.FormulaParsing.ExcelCalculationOption.DisableImageFunctionDownloads">
+            <summary>
+            If true the IMAGE function will never download external content in formula calculation.
+            It will instead return the NAME error as if the function was not implemented.
+            NB! This property overrides the <see cref="P:OfficeOpenXml.FormulaParsing.ExcelCalculationOption.AlwaysRefreshImageFunction"/> property if set to true.
             </summary>
         </member>
         <member name="P:OfficeOpenXml.FormulaParsing.ExcelCalculationOption.EnableUnicodeAwareStringOperations">
@@ -34591,6 +34881,13 @@
             <summary>
             If true, EPPlus will download the images in the IMAGE function even if they exists in the package. The same URL will only be downloaded once.
             If false(default), EPPlus will only download images that don't exist in the package.
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.FormulaParsing.ParsingConfiguration.DisableImageFunctionDownloads">
+            <summary>
+            If true the IMAGE function will never download external content in formula calculation.
+            It will instead return the NAME error as if the function was not implemented.
+            NB! This property overrides the <see cref="P:OfficeOpenXml.FormulaParsing.ParsingConfiguration.AlwaysRefreshImageFunction"/> property if set to true.
             </summary>
         </member>
         <member name="P:OfficeOpenXml.FormulaParsing.ParsingConfiguration.EnableUnicodeAwareStringOperations">
@@ -38519,13 +38816,6 @@
             <param name="uri">The Uri of the component</param>
             <param name="xmlDoc">The XmlDocument to save</param>
         </member>
-        <member name="M:OfficeOpenXml.ExcelPackage.SaveWorkbook(System.Uri,System.Xml.XmlDocument)">
-            <summary>
-            Saves the XmlDocument into the package at the specified Uri.
-            </summary>
-            <param name="uri">The Uri of the component</param>
-            <param name="xmlDoc">The XmlDocument to save</param>
-        </member>
         <member name="M:OfficeOpenXml.ExcelPackage.Dispose">
             <summary>
             Closes the package.
@@ -38546,6 +38836,14 @@
             Supply a password to encrypt the workbook with. 
             </summary>
             <param name="password">This parameter overrides the Workbook.Encryption.Password.</param>
+        </member>
+        <member name="M:OfficeOpenXml.ExcelPackage.Save(System.Action{OfficeOpenXml.Configuration.EPPlusSaveOption})">
+            <summary>
+            Saves all the components back into the package.
+            This method recursively calls the Save method on all sub-components.
+            The package is closed after it has been saved
+            </summary>
+            <param name="options">An action used to configure the save options, for example saving the package as an Excel template.</param>
         </member>
         <member name="M:OfficeOpenXml.ExcelPackage.SaveAs(System.IO.FileInfo)">
             <summary>
@@ -38595,6 +38893,30 @@
             <param name="password">The password to encrypt the workbook with. 
             This parameter overrides the Encryption.Password.</param>
         </member>
+        <member name="M:OfficeOpenXml.ExcelPackage.SaveAs(System.String,System.Action{OfficeOpenXml.Configuration.EPPlusSaveOption})">
+            <summary>
+            Saves the workbook to a new file
+            The package is closed after it has been saved
+            </summary>
+            <param name="filePath">The file location</param>
+            <param name="options">An action used to configure the save options, for example saving the package as an Excel template.</param>
+        </member>
+        <member name="M:OfficeOpenXml.ExcelPackage.SaveAs(System.IO.FileInfo,System.Action{OfficeOpenXml.Configuration.EPPlusSaveOption})">
+            <summary>
+            Saves the workbook to a new file
+            The package is closed after it has been saved
+            </summary>
+            <param name="file">The file</param>
+            <param name="options">An action used to configure the save options, for example saving the package as an Excel template.</param>
+        </member>
+        <member name="M:OfficeOpenXml.ExcelPackage.SaveAs(System.IO.Stream,System.Action{OfficeOpenXml.Configuration.EPPlusSaveOption})">
+            <summary>
+            Copies the Package to the Outstream
+            The package is closed after it has been saved
+            </summary>
+            <param name="OutputStream">The stream to copy the package to</param>
+            <param name="options">An action used to configure the save options, for example saving the package as an Excel template.</param>
+        </member>
         <member name="P:OfficeOpenXml.ExcelPackage.File">
             <summary>
             The output file. Null if no file is used
@@ -38615,6 +38937,18 @@
             <summary>
             Compression option for the package
             </summary>        
+        </member>
+        <member name="P:OfficeOpenXml.ExcelPackage.SaveAsTemplate">
+            <summary>
+            If true, the package is saved as an Excel template (.xltx, or .xltm if the workbook 
+            contains a VBA project). If false, it is saved as a standard Excel workbook 
+            (.xlsx/.xlsm). Default is false.
+            </summary>
+            <remarks>
+            This value is not derived from a loaded package, so a template that is loaded and saved 
+            again becomes a standard workbook unless this is set to true. This mirrors how Excel 
+            handles templates.
+            </remarks>
         </member>
         <member name="P:OfficeOpenXml.ExcelPackage.Compatibility">
             <summary>
@@ -38794,6 +39128,17 @@
             <param name="password">This parameter overrides the Workbook.Encryption.Password.</param>
             <param name="cancellationToken">The cancellation token</param>
         </member>
+        <member name="M:OfficeOpenXml.ExcelPackage.SaveAsync(System.Action{OfficeOpenXml.Configuration.EPPlusSaveOption},System.Threading.CancellationToken)">
+            <summary>
+            Saves all the components back into the package asynchronously.
+            This method recursively calls the Save method on all sub-components.
+            The package is closed after it has been saved.
+            Supply a password to encrypt the workbook with.
+            </summary>
+            <param name="options">An action used to configure the save options, for example saving the package as an Excel template.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A task that represents the asynchronous save operation.</returns>
+        </member>
         <member name="M:OfficeOpenXml.ExcelPackage.SaveAsAsync(System.IO.FileInfo,System.Threading.CancellationToken)">
             <summary>
             Saves the workbook to a new file
@@ -38810,6 +39155,15 @@
             <param name="filePath">The file location</param>
             <param name="cancellationToken">The cancellation token</param>
         </member>
+        <member name="M:OfficeOpenXml.ExcelPackage.SaveAsAsync(System.String,System.Action{OfficeOpenXml.Configuration.EPPlusSaveOption},System.Threading.CancellationToken)">
+            <summary>
+            Saves the workbook to a new file
+            The package is closed after it has been saved
+            </summary>
+            <param name="filePath">The file location</param>
+            <param name="options">An action used to configure the save options, for example saving the package as an Excel template.</param>
+            <param name="cancellationToken">The cancellation token</param>
+        </member>
         <member name="M:OfficeOpenXml.ExcelPackage.SaveAsAsync(System.IO.FileInfo,System.String,System.Threading.CancellationToken)">
             <summary>
             Saves the workbook to a new file
@@ -38818,6 +39172,15 @@
             <param name="file">The file</param>
             <param name="password">The password to encrypt the workbook with. 
             This parameter overrides the Encryption.Password.</param>
+            <param name="cancellationToken">The cancellation token</param>
+        </member>
+        <member name="M:OfficeOpenXml.ExcelPackage.SaveAsAsync(System.IO.FileInfo,System.Action{OfficeOpenXml.Configuration.EPPlusSaveOption},System.Threading.CancellationToken)">
+            <summary>
+            Saves the workbook to a new file
+            The package is closed after it has been saved
+            </summary>
+            <param name="file">The file</param>
+            <param name="options">An action used to configure the save options, for example saving the package as an Excel template.</param>
             <param name="cancellationToken">The cancellation token</param>
         </member>
         <member name="M:OfficeOpenXml.ExcelPackage.SaveAsAsync(System.String,System.String,System.Threading.CancellationToken)">
@@ -38836,6 +39199,15 @@
             The package is closed after it has been saved
             </summary>
             <param name="OutputStream">The stream to copy the package to</param>
+            <param name="cancellationToken">The cancellation token</param>
+        </member>
+        <member name="M:OfficeOpenXml.ExcelPackage.SaveAsAsync(System.IO.Stream,System.Action{OfficeOpenXml.Configuration.EPPlusSaveOption},System.Threading.CancellationToken)">
+            <summary>
+            Copies the Package to the Outstream
+            The package is closed after it has been saved
+            </summary>
+            <param name="OutputStream">The stream to copy the package to</param>
+            <param name="options">An action used to configure the save options, for example saving the package as an Excel template.</param>
             <param name="cancellationToken">The cancellation token</param>
         </member>
         <member name="M:OfficeOpenXml.ExcelPackage.SaveAsAsync(System.IO.Stream,System.String,System.Threading.CancellationToken)">
@@ -39853,6 +40225,12 @@
             The RichText-property only apply to the left-top cell of the range.
             </summary>
         </member>
+        <member name="M:OfficeOpenXml.ExcelRangeBase.ConvertToRichText">
+            <summary>
+            Convert the contents of the top left cell of this range to a richtext string
+            And set the cell value as .RichText
+            </summary>
+        </member>
         <member name="P:OfficeOpenXml.ExcelRangeBase.Comment">
             <summary>
             Returns the comment object of the first cell in the range
@@ -39866,6 +40244,13 @@
         <member name="P:OfficeOpenXml.ExcelRangeBase.Worksheet">
             <summary>
             WorkSheet object 
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.ExcelRangeBase.DimensionAdjustedAddress">
+            <summary>
+            Gets the range address adjusted within the worksheet dimension address. 
+            If the worksheet dimension is null or the range is outside of the dimension, null will be returned. 
+            If the range is partly outside the worksheet dimension it will be adjusted to fit inside the dimension. 
             </summary>
         </member>
         <member name="P:OfficeOpenXml.ExcelRangeBase.FullAddress">
@@ -42708,11 +43093,12 @@
             Measures a text with default settings when there is no other option left...
             </summary>
         </member>
-        <member name="F:OfficeOpenXml.ExcelTextSettings._measureWrappedTextCells">
+        <member name="P:OfficeOpenXml.ExcelTextSettings.WrappedTextAutofitMode">
             <summary>
-            Should return true if the text measurer should measure wrap text cells. Only CR, LF or CRLF should be considered
+            Determines how cells with <see cref="P:OfficeOpenXml.Style.ExcelStyle.WrapText"/> enabled are measured
+            when calculating column width in AutoFitColumns. The default is <see cref="F:OfficeOpenXml.Interfaces.Drawing.Text.eWrappedTextAutofitMode.Skip"/>,
+            which ignores wrapped cells during autofit.
             </summary>
-            <returns>True if the measurer can be .</returns>
         </member>
         <member name="T:OfficeOpenXml.ExcelCalcMode">
             <summary>
@@ -42762,7 +43148,7 @@
         <member name="P:OfficeOpenXml.ExcelWorkbook.IsCalculationInconsistent">
             <summary>
             Returns true if a calculation was canceled, leaving the workbook in an inconsistent state.
-            A workbook in this state must be disposed — saving or recalculating is not permitted.
+            A workbook in this state must be disposed � saving or recalculating is not permitted.
             </summary>
         </member>
         <member name="P:OfficeOpenXml.ExcelWorkbook.Worksheets">
@@ -42898,6 +43284,13 @@
         <member name="M:OfficeOpenXml.ExcelWorkbook.CreateWorkbookXml(System.Xml.XmlNamespaceManager)">
             <summary>
             Create or read the XML for the workbook.
+            </summary>
+        </member>
+        <member name="M:OfficeOpenXml.ExcelWorkbook.EnsureCalculationFeatures">
+            <summary>
+            To support functions introduced in newer versions of Excel, we need to make sure that the file version and calculation engine version are set to the latest known version and that the calculation features are included in the file. 
+            This method ensures that this is the case. 
+            It is called when creating a new workbook and when loading a template. 
             </summary>
         </member>
         <member name="P:OfficeOpenXml.ExcelWorkbook.StylesXml">
@@ -43806,8 +44199,26 @@
             <summary>
             Adds a copy of a worksheet
             </summary>
-            <param name="Name">The name of the workbook</param>
+            <param name="Name">The name of the worksheet</param>
             <param name="Copy">The worksheet to be copied</param>
+            <returns></returns>
+        </member>
+        <member name="M:OfficeOpenXml.ExcelWorksheets.Add(System.String,OfficeOpenXml.ExcelWorksheet,System.Action{OfficeOpenXml.Core.Worksheet.ExcelWorksheetCopyOptions})">
+            <summary>
+            Adds a copy of a worksheet
+            </summary>
+            <param name="Name">The name of the worksheet</param>
+            <param name="Copy">The worksheet to be copied</param>
+            <param name="optionsHandler">An action used to configure options for the copy operation</param>
+            <returns>The new copy added to the end of the worksheets collection</returns>
+        </member>
+        <member name="M:OfficeOpenXml.ExcelWorksheets.Add(System.String,OfficeOpenXml.ExcelWorksheet,OfficeOpenXml.Core.Worksheet.ExcelWorksheetCopyOptions)">
+            <summary>
+            Adds a copy of a worksheet
+            </summary>
+            <param name="Name">The name of the worksheet</param>
+            <param name="Copy">The worksheet to be copied</param>
+            <param name="options">Options for copying the worksheet</param>
         </member>
         <member name="M:OfficeOpenXml.ExcelWorksheets.AddChart(System.String,OfficeOpenXml.Drawing.Chart.eChartType)">
             <summary>
@@ -43906,6 +44317,15 @@
             </summary>
             <param name="Name">The name of the existing worksheet</param>
             <param name="NewName">The name of the new worksheet to create</param>
+            <returns>The new copy added to the end of the worksheets collection</returns>
+        </member>
+        <member name="M:OfficeOpenXml.ExcelWorksheets.Copy(System.String,System.String,System.Action{OfficeOpenXml.Core.Worksheet.ExcelWorksheetCopyOptions})">
+            <summary>
+            Copies the named worksheet and creates a new worksheet in the same workbook
+            </summary>
+            <param name="Name">The name of the existing worksheet</param>
+            <param name="NewName">The name of the new worksheet to create</param>
+            <param name="optionsHandler">An action used to configure options for the copy operation</param>
             <returns>The new copy added to the end of the worksheets collection</returns>
         </member>
         <member name="M:OfficeOpenXml.ExcelWorksheets.GetWorksheetByName(System.String,System.String,System.Boolean)">
@@ -76641,6 +77061,28 @@
             <param name="other">The other item</param>
             <returns></returns>
         </member>
+        <member name="T:OfficeOpenXml.Utils.Drawings.PixelHelper">
+            <summary>
+            Helper methods for converting between worksheet coordinates and pixels.
+            </summary>
+        </member>
+        <member name="M:OfficeOpenXml.Utils.Drawings.PixelHelper.GetColumnWidth(OfficeOpenXml.ExcelWorksheet,System.Int32)">
+            <summary>
+            Returns the width of a column in pixels, using the same formula
+            Excel uses internally.
+            </summary>
+            <param name="ws">The worksheet.</param>
+            <param name="column">The 1-based column index.</param>
+            <returns>The column width in pixels.</returns>
+        </member>
+        <member name="M:OfficeOpenXml.Utils.Drawings.PixelHelper.GetRowHeight(OfficeOpenXml.ExcelWorksheet,System.Int32)">
+            <summary>
+            Returns the height of a row in pixels.
+            </summary>
+            <param name="ws">The worksheet.</param>
+            <param name="row">The 1-based row index.</param>
+            <returns>The row height in pixels.</returns>
+        </member>
         <member name="M:OfficeOpenXml.Utils.EnumUtils.EnumExtensions.ToEnumString(System.Enum)">
             <summary>
             Returns the enum value with first char lower case
@@ -77789,6 +78231,18 @@
             <param name="n"></param>
             <param name="val"></param>
             <returns></returns>
+        </member>
+        <member name="T:UsDollar">
+            <summary>
+            USDOLLAR is a legacy function preserved for Lotus 1-2-3 compatibility.
+            
+            Microsoft's documentation claims this function "always shows U.S. currency",
+            but in practice Excel desktop renders it using the system's current locale,
+            identical to DOLLAR. For example, USDOLLAR(3) on a Swedish system produces
+            "3,00 kr", not "$3.00". Verified against Excel desktop output.
+            
+            We match the actual Excel behavior, not the documentation.
+            </summary>
         </member>
         <member name="F:RichValueDataType.Decimal">
             <summary>
