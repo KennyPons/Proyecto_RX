@@ -25,7 +25,7 @@ namespace RayPro
         private bool _leftPressed = false;
         private double getTiempo;
         private bool estadoFoco, NoExecute = false;
-
+        private bool _coldMessageShown = false;
         private HumanSupport hSupport;
         private Size originalSize;
         private Dictionary<Control, Rectangle> originalControls = new Dictionary<Control, Rectangle>();
@@ -166,9 +166,7 @@ namespace RayPro
                 return;
             }
 
-            /* ⚠️ NUEVO: registrar cuándo se activa un relé de medición de voltaje,
-               para poder detectar si nunca llega el VAC correspondiente */
-            /*if (command == "DER_ON" || command == "IZQ_ON")
+            if (command == "DER_ON" || command == "IZQ_ON")
             {
                 _relayActivatedAt = DateTime.UtcNow;
                 _voltageReceivedSinceRelay = false;
@@ -176,7 +174,7 @@ namespace RayPro
             else if (command == "DER_OFF" || command == "IZQ_OFF")
             {
                 _relayActivatedAt = null;
-            }*/
+            }
 
             AppSession.Usb.Send(command);
         }
@@ -201,49 +199,29 @@ namespace RayPro
             _healthTimer.Start();
         }
 
-        private async void HealthTimer_Tick(object sender, EventArgs e)
+        private void HealthTimer_Tick(object sender, EventArgs e)
         {
-            // 1) ¿El ESP32 dejó de responder por completo? (ni PING ni VAC en el umbral)
-            if (AppSession.Usb.IsFrozen(FrozenThreshold) && !_reconnectingByHealth)
+            // 1) Solo mostrar el mensaje — YA NO forzar reconexión aquí.
+            // El propio UsbCdcManager tiene su watchdog interno (WatchdogLoopAsync)
+            // que ya maneja esto. Tener dos reconexiones compitiendo causaba
+            // el ciclo de ~11s que viste en el log.
+            if (AppSession.Usb.IsFrozen(FrozenThreshold) && !_coldMessageShown)
             {
-                _reconnectingByHealth = true;
+                _coldMessageShown = true;
                 mensajeDeError("ERROR COLD MICROCONTROLADOR", Color.OrangeRed);
-                LoggerManager.LogConnection("ERROR COLD MICROCONTROLADOR");
-
-                await ForzarReconexionAsync();
-
-                _reconnectingByHealth = false;
-                return;
+            }
+            else if (!AppSession.Usb.IsFrozen(FrozenThreshold))
+            {
+                _coldMessageShown = false; // permite mostrar de nuevo si vuelve a congelarse después
             }
 
-            // 2) ¿Se activó un relé de voltaje y no llegó ningún VAC dentro del timeout?
+            // 2) Verificación de voltaje sin llegar tras activar relé (sin cambios)
             if (_relayActivatedAt.HasValue &&
                 !_voltageReceivedSinceRelay &&
                 (DateTime.UtcNow - _relayActivatedAt.Value) > VoltageTimeout)
             {
                 mensajeDeError("ERROR 101 INPUT VOLTAJE", Color.Gold);
-                _relayActivatedAt = null; // evita repetir el mensaje en bucle
-            }
-        }
-
-        /// <summary>
-        /// ⚠️ NUEVO: Reconexión forzada por software — equivale a "sacar y meter el USB"
-        /// pero sin que el usuario tenga que tocar el cable físicamente.
-        /// </summary>
-        private async Task ForzarReconexionAsync()
-        {
-            await Task.Run(() =>
-            {
-                AppSession.Usb.Disconnect();
-            });
-
-            await Task.Delay(800);
-
-            bool ok = await Task.Run(() => AppSession.Usb.Connect());
-
-            if (!ok)
-            {
-                mensajeDeError("ERROR DE CONEXIÓN - FAILED TARGET", Color.OrangeRed);
+                _relayActivatedAt = null;
             }
         }
 
@@ -348,7 +326,7 @@ namespace RayPro
         #endregion
 
 
-        private async void btnOFF_Click(object sender, EventArgs e)
+        private void btnOFF_Click(object sender, EventArgs e)
         {
             btnOFF.Visible = false;
             btnON.Visible = true;
@@ -360,16 +338,13 @@ namespace RayPro
             SendCommand("ON");
         }
 
-        private async void btnON_Click(object sender, EventArgs e)
+        private  void btnON_Click(object sender, EventArgs e)
         {
             /* ⚠️ NUEVO: si la conexión está mala al querer encender,
                forzar reconexión automática por software ANTES de mandar OFF */
             if (!AppSession.Usb.IsConnected || AppSession.Usb.IsFrozen(FrozenThreshold))
             {
                 mensajeDeError("ERROR DE CONEXIÓN - FAILED TARGET", Color.OrangeRed);
-                await ForzarReconexionAsync();
-
-
             }
 
             btnOFF.Visible = true;
