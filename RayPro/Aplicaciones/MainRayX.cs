@@ -129,6 +129,10 @@ namespace RayPro
 
         private void OnConnectionChanged(bool connected)
         {
+            /* ⚠️ NUEVO: registrar en archivo también los cambios de conexión,
+      no solo los errores — para poder diagnosticar el patrón de
+      desconexiones intermitentes con timestamps reales */
+            LoggerManager.LogConnection(connected ? "CONECTADO" : "DESCONECTADO");
             string msg = connected
                 ? "CONEXIÓN CORRECTA"
                 : "ERROR DE CONEXIÓN - FAILED TARGET";
@@ -148,6 +152,10 @@ namespace RayPro
             }
 
             mensajeDeError("ERROR DE CONEXIÓN - FAILED TARGET", Color.OrangeRed);
+            /* ⚠️ NUEVO: registrar en archivo también los cambios de conexión,
+      no solo los errores — para poder diagnosticar el patrón de
+      desconexiones intermitentes con timestamps reales */
+            LoggerManager.LogConnection("DESCONECTADO - Voltaje, OnErrorOccurred");
         }
 
         private void SendCommand(string command)
@@ -160,7 +168,7 @@ namespace RayPro
 
             /* ⚠️ NUEVO: registrar cuándo se activa un relé de medición de voltaje,
                para poder detectar si nunca llega el VAC correspondiente */
-            if (command == "DER_ON" || command == "IZQ_ON")
+            /*if (command == "DER_ON" || command == "IZQ_ON")
             {
                 _relayActivatedAt = DateTime.UtcNow;
                 _voltageReceivedSinceRelay = false;
@@ -168,7 +176,7 @@ namespace RayPro
             else if (command == "DER_OFF" || command == "IZQ_OFF")
             {
                 _relayActivatedAt = null;
-            }
+            }*/
 
             AppSession.Usb.Send(command);
         }
@@ -200,6 +208,7 @@ namespace RayPro
             {
                 _reconnectingByHealth = true;
                 mensajeDeError("ERROR COLD MICROCONTROLADOR", Color.OrangeRed);
+                LoggerManager.LogConnection("ERROR COLD MICROCONTROLADOR");
 
                 await ForzarReconexionAsync();
 
@@ -360,11 +369,7 @@ namespace RayPro
                 mensajeDeError("ERROR DE CONEXIÓN - FAILED TARGET", Color.OrangeRed);
                 await ForzarReconexionAsync();
 
-                if (!AppSession.Usb.IsConnected)
-                {
-                    // Sigue sin conectar tras el intento automático: no continuar con el apagado/encendido
-                    return;
-                }
+
             }
 
             btnOFF.Visible = true;
