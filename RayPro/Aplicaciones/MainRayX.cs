@@ -166,7 +166,7 @@ namespace RayPro
                 return;
             }
 
-            if (command == "DER_ON" || command == "IZQ_ON")
+            /*if (command == "DER_ON" || command == "IZQ_ON")
             {
                 _relayActivatedAt = DateTime.UtcNow;
                 _voltageReceivedSinceRelay = false;
@@ -174,7 +174,7 @@ namespace RayPro
             else if (command == "DER_OFF" || command == "IZQ_OFF")
             {
                 _relayActivatedAt = null;
-            }
+            }*/
 
             AppSession.Usb.Send(command);
         }
